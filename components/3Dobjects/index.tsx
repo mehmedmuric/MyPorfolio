@@ -45,10 +45,10 @@ const SvgTech3D = () => {
 
         {/* Frontend Technologies */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-center mb-6">Frontend</h2>
+          <h2 className="text-2xl font-bold text-center mb-12">Frontend</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
             {frontendImages.map((image, index) => (
-              <div key={index} className="w-full flex justify-center">
+              <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
                   <img
                     src={image.src}
@@ -56,6 +56,7 @@ const SvgTech3D = () => {
                     className="w-20 h-20 object-contain"
                   />
                 </div>
+                <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
               </div>
             ))}
           </div>
@@ -63,10 +64,10 @@ const SvgTech3D = () => {
 
         {/* Backend Technologies */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-center mb-6">Backend</h2>
+          <h2 className="text-2xl font-bold text-center mb-12">Backend</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
             {backendImages.map((image, index) => (
-              <div key={index} className="w-full flex justify-center">
+              <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
                   <img
                     src={image.src}
@@ -74,6 +75,7 @@ const SvgTech3D = () => {
                     className="w-20 h-20 object-contain"
                   />
                 </div>
+                <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
               </div>
             ))}
           </div>
@@ -81,10 +83,10 @@ const SvgTech3D = () => {
 
         {/* Database Technologies */}
         <div className="mb-16">
-          <h2 className="text-2xl font-bold text-center mb-6">Baze Podataka</h2>
+          <h2 className="text-2xl font-bold text-center mb-12">Baze Podataka</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
             {databaseImages.map((image, index) => (
-              <div key={index} className="w-full flex justify-center">
+              <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
                   <img
                     src={image.src}
@@ -92,6 +94,7 @@ const SvgTech3D = () => {
                     className="w-20 h-20 object-contain"
                   />
                 </div>
+                <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
               </div>
             ))}
           </div>
@@ -99,10 +102,10 @@ const SvgTech3D = () => {
 
         {/* Other Technologies */}
         <div>
-          <h2 className="text-2xl font-bold text-center mb-6">Ostale Tehnologije</h2>
+          <h2 className="text-2xl font-bold text-center mb-12">Ostale Tehnologije</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
             {otherImages.map((image, index) => (
-              <div key={index} className="w-full flex justify-center">
+              <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
                   <img
                     src={image.src}
@@ -110,6 +113,7 @@ const SvgTech3D = () => {
                     className="w-20 h-20 object-contain"
                   />
                 </div>
+                <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
               </div>
             ))}
           </div>

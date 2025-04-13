@@ -1,0 +1,51 @@
+[
+    {
+      "title": "Ime Projekta",
+      "image": "/images/blog/react-blog.jpg",
+      "paragraph": "Naslov",
+      "author": {
+        "name": "Mehmed Muric",
+        "designation": "FullStack Developer",
+        "image": "/images/authors/mehmed.jpg"
+      },
+      "tags": ["React"],
+      "publishDate": "2025-04-10"
+    },
+    {
+      "title": "Ime Projekta",
+      "image": "/images/blog/react-blog.jpg",
+      "paragraph": "Naslov",
+      "author": {
+        "name": "Mehmed Muric",
+        "designation": "FullStack Developer",
+        "image": "/images/authors/mehmed.jpg"
+      },
+      "tags": ["React"],
+      "publishDate": "2025-04-10"
+    },
+    {
+      "title": "Ime Projekta",
+      "image": "/images/blog/react-blog.jpg",
+      "paragraph": "Naslov",
+      "author": {
+        "name": "Mehmed Muric",
+        "designation": "FullStack Developer",
+        "image": "/images/authors/mehmed.jpg"
+      },
+      "tags": ["React"],
+      "publishDate": "2025-04-10"
+    },
+    {
+      "title": "Ime Projekta",
+      "image": "/images/blog/react-blog.jpg",
+      "paragraph": "Naslov",
+      "author": {
+        "name": "Mehmed Muric",
+        "designation": "FullStack Developer",
+        "image": "/images/authors/mehmed.jpg"
+      },
+      "tags": ["React"],
+      "publishDate": "2025-04-10"
+    }
+   
+  ]
