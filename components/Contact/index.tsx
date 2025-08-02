@@ -7,7 +7,7 @@ const Contact = () => {
       <div className="container">
       <SectionTitle
           title="Contact"
-          paragraph=""
+          paragraph="-----------------"
           center
           mb="80px"
         />
@@ -18,7 +18,7 @@ const Contact = () => {
               data-wow-delay=".15s"
             >
               <h2 className="mb-3 text-2xl font-bold text-black dark:text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                Need Help? 
+                Contact Me 
               </h2>
               <p className="mb-12 text-base font-medium text-body-color">
                 Our support team will get back to you ASAP via email.
@@ -67,12 +67,12 @@ const Contact = () => {
                         name="message"
                         rows={5}
                         placeholder="Enter your Message"
-                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full resize-none rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-[#4CAF50] dark:border-transparent dark:bg-[#2C303B] dark:focus:border-[#4CAF50] dark:focus:shadow-none"
+                        className="border-stroke dark:text-body-color-dark dark:shadow-two w-full resize-none rounded-sm border bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-mygreen dark:border-transparent dark:bg-[#2C303B] dark:focus:border-mygreen dark:focus:shadow-none"
                       ></textarea>
                     </div>
                   </div>
                   <div className="w-full px-4">
-                    <button className="shadow-submit dark:shadow-submit-dark rounded-sm bg-[#4CAF50] px-9 py-4 text-base font-medium text-white duration-300 hover:bg-[#45a049]">
+                    <button className="shadow-submit dark:shadow-submit-dark rounded-sm bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
                       Submit Ticket
                     </button>
                   </div>

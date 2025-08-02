@@ -29,21 +29,29 @@ const Footer = () => {
                     height={30}
                   />
                 </Link>
-                <p className="dark:text-body-color-dark mb-9 text-base leading-relaxed text-body-color">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                  Integer lobortis.
+                <p className="dark:text-body-color-dark mb-2 text-base leading-relaxed text-body-color text-[18px]">
+                  Mehmed Muric
                 </p>
-                <div className="flex items-center">
+                <p className="dark:text-body-color-dark mb-2 text-base leading-relaxed text-body-color text-[18px]">
+                  mehmedmuric22@gmail.com
+                </p>
+                <p className="dark:text-body-color-dark mb-2 text-base leading-relaxed text-body-color text-[18px]">
+                  mehmedmuric33@gmail.com
+                </p>
+                <p className="dark:text-body-color-dark mb-6 text-base leading-relaxed text-body-color text-[18px]">
+                  +381 62 1753220
+                </p>
+                <div className="flex items-center ">
                   <a
                     href="/"
                     aria-label="social-link"
-                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                    className="dark:text-body-color-dark mr-6 text-body-color  duration-300 hover:text-mygreen dark:hover:text-mygreen"
                   >
                     <svg
-                      width="9"
-                      height="18"
+                      width="12"
+                      height="25"
                       viewBox="0 0 9 18"
-                      className="fill-current"
+                      className="fill-current "
                     >
                       <path d="M8.13643 7H6.78036H6.29605V6.43548V4.68548V4.12097H6.78036H7.79741C8.06378 4.12097 8.28172 3.89516 8.28172 3.55645V0.564516C8.28172 0.254032 8.088 0 7.79741 0H6.02968C4.11665 0 2.78479 1.58064 2.78479 3.92339V6.37903V6.94355H2.30048H0.65382C0.314802 6.94355 0 7.25403 0 7.70564V9.7379C0 10.1331 0.266371 10.5 0.65382 10.5H2.25205H2.73636V11.0645V16.7379C2.73636 17.1331 3.00273 17.5 3.39018 17.5H5.66644C5.81174 17.5 5.93281 17.4153 6.02968 17.3024C6.12654 17.1895 6.19919 16.9919 6.19919 16.8226V11.0927V10.5282H6.70771H7.79741C8.11222 10.5282 8.35437 10.3024 8.4028 9.96371V9.93548V9.90726L8.74182 7.95968C8.76604 7.7621 8.74182 7.53629 8.59653 7.31048C8.54809 7.16935 8.33016 7.02823 8.13643 7Z" />
                     </svg>
@@ -51,11 +59,11 @@ const Footer = () => {
                   <a
                     href="/"
                     aria-label="social-link"
-                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                   >
                     <svg
-                      width="19"
-                      height="14"
+                      width="25"
+                      height="20"
                       viewBox="0 0 19 14"
                       className="fill-current"
                     >
@@ -65,11 +73,11 @@ const Footer = () => {
                   <a
                     href="/"
                     aria-label="social-link"
-                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                   >
                     <svg
-                      width="18"
-                      height="14"
+                      width="25"
+                      height="20"
                       viewBox="0 0 18 14"
                       className="fill-current"
                     >
@@ -79,11 +87,11 @@ const Footer = () => {
                   <a
                     href="/"
                     aria-label="social-link"
-                    className="dark:text-body-color-dark text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                    className="dark:text-body-color-dark text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                   >
                     <svg
-                      width="17"
-                      height="16"
+                      width="25"
+                      height="20"
                       viewBox="0 0 17 16"
                       className="fill-current"
                     >
@@ -103,7 +111,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/blogs"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Blog
                     </a>
@@ -111,7 +119,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/pricing"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Pricing
                     </a>
@@ -119,7 +127,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/about"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       About
                     </a>
@@ -137,7 +145,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       TOS
                     </a>
@@ -145,7 +153,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Privacy Policy
                     </a>
@@ -153,7 +161,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Refund Policy
                     </a>
@@ -171,7 +179,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/contact"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Open Support Ticket
                     </a>
@@ -179,7 +187,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Terms of Use
                     </a>
@@ -187,7 +195,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/about"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-primary dark:hover:text-primary"
+                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       About
                     </a>

@@ -21,18 +21,18 @@ const NewsLetterBox = () => {
           type="text"
           name="name"
           placeholder="Unesite vaše ime"
-          className="border-2 border-green-500 dark:text-body-color-dark dark:shadow-two mb-4 w-full rounded-sm bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-green-500 dark:border-transparent dark:bg-[#2C303B] dark:focus:border-green-500 dark:focus:shadow-none"
+          className="border border-mygreen dark:text-body-color-dark dark:shadow-two mb-4 w-full rounded-sm bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-mygreen dark:border-transparent dark:bg-[#2C303B] dark:focus:border-mygreen dark:focus:shadow-none"
         />
         <input
           type="email"
           name="email"
           placeholder="Unesite vaš email"
-          className="border-2 border-green-500 dark:text-body-color-dark dark:shadow-two mb-4 w-full rounded-sm bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-green-500 dark:border-transparent dark:bg-[#2C303B] dark:focus:border-green-500 dark:focus:shadow-none"
+          className="border border-mygreen dark:text-body-color-dark dark:shadow-two mb-4 w-full rounded-sm bg-[#f8f8f8] px-6 py-3 text-base text-body-color outline-none focus:border-mygreen dark:border-transparent dark:bg-[#2C303B] dark:focus:border-mygreen dark:focus:shadow-none"
         />
         <input
           type="submit"
           value="Prijavite se"
-          className="shadow-submit dark:shadow-submit-dark mb-5 flex w-full cursor-pointer items-center justify-center rounded-sm bg-green-500 px-9 py-4 text-base font-medium text-white duration-300 hover:bg-green-600"
+          className="shadow-submit dark:shadow-submit-dark mb-5 flex w-full cursor-pointer items-center justify-center rounded-sm bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:border-mygreen hover:text-mygreen"
         />
         <p className="dark:text-body-color-dark text-center text-base leading-relaxed text-body-color">
           Nema neželjene pošte, tako da vas molimo da ne šaljete spam.

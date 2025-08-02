@@ -14,7 +14,7 @@ const BlogList = () => {
 
   useEffect(() => {
     const fetchProjects = async () => {
-      const res = await fetch("/json/projects.json");
+      const res = await fetch("/data/projects.json");
       const data = await res.json();
       setProjects(data);
     };

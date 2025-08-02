@@ -9,7 +9,7 @@ const Certifications = () => {
       <div className="container">
       <SectionTitle
           title="Certifications"
-          paragraph=""
+          paragraph="-----------------"
           center
           mb="80px"
         />
