@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
+import Image from "next/image";
 
 const Technologies = () => {
   const [frontendImages, setFrontendImages] = useState([
@@ -52,10 +53,12 @@ const Technologies = () => {
             {frontendImages.map((image, index) => (
               <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.name}
                     className="w-20 h-20 object-contain"
+                    width={80}
+                    height={80}
                   />
                 </div>
                 <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
@@ -71,10 +74,12 @@ const Technologies = () => {
             {backendImages.map((image, index) => (
               <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.name}
                     className="w-20 h-20 object-contain"
+                    width={80}
+                    height={80}
                   />
                 </div>
                 <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
@@ -90,10 +95,12 @@ const Technologies = () => {
             {databaseImages.map((image, index) => (
               <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.name}
                     className="w-20 h-20 object-contain"
+                    width={80}
+                    height={80}
                   />
                 </div>
                 <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
@@ -109,10 +116,12 @@ const Technologies = () => {
             {otherImages.map((image, index) => (
               <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
-                  <img
+                  <Image
                     src={image.src}
                     alt={image.name}
                     className="w-20 h-20 object-contain"
+                    width={80}
+                    height={80}
                   />
                 </div>
                 <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>

@@ -21,7 +21,7 @@ const Contact = () => {
                 Contact Me 
               </h2>
               <p className="mb-12 text-base font-medium text-body-color">
-                Our support team will get back to you ASAP via email.
+                Our support team will get back to you via email.
               </p>
               <form>
                 <div className="-mx-4 flex flex-wrap">
@@ -72,8 +72,8 @@ const Contact = () => {
                     </div>
                   </div>
                   <div className="w-full px-4">
-                    <button className="shadow-submit dark:shadow-submit-dark rounded-sm bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
-                      Submit Ticket
+                    <button className="shadow-submit dark:shadow-submit-dark rounded-lg bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
+                      Send
                     </button>
                   </div>
                 </div>

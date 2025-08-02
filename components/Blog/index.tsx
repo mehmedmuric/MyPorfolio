@@ -79,21 +79,20 @@ const BlogList = () => {
         <div className="flex justify-center gap-8 mt-6">
           <button
             onClick={handlePrevSlide}
-            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors"
+            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
           >
             Prethodni
           </button>
           <button
             onClick={handleNextSlide}
-            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition-colors"
+            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
           >
             Sledeći
           </button>
         </div>
 
-        {/* Dugme "Prikazati sve projekte" centrirano ispod */}
         <div className="flex justify-center mt-8">
-          <button className="shadow-submit dark:shadow-submit-dark rounded-sm bg-[#4CAF50] px-9 py-4 text-base font-medium text-white duration-300 hover:bg-[#45a049]">
+          <button className="shadow-submit dark:shadow-submit-dark rounded-lg bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
             Prikazati sve projekte
           </button>
         </div>

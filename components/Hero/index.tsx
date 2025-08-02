@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 
 const Hero = () => {
@@ -15,7 +16,7 @@ const Hero = () => {
                   className="wow fadeInUp mx-auto max-w-[800px] text-center"
                   data-wow-delay=".2s"
                 >
-                  <h1 className="mb-5 text-3xl font-bold leading-tight text-black dark:text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+                  <h1  className="typingText mb-5 text-9xl font-bold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
                     Mehmed Muric
                   </h1>
                   <p className="dark:text-body-color-dark mb-12 text-base !leading-relaxed text-body-color sm:text-lg md:text-xl">
@@ -24,13 +25,13 @@ const Hero = () => {
                   <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <Link
                       href="https://nextjstemplates.com/templates/saas-starter-startup"
-                      className="rounded-sm bg-primary px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-primary/80"
+                      className="rounded-lg bg-mygreen px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen hover:text-mygreen"
                     >
                       🔥View my CV
                     </Link>
                     <Link
-                      href="https://github.com/NextJSTemplates/startup-nextjs"
-                      className="inline-block rounded-sm bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-black/90 dark:bg-white/10 dark:text-white dark:hover:bg-white/5"
+                      href="https://github.com/mehmedmuric"
+                      className="inline-block rounded-lg bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen"
                     >
                       GitHub Profile 
                     </Link>
@@ -40,7 +41,7 @@ const Hero = () => {
             </div>
             <div className="w-full px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto">
               <div className="profileImage w-72 h-72 rounded-full overflow-hidden border-4 border-gray-300 mb-6">
-                <img src="putanja_do_tvoje_slike.jpg" alt="" className="w-full h-full object-cover" />
+                {/* <Image src="putanja_do_tvoje_slike.jpg" alt="" className="w-full h-full object-cover" /> */}
               </div>
               <h2 className="text-2xl font-semibold text-gray-800 mb-4">Mehmed Muric</h2>
               <p className="text-lg text-gray-600 mb-4">Full-stack developer | Front-end & Back-end | Mobile & Web Applications</p>

@@ -32,7 +32,7 @@ const NewsLetterBox = () => {
         <input
           type="submit"
           value="Prijavite se"
-          className="shadow-submit dark:shadow-submit-dark mb-5 flex w-full cursor-pointer items-center justify-center rounded-sm bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:border-mygreen hover:text-mygreen"
+          className="shadow-submit dark:shadow-submit-dark mb-5 flex w-full cursor-pointer items-center justify-center rounded-lg bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:border-mygreen hover:text-mygreen"
         />
         <p className="dark:text-body-color-dark text-center text-base leading-relaxed text-body-color">
           Nema neželjene pošte, tako da vas molimo da ne šaljete spam.
