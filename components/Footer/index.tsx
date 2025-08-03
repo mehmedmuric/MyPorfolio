@@ -37,7 +37,7 @@ const Footer = () => {
                 </p>
                 <div className="flex items-center ">
                   <a
-                    href="/"
+                    href="https://www.facebook.com/profile.php?id=100023228495593"
                     aria-label="social-link"
                     className="dark:text-body-color-dark mr-6 text-body-color  duration-300 hover:text-mygreen dark:hover:text-mygreen"
                   >
@@ -51,7 +51,7 @@ const Footer = () => {
                     </svg>
                   </a>
                   <a
-                    href="/"
+                    href="https://www.instagram.com/mehmedmuricc/"
                     aria-label="social-link"
                     className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                   >
@@ -65,7 +65,7 @@ const Footer = () => {
                     </svg>
                   </a>
                   <a
-                    href="/"
+                    href="https://github.com/mehmedmuric"
                     aria-label="social-link"
                     className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                   >
@@ -80,7 +80,7 @@ const Footer = () => {
                     </svg>
                   </a>
                   <a
-                    href="/"
+                    href="https://www.linkedin.com/in/mehmed-muric-185297232/"
                     aria-label="social-link"
                     className="dark:text-body-color-dark text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                   >
@@ -98,23 +98,23 @@ const Footer = () => {
             </div>
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
-              <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+              <div className="mb-8 lg:mb-16">
+                <h2 className="mb-6 text-xl font-bold text-black dark:text-white">
                   Useful Links
                 </h2>
                 <ul>
                   <li>
                     <a
                       href="/"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Home
                     </a>
                   </li>
                   <li>
                     <a
-                      href="/pricing"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      href="/projects"
+                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Projects
                     </a>
@@ -122,7 +122,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/about"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       About
                     </a>
@@ -133,14 +133,14 @@ const Footer = () => {
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-6 text-xl font-bold text-black dark:text-white">
                   Terms
                 </h2>
                 <ul>
                   <li>
                     <a
-                      href="/"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      href="/privacyPolicy"
+                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Privacy Policy
                     </a>
@@ -148,7 +148,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Refund Policy
                     </a>
@@ -159,14 +159,14 @@ const Footer = () => {
 
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-10 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-6 text-xl font-bold text-black dark:text-white">
                   Support & Help
                 </h2>
                 <ul>
                   <li>
                     <a
-                      href="/"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      href="/TermsOfUse"
+                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Terms of Use
                     </a>
@@ -174,7 +174,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/contact"
-                      className="dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
                     >
                       Contact
                     </a>
@@ -226,9 +226,9 @@ const Footer = () => {
                 cx="49.5"
                 cy="49.5"
                 r="49.5"
-                fill="url(#paint0_radial_94:899)"
+                className="fill-mygreen"
               />
-              <g opacity="0.8" filter="url(#filter0_f_94:899)">
+              <g opacity="0.6" filter="url(#filter0_f_94:899)">
                 <circle cx="53.8676" cy="26.2061" r="20.3824" fill="white" />
               </g>
             </g>
@@ -273,7 +273,7 @@ const Footer = () => {
             width="79"
             height="94"
             viewBox="0 0 79 94"
-            fill="none"
+            className="fill-mygreen opacity-50"
             xmlns="http://www.w3.org/2000/svg"
           >
             <rect

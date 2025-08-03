@@ -1,7 +1,11 @@
+'use client'
 import Image from "next/image";
 import Link from "next/link";
+import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+
 
 const Hero = () => {
+  useScrollAnimations();
   return (
     <>
       <section
@@ -11,13 +15,13 @@ const Hero = () => {
         <div className="container">
           <div className="-mx-4 flex flex-wrap justify-between">
             <div className="w-full px-4 md:w-[40%]">
-              <div className="leftSide mt-14">
+              <div className="leftSide opacity-0 mt-14" data-animate="blink-1">
                 <div
                   className="wow fadeInUp mx-auto max-w-[800px] text-center"
                   data-wow-delay=".2s"
                 >
                   <h1  className="typingText mb-5 text-9xl font-bold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
-                    Mehmed Muric
+                    Software Engineer
                   </h1>
                   <p className="dark:text-body-color-dark mb-12 text-base !leading-relaxed text-body-color sm:text-lg md:text-xl">
                     Ja sam Mehmed Muric, developer sa iskustvom u razvoju modernih web i mobilnih aplikacija. Kao full-stack developer, ovladavam širokim spektrom tehnologija, uključujući HTML, CSS, TailwindCSS, Material UI, React, React Native, JavaScript, TypeScript, Next.js, Node.js, Appwrite, MongoDB i MySQL.
@@ -39,18 +43,18 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto">
-              <div className="profileImage w-72 h-72 rounded-full overflow-hidden border-4 border-gray-300 mb-6">
+            <div className="w-full opacity-0 px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto" data-animate="blink-1">
+              <div className="profileImage w-72 h-72 rounded-full overflow-hidden border-4 border-mygreen mb-6">
                 {/* <Image src="putanja_do_tvoje_slike.jpg" alt="" className="w-full h-full object-cover" /> */}
               </div>
-              <h2 className="text-2xl font-semibold text-gray-800 mb-4">Mehmed Muric</h2>
-              <p className="text-lg text-gray-600 mb-4">Full-stack developer | Front-end & Back-end | Mobile & Web Applications</p>
-              <p className="text-base text-gray-500">Developer sa iskustvom u izradi modernih aplikacija koristeći najnovije tehnologije. Posvećen sam učenju i pružanju najboljih rešenja za moje klijente.</p>
+              <h2 className="text-2xl font-semibold text-gray-400 mb-4 italic">Mehmed Muric</h2>
+              <p className="text-lg text-gray-500 mb-4 underline underline-offset-8 decoration-mygreen">Full-stack developer | Front-end & Back-end | Mobile & Web Applications</p>
+              <p className="text-base text-gray-400">Developer sa iskustvom u izradi modernih aplikacija koristeći najnovije tehnologije. Posvećen sam učenju i pružanju najboljih rešenja za moje klijente.</p>
               <div className="socialLinks flex justify-center mt-6">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-black mx-2">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2">
                   <i className="fab fa-github"></i> GitHub
                 </a>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-black mx-2">
+                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2">
                   <i className="fab fa-linkedin"></i> LinkedIn
                 </a>
               </div>

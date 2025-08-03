@@ -10,7 +10,7 @@ import "swiper/css/navigation"; // Uvezi Swiper navigation stilove
 
 const BlogList = () => {
   const [projects, setProjects] = useState<Blog[]>([]);
-  const swiperRef = useRef<any>(null); // Referenca na Swiper
+  const swiperRef = useRef<any>(null); 
 
   useEffect(() => {
     const fetchProjects = async () => {

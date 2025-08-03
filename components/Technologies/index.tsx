@@ -1,10 +1,11 @@
 "use client";
-
+import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 import { useEffect, useState } from "react";
 import SectionTitle from "../Common/SectionTitle";
 import Image from "next/image";
 
 const Technologies = () => {
+  useScrollAnimations();
   const [frontendImages, setFrontendImages] = useState([
     { name: "HTML", src: "./images/models/html5.svg" },
     { name: "CSS", src: "./images/models/css3.svg" },
@@ -35,6 +36,7 @@ const Technologies = () => {
   ]);
 
   return (
+    
     <section className="relative z-10 py-16 md:py-20 lg:py-28">
       <div className="container">
       
@@ -49,7 +51,7 @@ const Technologies = () => {
         <div className="mb-16">
           
           <h2 className="text-3xl drop-shadow-[0px_0px_19px_rgba(0,255,4,1)] font-bold text-center mb-12">Front-end</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 opacity-0" data-animate="slide-in-left">
             {frontendImages.map((image, index) => (
               <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
@@ -70,7 +72,7 @@ const Technologies = () => {
         {/* Backend Technologies */}
         <div className="mb-16">
           <h2 className="text-2xl drop-shadow-[0px_0px_19px_rgba(0,255,4,1)] font-bold text-center mb-12">Back-end</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 opacity-0" data-animate="slide-in-left">
             {backendImages.map((image, index) => (
               <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
@@ -91,7 +93,7 @@ const Technologies = () => {
         {/* Database Technologies */}
         <div className="mb-16">
           <h2 className="text-2xl drop-shadow-[0px_0px_19px_rgba(0,255,4,1)] font-bold text-center mb-12">Databases</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 opacity-0 " data-animate="slide-in-left">
             {databaseImages.map((image, index) => (
               <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">
@@ -112,7 +114,7 @@ const Technologies = () => {
         {/* Other Technologies */}
         <div>
           <h2 className="text-2xl drop-shadow-[0px_0px_19px_rgba(0,255,4,1)] font-bold text-center mb-12">Ostale Tehnologije</h2>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 opacity-0" data-animate="slide-in-left">
             {otherImages.map((image, index) => (
               <div key={index} className="w-full flex justify-center flex-col items-center">
                 <div className="p-4 bg-green-700 rounded-2xl shadow-2xl glow-effect">

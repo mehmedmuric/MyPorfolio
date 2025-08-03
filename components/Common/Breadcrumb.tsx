@@ -14,7 +14,7 @@ const Breadcrumb = ({
           <div className="-mx-4 flex flex-wrap items-center">
             <div className="w-full px-4 md:w-8/12 lg:w-7/12">
               <div className="mb-8 max-w-[570px] md:mb-0 lg:mb-12">
-                <h1 className="mb-5 text-2xl font-bold text-black dark:text-white sm:text-3xl">
+                <h1 className="mb-5 text-2xl font-bold text-gray-300 sm:text-3xl">
                   {pageName}
                 </h1>
                 <p className="text-base font-medium leading-relaxed text-body-color">
@@ -28,13 +28,13 @@ const Breadcrumb = ({
                   <li className="flex items-center">
                     <Link
                       href="/"
-                      className="pr-1 text-base font-medium text-body-color hover:text-primary"
+                      className="pr-1 text-base font-medium text-body-color hover:text-mygreen"
                     >
                       Home
                     </Link>
                     <span className="mr-3 block h-2 w-2 rotate-45 border-r-2 border-t-2 border-body-color"></span>
                   </li>
-                  <li className="text-base font-medium text-primary">
+                  <li className="text-base font-medium text-mygreen">
                     {pageName}
                   </li>
                 </ul>
@@ -55,7 +55,7 @@ const Breadcrumb = ({
               <path
                 opacity="0.1"
                 d="M286.5 0.5L-14.5 254.5V69.5L286.5 0.5Z"
-                fill="url(#paint0_linear_111:578)"
+                className="fill-mygreen"
               />
               <defs>
                 <linearGradient
@@ -83,12 +83,12 @@ const Breadcrumb = ({
               <path
                 opacity="0.1"
                 d="M669.125 257.002L345.875 31.9983L524.571 -15.8832L669.125 257.002Z"
-                fill="url(#paint0_linear_0:1)"
+                className="fill-mygreen"
               />
               <path
                 opacity="0.1"
                 d="M0.0716344 182.78L101.988 -15.0769L142.154 81.4093L0.0716344 182.78Z"
-                fill="url(#paint1_linear_0:1)"
+                className="fill-mygreen"
               />
               <defs>
                 <linearGradient
