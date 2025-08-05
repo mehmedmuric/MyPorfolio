@@ -8,6 +8,9 @@ import Hero from "@/components/Hero";
 import Technologies from "@/components/Technologies";
 import BlogList from "@/components/Blog";
 
+import { appWithTranslation } from 'next-i18next';
+
+
 
 
 export default function Home() {

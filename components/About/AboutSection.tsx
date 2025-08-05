@@ -1,8 +1,12 @@
+'use client'
+
 import Image from "next/image";
+import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
 const AboutSection = () => {
+  useScrollAnimations();
   return (
-    <section className="py-16 md:py-24 lg:py-28">
+    <section className="py-16 md:py-24 lg:py-28 opacity-0" data-animate="text-focus-in">
       <div className="container">
         <div className="-mx-4 flex flex-wrap items-center">
           <div className="w-full px-4 lg:w-1/2">
@@ -27,7 +31,7 @@ const AboutSection = () => {
           <div className="w-full px-4 lg:w-1/2">
             <div className="wow fadeInUp max-w-[470px]" data-wow-delay=".2s">
               <div className="mb-4">
-                <h3 className="mb-4 text-xl underline underline-offset-8 decoration-mygreen font-bold text-gray-400 sm:text-2xl lg:text-xl xl:text-2xl">
+                <h3 className=" mb-4 text-xl underline underline-offset-8 decoration-mygreen font-bold text-gray-400 sm:text-2xl lg:text-xl xl:text-2xl">
                   Korisnička podrška za sve klijente
                 </h3>
                 <p className="text-base font-light leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
@@ -37,7 +41,7 @@ const AboutSection = () => {
                 </p>
               </div>
               <div className="mb-9">
-                <h3 className="mb-4 text-xl underline underline-offset-8 decoration-mygreen font-bold text-gray-400 sm:text-2xl lg:text-xl xl:text-2xl">
+                <h3 className=" mb-4 text-xl underline underline-offset-8 decoration-mygreen font-bold text-gray-400 sm:text-2xl lg:text-xl xl:text-2xl">
                   Kreiram moderne i brze aplikacije
                 </h3>
                 <p className="text-base font-light leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
@@ -46,7 +50,7 @@ const AboutSection = () => {
                 </p>
               </div>
               <div className="mb-1">
-                <h3 className="mb-4 text-xl underline underline-offset-8 decoration-mygreen font-bold text-gray-400 sm:text-2xl lg:text-xl xl:text-2xl">
+                <h3 className=" mb-4 text-xl underline underline-offset-8 decoration-mygreen font-bold text-gray-400 sm:text-2xl lg:text-xl xl:text-2xl">
                   Fleksibilna rešenja po meri klijenta
                 </h3>
                 <p className="text-base font-light leading-relaxed text-body-color sm:text-lg sm:leading-relaxed">
