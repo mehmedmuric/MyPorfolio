@@ -1,0 +1,29 @@
+
+import AboutSection from "./components/About/AboutSection";
+import Certifications from "./components/Certifications";
+import ScrollUp from "./components/Common/ScrollUp";
+import Contact from "./components/Contact";
+import Features from "./components/AboutWebAndMobile";
+import Hero from "./components/Hero";
+import Technologies from "./components/Technologies";
+import BlogList from "./components/Blog";
+
+import { appWithTranslation } from 'next-i18next';
+
+
+
+
+export default function Home() {
+  return (
+    <>
+      <ScrollUp />
+      <Hero />
+      <Features />
+      <Technologies />
+      <Certifications />
+      <BlogList />
+      <AboutSection />
+      <Contact />
+    </>
+  );
+}

@@ -1,37 +1,29 @@
-"use client";
+// app/[locale]/layout.tsx
+import { notFound } from "next/navigation";
+import { NextIntlClientProvider } from "next-intl";
+import { ReactNode } from "react";
+import { locales } from "../i18n";
 
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import ScrollToTop from "@/components/ScrollToTop";
-import { Inter } from "next/font/google";
-import "node_modules/react-modal-video/css/modal-video.css";
-import "../styles/index.css";
-
-const inter = Inter({ subsets: ["latin"] });
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  return (
-    <html suppressHydrationWarning lang="en">
-      {/*
-        <head /> will contain the components returned by the nearest parent
-        head.js. Find out more at https://beta.nextjs.org/docs/api-reference/file-conventions/head
-      */}
-      <head />
-
-      <body className={`bg-black  ${inter.className}`}>
-        <Providers>
-          <Header />
-          {children}
-          <Footer />
-          <ScrollToTop />
-        </Providers>
-      </body>
-    </html>
-  );
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
 }
 
-import { Providers } from "./providers";
+export default async function LocaleLayout({
+  children,
+  params: { locale },
+}: {
+  children: ReactNode;
+  params: { locale: string };
+}) {
+  if (!locales.includes(locale as any)) {
+    notFound();
+  }
+
+  const messages = (await import(`@/messages/${locale}.json`)).default;
+
+  return (
+    <NextIntlClientProvider locale={locale} messages={messages}>
+      {children}
+    </NextIntlClientProvider>
+  );
+}

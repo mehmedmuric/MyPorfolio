@@ -1,6 +1,6 @@
 
-import AboutSection from "@/components/About/AboutSection";
-import Breadcrumb from "@/components/Common/Breadcrumb";
+import AboutSection from "../components/AboutWebAndMobile";
+import Breadcrumb from "../components/Common/Breadcrumb";
 
 import { Metadata } from "next";
 

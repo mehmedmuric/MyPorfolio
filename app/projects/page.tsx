@@ -1,7 +1,7 @@
 'use client'
 
-import SingleBlog from '@/components/Blog/SingleBlog';
-import Breadcrumb from '@/components/Common/Breadcrumb';
+import SingleBlog from '../components/Blog/SingleBlog';
+import Breadcrumb from '../components/Common/Breadcrumb';
 import { Blog } from '@/types/blog';
 import React, { useEffect, useState } from 'react'
 
