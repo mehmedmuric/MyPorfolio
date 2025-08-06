@@ -4,6 +4,7 @@ import Link from "next/link";
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
 
+
 const Hero = () => {
   useScrollAnimations();
   return (

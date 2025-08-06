@@ -1,29 +1,30 @@
-"use client";
+import { NextIntlClientProvider, useMessages } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { Inter } from 'next/font/google';
 
-import { Providers } from "./providers";
-import Footer from "./components/Footer";
-import Header from "./components/Header";
-import ScrollToTop from "./components/ScrollToTop";
-import { Inter } from "next/font/google";
-import "../styles/index.css";
+import '../styles/index.css';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import { Providers } from './providers';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
-export default function RootLayout({
+export default function LocaleLayout({
   children,
+  params: { locale },
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
+
   return (
-    <html suppressHydrationWarning lang="en">
-      <head />
-      <body className={`bg-black ${inter.className}`}>
-        <Providers>
-          <Header />
-          {children}
-          <Footer />
-          <ScrollToTop />
-        </Providers>
+    <html lang={locale}>
+      <body className={inter.className}>
+          <Providers>
+            <Header />
+            {children}
+            <Footer />
+          </Providers>
       </body>
     </html>
   );
