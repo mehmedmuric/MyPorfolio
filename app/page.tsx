@@ -1,3 +1,4 @@
+'use client';
 
 import AboutSection from "./components/About/AboutSection";
 import Certifications from "./components/Certifications";
@@ -9,10 +10,8 @@ import Technologies from "./components/Technologies";
 import BlogList from "./components/Blog";
 
 
-
-
-
 export default function Home() {
+
   return (
     <>
       <ScrollUp />

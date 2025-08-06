@@ -5,6 +5,8 @@ import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
 
 
+
+
 const Hero = () => {
   useScrollAnimations();
   return (

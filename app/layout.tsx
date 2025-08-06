@@ -1,5 +1,4 @@
-import { NextIntlClientProvider, useMessages } from 'next-intl';
-import { notFound } from 'next/navigation';
+
 import { Inter } from 'next/font/google';
 
 import '../styles/index.css';
