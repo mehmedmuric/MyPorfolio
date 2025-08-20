@@ -2,7 +2,6 @@
 
 import AboutSection from "./components/About/AboutSection";
 import Certifications from "./components/Certifications";
-import ScrollUp from "./components/Common/ScrollUp";
 import Contact from "./components/Contact";
 import Features from "./components/AboutWebAndMobile";
 import Hero from "./components/Hero";
@@ -14,7 +13,6 @@ export default function Home() {
 
   return (
     <>
-      <ScrollUp />
       <Hero />
       <Features />
       <Technologies />

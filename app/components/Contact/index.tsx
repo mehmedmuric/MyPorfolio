@@ -1,6 +1,6 @@
 "use client";
+import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
-import NewsLatterBox from "./NewsLatterBox";
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
 const Contact = () => {
@@ -74,8 +74,8 @@ const Contact = () => {
                       ></textarea>
                     </div>
                   </div>
-                  <div className="w-full px-4">
-                    <button className="shadow-submit dark:shadow-submit-dark rounded-lg bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
+                  <div className="w-full px-4 text-center">
+                    <button className="shadow-submit dark:shadow-submit-dark rounded-lg bg-mygreen px-16 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
                       Send
                     </button>
                   </div>
@@ -83,8 +83,14 @@ const Contact = () => {
               </form>
             </div>
           </div>
-          <div className="w-full px-4 lg:w-5/12 xl:w-4/12">
-            <NewsLatterBox />
+          <div className="w-full px-6 lg:w-5/12 xl:w-4/12">
+          <Image
+            src="/images/contactus.svg"
+            alt="contact img"
+            width={700}
+            height={550}
+            className="mt-24 ml-6"
+          />
           </div>
         </div>
       </div>

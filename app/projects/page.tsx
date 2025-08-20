@@ -24,7 +24,7 @@ const Projects = () => {
         description=""
       />
 
-      <div className="flex gap-5 ml-8 mb-6">
+      <div className="flex gap-5 ml-8 mb-6 mt-6">
         {projects.map((blog, index) => (
             <SingleBlog blog={blog} key={index}/>
         ))}

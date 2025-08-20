@@ -47,8 +47,13 @@ const Hero = () => {
               </div>
             </div>
             <div className="w-full opacity-0 px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto" data-animate="blink-1">
-              <div className="profileImage w-72 h-72 rounded-full overflow-hidden border-4 border-mygreen mb-6">
-                {/* <Image src="putanja_do_tvoje_slike.jpg" alt="" className="w-full h-full object-cover" /> */}
+              <div className="profileImage relative w-80 h-80 rounded-full overflow-hidden border-4 border-mygreen mb-6">
+                <Image 
+                src="/images/logo/mehmed.jpg" 
+                alt="mehmed" 
+                className="w-full h-full object-cover rounded-full" 
+                fill  
+              />
               </div>
               <h2 className="text-2xl font-semibold text-gray-400 mb-4 italic">Software Engineer</h2>
               <p className="text-lg text-gray-500 mb-4 underline underline-offset-8 decoration-mygreen">Full-stack developer | Front-end & Back-end | Mobile & Web Applications</p>

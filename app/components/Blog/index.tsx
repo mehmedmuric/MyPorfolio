@@ -7,6 +7,7 @@ import SectionTitle from "../Common/SectionTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css"; // Uvezi Swiper stilove
 import "swiper/css/navigation"; // Uvezi Swiper navigation stilove
+import Link from "next/link";
 
 const BlogList = () => {
   const [projects, setProjects] = useState<Blog[]>([]);
@@ -76,30 +77,38 @@ const BlogList = () => {
         </Swiper>
 
         {/* Dugmadi ispod slidera */}
-        <div className="flex justify-center gap-8 mt-6">
+        <div className="flex justify-center gap-6 mt-4">
           <button
             onClick={handlePrevSlide}
-            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
+            className="bg-green-500 text-white py-3 px-5 rounded-full hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
           >
-            Prethodni
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
+            </svg>
+
           </button>
           <button
             onClick={handleNextSlide}
-            className="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
+            className="bg-green-500 text-white py-3 px-5 rounded-full hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
           >
-            Sledeći
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+            </svg>
+
           </button>
         </div>
 
-        <div className="flex justify-center mt-8">
-          <button className="shadow-submit dark:shadow-submit-dark rounded-lg bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
+        <div className="flex justify-center mt-6">
+          <Link href={"/projects"} className="shadow-submit dark:shadow-submit-dark rounded-lg bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
             Prikazati sve projekte
-          </button>
+          </Link>
         </div>
       </div>
     </section>
   );
 };
+
+
 
 export default BlogList;
 
