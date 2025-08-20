@@ -21,7 +21,7 @@ const Projects = () => {
     <>
       <Breadcrumb
         pageName="Projects"
-        description=""
+        description="All Projects"
       />
 
       <div className="flex gap-5 ml-8 mb-6 mt-6">

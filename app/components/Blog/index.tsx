@@ -100,7 +100,7 @@ const BlogList = () => {
 
         <div className="flex justify-center mt-6">
           <Link href={"/projects"} className="shadow-submit dark:shadow-submit-dark rounded-lg bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
-            Prikazati sve projekte
+            All Projects
           </Link>
         </div>
       </div>
