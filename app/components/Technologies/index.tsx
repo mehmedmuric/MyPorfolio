@@ -113,7 +113,7 @@ const Technologies = () => {
 
         {/* Other Technologies */}
         <div>
-          <h2 className="text-2xl drop-shadow-[0px_0px_19px_rgba(0,255,4,1)] font-bold text-center mb-12 opacity-0" data-animate="tracking-in-expand-fwd">Other Tehcnologies</h2>
+          <h2 className="text-2xl drop-shadow-[0px_0px_19px_rgba(0,255,4,1)] font-bold text-center mb-12 opacity-0" data-animate="tracking-in-expand-fwd">Other Technologies</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 opacity-0" data-animate="slide-in-left">
             {otherImages.map((image, index) => (
               <div key={index} className="w-full flex justify-center flex-col items-center">
