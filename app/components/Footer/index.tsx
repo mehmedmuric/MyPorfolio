@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <>
       <footer
-        className="wow fadeInUp dark:bg-gray-dark relative z-10 bg-white pt-16 md:pt-20 lg:pt-24"
+        className="wow fadeInUp bg-gray-dark relative z-10 pt-16 md:pt-20 lg:pt-24"
         data-wow-delay=".1s"
       >
         <div className="container">
@@ -23,23 +23,23 @@ const Footer = () => {
                     className=""               
                   />
                 </Link>
-                <p className="dark:text-body-color-dark mb-2 text-base leading-relaxed text-body-color text-[18px]">
+                <p className="text-body-color-dark mb-2 text-base leading-relaxed text-[18px]">
                   Mehmed Muric
                 </p>
-                <p className="dark:text-body-color-dark mb-2 text-base leading-relaxed text-body-color text-[18px]">
+                <p className="text-body-color-dark mb-2 text-base leading-relaxed text-[18px]">
                   mehmedmuric22@gmail.com
                 </p>
-                <p className="dark:text-body-color-dark mb-2 text-base leading-relaxed text-body-color text-[18px]">
+                <p className="text-body-color-dark mb-2 text-base leading-relaxed text-[18px]">
                   mehmedmuric33@gmail.com
                 </p>
-                <p className="dark:text-body-color-dark mb-6 text-base leading-relaxed text-body-color text-[18px]">
+                <p className="text-body-color-dark mb-6 text-base leading-relaxed text-[18px]">
                   +381 62 1753220
                 </p>
                 <div className="flex items-center ">
                   <a
                     href="https://www.facebook.com/profile.php?id=100023228495593"
                     aria-label="social-link"
-                    className="dark:text-body-color-dark mr-6 text-body-color  duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                    className="text-body-color-dark mr-6 duration-300 hover:text-mygreen"
                   >
                     <svg
                       width="12"
@@ -53,7 +53,7 @@ const Footer = () => {
                   <a
                     href="https://www.instagram.com/mehmedmuricc/"
                     aria-label="social-link"
-                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                    className="text-body-color-dark mr-6 duration-300 hover:text-mygreen"
                   >
                     <svg
                       width="25"
@@ -67,7 +67,7 @@ const Footer = () => {
                   <a
                     href="https://github.com/mehmedmuric"
                     aria-label="social-link"
-                    className="dark:text-body-color-dark mr-6 text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                    className="text-body-color-dark mr-6 duration-300 hover:text-mygreen"
                   >
                     <svg
                       width="25"
@@ -82,7 +82,7 @@ const Footer = () => {
                   <a
                     href="https://www.linkedin.com/in/mehmed-muric-185297232/"
                     aria-label="social-link"
-                    className="dark:text-body-color-dark text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                    className="text-body-color-dark duration-300 hover:text-mygreen"
                   >
                     <svg
                       width="25"
@@ -99,14 +99,14 @@ const Footer = () => {
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-8 lg:mb-16">
-                <h2 className="mb-6 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-6 text-xl font-bold text-white">
                   Useful Links
                 </h2>
                 <ul>
                   <li>
                     <a
                       href="/"
-                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen text-body-color-dark mb-4 inline-block text-base duration-300 hover:text-mygreen"
                     >
                       Home
                     </a>
@@ -114,7 +114,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/projects"
-                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen text-body-color-dark mb-4 inline-block text-base duration-300 hover:text-mygreen"
                     >
                       Projects
                     </a>
@@ -122,7 +122,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/about"
-                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen text-body-color-dark mb-4 inline-block text-base duration-300 hover:text-mygreen"
                     >
                       About
                     </a>
@@ -133,14 +133,14 @@ const Footer = () => {
 
             <div className="w-full px-4 sm:w-1/2 md:w-1/2 lg:w-2/12 xl:w-2/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-6 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-6 text-xl font-bold text-white">
                   Terms
                 </h2>
                 <ul>
                   <li>
                     <a
                       href="/privacyPolicy"
-                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen text-body-color-dark mb-4 inline-block text-base duration-300 hover:text-mygreen"
                     >
                       Privacy Policy
                     </a>
@@ -148,7 +148,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/"
-                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen text-body-color-dark mb-4 inline-block text-base duration-300 hover:text-mygreen"
                     >
                       Refund Policy
                     </a>
@@ -159,14 +159,14 @@ const Footer = () => {
 
             <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-3/12">
               <div className="mb-12 lg:mb-16">
-                <h2 className="mb-6 text-xl font-bold text-black dark:text-white">
+                <h2 className="mb-6 text-xl font-bold text-white">
                   Support & Help
                 </h2>
                 <ul>
                   <li>
                     <a
                       href="/TermsOfUse"
-                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen text-body-color-dark mb-4 inline-block text-base duration-300 hover:text-mygreen"
                     >
                       Terms of Use
                     </a>
@@ -174,7 +174,7 @@ const Footer = () => {
                   <li>
                     <a
                       href="/contact"
-                      className="underline underline-offset-4 decoration-mygreen dark:text-body-color-dark mb-4 inline-block text-base text-body-color duration-300 hover:text-mygreen dark:hover:text-mygreen"
+                      className="underline underline-offset-4 decoration-mygreen text-body-color-dark mb-4 inline-block text-base duration-300 hover:text-mygreen"
                     >
                       Contact
                     </a>
@@ -184,7 +184,7 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="h-px w-full bg-gradient-to-r from-transparent via-[#D2D8E183] to-transparent dark:via-[#959CB183]"></div>
+          <div className="h-px w-full bg-gradient-to-r from-transparent to-transparent via-[#959CB183]"></div>
           <div className="py-8">
             <p className="text-center text-base text-body-color dark:text-white">
               © 2025 All rights reserved.{" "}

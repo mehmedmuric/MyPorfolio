@@ -7,7 +7,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
   return (
     <>
       <div
-        className="wow fadeInUp group relative overflow-hidden rounded-lg bg-white shadow-lg ring-0 ring-green-500 transition-all duration-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2 dark:bg-dark"
+        className="wow fadeInUp group relative overflow-hidden rounded-lg shadow-lg ring-0 ring-green-500 transition-all duration-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2 bg-dark"
         data-wow-delay=".1s"
       >
         <Link
@@ -23,30 +23,30 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           <h3>
             <Link
               href="/blog-details"
-              className="mb-4 block text-xl font-bold text-black hover:text-green-500 dark:text-white dark:hover:text-green-500 sm:text-2xl"
+              className="mb-4 block text-xl font-bold hover:text-green-500 text-white sm:text-2xl"
             >
               {title}
             </Link>
           </h3>
-          <p className="mb-6 border-b border-body-color border-opacity-10 pb-6 text-base font-medium text-body-color dark:border-white dark:border-opacity-10">
+          <p className="mb-6 border-b pb-6 text-base font-medium text-body-color border-mygreen border-opacity-75">
             {paragraph}
           </p>
           <div className="flex items-center">
-            <div className="mr-5 flex items-center border-r border-body-color border-opacity-10 pr-5 dark:border-white dark:border-opacity-10 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
+            <div className="mr-5 flex items-center border-r pr-5 border-mygreen border-opacity-75 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
               <div className="mr-4">
                 <div className="relative h-12 w-12 overflow-hidden rounded-full">
                   <Image src={author.image} alt="author" fill  className="object-cover"/>
                 </div>
               </div>
               <div className="w-full">
-                <h4 className="mb-1 text-sm font-medium text-dark dark:text-white">
+                <h4 className="mb-1 text-sm font-medium text-white">
                   By {author.name}
                 </h4>
                 <p className="text-xs text-body-color">{author.designation}</p>
               </div>
             </div>
             <div className="inline-block">
-              <h4 className="mb-1 text-sm font-medium text-dark dark:text-white">
+              <h4 className="mb-1 text-sm font-medium text-white">
                 Date
               </h4>
               <p className="text-xs text-body-color">{publishDate}</p>

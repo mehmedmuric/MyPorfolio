@@ -19,11 +19,9 @@ export default function LocaleLayout({
   return (
     <html lang={locale}>
       <body className={inter.className}>
-          <Providers>
             <Header />
             {children}
             <Footer />
-          </Providers>
       </body>
     </html>
   );

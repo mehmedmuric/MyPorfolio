@@ -5,9 +5,11 @@
 @tailwind components;
 @tailwind utilities;
 
-body{
+html,body{
   margin: 0;
   padding: 0;
+  background-color: #0f0f0f;
+  color: #ffffff;
 }
 
 @layer base {

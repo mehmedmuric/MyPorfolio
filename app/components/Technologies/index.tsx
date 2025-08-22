@@ -63,7 +63,7 @@ const Technologies = () => {
                     height={80}
                   />
                 </div>
-                <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
+                <p className="mt-4 text-left text-white text-sm font-medium">{image.name}</p>
               </div>
             ))}
           </div>
@@ -84,7 +84,7 @@ const Technologies = () => {
                     height={80}
                   />
                 </div>
-                <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
+                <p className="mt-4 text-left text-white text-sm font-medium">{image.name}</p>
               </div>
             ))}
           </div>
@@ -105,7 +105,7 @@ const Technologies = () => {
                     height={80}
                   />
                 </div>
-                <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
+                <p className="mt-4 text-left text-white text-sm font-medium">{image.name}</p>
               </div>
             ))}
           </div>
@@ -126,7 +126,7 @@ const Technologies = () => {
                     height={80}
                   />
                 </div>
-                <p className="mt-4 text-left dark:text-white text-black text-sm font-medium">{image.name}</p>
+                <p className="mt-4 text-left text-white text-sm font-medium">{image.name}</p>
               </div>
             ))}
           </div>
