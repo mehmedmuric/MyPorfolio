@@ -6,17 +6,18 @@ import { Blog } from '@/types/blog';
 import React, { useEffect, useState } from 'react'
 
 const Projects = () => {
-    const [projects, setProjects] = useState<Blog[]>([]);
+  const [projects, setProjects] = useState<Blog[]>([]);
 
-      useEffect(() => {
-        const fetchProjects = async () => {
-          const res = await fetch("/data/projects.json");
-          const data = await res.json();
-          setProjects(data);
-        };
-    
-        fetchProjects();
-      }, []);
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const res = await fetch("/data/projects.json");
+      const data = await res.json();
+      setProjects(data);
+    };
+
+    fetchProjects();
+  }, []);
+
   return (
     <>
       <Breadcrumb
@@ -24,14 +25,17 @@ const Projects = () => {
         description="All Projects"
       />
 
-      <div className="flex gap-5 ml-8 mb-6 mt-6">
+      <div className="grid gap-4 ml-3 mr-3 mb-8 mt-6
+                      grid-cols-1 
+                      sm:grid-cols-2 
+                      md:grid-cols-3 
+                      lg:grid-cols-4">
         {projects.map((blog, index) => (
-            <SingleBlog blog={blog} key={index}/>
+          <SingleBlog blog={blog} key={index}/>
         ))}
       </div>
-      
     </>
   );
 }
 
-export default Projects
+export default Projects;
