@@ -1,6 +1,7 @@
 [
     {
-      "title": "Ime Projekta",
+      "id": 1,
+      "title": "Mesa",
       "image": "/images/blog/react-blog.jpg",
       "paragraph": "Naslov",
       "author": {
@@ -12,6 +13,20 @@
       "publishDate": "2025-04-10"
     },
     {
+      "id": 2,
+      "title": "MEsa 2",
+      "image": "/images/blog/react-blog.jpg",
+      "paragraph": "Naslov",
+      "author": {
+        "name": "Mehmed Muric",
+        "designation": "FullStack Developer",
+        "image": "/images/authors/mehmed.jpg"
+      },
+      "tags": ["React"],
+      "publishDate": "2025-04-10"
+    },
+    {
+      "id": 3,
       "title": "Ime Projekta",
       "image": "/images/blog/react-blog.jpg",
       "paragraph": "Naslov",
@@ -24,18 +39,7 @@
       "publishDate": "2025-04-10"
     },
     {
-      "title": "Ime Projekta",
-      "image": "/images/blog/react-blog.jpg",
-      "paragraph": "Naslov",
-      "author": {
-        "name": "Mehmed Muric",
-        "designation": "FullStack Developer",
-        "image": "/images/authors/mehmed.jpg"
-      },
-      "tags": ["React"],
-      "publishDate": "2025-04-10"
-    },
-    {
+      "id": 4,
       "title": "Ime Projekta",
       "image": "/images/blog/react-blog.jpg",
       "paragraph": "Naslov",

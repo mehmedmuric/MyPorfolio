@@ -56,7 +56,7 @@ const Hero = () => {
               />
               </div>
               <h2 className="text-2xl font-semibold text-gray-400 mb-4 italic">Software Engineer</h2>
-              <p className="text-lg text-gray-500 mb-4 underline underline-offset-8 decoration-mygreen">Full-stack developer | Front-end & Back-end | Mobile & Web Applications</p>
+              <p className="text-lg text-gray-500 mb-4 underline underline-offset-8 decoration-mygreen">Full-stack developer | Mobile & Web Applications</p>
               <p className="text-base text-gray-400">Developer sa iskustvom u izradi modernih aplikacija koristeći najnovije tehnologije. Posvećen sam učenju i pružanju najboljih rešenja za moje klijente.</p>
               <div className="socialLinks flex justify-center mt-6">
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2">
