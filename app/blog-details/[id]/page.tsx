@@ -101,7 +101,7 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
                   <Link href="#" className="rounded-lg mr-4 bg-mygreen px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen hover:text-mygreen">
                     Live Demo
                   </Link>
-                  <Link href="#" className="rounded-lg bg-black px-12 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen">
+                  <Link href="https://github.com/mehmedmuric" className="rounded-lg bg-black px-12 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen">
                     GitHub Code
                   </Link>
                   
@@ -256,7 +256,7 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
                   <div className="items-center justify-between sm:flex">
                     <div className="mb-5">
                       <h4 className="mb-3 text-sm font-medium text-body-color">
-                        Popular Tags :
+                        View: 
                       </h4>
                       <div className="flex items-center">
                         <TagButton href="https://github.com/mehmedmuric" text="Github Profile" />

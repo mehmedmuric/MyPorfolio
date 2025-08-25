@@ -145,14 +145,7 @@ const Footer = () => {
                       Privacy Policy
                     </a>
                   </li>
-                  <li>
-                    <a
-                      href="/"
-                      className="underline underline-offset-4 decoration-mygreen text-body-color-dark mb-4 inline-block text-base duration-300 hover:text-mygreen"
-                    >
-                      Refund Policy
-                    </a>
-                  </li>
+                  
                 </ul>
               </div>
             </div>
