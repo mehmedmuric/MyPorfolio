@@ -2,15 +2,18 @@
     {
       "id": 1,
       "title": "Mesa",
-      "image": "/images/blog/react-blog.jpg",
-      "paragraph": "Naslov",
+      "image": "/images/logo/mehmed.jpg",
+      "paragraph": "opis projekta",
       "author": {
         "name": "Mehmed Muric",
         "designation": "FullStack Developer",
         "image": "/images/logo/mehmed.jpg"
       },
       "tags": ["React"],
-      "publishDate": "2025-04-10"
+      "publishDate": "2025-04-10",
+      "gitlink": "",
+      "livedemo": ""
+
     },
     {
       "id": 2,

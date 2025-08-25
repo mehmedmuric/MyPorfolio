@@ -8,8 +8,13 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css"; // Uvezi Swiper stilove
 import "swiper/css/navigation"; // Uvezi Swiper navigation stilove
 import Link from "next/link";
+import { Autoplay } from "swiper/modules";
+
+import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
 const BlogList = () => {
+  useScrollAnimations();
+
   const [projects, setProjects] = useState<Blog[]>([]);
   const swiperRef = useRef<any>(null); 
 
@@ -38,7 +43,7 @@ const BlogList = () => {
   };
 
   return (
-    <section className="py-20">
+    <section className="py-20" data-animate="scale-in-center">
       <div className="container">
         <SectionTitle
           title="Projects"
@@ -52,7 +57,11 @@ const BlogList = () => {
           spaceBetween={30}
           slidesPerView={3}
           loop={true}
-          autoplay={{ delay: 2500 }}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false, // preporučljivo da ne stane kad klikneš
+          }}
+          modules={[Autoplay]} 
           breakpoints={{
             640: {
               slidesPerView: 1,

@@ -5,7 +5,10 @@ import Breadcrumb from '../components/Common/Breadcrumb';
 import { Blog } from '@/types/blog';
 import React, { useEffect, useState } from 'react'
 
+import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+
 const Projects = () => {
+  useScrollAnimations();
   const [projects, setProjects] = useState<Blog[]>([]);
 
   useEffect(() => {
@@ -29,7 +32,8 @@ const Projects = () => {
                       grid-cols-1 
                       sm:grid-cols-2 
                       md:grid-cols-3 
-                      lg:grid-cols-4">
+                      lg:grid-cols-4" 
+                      data-animate="scale-in-center">
         {projects.map((blog, index) => (
           <SingleBlog blog={blog} key={index}/>
         ))}
