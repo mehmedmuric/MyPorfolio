@@ -29,14 +29,13 @@ const Footer = () => {
                 <p className="text-body-color-dark mb-2 text-base leading-relaxed text-[18px]">
                   mehmedmuric22@gmail.com
                 </p>
-                <p className="text-body-color-dark mb-2 text-base leading-relaxed text-[18px]">
-                  mehmedmuric33@gmail.com
-                </p>
                 <p className="text-body-color-dark mb-6 text-base leading-relaxed text-[18px]">
-                  +381 62 1753220
+                  <span className="text-mygreen">(+381)</span>  62 1753220
                 </p>
                 <div className="flex items-center ">
                   <a
+                    target="_blank"
+                    rel="noreferrer"
                     href="https://www.facebook.com/profile.php?id=100023228495593"
                     aria-label="social-link"
                     className="text-body-color-dark mr-6 duration-300 hover:text-mygreen"
@@ -51,6 +50,8 @@ const Footer = () => {
                     </svg>
                   </a>
                   <a
+                    target="_blank"
+                    rel="noreferrer"
                     href="https://www.instagram.com/mehmedmuricc/"
                     aria-label="social-link"
                     className="text-body-color-dark mr-6 duration-300 hover:text-mygreen"
@@ -65,6 +66,8 @@ const Footer = () => {
                     </svg>
                   </a>
                   <a
+                    target="_blank"
+                    rel="noreferrer"
                     href="https://github.com/mehmedmuric"
                     aria-label="social-link"
                     className="text-body-color-dark mr-6 duration-300 hover:text-mygreen"
@@ -80,6 +83,8 @@ const Footer = () => {
                     </svg>
                   </a>
                   <a
+                    target="_blank"
+                    rel="noreferrer"
                     href="https://www.linkedin.com/in/mehmed-muric-185297232/"
                     aria-label="social-link"
                     className="text-body-color-dark duration-300 hover:text-mygreen"
@@ -179,7 +184,7 @@ const Footer = () => {
 
           <div className="h-px w-full bg-gradient-to-r from-transparent to-transparent via-[#959CB183]"></div>
           <div className="py-8">
-            <p className="text-center text-base text-body-color dark:text-white">
+            <p className="text-center text-base text-body-color dark:text-white underline underline-offset-8 decoration-mygreen">
               © 2025 All rights reserved.{" "}
               <a href="https://github.com/mehmedmuric" rel="nofollow noopener" className="hover:text-mygreen duration-300">
                 Mehmed Muric

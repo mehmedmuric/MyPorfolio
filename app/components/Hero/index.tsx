@@ -27,16 +27,17 @@ const Hero = () => {
                     Mehmed Muric
                   </h1>
                   <p className="dark:text-body-color-dark mb-12 text-base !leading-relaxed text-body-color sm:text-lg md:text-xl">
-                    Ja sam Mehmed Muric, developer sa iskustvom u razvoju modernih web i mobilnih aplikacija. Kao full-stack developer, ovladavam širokim spektrom tehnologija, uključujući HTML, CSS, TailwindCSS, Material UI, React, React Native, JavaScript, TypeScript, Next.js, Node.js, Appwrite, MongoDB i MySQL.
+                    Hi, I’m Mehmed Muric, a full-stack developer crafting modern web and mobile applications. I work with a wide range of technologies, including React, React Native, Next.js, Node.js, TailwindCSS, Material UI, TypeScript, Appwrite, MongoDB, and MySQL, delivering clean, scalable, and high-performance solutions.
                   </p>
                   <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <Link
-                      href="https://nextjstemplates.com/templates/saas-starter-startup"
+                      href="https://www.linkedin.com/in/mehmed-muric-185297232/"
                       className="rounded-lg bg-mygreen px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen hover:text-mygreen"
                     >
                       🔥View my CV
                     </Link>
                     <Link
+                      target="_blank"
                       href="https://github.com/mehmedmuric"
                       className="inline-block rounded-lg bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen"
                     >
@@ -57,7 +58,7 @@ const Hero = () => {
               </div>
               <h2 className="text-2xl font-semibold text-gray-400 mb-4 italic">Software Engineer</h2>
               <p className="text-lg text-gray-500 mb-4 underline underline-offset-8 decoration-mygreen">Full-stack developer | Mobile & Web Applications</p>
-              <p className="text-base text-gray-400">Developer sa iskustvom u izradi modernih aplikacija koristeći najnovije tehnologije. Posvećen sam učenju i pružanju najboljih rešenja za moje klijente.</p>
+              <p className="text-base text-gray-400">Developer with experience in building modern applications using the latest technologies. I am dedicated to continuous learning and delivering the best solutions for my clients.</p>
               <div className="socialLinks flex justify-center mt-6">
                 <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2">
                   <i className="fab fa-github"></i> GitHub

@@ -24,7 +24,7 @@ const Contact = () => {
                 Contact Me 
               </h2>
               <p className="mb-12 text-base font-medium text-body-color">
-                Our support team will get back to you via email.
+                I’ll reach out to you via email as soon as possible.
               </p>
               <form>
                 <div className="-mx-4 flex flex-wrap">

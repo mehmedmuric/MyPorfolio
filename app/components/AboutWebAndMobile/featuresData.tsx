@@ -16,7 +16,7 @@ const featuresData: Feature[] = [
     id: 2,
     icon: (
       <svg width="120" height="120" viewBox="1 -9 20 40" className="fill-current text-green-500">
-        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" d="m12.5 3.5l-4 14m-2-5l-4-4l4-4m8 12l4-4l-4-4"/>
+        <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" d="m12.5 3.5l-4 14m-2-5l-4-4l4-4m8 12l4-4l-4-4"/>
       </svg>
     ),
     title: "Next.js (Latest)",
@@ -38,7 +38,7 @@ const featuresData: Feature[] = [
     id: 4,
     icon: (
       <svg width="120" height="120" viewBox="2 -12 20 50" className="fill-current text-green-500">
-        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3l-8 3v7c0 6 8 10 8 10z"/><path d="m9 12l2 2l4-4"/></g>
+        <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3l-8 3v7c0 6 8 10 8 10z"/><path d="m9 12l2 2l4-4"/></g>
       </svg>
     ),
     title: "Security",
@@ -48,12 +48,8 @@ const featuresData: Feature[] = [
   {
     id: 5,
     icon: (
-      <svg width="40" height="40" viewBox="0 0 40 40" className="fill-current text-green-500">
-        <path
-          opacity="0.5"
-          d="M20 0C8.954 0 0 8.954 0 20C0 31.046 8.954 40 20 40C31.046 40 40 31.046 40 20C40 8.954 31.046 0 20 0Z"
-        />
-        <path d="M28 12H12C10.8954 12 10 12.8954 10 14V26C10 27.1046 10.8954 28 12 28H28C29.1046 28 30 27.1046 30 26V14C30 12.8954 29.1046 12 28 12ZM20 24C18.3431 24 17 22.6569 17 21C17 19.3431 18.3431 18 20 18C21.6569 18 23 19.3431 23 21C23 22.6569 21.6569 24 20 24Z" />
+      <svg width="120" height="120" viewBox="-3 0 30 25" className="fill-current text-green-500">
+        <path fill="currentColor" d="M9.75 19a.5.5 0 0 1 .5-.5h3.5a.5.5 0 0 1 0 1h-3.5a.5.5 0 0 1-.5-.5"/><path fill="currentColor" d="M10.17 2.25h3.66c.535 0 .98 0 1.345.03c.38.03.736.098 1.073.27a2.75 2.75 0 0 1 1.202 1.202c.172.337.24.693.27 1.073c.03.365.03.81.03 1.345v11.66c0 .535 0 .98-.03 1.345c-.03.38-.098.736-.27 1.073a2.75 2.75 0 0 1-1.201 1.202c-.338.172-.694.24-1.074.27c-.365.03-.81.03-1.344.03H10.17c-.535 0-.98 0-1.345-.03c-.38-.03-.736-.098-1.073-.27a2.75 2.75 0 0 1-1.202-1.2c-.172-.338-.24-.694-.27-1.074c-.03-.365-.03-.81-.03-1.345V6.17c0-.535 0-.98.03-1.345c.03-.38.098-.736.27-1.073A2.75 2.75 0 0 1 7.752 2.55c.337-.172.693-.24 1.073-.27c.365-.03.81-.03 1.345-.03M8.947 3.775c-.287.023-.424.065-.514.111a1.25 1.25 0 0 0-.547.547c-.046.09-.088.227-.111.514c-.024.296-.025.68-.025 1.253v11.6c0 .572 0 .957.025 1.252c.023.288.065.425.111.515c.12.236.311.427.547.547c.09.046.227.088.514.111c.296.024.68.025 1.253.025h3.6c.572 0 .957 0 1.252-.025c.288-.023.425-.065.516-.111a1.25 1.25 0 0 0 .546-.547c.046-.09.088-.227.111-.515c.024-.295.025-.68.025-1.252V6.2c0-.572 0-.957-.025-1.253c-.023-.287-.065-.424-.111-.514a1.25 1.25 0 0 0-.546-.547c-.091-.046-.228-.088-.515-.111a9 9 0 0 0-.637-.023l-.124.373c-.105.314-.158.472-.255.588a.8.8 0 0 1-.32.231c-.142.056-.308.056-.64.056h-2.154c-.332 0-.498 0-.64-.056a.8.8 0 0 1-.32-.23c-.097-.117-.15-.275-.255-.59l-.124-.372a9 9 0 0 0-.637.023"/>
       </svg>
     ),
     title: "Optimized for Mobile Devices",
@@ -63,12 +59,8 @@ const featuresData: Feature[] = [
   {
     id: 6,
     icon: (
-      <svg width="40" height="40" viewBox="0 0 40 40" className="fill-current text-green-500">
-        <path
-          opacity="0.5"
-          d="M20 0C8.954 0 0 8.954 0 20C0 31.046 8.954 40 20 40C31.046 40 40 31.046 40 20C40 8.954 31.046 0 20 0Z"
-        />
-        <path d="M14 10H26C27.1046 10 28 10.8954 28 12V28C28 29.1046 27.1046 30 26 30H14C12.8954 30 12 29.1046 12 28V12C12 10.8954 12.8954 10 14 10ZM20 27C21.1046 27 22 26.1046 22 25C22 23.8954 21.1046 23 20 23C18.8954 23 18 23.8954 18 25C18 26.1046 18.8954 27 20 27Z" />
+      <svg width="120" height="120" viewBox="-5 0 35 25" className="fill-current text-green-500">
+        <path fill="currentColor" d="M3.001 1h12.414l5.586 5.587V13h-2V9h-6V3h-8v18h6v2h-8V1Zm12 2.415V7h3.586L15 3.415Zm8.663 11.841l-2.776 2.748l2.776 2.749l-1.407 1.421l-4.212-4.17l4.212-4.17l1.407 1.422ZM13 21h4.5v2H13v-2Z"/>
       </svg>
     ),
     title: "Clean & Maintainable Code",
