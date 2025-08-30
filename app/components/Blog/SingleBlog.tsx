@@ -28,7 +28,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
               {title}
             </Link>
           </h3>
-          <p className="mb-6 border-b pb-6 text-base font-medium text-body-color border-mygreen border-opacity-75">
+          <p className="mb-6 border-b pb-7 text-base font-medium text-body-color border-mygreen border-opacity-75 line-clamp-2">
             {paragraph}
           </p>
           <div className="flex items-center">

@@ -24,6 +24,7 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
   if (!blog) {
     return <div className="text-white p-10">Project not found</div>;
   }
+  
     return (
       <section className="pb-[120px] pt-[150px]">
         <div className="container">
@@ -42,6 +43,7 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
                             src={blog.author.image}
                             alt="author"
                             fill
+                            className="object-cover object-center"
                           />
                         </div>
                       </div>
@@ -88,7 +90,7 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
                   <p className="mb-10 text-base font-medium leading-relaxed text-body-color sm:text-lg sm:leading-relaxed lg:text-base lg:leading-relaxed xl:text-lg xl:leading-relaxed">
                    {blog.paragraph}
                   </p>
-                  <div className="mb-10 w-full overflow-hidden rounded">
+                  <div className="mb-10 w-full overflow-hidden rounded-lg border border-mygreen ">
                     <div className="relative aspect-[97/60] w-full sm:aspect-[97/44]">
                       <Image
                         src={blog.image}
@@ -98,19 +100,18 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
                       />
                     </div>
                   </div>
-                  <Link href="#" className="rounded-lg mr-4 bg-mygreen px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen hover:text-mygreen">
-                    Live Demo
-                  </Link>
-                  <Link href="https://github.com/mehmedmuric" className="rounded-lg bg-black px-12 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen">
-                    GitHub Code
-                  </Link>
+                  <div className="items-center mb-10 flex justify-center">
+                    <Link href={blog.livedemo} target="_blank" className="rounded-lg mr-4 bg-mygreen px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen hover:text-mygreen">
+                      Live Demo
+                    </Link>
+                    <Link href={blog.gitlink} target="_blank" className="rounded-lg  bg-black px-12 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen">
+                      GitHub Code
+                    </Link>
+                  </div>  
                   
                   <div className="relative z-10 mb-10 mt-10 overflow-hidden rounded-md bg-primary bg-opacity-10 p-8 md:p-9 lg:p-8 xl:p-9">
                     <p className="text-center text-base font-medium italic text-body-color">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod incididunt utionals labore et dolore magna
-                      aliqua. Quis lobortis scelerisque fermentum, The Neque ut
-                      etiam sit amet.
+                      {blog.paragraph2}
                     </p>
                     <span className="absolute left-0 top-0 z-[-1]">
                       <svg
