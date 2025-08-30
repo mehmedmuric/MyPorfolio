@@ -1,7 +1,7 @@
 [
     {
       "id": 1,
-      "title": "AI Landing Page – GPT-3 Inspired Design",
+      "title": "AI Landing Page GPT-3 Inspired Design",
       "image": "/images/projects/GPT3project.png",
       "paragraph": "This is a static presentation website inspired by modern AI landing page designs, built as part of my portfolio. The page is designed to showcase the potential and possibilities of GPT-3 technology and artificial intelligence in general.",
       "author": {
@@ -9,51 +9,59 @@
         "designation": "FullStack Developer",
         "image": "/images/logo/mehmed.jpg"
       },
-      "tags": ["React"],
+      "tags": ["JavaScript ", " - React ", " - GPT-3 "],
       "publishDate":"02-15-2024",
       "gitlink": "https://github.com/mehmedmuric/WebApp1-GPT3",
       "livedemo": "https://webappgpt3mm.netlify.app/",
       "paragraph2": "To demonstrate my skills in frontend development, content structure, and modern UI/UX design, inspired by real-world SaaS landing pages. Technologies Used: HTML5 / CSS3 React Fully responsive design optimized for different devices"
-
     },
     {
       "id": 2,
-      "title": "MEsa 2",
-      "image": "/images/blog/react-blog.jpg",
-      "paragraph": "Naslov",
+      "title": "Crypto Landing Page Web3 & Blockchain Design",
+      "image": "/images/projects/CryptoExchangeProject.png",
+      "paragraph": "A modern static landing page focused on the world of cryptocurrencies and Web3. The site allows users to explore crypto markets, connect their wallets, and simulate sending transactions across the world.",
       "author": {
         "name": "Mehmed Muric",
         "designation": "FullStack Developer",
-        "image": "/images/authors/mehmed.jpg"
+        "image": "/images/logo/mehmed.jpg"
       },
-      "tags": ["React"],
-      "publishDate": "2025-04-10"
+      "tags": ["React ", " - Web3 ", " - Blockchain"],
+      "publishDate": "03-01-2024",
+      "gitlink": "https://github.com/mehmedmuric/web3.0_crypto_exchange",
+      "livedemo": "https://web30reactappmm.netlify.app/",
+      "paragraph2": "The project demonstrates my ability to build Web3-inspired UI with a strong focus on security, usability, and modern frontend practices. Sections include reliability, security, fast transactions, and exchange rates. Technologies Used: HTML5 / CSS3 React Responsive design Wallet connect simulation."
     },
     {
       "id": 3,
-      "title": "Ime Projekta",
-      "image": "/images/blog/react-blog.jpg",
-      "paragraph": "Naslov",
+      "title": "Restaurant Landing Page Modern Food & Dining Design",
+      "image": "/images/projects/restaurantProject.png",
+      "paragraph": "A clean and modern restaurant landing page designed to showcase menus, dining experience, and online reservations. The site provides an elegant introduction to the restaurant with a strong focus on user-friendly navigation and appealing food presentation.",
       "author": {
         "name": "Mehmed Muric",
         "designation": "FullStack Developer",
-        "image": "/images/authors/mehmed.jpg"
+        "image": "/images/logo/mehmed.jpg"
       },
-      "tags": ["React"],
-      "publishDate": "2025-04-10"
+      "tags": ["React", " - TailwindCSS", " - Responsive"],
+      "publishDate": "05-06-2023",
+      "gitlink": "https://github.com/mehmedmuric/webapp2-restaurant",
+      "livedemo": "https://restaurantmm.netlify.app/",
+      "paragraph2": "The project demonstrates my ability to design and develop a modern restaurant landing page with clear sections such as menu highlights, services, customer testimonials, and a reservation call-to-action. Technologies Used: HTML5 / CSS3, React, TailwindCSS, fully responsive design optimized for all devices."
     },
     {
       "id": 4,
-      "title": "Ime Projekta",
-      "image": "/images/blog/react-blog.jpg",
-      "paragraph": "Naslov",
+      "title": "Fintech Landing Page Modern Payment Solutions",
+      "image": "/images/projects/bankProject.png",
+      "paragraph": "A modern and professional landing page built for a fintech product that showcases digital payment solutions, secure transactions, and financial management features. The design highlights key benefits such as rewards, balance transfers, billing control, and customer testimonials.",
       "author": {
         "name": "Mehmed Muric",
         "designation": "FullStack Developer",
-        "image": "/images/authors/mehmed.jpg"
+        "image": "/images/logo/mehmed.jpg"
       },
-      "tags": ["React"],
-      "publishDate": "2025-04-10"
+      "tags": ["React", " - TailwindCSS", " - JavaScript"],
+      "publishDate": "03-20-2024",
+      "gitlink": "https://github.com/mehmedmuric/BankApp",
+      "livedemo": "https://bankappmm.netlify.app/",
+      "paragraph2": "This project demonstrates my ability to design and develop fintech-oriented user interfaces with a focus on trust, usability, and responsive design. The page includes sections for product features, customer statistics, billing & invoicing, client testimonials, and partner logos. Technologies Used: HTML5 / CSS3, React, TailwindCSS, fully responsive layout optimized for all devices."
     }
    
   ]

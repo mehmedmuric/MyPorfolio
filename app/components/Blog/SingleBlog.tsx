@@ -20,10 +20,10 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           <Image src={image} alt="image" fill />
         </Link>
         <div className="p-6 sm:p-8 md:px-6 md:py-8 lg:p-8 xl:px-5 xl:py-8 2xl:p-8">
-          <h3>
+          <h3 className="line-clamp-1"> 
             <Link
               href={`/blog-details/${blog.id}`}
-              className="mb-4 block text-xl font-bold hover:text-green-500 text-white sm:text-2xl"
+              className="mb-4 block text-xl font-bold hover:text-mygreen text-white sm:text-2xl"
             >
               {title}
             </Link>

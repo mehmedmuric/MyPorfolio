@@ -59,18 +59,24 @@ const BlogList = () => {
           loop={true}
           autoplay={{
             delay: 2000,
-            disableOnInteraction: false, // preporučljivo da ne stane kad klikneš
+            disableOnInteraction: false, 
           }}
           modules={[Autoplay]} 
           breakpoints={{
+            0: {
+              slidesPerView: 1, // 📱 very small screens
+            },
             640: {
-              slidesPerView: 1,
+              slidesPerView: 1, // phones
             },
             768: {
-              slidesPerView: 2,
+              slidesPerView: 2, // tablets
             },
             1024: {
-              slidesPerView: 3,
+              slidesPerView: 3, // desktop
+            },
+            1280: {
+              slidesPerView: 4, // large desktop (ako hoćeš)
             },
           }}
           navigation={{
