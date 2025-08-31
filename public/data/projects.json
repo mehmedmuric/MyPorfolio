@@ -58,10 +58,10 @@
         "image": "/images/logo/mehmed.jpg"
       },
       "tags": ["React", " - TailwindCSS", " - JavaScript"],
-      "publishDate": "03-20-2024",
+      "publishDate": "05-24-2022",
       "gitlink": "https://github.com/mehmedmuric/BankApp",
       "livedemo": "https://bankappmm.netlify.app/",
       "paragraph2": "This project demonstrates my ability to design and develop fintech-oriented user interfaces with a focus on trust, usability, and responsive design. The page includes sections for product features, customer statistics, billing & invoicing, client testimonials, and partner logos. Technologies Used: HTML5 / CSS3, React, TailwindCSS, fully responsive layout optimized for all devices."
     }
-   
+      
   ]

@@ -83,15 +83,15 @@ const Contact = () => {
               </form>
             </div>
           </div>
-          <div className="w-full px-6 lg:w-5/12 xl:w-4/12">
-          <Image
-            src="/images/contactus.svg"
-            alt="contact img"
-            width={700}
-            height={550}
-            className="mt-24 ml-6"
-          />
-          </div>
+          <div className="w-full px-8 lg:w-5/12 xl:w-4/12">
+  <Image
+    src="/images/contactus.svg"
+    alt="contact img"
+    width={700}
+    height={550}
+    className="mt-12 sm:mt-16 md:mt-24 mx-auto max-w-[250px] sm:max-w-[350px] md:max-w-[500px] lg:max-w-full"
+  />
+</div>
         </div>
       </div>
     </section>

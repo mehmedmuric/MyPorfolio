@@ -20,7 +20,10 @@ const Hero = () => {
                   className="wow fadeInUp mx-auto max-w-[800px] text-center"
                   data-wow-delay=".2s"
                 >
-                  <h1  className="typingText mb-5 text-9xl font-bold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+                  <h1
+                    className="typingText mb-5 font-bold leading-tight text-white 
+                    text-3xl sm:text-4xl md:text-4xl lg:text-5xl "
+                  >
                     Mehmed Muric
                   </h1>
                   <p className="dark:text-body-color-dark mb-12 text-base !leading-relaxed text-body-color sm:text-lg md:text-xl">
@@ -44,15 +47,18 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full opacity-0 px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto" data-animate="blink-1">
-              <div className="profileImage relative w-80 h-80 rounded-full overflow-hidden border-4 border-mygreen mb-6">
-                <Image 
+          <div 
+            className="w-full opacity-0 px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto mt-6 sm:mt-10 md:mt-0" 
+            data-animate="blink-1"
+          >
+            <div className="profileImage relative w-40 h-40 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-mygreen mb-6">
+              <Image 
                 src="/images/logo/mehmed.jpg" 
                 alt="mehmed" 
                 className="w-full h-full object-cover rounded-full" 
                 fill  
               />
-              </div>
+            </div>
               <h2 className="text-2xl font-semibold text-gray-400 mb-4 italic">Software Engineer</h2>
               <p className="text-lg text-gray-500 mb-4 underline underline-offset-8 decoration-mygreen">Full-stack developer | Mobile & Web Applications</p>
               <p className="text-base text-gray-400">Developer with experience in building modern applications using the latest technologies. I am dedicated to continuous learning and delivering the best solutions for my clients.</p>
