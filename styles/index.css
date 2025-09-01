@@ -12,6 +12,46 @@ html,body{
   color: #ffffff;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+textarea:-webkit-autofill, 
+textarea:-webkit-autofill:hover, 
+textarea:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #2C303B inset; /* tvoja pozadina */
+  -webkit-text-fill-color: white; /* boja teksta */
+  transition: background-color 5000s ease-in-out 0s;
+
+}
+
+/* Stilizovani scrollbar */
+::-webkit-scrollbar {
+  width: 8px; /* širina vertikalnog scrollbara */
+  height: 8px; /* visina horizontalnog scrollbara */
+}
+
+::-webkit-scrollbar-track {
+  background: #1F2128; /* tvoja tamna pozadina scroll bara */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4CAF50; /* mygreen boja */
+  border-radius: 4px;
+  box-shadow: 0 0 12px #4CAF50; /* jači glow efekat */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #66DD66; /* svetlija nijansa na hover */
+  box-shadow: 0 0 16px #66DD66; /* još jači glow na hover */
+}
+
+/* Za Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #4CAF50 #1F2128; /* thumb color, track color */
+}
+
 @layer base {
   body {
     font-family: "Inter", sans-serif;
