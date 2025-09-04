@@ -10,17 +10,9 @@ const initialTestimonials = [
     comment:
       "Working with Mehmed was an amazing experience. He delivered high-quality work on time and exceeded our expectations.",
     image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    role: "Product Manager, Webify",
-    comment:
-      "Professional, detail-oriented, and very responsive. Highly recommend for any web or mobile project!",
-    image:
-      "https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
+      "/images/testimonials/testimonials.png",
+  }
+
 ];
 
 const TestimonialsPage = () => {
@@ -36,6 +28,17 @@ const TestimonialsPage = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setFormData({ ...formData, image: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.comment) return;
@@ -47,7 +50,7 @@ const TestimonialsPage = () => {
       comment: formData.comment,
       image:
         formData.image ||
-        "https://via.placeholder.com/64", // default placeholder
+        "/images/testimonials/testimonials.png", // default placeholder
     };
 
     setTestimonials([newTestimonial, ...testimonials]);
@@ -102,18 +105,27 @@ const TestimonialsPage = () => {
                 </div>
 
                 <div className="w-full">
-                    <label htmlFor="image" className="mb-2 block text-sm font-medium text-white text-center">
-                    Image URL
-                    </label>
-                    <input
-                    type="text"
-                    name="image"
-                    placeholder="Enter image URL"
-                    value={formData.image}
-                    onChange={handleChange}
-                    className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
-                    />
-                </div>
+              <label
+                htmlFor="image"
+                className="mb-2 block text-sm font-medium text-white text-center"
+              >
+                Upload Image
+              </label>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="block w-full text-sm text-mygreen 
+                        border border-mygreen rounded-sm 
+                        cursor-pointer 
+                        bg-transparent 
+                        file:mr-4 file:py-2 file:px-4 
+                        file:rounded-lg file:border-0 
+                        file:text-sm file:font-semibold 
+                        file:bg-transparent file:text-mygreen 
+                        hover:file:bg-mygreen hover:file:text-white px-6 py-3 file:duration-500"
+              />
+            </div>
 
                 <div className="w-full">
                     <label htmlFor="comment" className="mb-2 block text-sm font-medium text-white text-center">
@@ -169,8 +181,3 @@ const TestimonialsPage = () => {
 };
 
 export default TestimonialsPage;
-
-
-
-
-
