@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import Breadcrumb from "../components/Common/Breadcrumb";
+import Image from "next/image";
 
 const initialTestimonials = [
   {
@@ -62,8 +63,8 @@ const TestimonialsPage = () => {
       <Breadcrumb pageName="Testimonials" description="--------" />
 
       <section className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 sm:py-32 lg:px-8">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-indigo-500),transparent)] opacity-10"></div>
-        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900 shadow-xl ring-1 shadow-mygreen/65 ring-white/10 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-mygreen),transparent)] opacity-10"></div>
+        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900 shadow-xl ring-1 shadow-mygreen/80 ring-mygreen/50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
 
         <div className="mx-auto max-w-7xl">
           <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-16">
@@ -161,12 +162,13 @@ const TestimonialsPage = () => {
                   <p className="text-gray-300 text-sm sm:text-base">“{t.comment}”</p>
                 </blockquote>
                 <figcaption className="flex flex-col items-center">
-                  <img
+                  <Image
                     src={t.image}
                     alt={t.name}
                     width={64}
                     height={64}
                     className="rounded-full mb-3 border-2 border-mygreen"
+                    
                   />
                   <div className="font-semibold text-white">{t.name}</div>
                   <div className="text-gray-400 text-sm">{t.role}</div>
