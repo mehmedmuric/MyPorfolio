@@ -1,29 +1,33 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Breadcrumb from "../components/Common/Breadcrumb";
-import Image from "next/image";
 
-const initialTestimonials = [
-  {
-    id: 1,
-    name: "John Doe",
-    role: "CEO, TechCorp",
-    comment:
-      "Working with Mehmed was an amazing experience. He delivered high-quality work on time and exceeded our expectations.",
-    image:
-      "/images/testimonials/testimonials.png",
-  }
-
-];
+interface Testimonial {
+  id: string;
+  name: string;
+  role?: string;
+  comment: string;
+  image?: string;
+}
 
 const TestimonialsPage = () => {
-  const [testimonials, setTestimonials] = useState(initialTestimonials);
+  const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [formData, setFormData] = useState({
     name: "",
     role: "",
     comment: "",
     image: "",
   });
+
+  // Učitavanje postojećih komentara
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch("/api/testimonials");
+      const data = await res.json();
+      setTestimonials(data);
+    };
+    fetchData();
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -37,26 +41,32 @@ const TestimonialsPage = () => {
         setFormData({ ...formData, image: reader.result as string });
       };
       reader.readAsDataURL(file);
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.comment) return;
-
-    const newTestimonial = {
-      id: testimonials.length + 1,
-      name: formData.name,
-      role: formData.role || "Client",
-      comment: formData.comment,
-      image:
-        formData.image ||
-        "/images/testimonials/testimonials.png", // default placeholder
-    };
-
-    setTestimonials([newTestimonial, ...testimonials]);
-    setFormData({ name: "", role: "", comment: "", image: "" });
+    }
   };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  if (!formData.name || !formData.comment) return;
+
+  try {
+    const res = await fetch("/api/testimonials", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...formData,
+        image: formData.image || "/images/testimonials/testimonials.png", // fallback
+      }),
+    });
+
+    if (res.ok) {
+      const newTestimonial = await res.json();
+      setTestimonials([newTestimonial, ...testimonials]);
+      setFormData({ name: "", role: "", comment: "", image: "" });
+    }
+  } catch (error) {
+    console.error("Failed to submit testimonial:", error);
+  }
+};
 
   return (
     <>
@@ -74,7 +84,7 @@ const TestimonialsPage = () => {
           {/* Forma za novi komentar */}
           <form
                 onSubmit={handleSubmit}
-                className="max-w-3xl mx-auto bg-transparent/25 p-8 rounded-2xl shadow-lg border border-mygreen flex flex-col items-center gap-6 mb-10"
+                className="max-w-3xl mx-auto bg-transparent/45 p-8 rounded-2xl shadow-lg border border-mygreen flex flex-col items-center gap-6 mb-10"
                 >
                 <div className="w-full">
                     <label htmlFor="name" className="mb-2 block text-sm font-medium text-white text-center">
@@ -162,7 +172,7 @@ const TestimonialsPage = () => {
                   <p className="text-gray-300 text-sm sm:text-base">“{t.comment}”</p>
                 </blockquote>
                 <figcaption className="flex flex-col items-center">
-                  <Image
+                  <img
                     src={t.image}
                     alt={t.name}
                     width={64}
