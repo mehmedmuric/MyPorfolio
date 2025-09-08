@@ -31,7 +31,8 @@ const Hero = () => {
                   </p>
                   <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
                     <Link
-                      href="https://www.linkedin.com/in/mehmed-muric-185297232/"
+                      target="_blank"
+                      href="/MojCV.pdf"
                       className="rounded-lg bg-mygreen px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen hover:text-mygreen"
                     >
                       🔥View my CV
