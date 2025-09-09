@@ -62,6 +62,22 @@
       "gitlink": "https://github.com/mehmedmuric/BankApp",
       "livedemo": "https://bankappmm.netlify.app/",
       "paragraph2": "This project demonstrates my ability to design and develop fintech-oriented user interfaces with a focus on trust, usability, and responsive design. The page includes sections for product features, customer statistics, billing & invoicing, client testimonials, and partner logos. Technologies Used: HTML5 / CSS3, React, TailwindCSS, fully responsive layout optimized for all devices."
-    }
+    },
+   {
+    "id": 5,
+    "title": "Ecommerce Shop Vite + React",
+    "image": "/images/projects/ViteReactEcommerce.png",
+    "paragraph": "A modern ecommerce web application built with Vite and React, designed to provide users with a smooth and responsive online shopping experience. The platform includes product listings, shopping cart functionality, and a clean UI that emphasizes usability and performance.",
+    "author": {
+      "name": "Mehmed Muric",
+      "designation": "FullStack Developer",
+      "image": "/images/logo/mehmed.jpg"
+    },
+    "tags": ["React", " - Vite", " - TailwindCSS", " - JavaScript"],
+    "publishDate": "06-15-2023",
+    "gitlink": "https://github.com/mehmedmuric/ViteReact-Ecommerce",
+    "livedemo": "https://vitereactecommerce.netlify.app/",
+    "paragraph2": "This project demonstrates my skills in building scalable ecommerce solutions with modern frontend technologies. Key features include dynamic product catalog, add-to-cart system, checkout flow, and responsive design optimized for all devices. Technologies Used: React, Vite, TailwindCSS, and JavaScript for a fast, modular, and efficient development workflow."
+  }
       
   ]
