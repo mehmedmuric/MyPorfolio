@@ -58,7 +58,7 @@ const AboutPage = () => {
           <Image
             src="/images/about/aboutme.svg"
             alt="Mehmed Muric"
-            className="w-full h-full object-cover"
+            className="w-full h-full"
             width={500}
             height={500}
           />
