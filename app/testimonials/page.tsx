@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Breadcrumb from "../components/Common/Breadcrumb";
+import Image from "next/image";
 
 interface Testimonial {
   id: string;
@@ -22,9 +23,20 @@ const TestimonialsPage = () => {
   // Učitavanje postojećih komentara
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/testimonials");
-      const data = await res.json();
-      setTestimonials(data);
+      try {
+        const res = await fetch("/api/testimonials");
+        const data = await res.json();
+
+        if (Array.isArray(data)) {
+          setTestimonials(data);
+        } else {
+          console.error("API nije vratio niz:", data);
+          setTestimonials([]);
+        }
+      } catch (error) {
+        console.error("Greška pri fetchovanju:", error);
+        setTestimonials([]);
+      }
     };
     fetchData();
   }, []);
@@ -45,28 +57,28 @@ const TestimonialsPage = () => {
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  if (!formData.name || !formData.comment) return;
+    e.preventDefault();
+    if (!formData.name || !formData.comment) return;
 
-  try {
-    const res = await fetch("/api/testimonials", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...formData,
-        image: formData.image || "/images/testimonials/testimonials.png", // fallback
-      }),
-    });
+    try {
+      const res = await fetch("/api/testimonials", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          image: formData.image || "/images/testimonials/testimonials.png", // fallback
+        }),
+      });
 
-    if (res.ok) {
-      const newTestimonial = await res.json();
-      setTestimonials([newTestimonial, ...testimonials]);
-      setFormData({ name: "", role: "", comment: "", image: "" });
+      if (res.ok) {
+        const newTestimonial = await res.json();
+        setTestimonials([newTestimonial, ...testimonials]);
+        setFormData({ name: "", role: "", comment: "", image: "" });
+      }
+    } catch (error) {
+      console.error("Failed to submit testimonial:", error);
     }
-  } catch (error) {
-    console.error("Failed to submit testimonial:", error);
-  }
-};
+  };
 
   return (
     <>
@@ -83,43 +95,40 @@ const TestimonialsPage = () => {
 
           {/* Forma za novi komentar */}
           <form
-                onSubmit={handleSubmit}
-                className="max-w-3xl mx-auto bg-transparent/45 p-8 rounded-2xl shadow-lg border border-mygreen flex flex-col items-center gap-6 mb-10"
-                >
-                <div className="w-full">
-                    <label htmlFor="name" className="mb-2 block text-sm font-medium text-white text-center">
-                    Your Name
-                    </label>
-                    <input
-                    type="text"
-                    name="name"
-                    placeholder="Enter your name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
-                    required
-                    />
-                </div>
+            onSubmit={handleSubmit}
+            className="max-w-3xl mx-auto bg-transparent/45 p-8 rounded-2xl shadow-lg border border-mygreen flex flex-col items-center gap-6 mb-10"
+          >
+            <div className="w-full">
+              <label htmlFor="name" className="mb-2 block text-sm font-medium text-white text-center">
+                Your Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Enter your name"
+                value={formData.name}
+                onChange={handleChange}
+                className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
+                required
+              />
+            </div>
 
-                <div className="w-full">
-                    <label htmlFor="role" className="mb-2 block text-sm font-medium text-white text-center">
-                    Role / Company
-                    </label>
-                    <input
-                    type="text"
-                    name="role"
-                    placeholder="Enter your role or company"
-                    value={formData.role}
-                    onChange={handleChange}
-                    className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
-                    />
-                </div>
+            <div className="w-full">
+              <label htmlFor="role" className="mb-2 block text-sm font-medium text-white text-center">
+                Role / Company
+              </label>
+              <input
+                type="text"
+                name="role"
+                placeholder="Enter your role or company"
+                value={formData.role}
+                onChange={handleChange}
+                className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
+              />
+            </div>
 
-                <div className="w-full">
-              <label
-                htmlFor="image"
-                className="mb-2 block text-sm font-medium text-white text-center"
-              >
+            <div className="w-full">
+              <label htmlFor="image" className="mb-2 block text-sm font-medium text-white text-center">
                 Upload Image
               </label>
               <input
@@ -136,55 +145,55 @@ const TestimonialsPage = () => {
                         file:bg-transparent file:text-mygreen 
                         hover:file:bg-mygreen hover:file:text-white px-6 py-3 file:duration-500"
               />
-            </div>
+            </div>
 
-                <div className="w-full">
-                    <label htmlFor="comment" className="mb-2 block text-sm font-medium text-white text-center">
-                    Your Comment
-                    </label>
-                    <textarea
-                    name="comment"
-                    rows={5}
-                    placeholder="Enter your comment"
-                    value={formData.comment}
-                    onChange={handleChange}
-                    className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
-                    required
-                    ></textarea>
-                </div>
+            <div className="w-full">
+              <label htmlFor="comment" className="mb-2 block text-sm font-medium text-white text-center">
+                Your Comment
+              </label>
+              <textarea
+                name="comment"
+                rows={5}
+                placeholder="Enter your comment"
+                value={formData.comment}
+                onChange={handleChange}
+                className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
+                required
+              ></textarea>
+            </div>
 
-                <button
-                    type="submit"
-                    className="mt-4 rounded-lg bg-mygreen px-16 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen"
-                >
-                    Submit
-                </button>
-                </form> 
+            <button
+              type="submit"
+              className="mt-4 rounded-lg bg-mygreen px-16 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen"
+            >
+              Submit
+            </button>
+          </form>
 
           {/* Testimonial kartice */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
-            {testimonials.map((t) => (
-              <figure
-                key={t.id}
-                className="bg-gray-800 rounded-2xl p-6 shadow-lg flex flex-col items-center text-center border-2 border-mygreen"
-              >
-                <blockquote className="mb-6">
-                  <p className="text-gray-300 text-sm sm:text-base">“{t.comment}”</p>
-                </blockquote>
-                <figcaption className="flex flex-col items-center">
-                  <img
-                    src={t.image}
-                    alt={t.name}
-                    width={64}
-                    height={64}
-                    className="rounded-full mb-3 border-2 border-mygreen"
-                    
-                  />
-                  <div className="font-semibold text-white">{t.name}</div>
-                  <div className="text-gray-400 text-sm">{t.role}</div>
-                </figcaption>
-              </figure>
-            ))}
+            {Array.isArray(testimonials) &&
+              testimonials.map((t) => (
+                <figure
+                  key={t.id}
+                  className="bg-gray-800 rounded-2xl p-6 shadow-lg flex flex-col items-center text-center border-2 border-mygreen"
+                >
+                  <blockquote className="mb-6">
+                    <p className="text-gray-300 text-sm sm:text-base">“{t.comment}”</p>
+                  </blockquote>
+                  <figcaption className="flex flex-col items-center">
+                    <Image
+                      src={t.image || "/images/testimonials/testimonials.png"}
+                      alt={t.name}
+                      width={64}
+                      height={64}
+                      className="rounded-full mb-3 border-2 border-mygreen"
+                    />
+                    <div className="font-semibold text-white">{t.name}</div>
+                    <div className="text-gray-400 text-sm">{t.role}</div>
+                  </figcaption>
+                </figure>
+              ))}
           </div>
         </div>
       </section>

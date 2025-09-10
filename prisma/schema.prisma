@@ -13,6 +13,6 @@ model Testimonial {
   role    String?
   comment String
   image   String?
-  ipAddress String?
   createdAt DateTime @default(now())
+  ip        String? 
 }
