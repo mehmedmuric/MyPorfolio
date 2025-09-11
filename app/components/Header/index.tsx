@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import LanguageSwitcher from "./LanguageSwitcher";
+// import LanguageSwitcher from "./LanguageSwitcher";
 import menuData from "./menuData";
 
 const Header = () => {
@@ -157,7 +157,7 @@ const Header = () => {
               <div className="flex items-center justify-end pr-16 lg:pr-0">
                 
                 <div>
-                  <LanguageSwitcher />
+                  {/* <LanguageSwitcher /> */}
                 </div>
               </div>
             </div>

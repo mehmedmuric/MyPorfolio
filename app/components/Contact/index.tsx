@@ -1,4 +1,5 @@
 "use client";
+
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
@@ -19,10 +20,10 @@ const Contact = () => {
 
     emailjs
       .sendForm(
-        "service_jt0dhte", // tvoj service ID
-        "template_i0djgfp", // tvoj template ID
+        "service_jt0dhte",
+        "template_i0djgfp",
         form.current,
-        "e3HwtEEiXF4PsfjEl" // tvoj public key
+        "e3HwtEEiXF4PsfjEl"
       )
       .then(
         () => {
