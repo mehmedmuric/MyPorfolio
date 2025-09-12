@@ -9,6 +9,8 @@ import Technologies from "./components/Technologies";
 import BlogList from "./components/Blog";
 
 
+
+
 export default function Home() {
 
   return (

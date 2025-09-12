@@ -2,12 +2,17 @@
 import AboutSection from "../components/AboutWebAndMobile";
 import Breadcrumb from "../components/Common/Breadcrumb";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Page | Free Next.js Template for Startup and SaaS",
-  description: "This is About Page for Startup Nextjs Template",
-  // other metadata
+  title: "Terms of Use",
+  description: "Read the Terms of Use outlining the rules, responsibilities, and conditions for using this website, services, and content.",
+  openGraph: {
+    title: "Terms of Use | Mehmed Muric",
+    description: "Read the Terms of Use outlining the rules, responsibilities, and conditions for using this website, services, and content.",
+    url: "https://mehmedmuric/TermsOfUse",
+    images: ["/images/logo/MMlogo.png"],
+  },
 };
 
 const TermsOfUse = () => {

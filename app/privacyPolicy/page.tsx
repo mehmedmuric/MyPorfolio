@@ -2,12 +2,17 @@
 import AboutSection from "../components/AboutWebAndMobile";
 import Breadcrumb from "../components/Common/Breadcrumb";
 
-import { Metadata } from "next";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About Page | Free Next.js Template for Startup and SaaS",
-  description: "This is About Page for Startup Nextjs Template",
-  // other metadata
+  title: "Privacy Policy",
+  description: "Read our Privacy Policy to learn how we collect, use, and protect your personal data when you use this website and its services.",
+  openGraph: {
+    title: "Privacy Policy | Mehmed Muric",
+    description: "Read our Privacy Policy to learn how we collect, use, and protect your personal data when you use this website and its services.",
+    url: "https://mehmedmuric/privacyPolicy",
+    images: ["/images/logo/MMlogo.png"],
+  },
 };
 
 const PrivacyPolicy = () => {
