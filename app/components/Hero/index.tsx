@@ -60,6 +60,10 @@ const Hero = () => {
                 alt="mehmed" 
                 className="w-full h-full object-cover rounded-full" 
                 fill  
+                sizes="(max-width: 640px) 100vw,  
+                  (max-width: 1024px) 80vw,  
+                  (max-width: 1280px) 70vw,  
+                  50vw"
               />
             </div>
               <h2 className="text-2xl font-semibold text-gray-400 mb-4 italic">Software Engineer</h2>

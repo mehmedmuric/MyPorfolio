@@ -20,7 +20,7 @@ const Footer = () => {
                     alt="logo"
                     width={120}
                     height={30}
-                    className=""               
+                    className="w-auto h-auto"               
                   />
                 </Link>
                 <p className="text-body-color-dark mb-2 text-base leading-relaxed text-[18px]">

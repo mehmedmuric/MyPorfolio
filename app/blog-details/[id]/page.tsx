@@ -63,7 +63,10 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <div className="flex items-center gap-3">
               <div className="relative h-10 w-10 rounded-full overflow-hidden">
-                <Image src={blog.author.image} alt="author" fill className="object-cover" />
+                <Image src={blog.author.image} alt="author" fill className="object-cover" sizes="(max-width: 640px) 100vw,  
+                  (max-width: 1024px) 80vw,  
+                  (max-width: 1280px) 70vw,  
+                  50vw"  />
               </div>
               <span className="text-sm sm:text-base text-body-color">By {blog.author.name}</span>
             </div>

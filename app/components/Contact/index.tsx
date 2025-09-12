@@ -127,6 +127,7 @@ const Contact = () => {
               width={700}
               height={550}
               className="mt-12 sm:mt-16 md:mt-24 mx-auto max-w-[250px] sm:max-w-[350px] md:max-w-[500px] lg:max-w-full"
+              priority={true}
             />
           </div>
         </div>

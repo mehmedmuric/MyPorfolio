@@ -21,10 +21,11 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             src={image} 
             alt="image" 
             fill
-            sizes="(max-width: 640px) 100vw,   /* mobilni telefoni */
-                  (max-width: 1024px) 80vw,  /* tableti */
-                  (max-width: 1280px) 70vw,  /* manji desktop */
-                  50vw"                     /* desktop / veliki ekrani */ 
+            sizes="(max-width: 640px) 100vw,  
+                  (max-width: 1024px) 80vw,  
+                  (max-width: 1280px) 70vw,  
+                  50vw"     
+            priority={true}               
 
           />
         </Link>
@@ -44,7 +45,10 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
             <div className="mr-5 flex items-center border-r pr-5 border-mygreen border-opacity-75 xl:mr-3 xl:pr-3 2xl:mr-5 2xl:pr-5">
               <div className="mr-4">
                 <div className="relative h-12 w-12 overflow-hidden rounded-full">
-                  <Image src={author.image} alt="author" fill  className="object-cover"/>
+                  <Image src={author.image} alt="author" fill  className="object-cover" sizes="(max-width: 640px) 100vw,  
+                  (max-width: 1024px) 80vw,  
+                  (max-width: 1280px) 70vw,  
+                  50vw"/>
                 </div>
               </div>
               <div className="w-full">
