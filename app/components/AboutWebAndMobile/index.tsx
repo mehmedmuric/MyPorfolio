@@ -15,6 +15,7 @@ const Features = () => {
           title="About Web and Mobile Applications"
           paragraph="I specialize in building high-performance web and mobile applications tailored to your business needs from sleek user interfaces to scalable backend solutions."
           center
+          
         />
 
         <div

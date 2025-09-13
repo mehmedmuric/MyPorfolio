@@ -46,7 +46,7 @@ const Contact = () => {
           title="Contact"
           paragraph="Feel free to reach out via the form below."
           center
-          mb="80px"
+          mb="50px"
         />
         <div className="-mx-4 flex flex-wrap opacity-0" data-animate="slide-in-left">
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">

@@ -3,6 +3,7 @@ import Link from "next/link";
 import SharePost from "../../components/Blog/SharePost";
 import TagButton from "../../components/Blog/TagButton";
 import { Metadata } from "next";
+import Breadcrumb from "@/app/components/Common/Breadcrumb";
 
 interface BlogAuthor {
   name: string;
@@ -51,88 +52,90 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
   if (!blog) return <div className="text-white p-10 text-center">Project not found</div>;
 
   return (
-    <section className="pt-[120px] pb-[100px] px-4 sm:px-6 lg:px-8">
-      <div className="max-w-5xl mx-auto flex flex-col gap-10">
-        {/* TITLE */}
-        <h2 className="text-center text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
-          {blog.title}
-        </h2>
+      <>
+      <Breadcrumb
+          pageName={blog.title}
+          description="Project Details"
+        />
+      <section className="pb-[100px] px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto flex flex-col gap-10">
 
-        {/* AUTHOR & META */}
-        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0 border-b border-mygreen border-opacity-50 pb-4">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-4">
-            <div className="flex items-center gap-3">
-              <div className="relative h-10 w-10 rounded-full overflow-hidden">
-                <Image src={blog.author.image} alt="author" fill className="object-cover" sizes="(max-width: 640px) 100vw,  
-                  (max-width: 1024px) 80vw,  
-                  (max-width: 1280px) 70vw,  
-                  50vw"  />
+          {/* AUTHOR & META */}
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0 border-b border-mygreen border-opacity-50 pb-4">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              <div className="flex items-center gap-3">
+                <div className="relative h-10 w-10 rounded-full overflow-hidden">
+                  <Image src={blog.author.image} alt="author" fill className="object-cover" sizes="(max-width: 640px) 100vw,  
+                    (max-width: 1024px) 80vw,  
+                    (max-width: 1280px) 70vw,  
+                    50vw"  />
+                </div>
+                <span className="text-sm sm:text-base text-body-color">By {blog.author.name}</span>
               </div>
-              <span className="text-sm sm:text-base text-body-color">By {blog.author.name}</span>
+              <span className="text-sm sm:text-base text-body-color">{blog.publishDate}</span>
             </div>
-            <span className="text-sm sm:text-base text-body-color">{blog.publishDate}</span>
+            <span className="inline-flex items-center justify-center rounded-full bg-mygreen px-3 py-2 text-sm font-semibold text-white">
+              {blog.tags}
+            </span>
           </div>
-          <span className="inline-flex items-center justify-center rounded-full bg-mygreen px-3 py-1 text-sm font-semibold text-white">
-            {blog.tags}
-          </span>
+
+          {/* PARAGRAPH */}
+          <p className="text-center sm:text-left text-base sm:text-lg leading-relaxed text-body-color">
+            {blog.paragraph}
+          </p>
+
+          {/* IMAGE */}
+          <div className="w-full rounded-lg overflow-hidden border border-mygreen">
+            <div className="relative aspect-[16/9] w-full">
+              <Image
+                src={blog.image}
+                alt="project image"
+                fill
+                className="object-cover object-center"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 50vw"
+              />
+            </div>
+          </div>
+
+          {/* LINKS */}
+          <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
+            <Link
+              href={blog.livedemo}
+              target="_blank"
+              className="rounded-lg bg-mygreen px-6 py-3 text-base font-semibold text-white border border-mygreen hover:bg-transparent hover:text-mygreen transition-colors duration-300"
+            >
+              Live Demo
+            </Link>
+            <Link
+              href={blog.gitlink}
+              target="_blank"
+              className="rounded-lg bg-black px-6 py-3 text-base font-semibold text-white border border-mygreen hover:bg-transparent hover:text-mygreen transition-colors duration-300"
+            >
+              GitHub Code
+            </Link>
+          </div>
+
+          {/* PARAGRAPH2 */}
+          {blog.paragraph2 && (
+            <div className="bg-primary bg-opacity-10 rounded-lg p-6 sm:p-8 text-center italic text-body-color">
+              {blog.paragraph2}
+            </div>
+          )}
+
+          {/* TAGS & SOCIAL */}
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
+            <div className="flex flex-wrap justify-center sm:justify-start gap-3">
+              <TagButton href="https://github.com/mehmedmuric" text="Github Profile" />
+              <TagButton href="/contact" text="Contact Me" />
+              <TagButton href="/about" text="About Me" />
+            </div>
+            <div className="flex justify-center sm:justify-end">
+              <SharePost />
+            </div>
+          </div>
         </div>
-
-        {/* PARAGRAPH */}
-        <p className="text-center sm:text-left text-base sm:text-lg leading-relaxed text-body-color">
-          {blog.paragraph}
-        </p>
-
-        {/* IMAGE */}
-        <div className="w-full rounded-lg overflow-hidden border border-mygreen">
-          <div className="relative aspect-[16/9] w-full">
-            <Image
-              src={blog.image}
-              alt="project image"
-              fill
-              className="object-cover object-center"
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 50vw"
-            />
-          </div>
-        </div>
-
-        {/* LINKS */}
-        <div className="flex flex-col sm:flex-row justify-center items-center gap-4">
-          <Link
-            href={blog.livedemo}
-            target="_blank"
-            className="rounded-lg bg-mygreen px-6 py-3 text-base font-semibold text-white border border-mygreen hover:bg-transparent hover:text-mygreen transition-colors duration-300"
-          >
-            Live Demo
-          </Link>
-          <Link
-            href={blog.gitlink}
-            target="_blank"
-            className="rounded-lg bg-black px-6 py-3 text-base font-semibold text-white border border-mygreen hover:bg-transparent hover:text-mygreen transition-colors duration-300"
-          >
-            GitHub Code
-          </Link>
-        </div>
-
-        {/* PARAGRAPH2 */}
-        {blog.paragraph2 && (
-          <div className="bg-primary bg-opacity-10 rounded-lg p-6 sm:p-8 text-center italic text-body-color">
-            {blog.paragraph2}
-          </div>
-        )}
-
-        {/* TAGS & SOCIAL */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-6">
-          <div className="flex flex-wrap justify-center sm:justify-start gap-3">
-            <TagButton href="https://github.com/mehmedmuric" text="Github Profile" />
-            <TagButton href="/contact" text="Contact Me" />
-            <TagButton href="/about" text="About Me" />
-          </div>
-          <div className="flex justify-center sm:justify-end">
-            <SharePost />
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

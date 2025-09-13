@@ -20,7 +20,7 @@ const TermsOfUse = () => {
     <>
       <Breadcrumb
         pageName="Terms of Use"
-        description="---------"
+        description=""
       />
 
       <div className="mx-auto max-w-2xl px-6 py-12">

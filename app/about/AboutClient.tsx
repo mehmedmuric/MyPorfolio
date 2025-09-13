@@ -9,7 +9,7 @@ const AboutClient  = () => {
   useScrollAnimations();
   return (
     <>
-      <Breadcrumb pageName="About Me" description="--------" />
+      <Breadcrumb pageName="About Me" description="" />
       <AboutSection />
 
       <div
@@ -22,32 +22,16 @@ const AboutClient  = () => {
             Hi, I’m Mehmed Muric
           </h1>
           <p className="text-body-color mb-4 text-sm sm:text-base md:text-lg">
-            I’m a passionate full-stack developer with experience in building
-            modern web and mobile applications. I specialize in crafting
-            high-performance, scalable solutions tailored to meet the unique
-            needs of each client. From sleek, intuitive user interfaces to
-            robust backend systems, I strive to deliver clean, maintainable, and
-            efficient code in every project.
+            I’m a passionate full-stack developer from Novi Pazar with a strong drive for building modern web and mobile applications. I specialize in creating high-performance, scalable solutions that are tailored to meet the unique needs of each client. From sleek and intuitive user interfaces to robust backend systems, I always aim to deliver clean, maintainable, and efficient code.
           </p>
           <p className="text-body-color mb-4 text-sm sm:text-base md:text-lg">
-            I have a strong foundation in a wide range of technologies,
-            including React, React Native, Next.js, Node.js, TailwindCSS,
-            Material UI, TypeScript, Appwrite, MongoDB, and MySQL. I’m
-            constantly learning and keeping up with the latest trends to ensure
-            that the applications I develop are fast, secure, and optimized for
-            both performance and user experience.
+            My foundation in tech started at the Technical High School in Novi Pazar, where I graduated as an Information Technology Technician. Currently, I’m finishing my studies in Computer Science at a private university in Novi Pazar, further deepening my knowledge and expertise in the field..
           </p>
           <p className="text-body-color mb-4 text-sm sm:text-base md:text-lg">
-            My journey in tech began with completing a technical high school,
-            which gave me a solid understanding of programming principles and
-            problem-solving skills. Since then, I’ve dedicated myself to
-            applying that knowledge to real-world projects, helping clients
-            bring their ideas to life with reliable and scalable solutions.
+            Over the years, I’ve gained solid experience with a wide range of technologies, including React, React Native, Next.js, Node.js, TailwindCSS, Material UI, TypeScript, Appwrite, MongoDB, and MySQL. I’m constantly learning and keeping up with the latest trends to ensure the applications I develop are fast, secure, and optimized for both performance and user experience.
           </p>
           <p className="text-body-color text-sm sm:text-base md:text-lg">
-            I approach every project with a long-term vision, offering not just
-            development but also ongoing support and optimization, so your
-            applications continue to perform at their best long after launch.
+            What drives me most is helping people bring their ideas to life. I approach every project with a long-term vision, not just focusing on development, but also offering ongoing support and optimization, so that applications continue to perform at their best long after launch.
           </p>
         </div>
 

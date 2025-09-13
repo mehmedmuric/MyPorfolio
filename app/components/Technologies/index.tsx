@@ -42,9 +42,9 @@ const Technologies = () => {
       
         <SectionTitle
           title="Technologies"
-          paragraph="---------------------"
+          paragraph=""
           center
-          mb="80px"
+          mb="50px"
         />
 
         {/* Frontend Technologies */}

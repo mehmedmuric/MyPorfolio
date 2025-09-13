@@ -9,9 +9,9 @@ const Certifications = () => {
       <div className="container">
       <SectionTitle
           title="Certifications"
-          paragraph="-----------------"
+          paragraph=""
           center
-          mb="80px"
+          mb="50px"
         />
         <div className="-mx-4 flex flex-wrap">
           <div className="w-full px-4">

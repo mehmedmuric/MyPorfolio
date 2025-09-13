@@ -82,7 +82,7 @@ const TestimonialsClient = () => {
 
   return (
     <>
-      <Breadcrumb pageName="Testimonials" description="--------" />
+      <Breadcrumb pageName="Testimonials" description="" />
 
       <section className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 sm:py-32 lg:px-8">
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-mygreen),transparent)] opacity-10"></div>

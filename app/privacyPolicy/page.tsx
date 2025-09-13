@@ -20,7 +20,7 @@ const PrivacyPolicy = () => {
     <>
       <Breadcrumb
         pageName="Privacy Policy"
-        description="---------"
+        description=""
       />
       <div className="mx-auto max-w-2xl px-6 py-12">
       <h1 className="text-3xl font-bold tracking-tight mb-6 underline underline-offset-[12px] decoration-mygreen">Privacy Policy</h1>

@@ -31,7 +31,7 @@ const Hero = () => {
                   <p className="dark:text-body-color-dark mb-12 text-base !leading-relaxed text-body-color sm:text-lg md:text-xl">
                     Hi, I’m Mehmed Muric, a full-stack developer crafting modern web and mobile applications. I work with a wide range of technologies, including React, React Native, Next.js, Node.js, TailwindCSS, Material UI, TypeScript, Appwrite, MongoDB, and MySQL, delivering clean, scalable, and high-performance solutions.
                   </p>
-                  <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+                  <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 mb-12">
                     <Link
                       target="_blank"
                       href="/MojCV.pdf"
@@ -70,10 +70,10 @@ const Hero = () => {
               <p className="text-lg text-gray-500 mb-4 underline underline-offset-8 decoration-mygreen">Full-stack developer | Mobile & Web Applications</p>
               <p className="text-base text-gray-400">Developer with experience in building modern applications using the latest technologies. I am dedicated to continuous learning and delivering the best solutions for my clients.</p>
               <div className="socialLinks flex justify-center mt-6">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2">
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2 underline decoration-dashed decoration-mygreen/50 underline-offset-8">
                   <i className="fab fa-github"></i> GitHub
                 </a>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2">
+                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2 underline decoration-dashed decoration-mygreen/50 underline-offset-8">
                   <i className="fab fa-linkedin"></i> LinkedIn
                 </a>
               </div>

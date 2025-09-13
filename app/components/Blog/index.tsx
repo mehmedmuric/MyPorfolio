@@ -47,9 +47,9 @@ const BlogList = () => {
       <div className="container">
         <SectionTitle
           title="Projects"
-          paragraph="-----------------"
+          paragraph=""
           center
-          mb="80px"
+          mb="50px"
         />
         <Swiper
           className="!p-6"

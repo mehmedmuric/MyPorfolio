@@ -13,7 +13,7 @@ const Breadcrumb = ({
         <div className="-mx-4 flex flex-wrap items-center">
           <div className="w-full px-4 md:w-8/12 lg:w-7/12">
             <div className="mb-8 max-w-[570px] md:mb-0 lg:mb-12">
-              <h1 className="mb-5 text-2xl sm:text-3xl font-bold text-gray-300">
+              <h1 className="mb-3 text-2xl sm:text-3xl font-bold text-gray-300 mt-6">
                 {pageName}
               </h1>
               <p className="text-base font-medium leading-relaxed text-body-color">
@@ -23,7 +23,7 @@ const Breadcrumb = ({
           </div>
           <div className="w-full px-4 md:w-4/12 lg:w-5/12">
             <div className="text-end">
-              <ul className="flex items-center md:justify-end">
+              <ul className="flex items-center md:justify-end mb-6">
                 <li className="flex items-center">
                   <Link
                     href="/"

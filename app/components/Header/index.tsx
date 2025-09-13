@@ -95,7 +95,7 @@ const Header = () => {
                 )}
                 <nav
                   id="navbarCollapse"
-                  className={`navbar absolute right-0 z-30 w-[250px] rounded border-[.5px] border-body-color/50 px-6 py-4 duration-300 dark:border-body-color/20 bg-dark lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
+                  className={`navbar absolute right-2 z-30 w-[300px] rounded-lg border-[.5px] px-6 py-4 duration-300 border-mygreen bg-dark/80 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
                     navbarOpen
                       ? "visibility top-32 opacity-100"
                       : "invisible top-[120%] opacity-0"
@@ -107,13 +107,13 @@ const Header = () => {
                         {menuItem.path ? (
                           <Link
                             href={menuItem.path}
-                            className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 transition-all duration-300 ${
+                            className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 transition-all duration-300 underline decoration-dashed decoration-mygreen/50 underline-offset-8  ${
                               usePathName === menuItem.path
                                 ? "text-mygreen"
                                 : "text-white hover:text-mygreen"
                             }`}
                           >
-                            {menuItem.title}
+                            {menuItem.title} 
                           </Link>
                         ) : (
                           <>
