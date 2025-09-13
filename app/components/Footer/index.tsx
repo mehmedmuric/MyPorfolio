@@ -30,7 +30,7 @@ const Footer = () => {
                   mehmedmuric22@gmail.com
                 </p>
                 <p className="text-body-color-dark mb-6 text-base leading-relaxed text-[18px]">
-                  <span className="text-mygreen">(+381)</span>  62 1753220
+                  <span className="text-mygreen">(+381)</span>  62 175-3220
                 </p>
                 <div className="flex items-center ">
                   <a

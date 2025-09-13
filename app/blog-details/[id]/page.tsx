@@ -5,6 +5,8 @@ import TagButton from "../../components/Blog/TagButton";
 import { Metadata } from "next";
 import Breadcrumb from "@/app/components/Common/Breadcrumb";
 
+import { notFound } from "next/navigation";
+
 interface BlogAuthor {
   name: string;
   image: string;
@@ -31,6 +33,9 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   const blogs: Blog[] = await res.json();
 
   const blog = blogs.find((b) => b.id === Number(id));
+  
+    const blogId = Number(params.id);
+      if (isNaN(blogId)) notFound();
 
   if (!blog) {
     return { title: "Blog Not Found", description: "This blog does not exist" };

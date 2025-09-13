@@ -110,6 +110,7 @@ const TestimonialsClient = () => {
                 onChange={handleChange}
                 className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
                 required
+                maxLength={22}
               />
             </div>
 
@@ -124,6 +125,7 @@ const TestimonialsClient = () => {
                 value={formData.role}
                 onChange={handleChange}
                 className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
+                maxLength={22}
               />
             </div>
 
@@ -133,7 +135,7 @@ const TestimonialsClient = () => {
               </label>
               <input
                 type="file"
-                accept="image/*"
+                accept="image/png, image/jpeg, image/jpg, image/webp"
                 onChange={handleImageChange}
                 className="block w-full text-sm text-mygreen 
                         border border-mygreen rounded-sm 
@@ -159,6 +161,7 @@ const TestimonialsClient = () => {
                 onChange={handleChange}
                 className="border-stroke text-body-color-dark dark:shadow-two w-full rounded-sm border px-6 py-3 text-base  outline-none focus:border-[#4CAF50] border-transparent bg-[#2C303B] focus:shadow-none"
                 required
+                maxLength={250}
               ></textarea>
             </div>
 
