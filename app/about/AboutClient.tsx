@@ -1,9 +1,16 @@
 "use client";
 import Image from "next/image";
-import AboutSection from "../components/AboutWebAndMobile";
 import Breadcrumb from "../components/Common/Breadcrumb";
 
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+import dynamic from "next/dynamic";
+import Loader from "../components/Loader";
+
+
+const AboutSection = dynamic(() => import("../components/AboutWebAndMobile"), {
+  ssr: false, // ili true ako treba SEO
+  loading: () => <Loader />,
+});
 
 const AboutClient  = () => {
   useScrollAnimations();

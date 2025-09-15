@@ -1,11 +1,17 @@
 'use client'
 
-import SingleBlog from '../components/Blog/SingleBlog';
 import Breadcrumb from '../components/Common/Breadcrumb';
 import { Blog } from '@/types/blog';
 import React, { useEffect, useState } from 'react'
 
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+import dynamic from 'next/dynamic';
+import Loader from '../components/Loader';
+
+const SingleBlog = dynamic(() => import("../components/Blog/SingleBlog"), {
+  ssr: false, // ili true ako treba SEO
+  loading: () => <Loader />,
+});
 
 
 
@@ -25,10 +31,15 @@ const ProjectsClient  = () => {
 
   return (
     <>
+    
       <Breadcrumb
         pageName="Projects"
         description="All Projects"
       />
+      
+    <section className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 sm:py-32 lg:px-8">
+        <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-mygreen),transparent)] opacity-10"></div>
+        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900 shadow-xl ring-1 shadow-mygreen/80 ring-mygreen/50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
 
       <div className="grid gap-4 ml-3 mr-3 mb-8 mt-6
                       grid-cols-1 
@@ -36,11 +47,14 @@ const ProjectsClient  = () => {
                       md:grid-cols-3 
                       lg:grid-cols-4" 
                       data-animate="scale-in-center">
+                        
         {projects.map((blog, index) => (
           <SingleBlog blog={blog} key={index}/>
+          
         ))}
       </div>
-    </>
+    </section>    
+  </>
   );
 }
 

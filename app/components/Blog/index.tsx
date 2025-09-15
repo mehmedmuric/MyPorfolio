@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import SingleBlog from "./SingleBlog";
 import { Blog } from "@/types/blog";
 import SectionTitle from "../Common/SectionTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,6 +10,15 @@ import Link from "next/link";
 import { Autoplay } from "swiper/modules";
 
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+
+import dynamic from "next/dynamic";
+import Loader from "../Loader";
+
+const SingleBlog = dynamic(() => import("./SingleBlog"), {
+  ssr: false, // ili true ako treba SEO
+  loading: () => <Loader />,
+});
+
 
 const BlogList = () => {
   useScrollAnimations();

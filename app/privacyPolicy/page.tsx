@@ -1,5 +1,4 @@
 
-import AboutSection from "../components/AboutWebAndMobile";
 import Breadcrumb from "../components/Common/Breadcrumb";
 
 import type { Metadata } from "next";

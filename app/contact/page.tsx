@@ -1,7 +1,5 @@
-import Breadcrumb from "../components/Common/Breadcrumb";
-import Contact from "../components/Contact";
-
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import ContactClient from "./ContactClient";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -14,17 +12,7 @@ export const metadata: Metadata = {
   },
 };
 
-const ContactPage = () => {
-  return (
-    <>
-      <Breadcrumb
-        pageName="Contact Me"
-        description=""
-      />
+export default function AboutPage() {
+  return <ContactClient />;
+}
 
-      <Contact />
-    </>
-  );
-};
-
-export default ContactPage;
