@@ -1,13 +1,11 @@
-
 import { Inter } from 'next/font/google';
-
 import '../styles/index.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import BotpressChat from './components/BotpressChat'; 
 
 const inter = Inter({ subsets: ['latin'] });
 
-// Metadata for SEO and social sharing
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -17,7 +15,7 @@ export const metadata: Metadata = {
   },
   description:
     "Portfolio of Mehmed Muric, a full-stack developer specialized in modern web and mobile applications using React, Next.js, Node.js, and more.",
-  metadataBase: new URL("https://mehmedmuric.com"), // 👈 stavi pravi domen kad deployaš
+  metadataBase: new URL("https://mehmedmuric.com"),
 
   openGraph: {
     type: "website",
@@ -28,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "Mehmed Muric Portfolio",
     images: [
       {
-        url: "/images/logo/MMlogo.png", // 👈 napravi sliku 1200x630
+        url: "/images/logo/MMlogo.png",
         width: 1200,
         height: 630,
         alt: "Portfolio Preview",
@@ -42,7 +40,7 @@ export const metadata: Metadata = {
     description:
       "Portfolio showcasing modern web & mobile applications built with React, Next.js, Node.js, and more.",
     images: ["/images/og-image.png"],
-    creator: "@mehmedmuric", // ako imaš Twitter
+    creator: "@mehmedmuric",
   },
 
   alternates: {
@@ -50,7 +48,7 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/images/logo/MMlogo.png", // 👈 stavi favicon
+    icon: "/images/logo/MMlogo.png",
     shortcut: "/images/logo/MMlogo.png",
     apple: "/images/logo/MMlogo.png",
   },
@@ -68,21 +66,23 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
-
+  const isHome = params.locale === undefined;
   return (
     <html lang="en">
-      <body className={inter.className}>
-            <Header />
-            {children}
-            <Footer />
+      <body className={`${inter.className} ${isHome ? "home" : ""}`}>
+        <Header />
+        {children}
+        <BotpressChat />
+        <Footer />
+
+        {/* Chatbot widget */}
       </body>
     </html>
   );

@@ -4,11 +4,12 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: `
       default-src 'self';
-      script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;
-      style-src 'self' 'unsafe-inline' https:;
+      script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.botpress.cloud https://files.bpcontent.cloud https:;
+      style-src 'self' 'unsafe-inline' https://cdn.botpress.cloud https://files.bpcontent.cloud https:;
       img-src 'self' data: https:;
       font-src 'self' https: data:;
       connect-src 'self' https:;
+      media-src 'self' data: https:;
       frame-ancestors 'none';
       base-uri 'self';
       form-action 'self';
@@ -34,7 +35,7 @@ const securityHeaders = [
 
 const nextConfig = {
   images: {
-    domains: ["images.unsplash.com", "github.com"],
+    domains: ["images.unsplash.com", "github.com", "cdn.botpress.cloud", "files.bpcontent.cloud"],
     remotePatterns: [
       {
         protocol: "https",

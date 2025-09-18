@@ -37,6 +37,7 @@ const BlogList = dynamic(() => import("./components/Blog"), {
 export default function Home() {
 
   return (
+    
     <>
       <Hero />
       <Features />

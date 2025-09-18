@@ -10,7 +10,27 @@ html,body{
   padding: 0;
   background-color: #0f0f0f;
   color: #ffffff;
+   overflow-x: hidden; /* sprečava horizontalno guranje */
+  position: relative; /* chat ostaje u svom sloju */
+  min-height: 100vh;
 }
+/* Ako imaš glavni container za content */
+main, .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 16px;
+  display: block;
+  box-sizing: border-box;
+}
+
+/* Chat widget fiksno u bottom-right */
+.bp-chat-widget {
+  position: fixed !important;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
@@ -120,6 +140,10 @@ textarea:-webkit-autofill:focus {
   border-right: 2px solid #00ff00;
   animation: typing 4s steps(40, end), blinkCursor 0.75s step-end infinite;
 }
+
+
+
+
 
 @keyframes typing {
   from {
