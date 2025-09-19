@@ -1,13 +1,11 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import SharePost from "../../components/Blog/SharePost";
-import TagButton from "../../components/Blog/TagButton";
-import { Metadata } from "next";
-import Breadcrumb from "@/app/components/Common/Breadcrumb";
-
 import { notFound } from "next/navigation";
 
-
+import SharePost from "../../components/Blog/SharePost";
+import TagButton from "../../components/Blog/TagButton";
+import Breadcrumb from "@/app/components/Common/Breadcrumb";
 
 interface BlogAuthor {
   name: string;
@@ -27,17 +25,22 @@ interface Blog {
   gitlink: string;
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const { id } = params;
+interface BlogDetailsPageProps {
+  params: {
+    id: string;
+  };
+}
 
+// ✅ Metadata
+export async function generateMetadata({ params }: BlogDetailsPageProps): Promise<Metadata> {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
   const blogs: Blog[] = await res.json();
 
-  const blog = blogs.find((b) => b.id === Number(id));
+  const blogId = Number(params.id);
+  if (isNaN(blogId)) notFound();
 
-    const blogId = Number(params.id);
-      if (isNaN(blogId)) notFound();
+  const blog = blogs.find((b) => b.id === blogId);
 
   if (!blog) {
     return { title: "Blog Not Found", description: "This blog does not exist" };
@@ -49,7 +52,8 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   };
 }
 
-const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
+// ✅ Page component
+export default async function BlogDetailsPage({ params }: BlogDetailsPageProps) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
   const blogs: Blog[] = await res.json();
@@ -59,23 +63,22 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
   if (!blog) return <div className="text-white p-10 text-center">Project not found</div>;
 
   return (
-      <>
-      <Breadcrumb
-          pageName={blog.title}
-          description="Project Details"
-        />
+    <>
+      <Breadcrumb pageName={blog.title} description="Project Details" />
       <section className="pb-[100px] px-4 sm:px-6 lg:px-8">
         <div className="max-w-5xl mx-auto flex flex-col gap-10">
-
           {/* AUTHOR & META */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0 border-b border-mygreen border-opacity-50 pb-4">
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <div className="flex items-center gap-3">
                 <div className="relative h-10 w-10 rounded-full overflow-hidden">
-                  <Image src={blog.author.image} alt="author" fill className="object-cover" sizes="(max-width: 640px) 100vw,  
-                    (max-width: 1024px) 80vw,  
-                    (max-width: 1280px) 70vw,  
-                    50vw"  />
+                  <Image
+                    src={blog.author.image}
+                    alt="author"
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, (max-width: 1280px) 70vw, 50vw"
+                  />
                 </div>
                 <span className="text-sm sm:text-base text-body-color">By {blog.author.name}</span>
               </div>
@@ -144,6 +147,4 @@ const BlogDetailsPage = async ({ params }: { params: { id: string } }) => {
       </section>
     </>
   );
-};
-
-export default BlogDetailsPage;
+}
