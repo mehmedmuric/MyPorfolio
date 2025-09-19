@@ -82,6 +82,7 @@ const Technologies = () => {
                     className="w-20 h-20 object-contain"
                     width={80}
                     height={80}
+                    priority={true}
                   />
                 </div>
                 <p className="mt-4 text-left text-white text-sm font-medium">{image.name}</p>
