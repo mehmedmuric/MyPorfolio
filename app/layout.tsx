@@ -4,6 +4,8 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import BotpressChat from './components/BotpressChat'; 
 
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
 const inter = Inter({ subsets: ['latin'] });
 
 import type { Metadata } from "next";
@@ -80,6 +82,7 @@ export default async function LocaleLayout({
       <body className={`${inter.className} ${isHome ? "home" : ""}`}>
         <Header />
         {children}
+        <SpeedInsights />
         <BotpressChat />
         <Footer />
 
