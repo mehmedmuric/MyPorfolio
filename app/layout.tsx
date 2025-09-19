@@ -3,7 +3,7 @@ import '../styles/index.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import BotpressChat from './components/BotpressChat'; 
-
+import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -76,11 +76,11 @@ export default async function LocaleLayout({
       <body className={`${inter.className} ${isHome ? "home" : ""}`}>
         <Header />
         {children}
+        <Analytics/>
         <SpeedInsights />
         <BotpressChat />
         <Footer />
-
-        {/* Chatbot widget */}
+       
       </body>
     </html>
   );
