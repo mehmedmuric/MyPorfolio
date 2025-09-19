@@ -60,7 +60,7 @@ const BlogList = () => {
           mb="50px"
         />
         <Swiper
-          className="!p-6"
+          className="!p-4"
           ref={swiperRef}
           spaceBetween={30}
           slidesPerView={3}
@@ -84,7 +84,7 @@ const BlogList = () => {
               slidesPerView: 3, // desktop
             },
             1280: {
-              slidesPerView: 4, // large desktop (ako hoćeš)
+              slidesPerView: 3, // large desktop (ako hoćeš)
             },
           }}
           navigation={{

@@ -70,10 +70,10 @@ const Hero = () => {
               <p className="text-lg text-gray-500 mb-4 underline underline-offset-8 decoration-mygreen">Full-stack developer | Mobile & Web Applications</p>
               <p className="text-base text-gray-400">Developer with experience in building modern applications using the latest technologies. I am dedicated to continuous learning and delivering the best solutions for my clients.</p>
               <div className="socialLinks flex justify-center mt-6">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2 underline decoration-dashed decoration-mygreen/50 underline-offset-8">
+                <a href="https://github.com/mehmedmuric" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2 underline decoration-dashed decoration-mygreen/50 underline-offset-8">
                   <i className="fab fa-github"></i> GitHub
                 </a>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2 underline decoration-dashed decoration-mygreen/50 underline-offset-8">
+                <a href="https://linkedin.com/in/mehmed-muric-185297232" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2 underline decoration-dashed decoration-mygreen/50 underline-offset-8">
                   <i className="fab fa-linkedin"></i> LinkedIn
                 </a>
               </div>

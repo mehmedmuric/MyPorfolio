@@ -13,7 +13,7 @@ const securityHeaders = [
       frame-ancestors 'none';
       base-uri 'self';
       form-action 'self';
-    `.replace(/\s{2,}/g, " "), // uklanja višestruke razmake i nove linije
+    `.replace(/\s{2,}/g, " "), 
   },
   {
     key: "Referrer-Policy",

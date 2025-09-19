@@ -7,7 +7,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
   return (
     <>
       <div
-        className="wow fadeInUp group relative overflow-hidden rounded-lg shadow-lg ring-0 ring-green-500 transition-all duration-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2 bg-dark"
+        className="wow fadeInUp max-w-[365px] group relative overflow-hidden rounded-lg shadow-lg ring-0 ring-green-500 transition-all duration-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2 bg-dark"
         data-wow-delay=".1s"
       >
         <Link
