@@ -66,14 +66,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LocaleLayout({
+export default async function LocaleLayout({
   children,
   params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
-  const isHome = params.locale === undefined;
+  const resolvedParams = await params;
+  const isHome = resolvedParams.locale === undefined;
   return (
     <html lang="en">
       <body className={`${inter.className} ${isHome ? "home" : ""}`}>
