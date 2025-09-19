@@ -18,7 +18,6 @@ export const metadata: Metadata = {
   description:
     "Portfolio of Mehmed Muric, a full-stack developer specialized in modern web and mobile applications using React, Next.js, Node.js, and more.",
   metadataBase: new URL("https://mehmedmuric.com"),
-
   openGraph: {
     type: "website",
     url: "https://mehmedmuric.com",
@@ -28,32 +27,27 @@ export const metadata: Metadata = {
     siteName: "Mehmed Muric Portfolio",
     images: [
       {
-        url: "/images/logo/MMlogo.png",
+        url: "https://mehmedmuric.com/images/logo/MMlogo.png",
         width: 1200,
         height: 630,
         alt: "Portfolio Preview",
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
     title: "Mehmed Muric - Full-Stack Developer",
     description:
       "Portfolio showcasing modern web & mobile applications built with React, Next.js, Node.js, and more.",
-    images: ["/images/og-image.png"],
+    images: ["https://mehmedmuric.com/images/og-image.png"],
     creator: "@mehmedmuric",
   },
-
-  alternates: {
-    canonical: "https://mehmedmuric.com",
-  },
-
   icons: {
     icon: "/images/logo/MMlogo.png",
     shortcut: "/images/logo/MMlogo.png",
     apple: "/images/logo/MMlogo.png",
   },
+
 
   robots: {
     index: true,
