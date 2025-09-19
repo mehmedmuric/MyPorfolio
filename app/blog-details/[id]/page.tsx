@@ -26,13 +26,13 @@ interface Blog {
 }
 
 // ✅ Metadata
+// generateMetadata
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }): Promise<Metadata> {
-  const resolvedParams = await params; // <-- await param
-  const blogId = Number(resolvedParams.id);
+  const blogId = Number(params.id);
   if (isNaN(blogId)) notFound();
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
@@ -40,10 +40,7 @@ export async function generateMetadata({
   const blogs: Blog[] = await res.json();
 
   const blog = blogs.find((b) => b.id === blogId);
-
-  if (!blog) {
-    return { title: "Blog Not Found", description: "This blog does not exist" };
-  }
+  if (!blog) return { title: "Blog Not Found", description: "This blog does not exist" };
 
   return {
     title: `${blog.title} | My Portfolio Blog`,
@@ -51,23 +48,20 @@ export async function generateMetadata({
   };
 }
 
-// ✅ Page component
+// Page component
 export default async function BlogDetailsPage({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: { id: string };
 }) {
-  const resolvedParams = await params; // <-- await param
-  const blogId = Number(resolvedParams.id);
+  const blogId = Number(params.id);
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
   const blogs: Blog[] = await res.json();
 
   const blog = blogs.find((b) => b.id === blogId);
-
-  if (!blog)
-    return <div className="text-white p-10 text-center">Project not found</div>;
+  if (!blog) notFound(); // 404 fallback
 
   return (
     <>
