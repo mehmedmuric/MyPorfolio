@@ -1,7 +1,7 @@
 import { Metadata } from "next";
+import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 
 import SharePost from "../../components/Blog/SharePost";
 import TagButton from "../../components/Blog/TagButton";
@@ -25,20 +25,19 @@ interface Blog {
   gitlink: string;
 }
 
-interface BlogDetailsPageProps {
-  params: {
-    id: string;
-  };
-}
-
 // ✅ Metadata
-export async function generateMetadata({ params }: BlogDetailsPageProps): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}): Promise<Metadata> {
+  const resolvedParams = await params; // <-- await param
+  const blogId = Number(resolvedParams.id);
+  if (isNaN(blogId)) notFound();
+
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
   const blogs: Blog[] = await res.json();
-
-  const blogId = Number(params.id);
-  if (isNaN(blogId)) notFound();
 
   const blog = blogs.find((b) => b.id === blogId);
 
@@ -53,14 +52,22 @@ export async function generateMetadata({ params }: BlogDetailsPageProps): Promis
 }
 
 // ✅ Page component
-export default async function BlogDetailsPage({ params }: BlogDetailsPageProps) {
+export default async function BlogDetailsPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const resolvedParams = await params; // <-- await param
+  const blogId = Number(resolvedParams.id);
+
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
   const blogs: Blog[] = await res.json();
 
-  const blog = blogs.find((b) => b.id === Number(params.id));
+  const blog = blogs.find((b) => b.id === blogId);
 
-  if (!blog) return <div className="text-white p-10 text-center">Project not found</div>;
+  if (!blog)
+    return <div className="text-white p-10 text-center">Project not found</div>;
 
   return (
     <>
@@ -80,9 +87,13 @@ export default async function BlogDetailsPage({ params }: BlogDetailsPageProps) 
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, (max-width: 1280px) 70vw, 50vw"
                   />
                 </div>
-                <span className="text-sm sm:text-base text-body-color">By {blog.author.name}</span>
+                <span className="text-sm sm:text-base text-body-color">
+                  By {blog.author.name}
+                </span>
               </div>
-              <span className="text-sm sm:text-base text-body-color">{blog.publishDate}</span>
+              <span className="text-sm sm:text-base text-body-color">
+                {blog.publishDate}
+              </span>
             </div>
             <span className="inline-flex items-center justify-center rounded-full bg-mygreen px-3 py-2 text-sm font-semibold text-white">
               {blog.tags}
