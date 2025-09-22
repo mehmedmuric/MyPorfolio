@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Zabranjuj ovo ako želiš da ne indexiraš određene foldere
+Disallow: /node_modules/
+Disallow: /api/
+Disallow: /private/
+
+# Lokacija sitemap-a
+Sitemap: https://mehmedmuric.com/sitemap.xml
