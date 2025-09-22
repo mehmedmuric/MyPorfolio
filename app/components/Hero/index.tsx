@@ -32,13 +32,13 @@ const Hero = () => {
                     Hi, I’m Mehmed Muric, a full-stack developer crafting modern web and mobile applications. I work with a wide range of technologies, including React, React Native, Next.js, Node.js, TailwindCSS, Material UI, TypeScript, Appwrite, MongoDB, and MySQL, delivering clean, scalable, and high-performance solutions.
                   </p>
                   <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 mb-12">
-                    <Link
+                    <a
                       target="_blank"
                       href="/MojCV.pdf"
                       className="rounded-lg bg-mygreen px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen hover:text-mygreen"
                     >
                       🔥View my CV
-                    </Link>
+                    </a>
                     <Link
                       target="_blank"
                       href="https://github.com/mehmedmuric"
