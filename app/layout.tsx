@@ -39,13 +39,24 @@ export const metadata: Metadata = {
     title: "Mehmed Muric - Full-Stack Developer",
     description:
       "Portfolio showcasing modern web & mobile applications built with React, Next.js, Node.js, and more.",
-    images: ["https://mehmedmuric.com/images/og-image.png"],
+    images: ["/android-chrome-512x512.png"],
     creator: "@mehmedmuric",
   },
   icons: {
-    icon: "/images/logo/MMlogo.png",
-    shortcut: "/images/logo/MMlogo.png",
-    apple: "/images/logo/MMlogo.png",
+    icon: [
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-64x64.png", sizes: "64x64", type: "image/png" },
+      { url: "/favicon.ico", sizes: "any", type: "image/x-icon" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon-180x180.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      { rel: "android-chrome", url: "/android-chrome-192x192.png" },
+      { rel: "android-chrome", url: "/android-chrome-512x512.png" },
+    ],
   },
 
 
