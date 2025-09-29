@@ -9,6 +9,8 @@ export async function GET() {
     { id: 1 },
     { id: 2 },
     { id: 3 },
+    { id: 4 },
+    { id: 5 },
     // dodaj sve projekte koje imaš u /data/projects.json
   ];
 
@@ -16,8 +18,8 @@ export async function GET() {
     "",
     "about",
     "contact",
-    "testimonials",
     "projects",
+    "testimonials",
     "blog",
   ];
 

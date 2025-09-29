@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Poveži sitemap
-Sitemap: https://mehmedmuric.com/sitemap
+Sitemap: https://mehmedmuric.com/sitemap.xml
 
 # Preporučene SEO direktive
 Crawl-delay: 10
