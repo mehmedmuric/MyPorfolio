@@ -43,7 +43,7 @@ const SingleBrand = ({ brand }: { brand: Brand }) => {
         rel="nofollow noreferrer"
         className="relative h-12 w-full opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 dark:opacity-60 dark:hover:opacity-100"
       >
-        <Image src={image} alt={name} fill sizes="(max-width: 640px) 100vw,  
+        <Image src={image} alt={name} width={500} height={500} priority sizes="(max-width: 640px) 100vw,  
                   (max-width: 1024px) 80vw,  
                   (max-width: 1280px) 70vw,  
                   50vw"/>

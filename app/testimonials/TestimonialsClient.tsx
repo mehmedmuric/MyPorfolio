@@ -105,6 +105,8 @@ const TestimonialsClient = () => {
               <input
                 type="text"
                 name="name"
+                id="name"
+                autoComplete="name"
                 placeholder="Enter your name"
                 value={formData.name}
                 onChange={handleChange}
@@ -120,6 +122,8 @@ const TestimonialsClient = () => {
               </label>
               <input
                 type="text"
+                id="role"
+                autoComplete="role"
                 name="role"
                 placeholder="Enter your role or company"
                 value={formData.role}
@@ -134,6 +138,8 @@ const TestimonialsClient = () => {
                 Upload Image
               </label>
               <input
+                id="image"
+                name="image"
                 type="file"
                 accept="image/png, image/jpeg, image/jpg, image/webp"
                 onChange={handleImageChange}
@@ -154,6 +160,8 @@ const TestimonialsClient = () => {
                 Your Comment
               </label>
               <textarea
+                id="comment"
+                autoComplete="comment"
                 name="comment"
                 rows={5}
                 placeholder="Enter your comment"

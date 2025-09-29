@@ -49,6 +49,7 @@ const nextConfig = {
       {
         source: "/(.*)", // primenjuje se na sve rute
         headers: securityHeaders,
+        
       },
     ];
   },

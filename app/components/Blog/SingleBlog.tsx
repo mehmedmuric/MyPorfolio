@@ -20,12 +20,13 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           <Image 
             src={image} 
             alt="image" 
-            fill
+            width={370}
+            height={220}
             sizes="(max-width: 640px) 100vw,  
                   (max-width: 1024px) 80vw,  
                   (max-width: 1280px) 70vw,  
                   50vw"     
-            priority={true}               
+            priority               
 
           />
         </Link>

@@ -84,11 +84,13 @@ export default function BotpressChat() {
         key={`botpress-core-${pathname}`}
         src="https://cdn.botpress.cloud/webchat/v3.3/inject.js"
         strategy="afterInteractive"
+        
       />
       <Script
         key={`botpress-config-${pathname}`}
         src="https://files.bpcontent.cloud/2025/09/17/00/20250917004657-NG87AUC3.js"
         strategy="afterInteractive"
+        
       />
     </>
   );

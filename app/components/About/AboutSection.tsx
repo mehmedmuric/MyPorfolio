@@ -17,8 +17,9 @@ const AboutSection = () => {
               <Image
                 src="/images/about/aboutsection.svg"
                 alt="about image"
-                fill
-                className="object-contain"
+                priority
+                width={500}
+                height={480}
               />
             </div>
           </div>

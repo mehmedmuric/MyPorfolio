@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 // import LanguageSwitcher from "./LanguageSwitcher";
 import menuData from "./menuData";
 
+
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {

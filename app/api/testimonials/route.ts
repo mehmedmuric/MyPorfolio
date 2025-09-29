@@ -81,11 +81,14 @@ export async function POST(req: Request) {
     });
 
     return NextResponse.json(newTestimonial, { status: 201 });
+    
   } catch (error) {
     console.error("POST /api/testimonials error:", error);
     return NextResponse.json(
       { error: "Failed to create testimonial" },
       { status: 500 }
     );
+    
   }
+  
 }

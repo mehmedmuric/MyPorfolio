@@ -59,7 +59,9 @@ const Hero = () => {
                 src="/images/logo/mehmed.jpg" 
                 alt="mehmed" 
                 className="w-full h-full object-cover rounded-full" 
-                fill  
+                width={500} 
+                height={500} 
+                priority
                 sizes="(max-width: 640px) 100vw,  
                   (max-width: 1024px) 80vw,  
                   (max-width: 1280px) 70vw,  

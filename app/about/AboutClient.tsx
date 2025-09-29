@@ -4,20 +4,13 @@ import Breadcrumb from "../components/Common/Breadcrumb";
 
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 import dynamic from "next/dynamic";
-import Loader from "../components/Loader";
-
-
-const AboutSection = dynamic(() => import("../components/AboutWebAndMobile"), {
-  ssr: false, // ili true ako treba SEO
-  loading: () => <Loader />,
-});
 
 const AboutClient  = () => {
   useScrollAnimations();
   return (
     <>
       <Breadcrumb pageName="About Me" description="" />
-      <AboutSection />
+      
 
       <div
         className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-12 flex flex-col md:flex-row items-center md:items-start gap-10 sm:gap-16 lg:gap-20 opacity-0"
@@ -47,9 +40,9 @@ const AboutClient  = () => {
           <Image
             src="/images/about/aboutme.svg"
             alt="Mehmed Muric"
-            className="w-full h-full"
-            width={500}
-            height={500}
+            width={400}
+            height={400}
+            priority
           />
         </div>
       </div>

@@ -63,11 +63,13 @@ const Contact = () => {
                 <div className="-mx-4 flex flex-wrap">
                   <div className="w-full px-4 md:w-1/2">
                     <div className="mb-8">
-                      <label htmlFor="name" className="mb-3 block text-sm font-medium text-white">
+                      <label htmlFor="user_name" className="mb-3 block text-sm font-medium text-white">
                         Your Name
                       </label>
                       <input
                         type="text"
+                        id="user_name"
+                        autoComplete="user_name"
                         name="user_name"
                         required
                         defaultValue=""
@@ -78,12 +80,14 @@ const Contact = () => {
                   </div>
                   <div className="w-full px-4 md:w-1/2">
                     <div className="mb-8">
-                      <label htmlFor="email" className="mb-3 block text-sm font-medium text-white">
+                      <label htmlFor="user_email" className="mb-3 block text-sm font-medium text-white">
                         Your Email
                       </label>
                       <input
                         type="email"
+                        id="user_email"
                         name="user_email"
+                        autoComplete="user_email"
                         required
                         defaultValue=""
                         placeholder="Enter your email"
@@ -97,6 +101,8 @@ const Contact = () => {
                         Your Message
                       </label>
                       <textarea
+                        id="message"
+                        autoComplete="message"
                         name="message"
                         rows={5}
                         required
@@ -129,7 +135,7 @@ const Contact = () => {
               width={700}
               height={550}
               className="mt-12 sm:mt-16 md:mt-24 mx-auto max-w-[250px] sm:max-w-[350px] md:max-w-[500px] lg:max-w-full"
-              priority={true}
+              priority
             />
           </div>
         </div>
