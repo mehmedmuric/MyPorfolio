@@ -5,10 +5,10 @@ const securityHeaders = [
   value: `
     default-src 'self';
     script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.botpress.cloud https://files.bpcontent.cloud https://vitals.vercel-insights.com https:;
-    style-src 'self' 'unsafe-inline' https://cdn.botpress.cloud https://files.bpcontent.cloud https:;
+    style-src 'self' 'unsafe-inline' https://cdn.botpress.cloud https://files.bpcontent.cloud https: data:;
     img-src 'self' data: https: https://vitals.vercel-insights.com;
     font-src 'self' https: data:;
-    connect-src 'self' https: https://vitals.vercel-insights.com;
+    connect-src 'self' https: https://vitals.vercel-insights.com https://messaging.botpress.cloud wss://messaging.botpress.cloud;
     media-src 'self' data: https:;
     frame-ancestors 'none';
     base-uri 'self';
