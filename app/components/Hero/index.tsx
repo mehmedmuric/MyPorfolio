@@ -6,7 +6,6 @@ import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
 
 
-
 const Hero = () => {
   useScrollAnimations();
   return (
@@ -23,20 +22,25 @@ const Hero = () => {
                   className="wow fadeInUp mx-auto max-w-[800px] text-center"
                   data-wow-delay=".2s"
                 >
-                  <h1  className="typingText mb-5 text-9xl font-bold leading-tight text-white sm:text-4xl sm:leading-tight md:text-5xl md:leading-tight">
+                  <h1
+                    className="typingText mb-5 font-bold leading-tight text-white 
+                    text-3xl sm:text-4xl md:text-4xl lg:text-5xl "
+                  >
                     Mehmed Muric
                   </h1>
                   <p className="dark:text-body-color-dark mb-12 text-base !leading-relaxed text-body-color sm:text-lg md:text-xl">
-                    Ja sam Mehmed Muric, developer sa iskustvom u razvoju modernih web i mobilnih aplikacija. Kao full-stack developer, ovladavam širokim spektrom tehnologija, uključujući HTML, CSS, TailwindCSS, Material UI, React, React Native, JavaScript, TypeScript, Next.js, Node.js, Appwrite, MongoDB i MySQL.
+                    Hi, I’m Mehmed Muric, a full-stack developer crafting modern web and mobile applications. I work with a wide range of technologies, including React, React Native, Next.js, Node.js, TailwindCSS, Material UI, TypeScript, Appwrite, MongoDB, and MySQL, delivering clean, scalable, and high-performance solutions.
                   </p>
-                  <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
-                    <Link
-                      href="https://nextjstemplates.com/templates/saas-starter-startup"
+                  <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 mb-12">
+                    <a
+                      target="_blank"
+                      href="/MojCV.pdf"
                       className="rounded-lg bg-mygreen px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen hover:text-mygreen"
                     >
                       🔥View my CV
-                    </Link>
+                    </a>
                     <Link
+                      target="_blank"
                       href="https://github.com/mehmedmuric"
                       className="inline-block rounded-lg bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-mygreen"
                     >
@@ -46,23 +50,32 @@ const Hero = () => {
                 </div>
               </div>
             </div>
-            <div className="w-full opacity-0 px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto" data-animate="blink-1">
-              <div className="profileImage relative w-80 h-80 rounded-full overflow-hidden border-4 border-mygreen mb-6">
-                <Image 
+          <div 
+            className="w-full opacity-0 px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto mt-6 sm:mt-10 md:mt-0" 
+            data-animate="blink-1"
+          >
+            <div className="profileImage relative w-40 h-40 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-mygreen mb-6">
+              <Image 
                 src="/images/logo/mehmed.jpg" 
                 alt="mehmed" 
                 className="w-full h-full object-cover rounded-full" 
-                fill  
+                width={500} 
+                height={500} 
+                priority
+                sizes="(max-width: 640px) 100vw,  
+                  (max-width: 1024px) 80vw,  
+                  (max-width: 1280px) 70vw,  
+                  50vw"
               />
-              </div>
+            </div>
               <h2 className="text-2xl font-semibold text-gray-400 mb-4 italic">Software Engineer</h2>
               <p className="text-lg text-gray-500 mb-4 underline underline-offset-8 decoration-mygreen">Full-stack developer | Mobile & Web Applications</p>
-              <p className="text-base text-gray-400">Developer sa iskustvom u izradi modernih aplikacija koristeći najnovije tehnologije. Posvećen sam učenju i pružanju najboljih rešenja za moje klijente.</p>
+              <p className="text-base text-gray-400">Developer with experience in building modern applications using the latest technologies. I am dedicated to continuous learning and delivering the best solutions for my clients.</p>
               <div className="socialLinks flex justify-center mt-6">
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2">
+                <a href="https://github.com/mehmedmuric" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2 underline decoration-dashed decoration-mygreen/50 underline-offset-8">
                   <i className="fab fa-github"></i> GitHub
                 </a>
-                <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2">
+                <a href="https://linkedin.com/in/mehmed-muric-185297232" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-mygreen mx-2 underline decoration-dashed decoration-mygreen/50 underline-offset-8">
                   <i className="fab fa-linkedin"></i> LinkedIn
                 </a>
               </div>

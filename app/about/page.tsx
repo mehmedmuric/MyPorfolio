@@ -1,25 +1,18 @@
-
-import AboutSection from "../components/AboutWebAndMobile";
-import Breadcrumb from "../components/Common/Breadcrumb";
-
-import { Metadata } from "next";
+import type { Metadata } from "next";
+import AboutClient from "./AboutClient";
 
 export const metadata: Metadata = {
-  title: "About Page | Free Next.js Template for Startup and SaaS",
-  description: "This is About Page for Startup Nextjs Template",
-  // other metadata
+  title: "About Me",
+  description: "Learn more about me, my skills, and my developer journey.",
+  openGraph: {
+    title: "About Me | Mehmed Muric",
+    description: "Full-stack developer with a passion for building modern web apps.",
+    url: "https://mehmedmuric/about",
+    images: ["/images/logo/MMlogo.png"],
+  },
 };
 
-const AboutPage = () => {
-  return (
-    <>
-      <Breadcrumb
-        pageName="About Me"
-        description="Kreiram brza i moderna web rešenja uz punu podršku i prilagodljivost klijentu."
-      />
-      <AboutSection />
-    </>
-  );
-};
+export default function AboutPage() {
+  return <AboutClient />;
+}
 
-export default AboutPage;

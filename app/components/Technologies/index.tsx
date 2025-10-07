@@ -42,9 +42,9 @@ const Technologies = () => {
       
         <SectionTitle
           title="Technologies"
-          paragraph="---------------------"
+          paragraph=""
           center
-          mb="80px"
+          mb="50px"
         />
 
         {/* Frontend Technologies */}
@@ -61,6 +61,7 @@ const Technologies = () => {
                     className="w-20 h-20 object-contain"
                     width={80}
                     height={80}
+                    priority
                   />
                 </div>
                 <p className="mt-4 text-left text-white text-sm font-medium">{image.name}</p>
@@ -82,6 +83,7 @@ const Technologies = () => {
                     className="w-20 h-20 object-contain"
                     width={80}
                     height={80}
+                    priority
                   />
                 </div>
                 <p className="mt-4 text-left text-white text-sm font-medium">{image.name}</p>
@@ -103,6 +105,7 @@ const Technologies = () => {
                     className="w-20 h-20 object-contain"
                     width={80}
                     height={80}
+                    priority
                   />
                 </div>
                 <p className="mt-4 text-left text-white text-sm font-medium">{image.name}</p>
@@ -124,6 +127,7 @@ const Technologies = () => {
                     className="w-20 h-20 object-contain"
                     width={80}
                     height={80}
+                    priority
                   />
                 </div>
                 <p className="mt-4 text-left text-white text-sm font-medium">{image.name}</p>

@@ -1,0 +1,78 @@
+/* ============================= */
+/* Global widget pozicija       */
+/* ============================= */
+.bpw-widget {
+  bottom: 20px !important;
+  right: 20px !important;
+  z-index: 9999 !important;
+}
+
+/* ============================= */
+/* Desktop chat prozor           */
+/* ============================= */
+.bpw-layout {
+  max-width: 400px !important;
+  width: 100% !important;
+  height: 600px !important;
+  max-height: 80vh !important;
+  border-radius: 12px !important;
+  background-color: #0a0a0a !important;
+  color: #00ff00 !important;
+  border: 2px solid #00ff00 !important;
+  overflow: hidden !important;
+}
+
+/* Header i footer chat */
+.bpw-header {
+  background-color: #050505 !important;
+  color: #00ff00 !important;
+  border-bottom: 1px solid #00ff00 !important;
+}
+
+.bpw-footer {
+  background-color: #050505 !important;
+  border-top: 1px solid #00ff00 !important;
+}
+
+/* ============================= */
+/* Tablet i mobilni uređaji      */
+/* ============================= */
+@media (max-width: 1024px) {
+  .bpw-layout {
+    position: fixed !important;
+    bottom: 10px !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    width: 95% !important;
+    max-width: 480px !important;
+    border-radius: 0 !important;
+    z-index: 99999 !important;
+  }
+}
+
+@media (min-width: 1025px) {
+  .bpw-layout {
+    right: 20px !important;
+    bottom: 20px !important;
+    width: auto !important;
+  }
+}
+
+/* ============================= */
+/* Male mobilne rezolucije       */
+/* ============================= */
+@media (max-width: 768px) {
+  .bpw-layout {
+    top: 70px !important; /* sticky header na manjim telefonima */
+    height: calc(100% - 70px) !important;
+    max-height: calc(100% - 70px) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .bpw-layout {
+    top: 60px !important; /* još manji header na malim telefonima */
+    height: calc(100% - 60px) !important;
+    max-height: calc(100% - 60px) !important;
+  }
+}

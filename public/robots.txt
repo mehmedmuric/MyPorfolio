@@ -1,0 +1,18 @@
+# Dozvoli svim pretraživačima da indeksiraju sajt
+User-agent: *
+Allow: /
+
+# Poveži sitemap
+Sitemap: https://mehmedmuric.com/sitemap.xml
+
+# Preporučene SEO direktive
+Crawl-delay: 10
+Host: https://mehmedmuric.com
+
+# Opcioni: spreči indeksiranje nepotrebnih direktorijuma (ako ih ima)
+Disallow: /node_modules/
+Disallow: /api/
+
+# Keywords i dodatne preporuke (meta keywords se više ne koriste za ranking, ali mogu se dodati)
+# Ovo je samo informativno, Google ih ne koristi za SEO
+# Keywords: full-stack, developer, React, Next.js, Node.js, portfolio, web development, mobile applications, projects

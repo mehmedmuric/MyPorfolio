@@ -1,37 +1,17 @@
-'use client'
+import type { Metadata } from "next";
+import ProjectsClient from "./ProjectsClient";
 
-import SingleBlog from '../components/Blog/SingleBlog';
-import Breadcrumb from '../components/Common/Breadcrumb';
-import { Blog } from '@/types/blog';
-import React, { useEffect, useState } from 'react'
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "Browse my full-stack projects and portfolio work.",
+  openGraph: {
+    title: "Projects | Mehmed Muric",
+    description: "Showcasing portfolio and real-world projects.",
+    url: "https://mehmedmuric/projects",
+    images: ["/images/logo/MMlogo.png"],
+  },
+};
 
-const Projects = () => {
-    const [projects, setProjects] = useState<Blog[]>([]);
-
-      useEffect(() => {
-        const fetchProjects = async () => {
-          const res = await fetch("/data/projects.json");
-          const data = await res.json();
-          setProjects(data);
-        };
-    
-        fetchProjects();
-      }, []);
-  return (
-    <>
-      <Breadcrumb
-        pageName="Projects"
-        description="All Projects"
-      />
-
-      <div className="flex gap-5 ml-8 mb-6 mt-6">
-        {projects.map((blog, index) => (
-            <SingleBlog blog={blog} key={index}/>
-        ))}
-      </div>
-      
-    </>
-  );
+export default function ProjectsPage() {
+  return <ProjectsClient />;
 }
-
-export default Projects

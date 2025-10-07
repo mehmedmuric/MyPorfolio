@@ -1,15 +1,28 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import SingleBlog from "./SingleBlog";
 import { Blog } from "@/types/blog";
 import SectionTitle from "../Common/SectionTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css"; // Uvezi Swiper stilove
 import "swiper/css/navigation"; // Uvezi Swiper navigation stilove
 import Link from "next/link";
+import { Autoplay } from "swiper/modules";
+
+import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+
+import dynamic from "next/dynamic";
+import Loader from "../Loader";
+
+const SingleBlog = dynamic(() => import("./SingleBlog"), {
+  ssr: false, // ili true ako treba SEO
+  loading: () => <Loader />,
+});
+
 
 const BlogList = () => {
+  useScrollAnimations();
+
   const [projects, setProjects] = useState<Blog[]>([]);
   const swiperRef = useRef<any>(null); 
 
@@ -38,30 +51,40 @@ const BlogList = () => {
   };
 
   return (
-    <section className="py-20">
+    <section className="py-20" data-animate="scale-in-center">
       <div className="container">
         <SectionTitle
           title="Projects"
-          paragraph="-----------------"
+          paragraph=""
           center
-          mb="80px"
+          mb="50px"
         />
         <Swiper
-          className="!p-6"
+          className="!p-4"
           ref={swiperRef}
           spaceBetween={30}
           slidesPerView={3}
           loop={true}
-          autoplay={{ delay: 2500 }}
+          autoplay={{
+            delay: 2000,
+            disableOnInteraction: false, 
+          }}
+          modules={[Autoplay]} 
           breakpoints={{
+            0: {
+              slidesPerView: 1, // 📱 very small screens
+            },
             640: {
-              slidesPerView: 1,
+              slidesPerView: 1, // phones
             },
             768: {
-              slidesPerView: 2,
+              slidesPerView: 2, // tablets
             },
             1024: {
-              slidesPerView: 3,
+              slidesPerView: 3, // desktop
+            },
+            1280: {
+              slidesPerView: 3, // large desktop (ako hoćeš)
             },
           }}
           navigation={{
@@ -82,20 +105,13 @@ const BlogList = () => {
             onClick={handlePrevSlide}
             className="bg-green-500 text-white py-3 px-5 rounded-full hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18" />
-            </svg>
+            {`<`}
 
           </button>
           <button
             onClick={handleNextSlide}
             className="bg-green-500 text-white py-3 px-5 rounded-full hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-            </svg>
-
-          </button>
+          >{`>`}</button>
         </div>
 
         <div className="flex justify-center mt-6">
