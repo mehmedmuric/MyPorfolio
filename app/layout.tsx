@@ -13,6 +13,7 @@ const inter = Inter({ subsets: ['latin'] });
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
+  manifest: "/manifest.webmanifest",
   title: {
     default: "Mehmed Muric - Full-Stack Developer",
     template: "%s | Mehmed Muric",
@@ -29,7 +30,7 @@ export const metadata: Metadata = {
     siteName: "Mehmed Muric Portfolio",
     images: [
       {
-        url: "https://mehmedmuric.com/images/logo/MMlogo.png",
+        url: "https://mehmedmuric.com/android-chrome-512x512.png",
         width: 1200,
         height: 630,
         alt: "Portfolio Preview",
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
     title: "Mehmed Muric - Full-Stack Developer",
     description:
       "Portfolio showcasing modern web & mobile applications built with React, Next.js, Node.js, and more.",
-    images: ["/android-chrome-512x512.png"],
+    images: ["https://mehmedmuric.com/android-chrome-512x512.png"],
     creator: "@mehmedmuric",
   },
   icons: {
@@ -84,8 +85,13 @@ export default async function LocaleLayout({
 }) {
   const resolvedParams = await params;
   const isHome = resolvedParams.locale === undefined;
+
   return (
     <html lang="en">
+    <head>
+      <link rel="manifest" href="/manifest.webmanifest" />
+      <meta name="theme-color" content="#00FF88" />
+    </head>
       <body className={`${inter.className} ${isHome ? "home" : ""}`}>
         <Header />
         {children}
