@@ -11,7 +11,7 @@ const brandsData: Brand[] = [
     id: 2,
     name: "JavaScript",
     href: "https://www.udemy.com/certificate/UC-18b028ea-63fa-4628-b33b-86568e7ed0a7/",
-    image: "/images/certificates/javascript.png",
+    image: "/images/certificates/JavaScript.png",
   },
   
 ];
