@@ -31,7 +31,7 @@ const Hero = () => {
             number: {
               value:
                 typeof window !== "undefined" && window.innerWidth < 768 ? 25 : 60,
-              density: { enable: true, area: 800 },
+              density: { enable: true, area: 400 },
             },
             color: { value: "#00ff99" },
             shape: {
