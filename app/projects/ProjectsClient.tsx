@@ -48,7 +48,7 @@ const ProjectsClient  = () => {
         description="All Projects"
       />
       
-    <section className="relative isolate overflow-hidden bg-gray-900/50 px-6 py-24 sm:py-32 lg:px-8">
+    <section className="relative isolate overflow-visible bg-gray-900/50 px-6 py-24 sm:py-32 lg:px-8">
       {/* ✅ Sjajkice */}
                             <Particles
                               id="tsparticles"
@@ -57,7 +57,7 @@ const ProjectsClient  = () => {
                                 background: { color: "transparent" },
                                 fpsLimit: 60,
                                 fullScreen: { enable: false },
-                                detectRetina: true,
+                                detectRetina: false,
                                 particles: {
                                   color: { value: "#00ff99" },
                                   number: { value: 60, density: { enable: true, area: 600 } },
