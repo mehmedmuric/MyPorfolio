@@ -8,6 +8,12 @@ import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 import dynamic from 'next/dynamic';
 import Loader from '../components/Loader';
 
+
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
+
+
+
 const SingleBlog = dynamic(() => import("../components/Blog/SingleBlog"), {
   ssr: false, // ili true ako treba SEO
   loading: () => <Loader />,
@@ -29,6 +35,11 @@ const ProjectsClient  = () => {
     fetchProjects();
   }, []);
 
+  
+  const particlesInit = async (engine: any) => {
+          await loadSlim(engine);
+        };
+
   return (
     <>
     
@@ -38,6 +49,24 @@ const ProjectsClient  = () => {
       />
       
     <section className="relative isolate overflow-hidden bg-gray-900 px-6 py-24 sm:py-32 lg:px-8">
+      {/* ✅ Sjajkice */}
+                            <Particles
+                              id="tsparticles"
+                              init={particlesInit}
+                              options={{
+                                background: { color: "transparent" },
+                                fpsLimit: 60,
+                                particles: {
+                                  color: { value: "#00ff99" },
+                                  number: { value: 60, density: { enable: true, area: 600 } },
+                                  size: { value: { min: 1, max: 3 } },
+                                  move: { enable: true, speed: 0.6, direction: "none", outModes: "out" },
+                                  opacity: { value: 0.4 },
+                                },
+                              }}
+                              className="absolute inset-0 z-0"
+                            />
+              {/* Tekst */}
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-mygreen),transparent)] opacity-10"></div>
         <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900 shadow-xl ring-1 shadow-mygreen/80 ring-mygreen/50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
 

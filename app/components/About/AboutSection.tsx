@@ -7,7 +7,7 @@ const AboutSection = () => {
   useScrollAnimations();
 
   return (
-    <section className="py-16 md:py-24 lg:py-28 opacity-0" data-animate="text-focus-in">
+    <section className="py-16 md:py-24 lg:py-28 opacity-0 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-900" data-animate="text-focus-in">
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap items-center">
 

@@ -3,18 +3,40 @@ import Image from "next/image";
 import Link from "next/link";
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
-
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
 
 
 const Hero = () => {
   useScrollAnimations();
+  const particlesInit = async (engine: any) => {
+      await loadSlim(engine);
+    };
   return (
     <>
       <section
         id="home"
-        className="bg-gray-dark relative z-10 overflow-hidden pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+        className="bg-gradient-to-b bg-gray-900 from-gray-950 via-mygreen/5 to-mygreen/5 relative z-10 overflow-hidden pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         <div className="container">
+         {/* ✅ Sjajkice */}
+              <Particles
+                id="tsparticles"
+                init={particlesInit}
+                options={{
+                  background: { color: "transparent" },
+                  fpsLimit: 60,
+                  particles: {
+                    color: { value: "#00ff99" },
+                    number: { value: 60, density: { enable: true, area: 600 } },
+                    size: { value: { min: 1, max: 3 } },
+                    move: { enable: true, speed: 0.6, direction: "none", outModes: "out" },
+                    opacity: { value: 0.4 },
+                    
+                  },
+                }}
+                className="absolute inset-0 z-0 pointer-events-none"
+              />
           <div className="-mx-4 flex flex-wrap justify-between">
             <div className="w-full px-4 md:w-[40%]">
               <div className="leftSide opacity-0 mt-14" data-animate="blink-1">

@@ -5,17 +5,41 @@ import Breadcrumb from "../components/Common/Breadcrumb";
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 import dynamic from "next/dynamic";
 
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
+
+
 const AboutClient  = () => {
   useScrollAnimations();
+  const particlesInit = async (engine: any) => {
+        await loadSlim(engine);
+      };
   return (
     <>
       <Breadcrumb pageName="About Me" description="" />
       
 
       <div
-        className="mx-auto max-w-6xl px-4 sm:px-6 py-8 sm:py-12 flex flex-col md:flex-row items-center md:items-start gap-10 sm:gap-16 lg:gap-20 opacity-0"
+        className="mx-auto rounded-3xl max-w-6xl px-4 sm:px-6 py-8 sm:py-12 flex flex-col md:flex-row items-center md:items-start gap-10 sm:gap-16 lg:gap-20 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-950"
         data-animate="slide-in-bottom"
       >
+         {/* ✅ Sjajkice */}
+                      <Particles
+                        id="tsparticles"
+                        init={particlesInit}
+                        options={{
+                          background: { color: "transparent" },
+                          fpsLimit: 60,
+                          particles: {
+                            color: { value: "#00ff99" },
+                            number: { value: 60, density: { enable: true, area: 600 } },
+                            size: { value: { min: 1, max: 3 } },
+                            move: { enable: true, speed: 0.6, direction: "none", outModes: "out" },
+                            opacity: { value: 0.4 },
+                          },
+                        }}
+                        className="absolute inset-0 z-0 pointer-events-none"
+                      />
         {/* Tekst */}
         <div className="flex-1 text-center md:text-left">
           <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-6 underline underline-offset-4 decoration-mygreen">

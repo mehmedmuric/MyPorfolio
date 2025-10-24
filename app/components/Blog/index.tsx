@@ -51,7 +51,7 @@ const BlogList = () => {
   };
 
   return (
-    <section className="py-20" data-animate="scale-in-center">
+    <section className="py-20 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-900" data-animate="scale-in-center">
       <div className="container">
         <SectionTitle
           title="Projects"
@@ -103,19 +103,19 @@ const BlogList = () => {
         <div className="flex justify-center gap-6 mt-4">
           <button
             onClick={handlePrevSlide}
-            className="bg-green-500 text-white py-3 px-5 rounded-full hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
+            className="bg-mygreen/30 text-white py-3 px-5 rounded-full hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
           >
             {`<`}
 
           </button>
           <button
             onClick={handleNextSlide}
-            className="bg-green-500 text-white py-3 px-5 rounded-full hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
+            className="bg-mygreen/30 text-white py-3 px-5 rounded-full hover:bg-transparent border border-mygreen hover:text-mygreen transition-all duration-300"
           >{`>`}</button>
         </div>
 
         <div className="flex justify-center mt-6">
-          <Link href={"/projects"} className="shadow-submit dark:shadow-submit-dark rounded-lg bg-mygreen px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
+          <Link href={"/projects"} className="shadow-submit dark:shadow-submit-dark rounded-lg  bg-mygreen/30 px-9 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-mygreen hover:text-mygreen">
             All Projects
           </Link>
         </div>

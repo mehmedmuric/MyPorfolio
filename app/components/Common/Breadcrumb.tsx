@@ -1,4 +1,7 @@
+'use client'
 import Link from "next/link";
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
 
 const Breadcrumb = ({
   pageName,
@@ -7,8 +10,30 @@ const Breadcrumb = ({
   pageName: string;
   description: string;
 }) => {
+
+  const particlesInit = async (engine: any) => {
+          await loadSlim(engine);
+        };
   return (
     <section className="relative z-10 overflow-hidden pt-28 lg:pt-[150px]">
+      {/* ✅ Sjajkice */}
+                            <Particles
+                              id="tsparticles"
+                              init={particlesInit}
+                              options={{
+                                background: { color: "transparent" },
+                                fpsLimit: 60,
+                                particles: {
+                                  color: { value: "#00ff99" },
+                                  number: { value: 60, density: { enable: true, area: 600 } },
+                                  size: { value: { min: 1, max: 3 } },
+                                  move: { enable: true, speed: 0.6, direction: "none", outModes: "out" },
+                                  opacity: { value: 0.4 },
+                                },
+                              }}
+                              className="absolute inset-0 z-0 pointer-events-none"
+                            />
+              {/* Tekst */}
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap items-center">
           <div className="w-full px-4 md:w-8/12 lg:w-7/12">

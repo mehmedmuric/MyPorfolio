@@ -9,7 +9,7 @@ const Features = () => {
   useScrollAnimations();
 
   return (
-    <section id="features" className="py-16 md:py-20 lg:py-28">
+    <section id="features" className="py-16 md:py-20 lg:py-28 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-900">
       <div className="container mx-auto">
         <SectionTitle
           title="About Web and Mobile Applications"

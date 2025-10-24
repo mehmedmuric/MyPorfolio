@@ -6,6 +6,9 @@ import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
 
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
+
 const Contact = () => {
   useScrollAnimations();
   const form = useRef<HTMLFormElement>(null);
@@ -39,10 +42,34 @@ const Contact = () => {
       );
   };
 
-  return (
-    <section id="contact" className="overflow-hidden py-24 md:py-20 lg:py-28 isolate bg-gray-900 px-6 sm:py-32 lg:px-8">
+  
+  const particlesInit = async (engine: any) => {
+            await loadSlim(engine);
+          };
 
-      
+  return (
+    
+    
+    <section id="contact" className="overflow-hidden py-24 md:py-20 lg:py-28 isolate bg-gray-900 px-6 sm:py-32 lg:px-8 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5">
+
+      {/* ✅ Sjajkice */}
+                                <Particles
+                                  id="tsparticles"
+                                  init={particlesInit}
+                                  options={{
+                                    background: { color: "transparent" },
+                                    fpsLimit: 60,
+                                    particles: {
+                                      color: { value: "#00ff99" },
+                                      number: { value: 60, density: { enable: true, area: 600 } },
+                                      size: { value: { min: 1, max: 3 } },
+                                      move: { enable: true, speed: 0.6, direction: "none", outModes: "out" },
+                                      opacity: { value: 0.4 },
+                                    },
+                                  }}
+                                  className="absolute inset-0 z-0 pointer-events-none"
+                                />
+                  {/* Tekst */}
       <div className="container mx-auto px-4">
         <SectionTitle
           title="Contact"
