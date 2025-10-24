@@ -50,7 +50,7 @@ const Contact = () => {
   return (
     
     
-    <section id="contact" className="overflow-hidden py-24 md:py-20 lg:py-28 isolate bg-gray-900 px-6 sm:py-32 lg:px-8 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5">
+    <section id="contact" className="overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
 
       {/* ✅ Sjajkice */}
                                 <Particles

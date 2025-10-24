@@ -16,7 +16,7 @@ const Hero = () => {
     <>
       <section
         id="home"
-        className="bg-gradient-to-b bg-gray-900 from-gray-950 via-mygreen/5 to-mygreen/5 relative z-10 overflow-hidden pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+        className="bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5 relative z-10 overflow-hidden pb-16 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
       >
         <div className="container">
          {/* ✅ Sjajkice */}

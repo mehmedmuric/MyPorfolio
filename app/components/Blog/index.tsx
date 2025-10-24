@@ -51,7 +51,7 @@ const BlogList = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-900" data-animate="scale-in-center">
+    <section className="py-20 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5" data-animate="scale-in-center">
       <div className="container">
         <SectionTitle
           title="Projects"

@@ -90,7 +90,7 @@ const TestimonialsClient = () => {
     <>
       <Breadcrumb pageName="Testimonials" description="" />
 
-      <section className="relative isolate overflow-hidden bg-gray-900 px-6 py-12 sm:py-16 lg:px-8">
+      <section className="relative isolate overflow-hidden bg-gray-900/50 px-6 py-12 sm:py-16 lg:px-8">
         {/* ✅ Sjajkice */}
                                     <Particles
                                       id="tsparticles"
@@ -110,7 +110,7 @@ const TestimonialsClient = () => {
                                     />
                       {/* Tekst */}
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-mygreen),transparent)] opacity-10"></div>
-        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900 shadow-xl ring-1 shadow-mygreen/60 ring-mygreen/30 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+        <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900/50 shadow-xl ring-1 shadow-mygreen/60 ring-mygreen/30 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
 
         <div className="mx-auto max-w-7xl">
           <h2 className="text-center text-3xl sm:text-4xl font-bold text-white mb-10">

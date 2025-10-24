@@ -25,7 +25,7 @@ const Technologies = () => {
   ];
 
   return (
-    <section className="pt-20 pb-24 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-900">
+    <section className="pt-20 pb-24 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
       <div className="container">
         <SectionTitle
           title="Technologies"

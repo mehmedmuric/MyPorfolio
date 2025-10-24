@@ -3,12 +3,16 @@ import Image from "next/image";
 import brandsData from "./brandsData";
 import SectionTitle from "../Common/SectionTitle";
 
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
+
 
 
 
 const Certifications = () => {
   return (
-    <section className="pt-24 pb-28 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-900">
+    <section className="pt-24 pb-28 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
+      
       
       <div className="container">
         <SectionTitle
