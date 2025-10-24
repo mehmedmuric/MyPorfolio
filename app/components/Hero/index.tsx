@@ -400,7 +400,6 @@ const Hero = () => {
           </svg>
         </div>
       </section>
-    </>
   );
 };
 
