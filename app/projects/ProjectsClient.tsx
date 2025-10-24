@@ -56,6 +56,8 @@ const ProjectsClient  = () => {
                               options={{
                                 background: { color: "transparent" },
                                 fpsLimit: 60,
+                                fullScreen: { enable: false },
+                                detectRetina: true,
                                 particles: {
                                   color: { value: "#00ff99" },
                                   number: { value: 60, density: { enable: true, area: 600 } },
