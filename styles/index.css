@@ -21,6 +21,43 @@ main, .container {
   box-sizing: border-box;
 }
 
+/* ======== PARTICLES FIX ======== */
+
+/* Glavni container particles-a */
+#tsparticles {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100% !important;
+  pointer-events: none !important; /* da ne blokira klikove */
+  z-index: 0 !important;
+}
+
+/* Ako koristiš više sekcija s particles */
+section.relative > #tsparticles,
+section.absolute > #tsparticles {
+  width: 100%;
+  height: 100%;
+}
+
+/* Mobilni fix: osigurava da canvas ima visinu */
+@media (max-width: 768px) {
+  #tsparticles {
+    min-height: 100vh !important;
+    height: 100% !important;
+    width: 100vw !important;
+  }
+}
+
+/* Ponekad Next.js injectuje overflow hidden — ovo ga zaobilazi */
+html,
+body {
+  overflow-x: hidden;
+  position: relative;
+}
+
+
 /* Chat widget fiksno u bottom-right */
 .bp-chat-widget {
   position: fixed !important;
