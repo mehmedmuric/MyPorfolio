@@ -35,7 +35,7 @@ const SingleBrand = ({ brand }: { brand: Brand }) => {
   const { href, image, name, issued, platform, description } = brand;
 
   return (
-    <div className="group hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] shadow-lg ring-0 ring-green-500 transition-all duration-500  hover:ring-2 bg-gray-900/60 border border-mygreen/20  opacity-80  relative flex flex-col items-center justify-center p-10 sm:p-12 rounded-3xl backdrop-blur-lg  hover:-translate-y-3 hover:scale-105 w-[95%] sm:w-[80%] md:w-[72%] lg:w-[70%] xl:w-[320px] max-w-[280px]">
+    <div className="group hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] shadow-2xl ring-0 ring-green-500 transition-all duration-500  hover:ring-2 bg-gray-950 border border-mygreen/20  opacity-90  relative flex flex-col items-center justify-center p-10 sm:p-12 rounded-3xl backdrop-blur-lg  hover:-translate-y-3 hover:scale-105 w-[95%] sm:w-[80%] md:w-[72%] lg:w-[70%] xl:w-[320px] max-w-[280px]">
       <div className="relative flex items-center justify-center h-36 w-36 sm:h-44 sm:w-44 rounded-full bg-gradient-to-br from-mygreen/20 to-transparent group-hover:from-mygreen/40 group-hover:to-mygreen/10 transition-all duration-300 shadow-neon-glow">
         <Image
           src={image}

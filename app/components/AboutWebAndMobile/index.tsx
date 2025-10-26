@@ -3,10 +3,8 @@
 import SectionTitle from "../Common/SectionTitle";
 import SingleFeature from "./SingleFeature";
 import featuresData from "./featuresData";
-import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
 const Features = () => {
-  useScrollAnimations();
 
   return (
     <section id="features" className="particles-bg overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
@@ -19,8 +17,8 @@ const Features = () => {
         />
 
         <div
-          className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3 opacity-0"
-          data-animate="slide-in-bottom"
+          className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3"
+          
         >
           {featuresData.map((feature) => (
             <SingleFeature key={feature.id} feature={feature} />

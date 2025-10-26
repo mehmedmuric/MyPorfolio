@@ -2,13 +2,11 @@
 
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
-import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
 
 
 const Contact = () => {
-  useScrollAnimations();
   const form = useRef<HTMLFormElement>(null);
   const [isSending, setIsSending] = useState(false);
   const [message, setMessage] = useState("");
@@ -55,9 +53,9 @@ const Contact = () => {
           center
           mb="50px"
         />
-        <div className="-mx-4 flex flex-wrap opacity-70" data-animate="slide-in-left">
+        <div className="-mx-4 flex flex-wrap opacity-70">
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
-            <div className="wow fadeInUp shadow-three bg-gray-950/40 border border-green-600 mb-12 rounded-3xl px-8 py-11 sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]">
+            <div className="wow fadeInUp shadow-three bg-gray-950 border border-green-600 mb-12 rounded-3xl px-8 py-11 sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]">
               <h2 className="mb-3 text-2xl font-bold text-white sm:text-3xl lg:text-2xl xl:text-3xl">
                 Contact Me
               </h2>

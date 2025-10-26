@@ -38,15 +38,15 @@ const Technologies = () => {
           {technologies.map((tech, index) => (
             <div
               key={index}
-              className="group relative flex flex-col items-center justify-center p-5 rounded-3xl backdrop-blur-lg bg-gray-900/20 border border-mygreen/20 shadow-lg hover:shadow-neon transition-transform duration-300 hover:-translate-y-2 hover:scale-105 w-[90%] sm:w-[85%] md:w-[75%] lg:w-[80%] xl:w-auto max-w-[200px]"
+              className="group relative flex flex-col items-center justify-center p-5 rounded-3xl backdrop-blur-lg bg-gray-950 opacity-90 border border-mygreen/40 shadow-2xl hover:shadow-neon transition-transform duration-300 hover:-translate-y-2 hover:scale-105 w-[90%] sm:w-[85%] md:w-[75%] lg:w-[80%] xl:w-auto max-w-[200px]"
             >
-              <div className="relative flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-gradient-to-br from-mygreen/20 to-transparent group-hover:from-mygreen/40 group-hover:to-mygreen/10 transition-all duration-300 shadow-neon-glow">
+              <div className="relative flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-gradient-to-br from-mygreen/20 to-transparent group-hover:from-mygreen/50 group-hover:to-mygreen/20 transition-all duration-300 shadow-neon-glow">
                 <Image
                   src={tech.src}
                   alt={tech.name}
                   width={100}
                   height={100}
-                  className="object-contain group-hover:opacity-100 transition-all duration-300"
+                  className="object-contain"
                   priority
                 />
               </div>
