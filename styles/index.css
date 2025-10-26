@@ -95,8 +95,8 @@ main, .container {
     radial-gradient(circle 1.5px, rgba(0, 255, 153, 0.7) 1.5px, transparent 1.5px),
     radial-gradient(circle 2.5px, rgba(0, 255, 153, 0.5) 2.5px, transparent 2.5px);
   background-size: 100px 100px, 80px 80px, 130px 130px, 60px 60px, 150px 150px;
-  animation: floatParticles1 20s linear infinite,
-             floatParticles2 30s linear infinite,
+  animation: floatParticles1 40s linear infinite,
+             floatParticles2 50s linear infinite,
              floatParticles3 65s linear infinite,
              floatParticles4 80s linear infinite,
              floatParticles5 90s linear infinite;
