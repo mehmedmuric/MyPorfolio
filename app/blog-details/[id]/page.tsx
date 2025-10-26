@@ -72,7 +72,7 @@ export default async function BlogDetailsPage({
   return (
     <>
       <Breadcrumb pageName={blog.title} description="Project Details" />
-      <section className="pb-[80px] pt-[40px] px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-900">
+      <section className="pb-[80px] pt-[40px] particles-bg overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
         <div className="max-w-5xl mx-auto flex flex-col gap-10">
           {/* AUTHOR & META */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0 border-b border-mygreen border-opacity-50 pb-4">

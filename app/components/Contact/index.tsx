@@ -6,8 +6,6 @@ import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
 
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
 
 const Contact = () => {
   useScrollAnimations();
@@ -43,33 +41,13 @@ const Contact = () => {
   };
 
   
-  const particlesInit = async (engine: any) => {
-            await loadSlim(engine);
-          };
+
 
   return (
     
     
-    <section id="contact" className="overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
+    <section id="contact" className="particles-bg overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
 
-      {/* ✅ Sjajkice */}
-                                <Particles
-                                  id="tsparticles"
-                                  init={particlesInit}
-                                  options={{
-                                    background: { color: "transparent" },
-                                    fpsLimit: 60,
-                                    particles: {
-                                      color: { value: "#00ff99" },
-                                      number: { value: 60, density: { enable: true, area: 600 } },
-                                      size: { value: { min: 1, max: 3 } },
-                                      move: { enable: true, speed: 0.6, direction: "none", outModes: "out" },
-                                      opacity: { value: 0.4 },
-                                    },
-                                  }}
-                                  className="absolute inset-0 z-0 pointer-events-none"
-                                />
-                  {/* Tekst */}
       <div className="container mx-auto px-4">
         <SectionTitle
           title="Contact"
@@ -77,9 +55,9 @@ const Contact = () => {
           center
           mb="50px"
         />
-        <div className="-mx-4 flex flex-wrap opacity-0" data-animate="slide-in-left">
+        <div className="-mx-4 flex flex-wrap opacity-70" data-animate="slide-in-left">
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
-            <div className="wow fadeInUp shadow-three bg-gray-900 border border-green-600 mb-12 rounded-lg px-8 py-11 sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]">
+            <div className="wow fadeInUp shadow-three bg-gray-950/40 border border-green-600 mb-12 rounded-3xl px-8 py-11 sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]">
               <h2 className="mb-3 text-2xl font-bold text-white sm:text-3xl lg:text-2xl xl:text-3xl">
                 Contact Me
               </h2>

@@ -32,16 +32,13 @@ const BlogList = dynamic(() => import("./components/Blog"), {
   loading: () => <Loader />,
 });
 
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
+
 
 
 
 
 export default function Home() {
-  const particlesInit = async (engine: any) => {
-        await loadSlim(engine);
-      };
+  
 
   return (
     
@@ -53,24 +50,7 @@ export default function Home() {
       <BlogList />
       <AboutSection />
       <Contact />
-    {/* ✅ Sjajkice */}
-                  <Particles
-                    id="tsparticles"
-                    init={particlesInit}
-                    options={{
-                      background: { color: "transparent" },
-                      fpsLimit: 60,
-                      particles: {
-                        color: { value: "#00ff99" },
-                        number: { value: 60, density: { enable: true, area: 600 } },
-                        size: { value: { min: 1, max: 3 } },
-                        move: { enable: true, speed: 0.6, direction: "none", outModes: "out" },
-                        opacity: { value: 0.4 },
-                        
-                      },
-                    }}
-                    className="absolute inset-0 z-0 pointer-events-none"
-                  />
+  
     </>
   );
 }

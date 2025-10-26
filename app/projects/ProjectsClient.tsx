@@ -39,32 +39,8 @@ const ProjectsClient = () => {
         description="All Projects"
       />
 
-      {/* ✅ Omotač sa partiklama u pozadini */}
-      <div className="relative bg-gray-900/50 overflow-hidden">
-        {/* ✅ Particles pozadina - uvek vidljiva i ne blokira klikove */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <Particles
-            id="tsparticles"
-            init={particlesInit}
-            options={{
-              background: { color: "transparent" },
-              fpsLimit: 60,
-              fullScreen: { enable: false },
-              detectRetina: true,
-              particles: {
-                color: { value: "#00ff99" },
-                number: { value: 70, density: { enable: true, area: 700 } },
-                size: { value: { min: 1, max: 3 } },
-                move: { enable: true, speed: 0.6, direction: "none", outModes: "out" },
-                opacity: { value: 0.4 },
-              },
-            }}
-            className="w-full h-full"
-          />
-        </div>
-
         {/* ✅ Sadržaj sekcije */}
-        <section className="relative z-10 isolate px-6 py-24 sm:py-32 lg:px-8 min-h-screen">
+        <section className="relative z-10 isolate px-6 py-24 sm:py-32 lg:px-8 min-h-screen bg-gray-900/50 overflow-hidden particles-bg bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5">
           {/* Dekorativni slojevi */}
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-mygreen),transparent)] opacity-10"></div>
           <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900/50 shadow-xl ring-1 shadow-mygreen/80 ring-mygreen/50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
@@ -83,7 +59,6 @@ const ProjectsClient = () => {
             ))}
           </div>
         </section>
-      </div>
     </>
   );
 };

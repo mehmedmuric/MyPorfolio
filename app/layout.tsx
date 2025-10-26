@@ -93,6 +93,7 @@ export default async function LocaleLayout({
       <meta name="theme-color" content="#00FF88" />
     </head>
       <body className={`${inter.className} ${isHome ? "home" : ""}`}>
+        
         <Header />
         {children}
         <Analytics/>

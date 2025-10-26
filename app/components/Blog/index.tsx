@@ -9,7 +9,6 @@ import "swiper/css/navigation"; // Uvezi Swiper navigation stilove
 import Link from "next/link";
 import { Autoplay } from "swiper/modules";
 
-import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
 import dynamic from "next/dynamic";
 import Loader from "../Loader";
@@ -21,7 +20,6 @@ const SingleBlog = dynamic(() => import("./SingleBlog"), {
 
 
 const BlogList = () => {
-  useScrollAnimations();
 
   const [projects, setProjects] = useState<Blog[]>([]);
   const swiperRef = useRef<any>(null); 
@@ -51,7 +49,7 @@ const BlogList = () => {
   };
 
   return (
-    <section className="py-20 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5" data-animate="scale-in-center">
+    <section className="particles-bg overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
       <div className="container">
         <SectionTitle
           title="Projects"

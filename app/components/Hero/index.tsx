@@ -2,81 +2,19 @@
 import Image from "next/image";
 import Link from "next/link";
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
 import { useCallback } from "react";
 
 const Hero = () => {
   useScrollAnimations();
 
-  const particlesInit = useCallback(async (engine: any) => {
-    await loadSlim(engine);
-  }, []);
+
 
   return (
     <section
       id="home"
-      className="relative z-10 overflow-hidden bg-gray-900 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 pb-20 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+      className="relative particles-bg z-10 overflow-hidden bg-gray-900/30 bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 pb-20 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
     >
-      {/* ✅ Particles sa zelenim glow efektom */}
-      <Particles
-        id="tsparticles"
-        init={particlesInit}
-        options={{
-          fullScreen: { enable: false },
-          background: { color: "transparent" },
-          detectRetina: true,
-          fpsLimit: 60,
-          particles: {
-            number: {
-              value:
-                typeof window !== "undefined" && window.innerWidth < 768 ? 25 : 60,
-              density: { enable: true, area: 400 },
-            },
-            color: { value: "#00ff99" },
-            shape: {
-              type: "circle",
-            },
-            opacity: {
-              value: 0.5,
-              random: false,
-            },
-            size: {
-              value: { min: 1, max: 3 },
-            },
-            move: {
-              enable: true,
-              speed: 0.6,
-              direction: "none",
-              outModes: "out",
-            },
-            // 💚 Glow efekat
-            shadow: {
-              enable: true,
-              blur: 6,
-              color: "#00ff99",
-            },
-          },
-          interactivity: {
-            events: {
-              onHover: {
-                enable: true,
-                mode: "repulse",
-              },
-              onClick: {
-                enable: true,
-                mode: "push",
-              },
-            },
-            modes: {
-              repulse: { distance: 70, duration: 0.4 },
-              push: { quantity: 3 },
-            },
-          },
-        }}
-        className="absolute inset-0 z-0 pointer-events-none"
-      />
-
+      
       <div className="container relative z-10">
         <div className="-mx-4 flex flex-wrap justify-between">
           {/* ✅ Levi deo */}

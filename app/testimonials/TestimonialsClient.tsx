@@ -3,12 +3,7 @@ import { useState, useEffect } from "react";
 import Breadcrumb from "../components/Common/Breadcrumb";
 import Image from "next/image";
 
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
 
- const particlesInit = async (engine: any) => {
-          await loadSlim(engine);
-        };
 
 interface Testimonial {
   id: string;
@@ -90,25 +85,8 @@ const TestimonialsClient = () => {
     <>
       <Breadcrumb pageName="Testimonials" description="" />
 
-      <section className="relative isolate overflow-hidden bg-gray-900/50 px-6 py-12 sm:py-16 lg:px-8">
-        {/* ✅ Sjajkice */}
-                                    <Particles
-                                      id="tsparticles"
-                                      init={particlesInit}
-                                      options={{
-                                        background: { color: "transparent" },
-                                        fpsLimit: 60,
-                                        particles: {
-                                          color: { value: "#00ff99" },
-                                          number: { value: 60, density: { enable: true, area: 600 } },
-                                          size: { value: { min: 1, max: 3 } },
-                                          move: { enable: true, speed: 0.6, direction: "none", outModes: "out" },
-                                          opacity: { value: 0.4 },
-                                        },
-                                      }}
-                                      className="absolute inset-0 z-0"
-                                    />
-                      {/* Tekst */}
+      <section className="relative isolate overflow-hidden bg-gray-900/50 px-6 py-12 sm:py-16 lg:px-8 particles-bg bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5">
+        
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-mygreen),transparent)] opacity-10"></div>
         <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900/50 shadow-xl ring-1 shadow-mygreen/60 ring-mygreen/30 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
 

@@ -3,26 +3,23 @@ import Image from "next/image";
 import brandsData from "./brandsData";
 import SectionTitle from "../Common/SectionTitle";
 
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
-
-
-
-
 const Certifications = () => {
   return (
-    <section className="pt-24 pb-28 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
-      
-      
-      <div className="container">
+    <section className="particles-bg overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-16   bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5">
+      <div className="container mx-auto">
         <SectionTitle
           title="Certifications"
-          paragraph="Courses and certifications I've completed to strengthen my full-stack skills."
+          paragraph="I continually upgrade my skills through courses and certifications. Each certificate represents my commitment to mastering modern technologies and delivering high-quality solutions."
           center
           mb="70px"
         />
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-40 justify-items-center  place-items-center cursor-pointer">
+        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-16 text-base sm:text-lg">
+          Here are some of the certifications and courses I have completed to strengthen my full-stack development skills, from backend programming to modern frontend frameworks.
+        </p>
+
+        {/* Responsive Flex za SingleBrand kartice */}
+        <div className="flex flex-col sm:flex-row flex-wrap gap-12 items-center justify-center ">
           {brandsData.map((brand) => (
             <SingleBrand key={brand.id} brand={brand} />
           ))}
@@ -35,11 +32,11 @@ const Certifications = () => {
 export default Certifications;
 
 const SingleBrand = ({ brand }: { brand: Brand }) => {
-  const { href, image, name } = brand;
+  const { href, image, name, issued, platform, description } = brand;
 
   return (
-    <div className="group relative flex flex-col items-center justify-center p-8 rounded-2xl backdrop-blur-md bg-white/5 border border-white/30 shadow-2xl transition-transform duration-300 hover:-translate-y-3 hover:scale-105 w-[90%] sm:w-[80%] md:w-[70%] lg:w-[85%] xl:w-[350px] max-w-[260px]">
-      <div className="relative flex items-center justify-center h-32 w-32 sm:h-36 sm:w-36 rounded-full bg-gradient-to-br from-mygreen/20 to-transparent group-hover:from-mygreen/30 transition-all duration-300">
+    <div className="group hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] shadow-lg ring-0 ring-green-500 transition-all duration-500  hover:ring-2 bg-gray-900/60 border border-mygreen/20  opacity-80  relative flex flex-col items-center justify-center p-10 sm:p-12 rounded-3xl backdrop-blur-lg  hover:-translate-y-3 hover:scale-105 w-[95%] sm:w-[80%] md:w-[72%] lg:w-[70%] xl:w-[320px] max-w-[280px]">
+      <div className="relative flex items-center justify-center h-36 w-36 sm:h-44 sm:w-44 rounded-full bg-gradient-to-br from-mygreen/20 to-transparent group-hover:from-mygreen/40 group-hover:to-mygreen/10 transition-all duration-300 shadow-neon-glow">
         <Image
           src={image}
           alt={name}
@@ -54,14 +51,20 @@ const SingleBrand = ({ brand }: { brand: Brand }) => {
         {name}
       </p>
 
+      <p className="text-sm text-gray-400 text-center mt-1">
+        {platform} • {issued}
+      </p>
+      <p className="text-center text-gray-400 mt-2 text-sm">{description}</p>
+
       <a
         href={href}
         target="_blank"
         rel="nofollow noreferrer"
-        className="mt-4 inline-block rounded-lg border border-mygreen/60 px-8 py-2.5 text-sm sm:text-base text-center font-medium text-mygreen/90 hover:bg-mygreen/20 hover:text-mygreen transition-all duration-300"
+        className="mt-4 inline-block rounded-lg border border-mygreen/60 px-8 py-2.5 text-sm sm:text-base text-center font-medium text-mygreen/90 hover:bg-mygreen/20 hover:text-white transition-all duration-300"
       >
         Show Certificate
       </a>
     </div>
   );
 };
+

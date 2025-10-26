@@ -7,9 +7,9 @@ const AboutSection = () => {
   useScrollAnimations();
 
   return (
-    <section className="py-16 md:py-24 lg:py-28 opacity-0 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5" data-animate="text-focus-in">
+    <section className="particles-bg  overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
       
-      <div className="container mx-auto">
+      <div className="container mx-auto ">
         <div className="-mx-4 flex flex-wrap items-center">
 
           {/* Slika */}

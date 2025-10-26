@@ -21,41 +21,153 @@ main, .container {
   box-sizing: border-box;
 }
 
-/* ======== PARTICLES FIX ======== */
 
-/* Glavni container particles-a */
-#tsparticles {
-  position: absolute !important;
-  top: 0;
-  left: 0;
-  width: 100vw !important;
-  height: 100% !important;
-  pointer-events: none !important; /* da ne blokira klikove */
-  z-index: 0 !important;
-}
 
-/* Ako koristiš više sekcija s particles */
-section.relative > #tsparticles,
-section.absolute > #tsparticles {
-  width: 100%;
-  height: 100%;
-}
 
-/* Mobilni fix: osigurava da canvas ima visinu */
-@media (max-width: 768px) {
-  #tsparticles {
-    min-height: 100vh !important;
-    height: 100% !important;
-    width: 100vw !important;
-  }
-}
-
-/* Ponekad Next.js injectuje overflow hidden — ovo ga zaobilazi */
-html,
-body {
-  overflow-x: hidden;
+/* ===== Modern particles background - koristi se po sekcijama ===== */
+/* ===== Modern fluid particles background ===== */
+/* ===== Falling particles background ===== */
+/* ===== Modern Falling Particles ===== */
+/* Hakerski footer background */
+/* ===================== Hakerski Footer ===================== */
+.footer-hacker-bg {
   position: relative;
+  overflow: hidden;
+  background-color: #0a0a0a; /* ili transparent */
 }
+
+/* Velike lebdeće neon tačke */
+.footer-hacker-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle, rgba(0,255,153,0.5) 2px, transparent 2px),
+    radial-gradient(circle, rgba(0,255,153,0.3) 3px, transparent 3px),
+    radial-gradient(circle, rgba(0,255,153,0.2) 4px, transparent 4px);
+  background-size: 120px 120px, 80px 80px, 200px 200px;
+  animation: floatParticles 60s linear infinite;
+  filter: blur(1px);
+  opacity: 0.2;
+}
+
+/* Apstraktne linije koje plutaju i rotiraju */
+.footer-hacker-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    linear-gradient(90deg, rgba(0,255,153,0.08) 0%, transparent 50%, rgba(0,255,153,0.08) 100%),
+    linear-gradient(45deg, rgba(0,255,153,0.06) 0%, transparent 50%, rgba(0,255,153,0.06) 100%);
+  background-size: 200% 200%, 300% 300%;
+  animation: rotateLines 80s linear infinite;
+  opacity: 0.1;
+  filter: blur(0.8px);
+}
+
+/* Animacija lebdećih tačaka */
+@keyframes floatParticles {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  25% { background-position: 50px 80px, -30px 60px, 70px 120px; }
+  50% { background-position: -80px 140px, 90px 180px, -50px 200px; }
+  75% { background-position: 40px 200px, -60px 250px, 100px 180px; }
+  100% { background-position: 0 0, 0 0, 0 0; }
+}
+
+/* Animacija plutajućih linija */
+@keyframes rotateLines {
+  0% { background-position: 0 0, 0 0; transform: rotate(0deg); }
+  25% { background-position: 100px 50px, -50px 80px; transform: rotate(10deg); }
+  50% { background-position: -100px 120px, 60px 150px; transform: rotate(-5deg); }
+  75% { background-position: 50px 180px, -120px 220px; transform: rotate(15deg); }
+  100% { background-position: 0 0, 0 0; transform: rotate(0deg); }
+}
+
+
+
+/* ===== Falling particles background ===== */
+/* ===== Modern neon particles CSS-only ===== */
+.particles-bg {
+  position: relative; /* OBAVEZNO */
+  overflow: hidden;   /* da particles ne izlaze iz sekcije */
+}
+
+.particles-bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.30;
+  background-image:
+    radial-gradient(circle 2px, rgba(0, 255, 153, 0.9) 2px, transparent 2px),
+    radial-gradient(circle 2px, rgba(0, 255, 153, 0.6) 2px, transparent 2px),
+    radial-gradient(circle 3px, rgba(0, 255, 153, 0.8) 3px, transparent 3px),
+    radial-gradient(circle 1.5px, rgba(0, 255, 153, 0.7) 1.5px, transparent 1.5px),
+    radial-gradient(circle 2.5px, rgba(0, 255, 153, 0.5) 2.5px, transparent 2.5px);
+  background-size: 100px 100px, 80px 80px, 130px 130px, 60px 60px, 150px 150px;
+  animation: floatParticles1 20s linear infinite,
+             floatParticles2 10s linear infinite,
+             floatParticles3 65s linear infinite,
+             floatParticles4 80s linear infinite,
+             floatParticles5 90s linear infinite;
+  filter: blur(0.3px);
+}
+
+/* ===== Keyframes za različite slojeve ===== */
+@keyframes floatParticles1 {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+  25% { background-position: 30px 20vh, 20px 40vh, 50px 60vh, 10px 30vh, 70px 80vh; }
+  50% { background-position: 60px 50vh, 40px 70vh, 100px 90vh, 20px 60vh, 120px 120vh; }
+  75% { background-position: 20px 80vh, 10px 90vh, 60px 110vh, 0px 80vh, 60px 150vh; }
+  100% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+}
+
+@keyframes floatParticles2 {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+  25% { background-position: 50px 10vh, 30px 30vh, 80px 50vh, 20px 20vh, 90px 70vh; }
+  50% { background-position: 90px 40vh, 60px 60vh, 120px 80vh, 40px 50vh, 150px 110vh; }
+  75% { background-position: 40px 70vh, 20px 80vh, 60px 100vh, 10px 70vh, 80px 140vh; }
+  100% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+}
+
+@keyframes floatParticles3 {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+  25% { background-position: 20px 15vh, 50px 35vh, 40px 55vh, 30px 25vh, 60px 75vh; }
+  50% { background-position: 70px 45vh, 80px 65vh, 90px 95vh, 60px 55vh, 130px 125vh; }
+  75% { background-position: 30px 85vh, 10px 95vh, 50px 115vh, 20px 85vh, 70px 155vh; }
+  100% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+}
+
+@keyframes floatParticles4 {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+  25% { background-position: 40px 5vh, 10px 25vh, 60px 45vh, 30px 15vh, 90px 65vh; }
+  50% { background-position: 80px 35vh, 20px 55vh, 100px 75vh, 60px 45vh, 150px 105vh; }
+  75% { background-position: 20px 65vh, 5px 85vh, 70px 105vh, 10px 65vh, 80px 135vh; }
+  100% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+}
+
+@keyframes floatParticles5 {
+  0% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+  25% { background-position: 60px 8vh, 30px 28vh, 90px 48vh, 40px 18vh, 110px 68vh; }
+  50% { background-position: 100px 38vh, 50px 58vh, 130px 78vh, 80px 48vh, 170px 108vh; }
+  75% { background-position: 30px 68vh, 10px 88vh, 80px 108vh, 20px 68vh, 90px 138vh; }
+  100% { background-position: 0 0, 0 0, 0 0, 0 0, 0 0; }
+}
+
+
+.shadow-neon {
+  box-shadow: 0 0 5px #00ff99, 0 0 10px #00ff99, 0 0 15px #00ff99, 0 0 20px #00ff99;
+}
+
+.shadow-neon-glow {
+  box-shadow: 0 0 7px #00ff99, 0 0 12px #00ff99 inset;
+}
+
 
 
 /* Chat widget fiksno u bottom-right */
