@@ -44,14 +44,23 @@ const ProjectsClient = () => {
           {/* Dekorativni slojevi */}
           <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-mygreen),transparent)] opacity-10"></div>
           <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900/50 shadow-xl ring-1 shadow-mygreen/80 ring-mygreen/50 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
+ 
+         {/* Cyber grid background */}
+      <div className="absolute inset-0 opacity-[0.06] 
+        bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),
+             linear-gradient(#00ff99_1px,transparent_1px)] 
+        bg-[size:50px_50px] " />
 
+      {/* Neon radial glows */}
+      <div className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.12),_transparent_60%)] blur-3xl animate-pulse-slow " />
+      <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.06),_transparent_70%)] blur-[120px] " />
           {/* Projekti */}
           <div
-            className="grid gap-8 
+            className="grid gap-4 
                         grid-cols-1 
                         sm:grid-cols-2 
-                        md:grid-cols-3 
-                        lg:grid-cols-4"
+                        md:grid-cols-2 
+                        lg:grid-cols-5"
             data-animate="scale-in-center"
           >
             {projects.map((blog, index) => (

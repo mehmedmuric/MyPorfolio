@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
@@ -25,8 +25,21 @@ const Technologies = () => {
   ];
 
   return (
-    <section className="particles-bg overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
-      <div className="container">
+    <section
+      className="relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8
+        bg-[#010101] bg-[radial-gradient(ellipse_at_top,_#0a3b27_0%,_#010101_85%)]"
+    >
+      {/* Cyber grid overlay */}
+      <div className="absolute inset-0 opacity-[0.05] 
+        bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),
+             linear-gradient(#00ff99_1px,transparent_1px)]
+        bg-[size:50px_50px]" />
+
+      {/* Neon radial glows */}
+      <div className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.08),_transparent_70%)] blur-3xl animate-pulse-slow" />
+      <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.04),_transparent_70%)] blur-[120px]" />
+
+      <div className="container relative z-10">
         <SectionTitle
           title="Technologies"
           paragraph="Tech stack I use for front-end, back-end, databases and cloud."
@@ -38,9 +51,18 @@ const Technologies = () => {
           {technologies.map((tech, index) => (
             <div
               key={index}
-              className="group relative flex flex-col items-center justify-center p-5 rounded-3xl backdrop-blur-lg bg-gray-950 opacity-90 border border-mygreen/40 shadow-2xl hover:shadow-neon transition-transform duration-300 hover:-translate-y-2 hover:scale-105 w-[90%] sm:w-[85%] md:w-[75%] lg:w-[80%] xl:w-auto max-w-[200px]"
+              className="group relative flex flex-col items-center justify-center p-5 rounded-3xl backdrop-blur-lg
+                bg-black/60 border border-green-500/20  
+                 transition-transform duration-300
+                hover:-translate-y-2 hover:scale-105 w-[90%] sm:w-[85%] md:w-[75%] lg:w-[80%] xl:w-auto max-w-[200px]
+                
+                shadow-lg ring-0 ring-green-500  hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2"
             >
-              <div className="relative flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 rounded-full bg-gradient-to-br from-mygreen/20 to-transparent group-hover:from-mygreen/50 group-hover:to-mygreen/20 transition-all duration-300 shadow-neon-glow">
+              <div className="relative flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 rounded-full
+                bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.70),_transparent_70%)]
+                shadow-[0_0_20px_rgba(0,255,128,0.25)] group-hover:shadow-[0_0_35px_rgba(0,255,128,0.8)]
+                transition-all duration-500 animate-pulse-slow"
+              >
                 <Image
                   src={tech.src}
                   alt={tech.name}
@@ -50,8 +72,8 @@ const Technologies = () => {
                   priority
                 />
               </div>
-
-              <p className="mt-3 text-sm sm:text-base font-semibold text-center text-white/70 group-hover:text-mygreen transition-colors duration-300">
+              <p className="mt-3 text-sm sm:text-base font-semibold text-center text-white/80 
+                group-hover:text-green-400 transition-colors duration-300">
                 {tech.name}
               </p>
             </div>

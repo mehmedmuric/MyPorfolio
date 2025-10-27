@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 // import LanguageSwitcher from "./LanguageSwitcher";
 import menuData from "./menuData";
 
-
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
   const navbarToggleHandler = () => {
@@ -67,27 +66,27 @@ const Header = () => {
             <div className="flex w-full items-center justify-between px-4">
               <div>
                 <button
-                  onClick={navbarToggleHandler}
-                  id="navbarToggler"
-                  aria-label="Mobile Menu"
-                  className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[6px] lg:hidden"
-                >
-                  <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-white transition-all duration-300  ${
-                      navbarOpen ? " top-[7px] rotate-45" : " "
-                    }`}
-                  />
-                  <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-white transition-all duration-300  ${
-                      navbarOpen ? "opacity-0 " : " "
-                    }`}
-                  />
-                  <span
-                    className={`relative my-1.5 block h-0.5 w-[30px] bg-white transition-all duration-300  ${
-                      navbarOpen ? " top-[-8px] -rotate-45" : " "
-                    }`}
-                  />
-                </button>
+  onClick={navbarToggleHandler}
+  id="navbarToggler"
+  aria-label="Mobile Menu"
+  className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[6px] lg:hidden group"
+>
+  <span
+    className={`relative my-1.5 block h-0.5 w-[30px] bg-green-400 transition-all duration-300 shadow-neon ${
+      navbarOpen ? "top-[7px] rotate-45" : ""
+    }`}
+  />
+  <span
+    className={`relative my-1.5 block h-0.5 w-[30px] bg-green-400 transition-all duration-300 shadow-neon ${
+      navbarOpen ? "opacity-0" : ""
+    }`}
+  />
+  <span
+    className={`relative my-1.5 block h-0.5 w-[30px] bg-green-400 transition-all duration-300 shadow-neon ${
+      navbarOpen ? "top-[-8px] -rotate-45" : ""
+    }`}
+  />
+</button>
                 {navbarOpen && (
                   <div
                     className="fixed inset-0 bg-black/50 z-20 lg:hidden"
@@ -108,19 +107,21 @@ const Header = () => {
                         {menuItem.path ? (
                           <Link
                             href={menuItem.path}
-                            className={`flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 transition-all duration-300 underline decoration-dashed decoration-mygreen/50 underline-offset-8  ${
+                            className={`relative flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 transition-colors duration-300 group ${
                               usePathName === menuItem.path
                                 ? "text-mygreen"
                                 : "text-white hover:text-mygreen"
                             }`}
                           >
-                            {menuItem.title} 
+                            {menuItem.title}
+                            <span className="absolute bottom-2 left-0 w-full h-[2px] bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                            <span className="absolute inset-0 bg-green-400 opacity-0  transition-opacity duration-300"></span>
                           </Link>
                         ) : (
                           <>
                             <p
                               onClick={() => handleSubmenu(index)}
-                              className="flex cursor-pointer items-center justify-between py-2 text-base text-white/70 group-hover:text-mygreen  lg:mr-0 lg:inline-flex lg:px-0 lg:py-6"
+                              className="relative flex cursor-pointer items-center justify-between py-2 text-base text-white/70 group transition-colors duration-300 lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 hover:text-mygreen"
                             >
                               {menuItem.title}
                               <span className="pl-3">
@@ -143,9 +144,11 @@ const Header = () => {
                                 <Link
                                   href={submenuItem.path}
                                   key={index}
-                                  className="block rounded py-2.5 text-sm text-white/70 hover:text-white lg:px-3"
+                                  className="relative inline-block mb-4 text-base text-gray-300 group transition-colors duration-300 hover:text-green-400"
                                 >
                                   {submenuItem.title}
+                                  <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
+                                  <span className="absolute inset-0 bg-green-400 opacity-0  transition-opacity duration-300"></span>
                                 </Link>
                               ))}
                             </div>
@@ -157,7 +160,6 @@ const Header = () => {
                 </nav>
               </div>
               <div className="flex items-center justify-end pr-16 lg:pr-0">
-                
                 <div>
                   {/* <LanguageSwitcher /> */}
                 </div>

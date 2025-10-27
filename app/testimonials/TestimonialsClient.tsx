@@ -86,7 +86,16 @@ const TestimonialsClient = () => {
       <Breadcrumb pageName="Testimonials" description="" />
 
       <section className="relative isolate overflow-hidden bg-gray-900/50 px-6 py-12 sm:py-16 lg:px-8 particles-bg bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5">
-        
+         {/* Cyber grid background */}
+      <div className="absolute inset-0 opacity-[0.06] 
+        bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),
+             linear-gradient(#00ff99_1px,transparent_1px)] 
+        bg-[size:50px_50px]" />
+
+      {/* Neon radial glows */}
+      <div className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.12),_transparent_60%)] blur-3xl animate-pulse-slow" />
+      <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.06),_transparent_70%)] blur-[120px]" />
+
         <div className="absolute inset-0 -z-10 bg-[radial-gradient(45rem_50rem_at_top,var(--color-mygreen),transparent)] opacity-10"></div>
         <div className="absolute inset-y-0 right-1/2 -z-10 mr-16 w-[200%] origin-bottom-left skew-x-[-30deg] bg-gray-900/50 shadow-xl ring-1 shadow-mygreen/60 ring-mygreen/30 sm:mr-28 lg:mr-0 xl:mr-16 xl:origin-center"></div>
 
@@ -98,11 +107,15 @@ const TestimonialsClient = () => {
           {/* Forma */}
           <form
             onSubmit={handleSubmit}
-            className="max-w-3xl mx-auto bg-gray-800/50 backdrop-blur-sm p-6 rounded-2xl shadow-xl border border-mygreen/50 flex flex-col items-center gap-6 mb-12"
+            className="max-w-3xl mx-auto p-6  flex flex-col items-center gap-6 mb-12
+
+            bg-black/60 border border-green-500/40 backdrop-blur-md 
+              rounded-2xl  sm:p-12 shadow-[0_0_25px_2px_rgba(0,255,128,0.15)] 
+              transition-all duration-300 hover:shadow-[0_0_40px_4px_rgba(0,255,128,0.25)]"
           >
             <div className="w-full grid sm:grid-cols-2 gap-6">
               <div>
-                <label htmlFor="name" className="mb-2 block text-sm font-medium text-white text-center sm:text-left">
+                <label htmlFor="name" className="mb-2 block text-sm font-medium text-center sm:text-left text-green-400">
                   Your Name
                 </label>
                 <input
@@ -113,14 +126,15 @@ const TestimonialsClient = () => {
                   placeholder="Enter your name"
                   value={formData.name}
                   onChange={handleChange}
-                  className="w-full rounded-md border border-transparent bg-[#2C303B] px-4 py-2 text-base text-white focus:border-mygreen focus:ring-0 outline-none transition"
+                  className="w-full rounded-md border border-green-700/50 bg-[#0a0f0a] px-5 py-3 text-base text-gray-100 
+                      outline-none focus:border-green-400 focus:ring-1 focus:ring-green-500 transition"
                   required
                   maxLength={22}
                 />
               </div>
 
               <div>
-                <label htmlFor="role" className="mb-2 block text-sm font-medium text-white text-center sm:text-left">
+                <label htmlFor="role" className="mb-2 block text-sm font-medium text-green-400 text-center sm:text-left">
                   Role / Company
                 </label>
                 <input
@@ -130,14 +144,15 @@ const TestimonialsClient = () => {
                   placeholder="Enter your role or company"
                   value={formData.role}
                   onChange={handleChange}
-                  className="w-full rounded-md border border-transparent bg-[#2C303B] px-4 py-2 text-base text-white focus:border-mygreen focus:ring-0 outline-none transition"
+                  className="w-full rounded-md border border-green-700/50 bg-[#0a0f0a] px-5 py-3 text-base text-gray-100 
+                      outline-none focus:border-green-400 focus:ring-1 focus:ring-green-500 transition"
                   maxLength={22}
                 />
               </div>
             </div>
 
             <div className="w-full">
-              <label htmlFor="image" className="mb-2 block text-sm font-medium text-white text-center">
+              <label htmlFor="image" className="mb-2 block text-sm font-medium text-green-400 text-center">
                 Upload Image
               </label>
               <input
@@ -146,15 +161,15 @@ const TestimonialsClient = () => {
                 type="file"
                 accept="image/png, image/jpeg, image/jpg, image/webp"
                 onChange={handleImageChange}
-                className="block w-full text-sm text-mygreen border border-mygreen/50 rounded-md cursor-pointer bg-transparent 
+                className="block w-full text-sm text-mygreen border border-mygreen/50 rounded-md cursor-pointer bg-[#0a0f0a] 
                            file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 
                            file:text-sm file:font-semibold file:bg-transparent file:text-mygreen 
-                           hover:file:bg-mygreen hover:file:text-white px-4 py-2 transition"
+                           hover:file:bg-mygreen hover:file:text-white px-4 py-2 transition "
               />
             </div>
 
             <div className="w-full">
-              <label htmlFor="comment" className="mb-2 block text-sm font-medium text-white text-center">
+              <label htmlFor="comment" className="mb-2 block text-sm font-medium text-green-400 text-center">
                 Your Comment
               </label>
               <textarea
@@ -164,7 +179,8 @@ const TestimonialsClient = () => {
                 placeholder="Enter your comment"
                 value={formData.comment}
                 onChange={handleChange}
-                className="w-full rounded-md border border-transparent bg-[#2C303B] px-4 py-3 text-base text-white focus:border-mygreen focus:ring-0 outline-none transition"
+                className="w-full rounded-md border border-green-700/50 bg-[#0a0f0a] px-5 py-3 text-base text-gray-100 
+                      outline-none focus:border-green-400 focus:ring-1 focus:ring-green-500 transition"
                 required
                 maxLength={250}
               ></textarea>
@@ -172,7 +188,8 @@ const TestimonialsClient = () => {
 
             <button
               type="submit"
-              className="mt-2 rounded-lg bg-mygreen px-10 py-3 text-base font-medium text-white transition hover:bg-transparent border border-mygreen hover:text-mygreen"
+              className="mt-2 rounded-lg bg-mygreen px-10 py-3 text-base  transition
+              font-semibold text-black duration-300 ease-in-out hover:bg-transparent border border-green-500 hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)]"
             >
               Submit
             </button>

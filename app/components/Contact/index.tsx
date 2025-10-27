@@ -5,7 +5,6 @@ import SectionTitle from "../Common/SectionTitle";
 import emailjs from "@emailjs/browser";
 import { useRef, useState } from "react";
 
-
 const Contact = () => {
   const form = useRef<HTMLFormElement>(null);
   const [isSending, setIsSending] = useState(false);
@@ -38,106 +37,131 @@ const Contact = () => {
       );
   };
 
-  
-
-
   return (
-    
-    
-    <section id="contact" className="particles-bg overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
+    <section
+      id="contact"
+      className="relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 
+      bg-[#050505] bg-[radial-gradient(ellipse_at_top,_#0f3d2e_0%,_#020202_80%)]"
+    >
+      {/* Cyber grid background */}
+      <div className="absolute inset-0 opacity-[0.06] 
+        bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),
+             linear-gradient(#00ff99_1px,transparent_1px)] 
+        bg-[size:50px_50px]" />
 
-      <div className="container mx-auto px-4">
+      {/* Neon radial glows */}
+      <div className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.12),_transparent_60%)] blur-3xl animate-pulse-slow" />
+      <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.06),_transparent_70%)] blur-[120px]" />
+
+      <div className="container mx-auto relative z-10">
         <SectionTitle
           title="Contact"
-          paragraph="Feel free to reach out via the form below."
+          paragraph="Let’s get in touch — I’ll respond as soon as possible."
           center
           mb="50px"
         />
-        <div className="-mx-4 flex flex-wrap opacity-70">
+
+        <div className="-mx-4 flex flex-wrap items-center justify-center">
+          {/* Forma */}
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
-            <div className="wow fadeInUp shadow-three bg-gray-950 border border-green-600 mb-12 rounded-3xl px-8 py-11 sm:p-[55px] lg:mb-5 lg:px-8 xl:p-[55px]">
+            <div
+              className="relative bg-black/60 border border-green-500/40 backdrop-blur-md 
+              rounded-2xl p-8 sm:p-12 shadow-[0_0_25px_2px_rgba(0,255,128,0.15)] 
+              transition-all duration-300 hover:shadow-[0_0_40px_4px_rgba(0,255,128,0.25)]"
+            >
               <h2 className="mb-3 text-2xl font-bold text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                Contact Me
+                Send Me a Message
               </h2>
-              <p className="mb-12 text-base font-medium text-gray-300">
-                I’ll reach out to you via email as soon as possible.
+              <p className="mb-10 text-base font-light text-gray-300">
+                Fill in your details and I’ll reply as soon as possible.
               </p>
+
               <form ref={form} onSubmit={sendEmail}>
-                <div className="-mx-4 flex flex-wrap">
-                  <div className="w-full px-4 md:w-1/2">
-                    <div className="mb-8">
-                      <label htmlFor="user_name" className="mb-3 block text-sm font-medium text-white">
-                        Your Name
-                      </label>
-                      <input
-                        type="text"
-                        id="user_name"
-                        autoComplete="user_name"
-                        name="user_name"
-                        required
-                        defaultValue=""
-                        placeholder="Enter your name"
-                        className="w-full rounded-sm border border-gray-700 bg-gray-800 px-6 py-3 text-base text-white outline-none focus:border-green-600"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full px-4 md:w-1/2">
-                    <div className="mb-8">
-                      <label htmlFor="user_email" className="mb-3 block text-sm font-medium text-white">
-                        Your Email
-                      </label>
-                      <input
-                        type="email"
-                        id="user_email"
-                        name="user_email"
-                        autoComplete="user_email"
-                        required
-                        defaultValue=""
-                        placeholder="Enter your email"
-                        className="w-full rounded-sm border border-gray-700 bg-gray-800 px-6 py-3 text-base text-white outline-none focus:border-green-600"
-                      />
-                    </div>
-                  </div>
-                  <div className="w-full px-4">
-                    <div className="mb-8">
-                      <label htmlFor="message" className="mb-3 block text-sm font-medium text-white">
-                        Your Message
-                      </label>
-                      <textarea
-                        id="message"
-                        autoComplete="message"
-                        name="message"
-                        rows={5}
-                        required
-                        defaultValue=""
-                        placeholder="Enter your message"
-                        className="w-full rounded-sm border border-gray-700 bg-gray-800 px-6 py-3 text-base text-white outline-none focus:border-green-600"
-                      ></textarea>
-                    </div>
-                  </div>
-                  <div className="w-full px-4 text-center">
-                    <button
-                      type="submit"
-                      disabled={isSending}
-                      className="rounded-lg bg-green-600 px-16 py-4 text-base font-medium text-white duration-300 hover:bg-transparent border border-green-600 hover:text-green-600"
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label
+                      htmlFor="user_name"
+                      className="block mb-2 text-sm font-medium text-green-400"
                     >
-                      {isSending ? "Sending..." : "Send"}
-                    </button>
+                      Your Name
+                    </label>
+                    <input
+                      type="text"
+                      id="user_name"
+                      name="user_name"
+                      required
+                      placeholder="Enter your name"
+                      className="w-full rounded-md border border-green-700/50 bg-[#0a0f0a] px-5 py-3 text-base text-gray-100 
+                      outline-none focus:border-green-400 focus:ring-1 focus:ring-green-500 transition"
+                    />
                   </div>
+
+                  <div>
+                    <label
+                      htmlFor="user_email"
+                      className="block mb-2 text-sm font-medium text-green-400"
+                    >
+                      Your Email
+                    </label>
+                    <input
+                      type="email"
+                      id="user_email"
+                      name="user_email"
+                      required
+                      placeholder="Enter your email"
+                      className="w-full rounded-md border border-green-700/50 bg-[#0a0f0a] px-5 py-3 text-base text-gray-100 
+                      outline-none focus:border-green-400 focus:ring-1 focus:ring-green-500 transition"
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-6">
+                  <label
+                    htmlFor="message"
+                    className="block mb-2 text-sm font-medium text-green-400"
+                  >
+                    Your Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows={5}
+                    required
+                    placeholder="Type your message..."
+                    className="w-full rounded-md border border-green-700/50 bg-[#0a0f0a] px-5 py-3 text-base text-gray-100 
+                    outline-none focus:border-green-400 focus:ring-1 focus:ring-green-500 transition"
+                  ></textarea>
+                </div>
+
+                <div className="mt-8 text-center">
+                  <button
+                    type="submit"
+                    disabled={isSending}
+                    className="rounded-lg  px-12 py-4 font-semibold 
+                     transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,255,128,0.45)]
+                    bg-green-500 border border-green-500 text-black 
+                    ease-in-out hover:bg-transparent
+                    hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)]"
+                  >
+                    {isSending ? "Sending..." : "Send Message"}
+                  </button>
+
                   {message && (
-                    <p className="mt-4 text-center text-sm text-gray-300">{message}</p>
+                    <p className="mt-4 text-sm text-gray-300">{message}</p>
                   )}
                 </div>
               </form>
             </div>
           </div>
-          <div className="w-full px-8 lg:w-5/12 xl:w-4/12">
+
+          {/* Slika */}
+          <div className="w-full px-8 lg:w-5/12 xl:w-4/12 flex justify-center mt-10 lg:mt-0">
             <Image
               src="/images/contactus.svg"
-              alt="contact img"
-              width={700}
-              height={550}
-              className="mt-12 sm:mt-16 md:mt-24 mx-auto max-w-[250px] sm:max-w-[350px] md:max-w-[500px] lg:max-w-full"
+              alt="contact illustration"
+              width={600}
+              height={480}
+              className="drop-shadow-[0_0_25px_rgba(0,255,128,0.25)] animate-pulse-slow"
               priority
             />
           </div>
