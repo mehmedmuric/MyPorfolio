@@ -1,4 +1,6 @@
+'use client'
 import Link from "next/link";
+
 
 const Breadcrumb = ({
   pageName,
@@ -7,8 +9,11 @@ const Breadcrumb = ({
   pageName: string;
   description: string;
 }) => {
+
+  
   return (
-    <section className="relative z-10 overflow-hidden pt-28 lg:pt-[150px]">
+    <section className="relative z-10 overflow-hidden pt-28 lg:pt-[150px] particles-bg">
+     
       <div className="container mx-auto">
         <div className="-mx-4 flex flex-wrap items-center">
           <div className="w-full px-4 md:w-8/12 lg:w-7/12">

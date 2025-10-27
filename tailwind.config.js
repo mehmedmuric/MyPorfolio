@@ -63,6 +63,7 @@ module.exports = {
         btn: "0px 1px 2px rgba(4, 10, 34, 0.15)",
         "btn-hover": "0px 1px 2px rgba(0, 0, 0, 0.15)",
         "btn-light": "0px 1px 2px rgba(0, 0, 0, 0.1)",
+        neon: '0 0 5px #39ff14, 0 0 10px #39ff14, 0 0 20px #39ff14',
       },
       dropShadow: {
         three: "0px 5px 15px rgba(6, 8, 15, 0.05)",

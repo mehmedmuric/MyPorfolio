@@ -7,14 +7,14 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
   return (
     <>
       <div
-        className="wow fadeInUp max-w-[365px] group relative overflow-hidden rounded-lg shadow-lg ring-0 ring-green-500 transition-all duration-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2 bg-dark"
+        className="wow fadeInUp max-w-[365px] group relative overflow-hidden rounded-3xl shadow-lg ring-0 ring-green-500 transition-all duration-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2 bg-gray-950/60 opacity-90 border border-mygreen/80"
         data-wow-delay=".1s"
       >
         <Link
           href={`/blog-details/${blog.id}`}
           className="relative block aspect-[37/22] w-full"
         >
-          <span className="absolute right-6 top-6 z-20 inline-flex items-center justify-center rounded-full bg-green-700 px-4 py-2 text-sm font-semibold capitalize text-white">
+          <span className="absolute right-6 top-6 z-20 inline-flex items-center justify-center rounded-full bg-mygreen px-4 py-2 text-sm font-semibold capitalize text-white">
             {tags[0]}
           </span>
           <Image 
@@ -54,9 +54,9 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
               </div>
               <div className="w-full">
                 <h4 className="mb-1 text-sm font-medium text-white">
-                  By {author.name}
+                  {author.name}
                 </h4>
-                <p className="text-xs text-body-color">{author.designation}</p>
+                <p className="text-xs text-body-color-dark">{author.designation}</p>
               </div>
             </div>
             <div className="inline-block">

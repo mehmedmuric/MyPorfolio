@@ -5,25 +5,29 @@ import SectionTitle from "../Common/SectionTitle";
 
 const Certifications = () => {
   return (
-    <section className="pt-16">
-      <div className="container">
-      <SectionTitle
+    <section
+      className="relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-16 
+      bg-[#050505] bg-[radial-gradient(ellipse_at_top,_#0f3d2e_0%,_#020202_80%)]"
+    >
+      {/* Green glow overlay */}
+      <div className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.12),_transparent_60%)] blur-3xl" />
+
+      <div className="container mx-auto relative z-10">
+        <SectionTitle
           title="Certifications"
-          paragraph=""
+          paragraph="I continually improve my skills through real-world courses and certifications. Each one represents a milestone in mastering modern full-stack technologies."
           center
-          mb="50px"
+          mb="70px"
         />
-        <div className="-mx-4 flex flex-wrap">
-          <div className="w-full px-4">
-            <div
-              className="wow fadeInUp bg-gray-dark flex flex-wrap items-center justify-center rounded-sm px-8 py-8 sm:px-10 md:px-[50px] md:py-[40px] xl:p-[50px] 2xl:px-[70px] 2xl:py-[60px]"
-              data-wow-delay=".1s"
-            >
-              {brandsData.map((brand) => (
-                <SingleBrand key={brand.id} brand={brand} />
-              ))}
-            </div>
-          </div>
+
+        <p className="text-center text-gray-400 max-w-2xl mx-auto mb-16 text-base sm:text-lg">
+          Here are some of my completed certifications — covering everything from backend architecture to modern front-end frameworks.
+        </p>
+
+        <div className="flex flex-col sm:flex-row flex-wrap gap-12 items-center justify-center">
+          {brandsData.map((brand) => (
+            <SingleBrand key={brand.id} brand={brand} />
+          ))}
         </div>
       </div>
     </section>
@@ -33,20 +37,61 @@ const Certifications = () => {
 export default Certifications;
 
 const SingleBrand = ({ brand }: { brand: Brand }) => {
-  const { href, image, name } = brand;
+  const { href, image, name, issued, platform, description } = brand;
 
   return (
-    <div className="mx-3 flex w-full max-w-[160px] items-center justify-center py-[15px] sm:mx-4 lg:max-w-[130px] xl:mx-6 xl:max-w-[150px] 2xl:mx-8 2xl:max-w-[160px]">
+    <div
+      className="group relative flex flex-col items-center justify-center p-10 sm:p-12 rounded-3xl 
+      backdrop-blur-md bg-black/60 border border-green-600/30 
+       
+      transition-all duration-500 hover:-translate-y-3 hover:scale-105
+      w-[95%] sm:w-[80%] md:w-[72%] lg:w-[70%] xl:w-[320px] max-w-[280px]
+      
+      shadow-lg ring-0 ring-green-500  hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2"
+    >
+      <div
+        className="relative flex items-center justify-center h-36 w-36 sm:h-44 sm:w-44 
+        rounded-full bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.80),_transparent_90%)]
+                shadow-[0_0_20px_rgba(0,255,128,0.25)] group-hover:shadow-[0_0_35px_rgba(0,255,128,0.8)]
+                transition-all duration-500 animate-pulse-slow
+        
+        "
+      >
+        <Image
+          src={image}
+          alt={name}
+          width={150}
+          height={150}
+          className="object-contain drop-shadow-[0_0_15px_rgba(0,255,128,0.3)] 
+          group-hover:drop-shadow-[0_0_25px_rgba(0,255,128,0.5)] transition-all duration-500"
+          priority
+        />
+      </div>
+
+      <p className="mt-5 text-base sm:text-lg font-semibold text-center text-white group-hover:text-green-400 transition-colors duration-300">
+        {name}
+      </p>
+
+      <p className="text-sm text-gray-400 text-center mt-1">
+        {platform} • {issued}
+      </p>
+
+      <p className="text-center text-gray-400 mt-2 text-sm px-3">{description}</p>
+
       <a
         href={href}
         target="_blank"
         rel="nofollow noreferrer"
-        className="relative h-12 w-full opacity-70 grayscale transition hover:opacity-100 hover:grayscale-0 dark:opacity-60 dark:hover:opacity-100"
+        className="mt-6 inline-block rounded-lg px-6 py-4 
+        text-sm sm:text-base text-center font-medium  
+        transition-all duration-300 
+         hover:shadow-[0_0_25px_rgba(0,255,128,0.35)]
+        
+        bg-green-500 border border-green-500 text-black 
+              ease-in-out hover:bg-transparent
+              hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)] "
       >
-        <Image src={image} alt={name} width={500} height={500} priority sizes="(max-width: 640px) 100vw,  
-                  (max-width: 1024px) 80vw,  
-                  (max-width: 1280px) 70vw,  
-                  50vw"/>
+        Show Certificate
       </a>
     </div>
   );

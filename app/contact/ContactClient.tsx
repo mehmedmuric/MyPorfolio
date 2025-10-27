@@ -12,13 +12,19 @@ const Contact = dynamic(() => import("../components/Contact"), {
 
 
 
+
+
+
 const ContactClient = () => {
+  
   return (
     <>
+    
       <Breadcrumb
         pageName="Contact Me"
         description=""
       />
+      
 
       <Contact />
     </>

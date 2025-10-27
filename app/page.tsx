@@ -34,7 +34,11 @@ const BlogList = dynamic(() => import("./components/Blog"), {
 
 
 
+
+
+
 export default function Home() {
+  
 
   return (
     
@@ -46,6 +50,7 @@ export default function Home() {
       <BlogList />
       <AboutSection />
       <Contact />
+  
     </>
   );
 }

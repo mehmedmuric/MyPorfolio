@@ -21,6 +21,36 @@ main, .container {
   box-sizing: border-box;
 }
 
+
+
+
+/* ===== Modern particles background - koristi se po sekcijama ===== */
+/* ===== Modern fluid particles background ===== */
+/* ===== Falling particles background ===== */
+/* ===== Modern Falling Particles ===== */
+/* Hakerski footer background */
+/* ===================== Hakerski Footer ===================== */
+ 
+
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.7; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.02); }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.shadow-neon {
+  box-shadow: 0 0 15px rgba(0,255,128,0.25);
+}
+
+.shadow-neon-glow {
+  box-shadow: 0 0 35px rgba(0,255,128,0.45);
+}
+
+
 /* Chat widget fiksno u bottom-right */
 .bp-chat-widget {
   position: fixed !important;

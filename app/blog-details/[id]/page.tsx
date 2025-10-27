@@ -72,12 +72,16 @@ export default async function BlogDetailsPage({
   return (
     <>
       <Breadcrumb pageName={blog.title} description="Project Details" />
-      <section className="pb-[100px] px-4 sm:px-6 lg:px-8">
+      <section className=" overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/5 to-mygreen/5">
         <div className="max-w-5xl mx-auto flex flex-col gap-10">
+          
           {/* AUTHOR & META */}
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 sm:gap-0 border-b border-mygreen border-opacity-50 pb-4">
+            
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+              
               <div className="flex items-center gap-3">
+                
                 <div className="relative h-10 w-10 rounded-full overflow-hidden">
                   <Image
                     src={blog.author.image}
@@ -123,14 +127,16 @@ export default async function BlogDetailsPage({
             <Link
               href={blog.livedemo}
               target="_blank"
-              className="rounded-lg bg-mygreen px-6 py-3 text-base font-semibold text-white border border-mygreen hover:bg-transparent hover:text-mygreen transition-colors duration-300"
+              className="rounded-lg bg-mygreen px-6 py-3 text-base transition-colors
+                font-semibold text-black duration-300 ease-in-out hover:bg-transparent border border-green-500 hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)]"
             >
               Live Demo
             </Link>
             <Link
               href={blog.gitlink}
               target="_blank"
-              className="rounded-lg bg-black px-6 py-3 text-base font-semibold text-white border border-mygreen hover:bg-transparent hover:text-mygreen transition-colors duration-300"
+              className="rounded-lg bg-black px-6 py-3 text-base font-semibold text-white border border-mygreen hover:bg-transparenttransition-colors 
+               duration-300 ease-in-out hover:bg-transparent  shadow-[0_0_10px_rgba(0,255,128,0.3)] hover:text-green-500"
             >
               GitHub Code
             </Link>
