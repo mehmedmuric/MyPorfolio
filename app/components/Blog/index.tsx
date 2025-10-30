@@ -8,17 +8,21 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Link from "next/link";
 import { Autoplay } from "swiper/modules";
-
 import dynamic from "next/dynamic";
 import Loader from "../Loader";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 const SingleBlog = dynamic(() => import("./SingleBlog"), {
   ssr: false,
   loading: () => <Loader />,
 });
 
+gsap.registerPlugin(ScrollTrigger);
+
 const BlogList = () => {
   const [projects, setProjects] = useState<Blog[]>([]);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   const swiperRef = useRef<any>(null);
 
   useEffect(() => {
@@ -30,6 +34,65 @@ const BlogList = () => {
     fetchProjects();
   }, []);
 
+  useEffect(() => {
+    if (!containerRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // section reveal
+      gsap.from(".blog-section", {
+        opacity: 0,
+        y: 60,
+        duration: 1.3,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".blog-section",
+          start: "top 80%",
+        },
+      });
+
+      // title pulse + glow
+      gsap.from(".blog-title", {
+        opacity: 0,
+        scale: 0.9,
+        filter: "drop-shadow(0 0 10px rgba(0,255,128,0))",
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".blog-title",
+          start: "top 85%",
+        },
+      });
+
+      // project cards float + glow
+      gsap.utils.toArray(".blog-card").forEach((el: any, i) => {
+        gsap.fromTo(
+          el,
+          {
+            opacity: 0,
+            y: 80,
+            scale: 0.95,
+            filter: "drop-shadow(0 0 0px rgba(0,255,128,0))",
+          },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 1,
+            delay: i * 0.15,
+            ease: "power3.out",
+            filter: "drop-shadow(0 0 15px rgba(0,255,128,0.3))",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 85%",
+            },
+          }
+        );
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [projects]);
+
   const handlePrevSlide = () => {
     if (swiperRef.current) swiperRef.current.swiper.slidePrev();
   };
@@ -40,20 +103,18 @@ const BlogList = () => {
 
   return (
     <section
-      className="relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8
+      ref={containerRef}
+      className="blog-section relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8
         bg-[#010101] bg-[radial-gradient(ellipse_at_top,_#0a3b27_0%,_#010101_85%)]"
     >
-      {/* Neon radial pulse overlays */}
+      {/* Neon overlays */}
       <div className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.08),_transparent_70%)] blur-3xl animate-pulse-slow" />
       <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.04),_transparent_70%)] blur-[120px]" />
 
       <div className="container relative z-10">
-        <SectionTitle
-          title="Projects"
-          paragraph=""
-          center
-          mb="50px"
-        />
+        <div className="blog-title">
+          <SectionTitle title="Projects" paragraph="" center mb="50px" />
+        </div>
 
         <Swiper
           className="!p-4 md:!p-6 lg:!p-8"
@@ -61,29 +122,30 @@ const BlogList = () => {
           spaceBetween={30}
           slidesPerView={3}
           loop={true}
-          autoplay={{ delay: 2000, disableOnInteraction: false }}
+          autoplay={{ delay: 2500, disableOnInteraction: false }}
           modules={[Autoplay]}
           breakpoints={{
             0: { slidesPerView: 1 },
             640: { slidesPerView: 1 },
             768: { slidesPerView: 2 },
             1024: { slidesPerView: 3 },
-            1280: { slidesPerView: 3 },
           }}
         >
           {projects.map((blog, index) => (
             <SwiperSlide key={index}>
-              <div className="group relative rounded-3xl overflow-hidden 
-                shadow-[0_0_20px_rgba(0,255,128,0.12)] hover:shadow-[0_0_35px_rgba(0,255,128,0.3)]
-                transition-all duration-500 hover:-translate-y-2 hover:scale-105
-                backdrop-blur-md  p-4">
+              <div
+                className="blog-card group relative rounded-3xl overflow-hidden 
+                  shadow-[0_0_20px_rgba(0,255,128,0.12)] hover:shadow-[0_0_35px_rgba(0,255,128,0.3)]
+                  transition-all duration-500 hover:-translate-y-2 hover:scale-105
+                  backdrop-blur-md p-4"
+              >
                 <SingleBlog blog={blog} />
               </div>
             </SwiperSlide>
           ))}
         </Swiper>
 
-        {/* Navigation buttons */}
+        {/* Nav buttons */}
         <div className="flex justify-center gap-6 mt-4">
           <button
             onClick={handlePrevSlide}

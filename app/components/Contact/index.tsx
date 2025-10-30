@@ -1,33 +1,38 @@
-"use client";
+'use client';
 
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
 import emailjs from "@emailjs/browser";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
-  const form = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLFormElement>(null);
+  const sectionRef = useRef<HTMLDivElement | null>(null);
+  const imageRef = useRef<HTMLDivElement | null>(null);
   const [isSending, setIsSending] = useState(false);
   const [message, setMessage] = useState("");
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
     setIsSending(true);
-
-    if (!form.current) return;
+    if (!formRef.current) return;
 
     emailjs
       .sendForm(
         "service_jt0dhte",
         "template_i0djgfp",
-        form.current,
+        formRef.current,
         "e3HwtEEiXF4PsfjEl"
       )
       .then(
         () => {
           setMessage("✅ Your message has been sent!");
           setIsSending(false);
-          form.current?.reset();
+          formRef.current?.reset();
         },
         (error) => {
           console.error("EmailJS error:", error);
@@ -37,10 +42,80 @@ const Contact = () => {
       );
   };
 
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Section fade-in sporije
+      gsap.from(".contact-section", {
+        opacity: 0,
+        y: 100,
+        duration: 4,   // sporije
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".contact-section",
+          start: "top 85%",
+        },
+      });
+
+      // Title fade + glow sporije
+      gsap.from(".contact-title", {
+        opacity: 0,
+        y: 40,
+        duration: 4,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".contact-section",
+          start: "top 85%",
+        },
+      });
+
+      // Forma lebdi i fade
+      gsap.from(".contact-form-card", {
+        opacity: 0,
+        y: 60,
+        scale: 0.97,
+        duration: 4,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".contact-section",
+          start: "top 80%",
+        },
+      });
+
+      // Slika ulazi i pulse
+      gsap.fromTo(
+        imageRef.current,
+        { opacity: 0, y: 60, scale: 0.95 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 4,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+          },
+        }
+      );
+
+      // Dugme blagi pulse
+      gsap.to(".contact-btn", {
+        boxShadow: "0 0 35px rgba(0,255,128,0.5)",
+        duration: 1.5,
+        repeat: -1,
+        yoyo: true,
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
-      id="contact"
-      className="relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 
+      ref={sectionRef}
+      className="contact-section relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 
       bg-[#050505] bg-[radial-gradient(ellipse_at_top,_#0f3d2e_0%,_#020202_80%)]"
     >
       {/* Cyber grid background */}
@@ -54,20 +129,21 @@ const Contact = () => {
       <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.06),_transparent_70%)] blur-[120px]" />
 
       <div className="container mx-auto relative z-10">
-        <SectionTitle
-          title="Contact"
-          paragraph="Let’s get in touch — I’ll respond as soon as possible."
-          center
-          mb="50px"
-        />
+        <div className="contact-title">
+          <SectionTitle
+            title="Contact"
+            paragraph="Let’s get in touch — I’ll respond as soon as possible."
+            center
+            mb="50px"
+          />
+        </div>
 
         <div className="-mx-4 flex flex-wrap items-center justify-center">
           {/* Forma */}
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
-            <div
-              className="relative bg-black/60 border border-green-500/40 backdrop-blur-md 
+            <div className="contact-form-card relative bg-black/60 border border-green-500/40 backdrop-blur-md 
               rounded-2xl p-8 sm:p-12 shadow-[0_0_25px_2px_rgba(0,255,128,0.15)] 
-              transition-all duration-300 hover:shadow-[0_0_40px_4px_rgba(0,255,128,0.25)]"
+              transition-all duration-300 hover:shadow-[0_0_50px_6px_rgba(0,255,128,0.25)]"
             >
               <h2 className="mb-3 text-2xl font-bold text-white sm:text-3xl lg:text-2xl xl:text-3xl">
                 Send Me a Message
@@ -76,13 +152,10 @@ const Contact = () => {
                 Fill in your details and I’ll reply as soon as possible.
               </p>
 
-              <form ref={form} onSubmit={sendEmail}>
+              <form ref={formRef} onSubmit={sendEmail}>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label
-                      htmlFor="user_name"
-                      className="block mb-2 text-sm font-medium text-green-400"
-                    >
+                    <label htmlFor="user_name" className="block mb-2 text-sm font-medium text-green-400">
                       Your Name
                     </label>
                     <input
@@ -97,10 +170,7 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label
-                      htmlFor="user_email"
-                      className="block mb-2 text-sm font-medium text-green-400"
-                    >
+                    <label htmlFor="user_email" className="block mb-2 text-sm font-medium text-green-400">
                       Your Email
                     </label>
                     <input
@@ -116,10 +186,7 @@ const Contact = () => {
                 </div>
 
                 <div className="mt-6">
-                  <label
-                    htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-green-400"
-                  >
+                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-green-400">
                     Your Message
                   </label>
                   <textarea
@@ -137,8 +204,8 @@ const Contact = () => {
                   <button
                     type="submit"
                     disabled={isSending}
-                    className="rounded-lg  px-12 py-4 font-semibold 
-                     transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,255,128,0.45)]
+                    className="contact-btn rounded-lg  px-12 py-4 font-semibold 
+                     transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,255,128,0.45)]
                     bg-green-500 border border-green-500 text-black 
                     ease-in-out hover:bg-transparent
                     hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)]"
@@ -146,22 +213,20 @@ const Contact = () => {
                     {isSending ? "Sending..." : "Send Message"}
                   </button>
 
-                  {message && (
-                    <p className="mt-4 text-sm text-gray-300">{message}</p>
-                  )}
+                  {message && <p className="mt-4 text-sm text-gray-300">{message}</p>}
                 </div>
               </form>
             </div>
           </div>
 
           {/* Slika */}
-          <div className="w-full px-8 lg:w-5/12 xl:w-4/12 flex justify-center mt-10 lg:mt-0">
+          <div ref={imageRef} className="w-full px-8 lg:w-5/12 xl:w-4/12 flex justify-center mt-10 lg:mt-0">
             <Image
               src="/images/contactus.svg"
               alt="contact illustration"
               width={600}
               height={480}
-              className="drop-shadow-[0_0_25px_rgba(0,255,128,0.25)] animate-pulse-slow"
+              className="drop-shadow-[0_0_35px_rgba(0,255,128,0.35)] animate-pulse-slow"
               priority
             />
           </div>

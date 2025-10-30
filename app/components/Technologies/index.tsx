@@ -1,28 +1,67 @@
-'use client';
+'use client'
 
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Technologies = () => {
   const technologies = [
-    { name: "HTML", src: "./images/models/html5.svg" },
-    { name: "CSS", src: "./images/models/css3.svg" },
-    { name: "JavaScript", src: "./images/models/javascript.svg" },
-    { name: "React", src: "./images/models/react.svg" },
-    { name: "NextJS", src: "./images/models/nextjs.svg" },
-    { name: "TailwindCSS", src: "./images/models/tailwindcss.svg" },
-    { name: "SASS", src: "./images/models/sass.svg" },
-    { name: "Bootstrap", src: "./images/models/bootstrap.svg" },
-    { name: "MaterialUI", src: "./images/models/materialui.svg" },
-    { name: "NodeJS", src: "./images/models/nodejs.svg" },
-    { name: "ExpressJS", src: "./images/models/expressjs.svg" },
-    { name: "MongoDB", src: "./images/models/mongodb.svg" },
-    { name: "MySQL", src: "./images/models/mysql.svg" },
-    { name: "ReduxJS", src: "./images/models/reduxjs.svg" },
-    { name: "TypeScript", src: "./images/models/typescript.svg" },
-    { name: "Kali Linux", src: "./images/models/kalilinux.svg" },
-    { name: "AWS", src: "./images/models/amazonAWS.svg" },
+    { name: "HTML", src: "/images/models/html5.svg" },
+    { name: "CSS", src: "/images/models/css3.svg" },
+    { name: "JavaScript", src: "/images/models/javascript.svg" },
+    { name: "React", src: "/images/models/react.svg" },
+    { name: "NextJS", src: "/images/models/nextjs.svg" },
+    { name: "TailwindCSS", src: "/images/models/tailwindcss.svg" },
+    { name: "SASS", src: "/images/models/sass.svg" },
+    { name: "Bootstrap", src: "/images/models/bootstrap.svg" },
+    { name: "MaterialUI", src: "/images/models/materialui.svg" },
+    { name: "NodeJS", src: "/images/models/nodejs.svg" },
+    { name: "ExpressJS", src: "/images/models/expressjs.svg" },
+    { name: "MongoDB", src: "/images/models/mongodb.svg" },
+    { name: "MySQL", src: "/images/models/mysql.svg" },
+    { name: "ReduxJS", src: "/images/models/reduxjs.svg" },
+    { name: "TypeScript", src: "/images/models/typescript.svg" },
+    { name: "Kali Linux", src: "/images/models/kalilinux.svg" },
+    { name: "AWS", src: "/images/models/amazonAWS.svg" },
   ];
+
+  const iconsRef = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    iconsRef.current.forEach((el, index) => {
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 30, rotationY: -20 },
+        {
+          opacity: 1,
+          y: 0,
+          rotationY: 0,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+          },
+          delay: index * 0.08,
+        }
+      );
+
+      // subtle floating effect
+      gsap.to(el, {
+        y: "+=6",
+        rotationY: 5,
+        repeat: -1,
+        yoyo: true,
+        duration: 2 + Math.random(),
+        ease: "sine.inOut",
+        delay: index * 0.1,
+      });
+    });
+  }, []);
 
   return (
     <section
@@ -51,17 +90,17 @@ const Technologies = () => {
           {technologies.map((tech, index) => (
             <div
               key={index}
+              ref={(el) => el && (iconsRef.current[index] = el)}
               className="group relative flex flex-col items-center justify-center p-5 rounded-3xl backdrop-blur-lg
                 bg-black/60 border border-green-500/20  
-                 transition-transform duration-300
+                transition-transform duration-300
                 hover:-translate-y-2 hover:scale-105 w-[90%] sm:w-[85%] md:w-[75%] lg:w-[80%] xl:w-auto max-w-[200px]
-                
-                shadow-lg ring-0 ring-green-500  hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2"
+                shadow-lg ring-0 ring-green-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2"
             >
               <div className="relative flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 rounded-full
                 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.70),_transparent_70%)]
                 shadow-[0_0_20px_rgba(0,255,128,0.25)] group-hover:shadow-[0_0_35px_rgba(0,255,128,0.8)]
-                transition-all duration-500 animate-pulse-slow"
+                transition-all duration-500"
               >
                 <Image
                   src={tech.src}

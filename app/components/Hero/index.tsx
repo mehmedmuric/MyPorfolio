@@ -2,10 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 const Hero = () => {
-  useScrollAnimations();
+const titleRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const tl = gsap.timeline();
+    if (titleRef.current && textRef.current && buttonsRef.current && profileRef.current) {
+      tl.from(titleRef.current, { y: 30, opacity: 0, duration: 1, ease: "power3.out" })
+        .from(textRef.current, { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.7")
+        .from(buttonsRef.current, { y: 20, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out" }, "-=0.5")
+        .from(profileRef.current, { scale: 0.9, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.6");
+    }
+  }, []);
 
   return (
     <section
@@ -28,7 +42,7 @@ const Hero = () => {
         <div className="-mx-4 flex flex-wrap justify-between">
           {/* Left side */}
           <div className="w-full px-4 md:w-[40%]">
-            <div className="leftSide opacity-0 mt-14" data-animate="blink-1">
+            <div className="leftSide mt-14">
               <div className="mx-auto max-w-[800px] text-center md:text-left">
                 <h1 className="typingText mb-5 font-bold leading-tight text-white text-center text-3xl sm:text-4xl md:text-4xl lg:text-5xl drop-shadow-[0_0_20px_rgba(0,255,128,0.5)]">
                   Mehmed Muric
@@ -58,8 +72,8 @@ const Hero = () => {
 
           {/* Right side */}
           <div
-            className="w-full opacity-0 px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto mt-6 sm:mt-10 md:mt-0"
-            data-animate="blink-1"
+            className="w-full px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto mt-6 sm:mt-10 md:mt-0"
+            
           >
             <div className="profileImage relative w-40 h-40 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-green-500 shadow-[0_0_25px_rgba(0,255,128,0.35)] hover:shadow-[0_0_50px_rgba(0,255,128,0.5)] transition-all duration-500 mb-6">
               <Image
