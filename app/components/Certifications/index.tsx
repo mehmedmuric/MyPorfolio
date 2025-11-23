@@ -1,31 +1,83 @@
-'use client'
+'use client';
 
+import { useEffect, useRef } from "react";
 import { Brand } from "@/types/brand";
 import Image from "next/image";
 import brandsData from "./brandsData";
 import SectionTitle from "../Common/SectionTitle";
-import { useEffect, useState } from "react";
-import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const Certifications = () => {
-  useScrollAnimations();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const sectionRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 30,
-        y: (e.clientY / window.innerHeight - 0.5) * 30,
-      });
-    };
+    if (!sectionRef.current) return;
 
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    const ctx = gsap.context(() => {
+      // Section fade-in
+      gsap.from(".cert-section", {
+        opacity: 0,
+        y: 60,
+        duration: 1.1,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".cert-section",
+          start: "top 85%",
+        },
+      });
+
+      // Title glow + pulse
+      gsap.from(".cert-title", {
+        opacity: 0,
+        scale: 0.9,
+        filter: "drop-shadow(0 0 0 rgba(0,255,128,0))",
+        duration: 1.2,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".cert-title",
+          start: "top 90%",
+        },
+      });
+
+      // Individual cards animation
+      gsap.utils.toArray(".cert-card").forEach((el: any, i) => {
+        gsap.fromTo(
+          el,
+          {
+            opacity: 0,
+            y: 80,
+            rotateX: -10,
+            scale: 0.95,
+            filter: "drop-shadow(0 0 0 rgba(0,255,128,0))",
+          },
+          {
+            opacity: 1,
+            y: 0,
+            rotateX: 0,
+            scale: 1,
+            duration: 0.9,
+            delay: i * 0.1,
+            ease: "power3.out",
+            filter: "drop-shadow(0 0 15px rgba(0,255,128,0.3))",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 90%",
+            },
+          }
+        );
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <section
-      className="relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-16 
+      ref={sectionRef}
+      className="cert-section relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-16 
       bg-[#050505] bg-[radial-gradient(ellipse_at_top,_#0f3d2e_0%,_#020202_80%)]"
     >
       {/* Animated cyber grid background */}
@@ -90,12 +142,14 @@ const Certifications = () => {
       </div>
 
       <div className="container mx-auto relative z-10">
-        <SectionTitle
-          title="Certifications"
-          paragraph="I continually improve my skills through real-world courses and certifications. Each one represents a milestone in mastering modern full-stack technologies."
-          center
-          mb="70px"
-        />
+        <div className="cert-title">
+          <SectionTitle
+            title="Certifications"
+            paragraph="I continually improve my skills through real-world courses and certifications. Each one represents a milestone in mastering modern full-stack technologies."
+            center
+            mb="70px"
+          />
+        </div>
 
         <p 
           className="text-center text-gray-400 max-w-2xl mx-auto mb-16 text-base sm:text-lg opacity-0"
@@ -123,16 +177,11 @@ const SingleBrand = ({ brand, index }: { brand: Brand; index: number }) => {
 
   return (
     <div
-      className="group relative flex flex-col items-center justify-center p-10 sm:p-12 rounded-3xl 
-      backdrop-blur-md bg-gradient-to-br from-black/70 via-black/60 to-black/70 border border-green-600/30 
+      className="cert-card group relative flex flex-col items-center justify-center p-10 sm:p-12 rounded-3xl 
+      backdrop-blur-md bg-black/60 border border-green-600/30 
       transition-all duration-500 hover:-translate-y-3 hover:scale-105
       w-[95%] sm:w-[80%] md:w-[72%] lg:w-[70%] xl:w-[320px] max-w-[280px]
-      shadow-lg hover:shadow-[0_0_50px_rgba(0,255,128,0.4)] hover:border-green-500/60
-      overflow-hidden"
-      data-animate="fade-in-up"
-      style={{ animationDelay: `${index * 0.15}s` }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      shadow-lg ring-0 ring-green-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2"
     >
       {/* Animated corner accents */}
       <div className="absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-green-500/20 rounded-tl-3xl group-hover:border-green-500/60 transition-colors duration-500">
@@ -155,8 +204,8 @@ const SingleBrand = ({ brand, index }: { brand: Brand; index: number }) => {
       <div
         className="relative flex items-center justify-center h-36 w-36 sm:h-44 sm:w-44 
         rounded-full bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.80),_transparent_90%)]
-        shadow-[0_0_20px_rgba(0,255,128,0.25)] group-hover:shadow-[0_0_40px_rgba(0,255,128,0.8)]
-        transition-all duration-500 animate-pulse-slow group-hover:scale-110"
+        shadow-[0_0_20px_rgba(0,255,128,0.25)] group-hover:shadow-[0_0_35px_rgba(0,255,128,0.8)]
+        transition-all duration-500 animate-pulse-slow"
       >
         {/* Pulsing ring on hover */}
         {isHovered && (
@@ -196,11 +245,10 @@ const SingleBrand = ({ brand, index }: { brand: Brand; index: number }) => {
         rel="nofollow noreferrer"
         className="mt-6 relative inline-block rounded-lg px-6 py-4 
         text-sm sm:text-base text-center font-medium  
-        transition-all duration-300 
+        transition-all duration-300 hover:shadow-[0_0_25px_rgba(0,255,128,0.35)]
         bg-green-500 border border-green-500 text-black 
-        ease-in-out hover:bg-transparent hover:text-green-500 
-        shadow-[0_0_15px_rgba(0,255,128,0.4)] hover:shadow-[0_0_30px_rgba(0,255,128,0.6)]
-        hover:scale-105 overflow-hidden group/btn"
+        ease-in-out hover:bg-transparent
+        hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)]"
       >
         {/* Button glow effect */}
         <span className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/20 to-green-500/0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300" />

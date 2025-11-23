@@ -2,29 +2,24 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
 
 const Hero = () => {
-  useScrollAnimations();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [isLoaded, setIsLoaded] = useState(false);
+const titleRef = useRef<HTMLHeadingElement>(null);
+  const textRef = useRef<HTMLParagraphElement>(null);
+  const buttonsRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setIsLoaded(true);
-    
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 20,
-        y: (e.clientY / window.innerHeight - 0.5) * 20,
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
+    const tl = gsap.timeline();
+    if (titleRef.current && textRef.current && buttonsRef.current && profileRef.current) {
+      tl.from(titleRef.current, { y: 30, opacity: 0, duration: 1, ease: "power3.out" })
+        .from(textRef.current, { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.7")
+        .from(buttonsRef.current, { y: 20, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out" }, "-=0.5")
+        .from(profileRef.current, { scale: 0.9, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.6");
+    }
   }, []);
-
-  const techStack = ['JavaScript', 'Next.js', 'TypeScript', 'Node.js', 'ExpressJS'];
 
   return (
     <section
@@ -68,13 +63,10 @@ const Hero = () => {
       ))}
 
       <div className="container relative z-10">
-        <div className="-mx-4 flex flex-wrap items-center justify-between gap-8">
-          {/* Left side - Content */}
-          <div className="w-full px-4 md:w-[48%]">
-            <div 
-              className={`leftSide opacity-0 transition-all duration-1000 ${isLoaded ? 'opacity-100' : ''}`} 
-              data-animate="fade-in-up"
-            >
+        <div className="-mx-4 flex flex-wrap justify-between">
+          {/* Left side */}
+          <div className="w-full px-4 md:w-[40%]">
+            <div className="leftSide mt-14">
               <div className="mx-auto max-w-[800px] text-center md:text-left">
                 {/* Greeting badge */}
                 <div 
@@ -186,8 +178,8 @@ const Hero = () => {
 
           {/* Right side - Profile Image */}
           <div
-            className={`w-full opacity-0 px-4 md:w-[35%] flex flex-col items-center justify-center text-center transition-all duration-1000 delay-200 ${isLoaded ? 'opacity-100' : ''}`}
-            data-animate="fade-in-up"
+            className="w-full px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto mt-6 sm:mt-10 md:mt-0"
+            
           >
             <div className="relative group">
               {/* Glow ring */}

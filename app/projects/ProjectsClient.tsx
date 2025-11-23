@@ -3,12 +3,9 @@
 import Breadcrumb from '../components/Common/Breadcrumb';
 import { Blog } from '@/types/blog';
 import React, { useEffect, useState } from 'react';
-import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 import dynamic from 'next/dynamic';
 import Loader from '../components/Loader';
 
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
 
 const SingleBlog = dynamic(() => import("../components/Blog/SingleBlog"), {
   ssr: false,
@@ -16,7 +13,6 @@ const SingleBlog = dynamic(() => import("../components/Blog/SingleBlog"), {
 });
 
 const ProjectsClient = () => {
-  useScrollAnimations();
   const [projects, setProjects] = useState<Blog[]>([]);
 
   useEffect(() => {
@@ -28,9 +24,7 @@ const ProjectsClient = () => {
     fetchProjects();
   }, []);
 
-  const particlesInit = async (engine: any) => {
-    await loadSlim(engine);
-  };
+
 
   return (
     <>

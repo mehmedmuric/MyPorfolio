@@ -1,66 +1,68 @@
-'use client';
+'use client'
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
-import useScrollAnimations from "@/app/hooks/useScrollAnimations";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
 
-type TechCategory = 'frontend' | 'backend' | 'database' | 'cloud' | 'tools';
-
-interface Technology {
-  name: string;
-  src: string;
-  category: TechCategory;
-  proficiency?: string;
-}
+gsap.registerPlugin(ScrollTrigger);
 
 const Technologies = () => {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [hoveredTech, setHoveredTech] = useState<number | null>(null);
-  useScrollAnimations();
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth - 0.5) * 25,
-        y: (e.clientY / window.innerHeight - 0.5) * 25,
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  const technologies: Technology[] = [
-    { name: "HTML", src: "/images/models/html5.svg", category: "frontend" },
-    { name: "CSS", src: "/images/models/css3.svg", category: "frontend" },
-    { name: "JavaScript", src: "/images/models/javascript.svg", category: "frontend", proficiency: "Advanced" },
-    { name: "React", src: "/images/models/react.svg", category: "frontend", proficiency: "Advanced" },
-    { name: "NextJS", src: "/images/models/nextjs.svg", category: "frontend", proficiency: "Advanced" },
-    { name: "TailwindCSS", src: "/images/models/tailwindcss.svg", category: "frontend" },
-    { name: "SASS", src: "/images/models/sass.svg", category: "frontend" },
-    { name: "Bootstrap", src: "/images/models/bootstrap.svg", category: "frontend" },
-    { name: "MaterialUI", src: "/images/models/materialui.svg", category: "frontend" },
-    { name: "TypeScript", src: "/images/models/typescript.svg", category: "frontend", proficiency: "Advanced" },
-    { name: "ReduxJS", src: "/images/models/reduxjs.svg", category: "frontend" },
-    { name: "NodeJS", src: "/images/models/nodejs.svg", category: "backend", proficiency: "Advanced" },
-    { name: "ExpressJS", src: "/images/models/expressjs.svg", category: "backend" },
-    { name: "MongoDB", src: "/images/models/mongodb.svg", category: "database" },
-    { name: "MySQL", src: "/images/models/mysql.svg", category: "database" },
-    { name: "AWS", src: "/images/models/amazonAWS.svg", category: "cloud" },
-    { name: "Kali Linux", src: "/images/models/kalilinux.svg", category: "tools" },
+  const technologies = [
+    { name: "HTML", src: "/images/models/html5.svg" },
+    { name: "CSS", src: "/images/models/css3.svg" },
+    { name: "JavaScript", src: "/images/models/javascript.svg" },
+    { name: "React", src: "/images/models/react.svg" },
+    { name: "NextJS", src: "/images/models/nextjs.svg" },
+    { name: "TailwindCSS", src: "/images/models/tailwindcss.svg" },
+    { name: "SASS", src: "/images/models/sass.svg" },
+    { name: "Bootstrap", src: "/images/models/bootstrap.svg" },
+    { name: "MaterialUI", src: "/images/models/materialui.svg" },
+    { name: "NodeJS", src: "/images/models/nodejs.svg" },
+    { name: "ExpressJS", src: "/images/models/expressjs.svg" },
+    { name: "MongoDB", src: "/images/models/mongodb.svg" },
+    { name: "MySQL", src: "/images/models/mysql.svg" },
+    { name: "ReduxJS", src: "/images/models/reduxjs.svg" },
+    { name: "TypeScript", src: "/images/models/typescript.svg" },
+    { name: "Kali Linux", src: "/images/models/kalilinux.svg" },
+    { name: "AWS", src: "/images/models/amazonAWS.svg" },
   ];
 
-  const getCategoryColor = (category: TechCategory) => {
-    const colors = {
-      frontend: 'from-blue-500/20 to-cyan-500/20 border-blue-500/30',
-      backend: 'from-purple-500/20 to-pink-500/20 border-purple-500/30',
-      database: 'from-green-500/20 to-emerald-500/20 border-green-500/30',
-      cloud: 'from-orange-500/20 to-yellow-500/20 border-orange-500/30',
-      tools: 'from-gray-500/20 to-slate-500/20 border-gray-500/30',
-    };
-    return colors[category] || colors.frontend;
-  };
+  const iconsRef = useRef<HTMLDivElement[]>([]);
+
+  useEffect(() => {
+    iconsRef.current.forEach((el, index) => {
+      gsap.fromTo(
+        el,
+        { opacity: 0, y: 30, rotationY: -20 },
+        {
+          opacity: 1,
+          y: 0,
+          rotationY: 0,
+          duration: 1.5,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 80%",
+          },
+          delay: index * 0.08,
+        }
+      );
+
+      // subtle floating effect
+      gsap.to(el, {
+        y: "+=6",
+        rotationY: 5,
+        repeat: -1,
+        yoyo: true,
+        duration: 2 + Math.random(),
+        ease: "sine.inOut",
+        delay: index * 0.1,
+      });
+    });
+  }, []);
 
   return (
     <section
@@ -147,41 +149,18 @@ const Technologies = () => {
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 md:gap-8 place-items-center">
           {technologies.map((tech, index) => (
             <div
-              key={`${tech.name}-${index}`}
-              onMouseEnter={() => setHoveredTech(index)}
-              onMouseLeave={() => setHoveredTech(null)}
-              className="group relative flex flex-col items-center justify-center p-6 rounded-2xl backdrop-blur-md
-                bg-gradient-to-br from-black/70 via-black/60 to-black/70
-                border border-green-500/20
-                transition-all duration-500
-                hover:-translate-y-3 hover:scale-110
-                w-full max-w-[140px] sm:max-w-[160px]
-                shadow-[0_0_25px_rgba(0,255,128,0.1)]
-                hover:shadow-[0_0_50px_rgba(0,255,128,0.4)]
-                hover:border-green-500/60
-                before:absolute before:inset-0 before:rounded-2xl
-                before:bg-gradient-to-br before:from-green-500/0 before:via-green-500/5 before:to-green-500/0
-                before:opacity-0 before:group-hover:opacity-100 before:transition-opacity before:duration-500
-                overflow-hidden"
-              data-animate="scale-in-center"
-              style={{ animationDelay: `${index * 0.05}s` }}
+              key={index}
+              ref={(el) => el && (iconsRef.current[index] = el)}
+              className="group relative flex flex-col items-center justify-center p-5 rounded-3xl backdrop-blur-lg
+                bg-black/60 border border-green-500/20  
+                transition-transform duration-300
+                hover:-translate-y-2 hover:scale-105 w-[90%] sm:w-[85%] md:w-[75%] lg:w-[80%] xl:w-auto max-w-[200px]
+                shadow-lg ring-0 ring-green-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2"
             >
-              {/* Corner accents */}
-              <div className="absolute top-0 left-0 w-12 h-12 border-t-2 border-l-2 border-green-500/20 rounded-tl-2xl group-hover:border-green-500/60 transition-colors duration-500" />
-              <div className="absolute bottom-0 right-0 w-12 h-12 border-b-2 border-r-2 border-green-500/20 rounded-br-2xl group-hover:border-green-500/60 transition-colors duration-500" />
-
-              {/* Glow effect */}
-              <div className="absolute inset-0 rounded-2xl bg-green-500/0 group-hover:bg-green-500/10 blur-xl transition-all duration-500 -z-10" />
-
-              {/* Icon container */}
-              <div className="relative z-10 flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 mb-4
-                rounded-xl bg-gradient-to-br from-green-500/10 to-green-500/5
-                border border-green-500/30
-                group-hover:border-green-500/60
-                group-hover:scale-110 group-hover:rotate-6
-                transition-all duration-500
-                shadow-[0_0_25px_rgba(0,255,128,0.2)]
-                group-hover:shadow-[0_0_40px_rgba(0,255,128,0.6)]"
+              <div className="relative flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 rounded-full
+                bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.70),_transparent_70%)]
+                shadow-[0_0_20px_rgba(0,255,128,0.25)] group-hover:shadow-[0_0_35px_rgba(0,255,128,0.8)]
+                transition-all duration-500"
               >
                 <Image
                   src={tech.src}

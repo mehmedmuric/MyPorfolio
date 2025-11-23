@@ -16,6 +16,7 @@
     "eslint": "8.33.0",
     "eslint-config-next": "13.1.6",
     "framer-motion": "^12.23.12",
+    "gsap": "^3.13.0",
     "i18next": "^25.3.2",
     "mongodb": "^6.19.0",
     "mongoose": "^8.18.0",
