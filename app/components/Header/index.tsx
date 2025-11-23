@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-// import LanguageSwitcher from "./LanguageSwitcher";
 import menuData from "./menuData";
 
 const Header = () => {
@@ -22,7 +21,8 @@ const Header = () => {
   };
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
-  });
+    return () => window.removeEventListener("scroll", handleStickyNavbar);
+  }, []);
 
   const [openIndex, setOpenIndex] = useState(-1);
   const handleSubmenu = (index) => {
@@ -38,133 +38,203 @@ const Header = () => {
   return (
     <>
       <header
-        className={`header left-0 top-0 z-40 flex w-full items-center ${
+        className={`header left-0 top-0 z-40 w-full transition-all duration-500 ${
           sticky
-            ? "dark:bg-gray-dark shadow-sticky-dark fixed z-[9999] !bg-opacity-80 backdrop-blur-lg transition"
-            : "absolute bg-transparent"
+            ? "fixed z-[9999] pt-4 md:pt-6 lg:pt-8"
+            : "absolute pt-4 md:pt-6"
         }`}
       >
-        <div className="container">
-          <div className="relative -mx-4 flex items-center justify-between">
-            <div className="w-40 max-w-full px-4 xl:mr-12">
-              <Link
-                href="/"
-                className={`header-logo block w-full ${
-                  sticky ? "py-5 lg:py-2" : "py-8"
-                } `}
-              >
-                <Image
-                  src="/images/logo/MMlogo.png"
-                  alt="logo"
-                  width={80}
-                  height={30}
-                  className="w-auto h-auto"
-                  priority={true}
-                />
-              </Link>
-            </div>
-            <div className="flex w-full items-center justify-between px-4">
-              <div>
-                <button
-  onClick={navbarToggleHandler}
-  id="navbarToggler"
-  aria-label="Mobile Menu"
-  className="absolute right-4 top-1/2 block translate-y-[-50%] rounded-lg px-3 py-[6px] lg:hidden group"
->
-  <span
-    className={`relative my-1.5 block h-0.5 w-[30px] bg-green-400 transition-all duration-300 shadow-neon ${
-      navbarOpen ? "top-[7px] rotate-45" : ""
-    }`}
-  />
-  <span
-    className={`relative my-1.5 block h-0.5 w-[30px] bg-green-400 transition-all duration-300 shadow-neon ${
-      navbarOpen ? "opacity-0" : ""
-    }`}
-  />
-  <span
-    className={`relative my-1.5 block h-0.5 w-[30px] bg-green-400 transition-all duration-300 shadow-neon ${
-      navbarOpen ? "top-[-8px] -rotate-45" : ""
-    }`}
-  />
-</button>
-                {navbarOpen && (
-                  <div
-                    className="fixed inset-0 bg-black/50 z-20 lg:hidden"
-                    onClick={() => setNavbarOpen(false)}
-                  />
-                )}
-                <nav
-                  id="navbarCollapse"
-                  className={`navbar absolute right-2 z-30 w-[300px] rounded-lg border-[.5px] px-6 py-4 duration-300 border-mygreen bg-dark/80 lg:visible lg:static lg:w-auto lg:border-none lg:!bg-transparent lg:p-0 lg:opacity-100 ${
-                    navbarOpen
-                      ? "visibility top-32 opacity-100"
-                      : "invisible top-[120%] opacity-0"
-                  }`}
+        <div className="container mx-auto px-4 sm:px-6 md:px-6 lg:px-8">
+          {/* Floating Navigation Bar */}
+          <div
+            className={`relative mx-auto max-w-7xl rounded-xl md:rounded-2xl transition-all duration-500 ${
+              sticky
+                ? "bg-black/60 backdrop-blur-2xl border border-green-500/30 shadow-[0_8px_32px_rgba(0,255,128,0.15)]"
+                : "bg-black/40 backdrop-blur-xl border border-green-500/20 shadow-[0_4px_24px_rgba(0,255,128,0.1)]"
+            }`}
+          >
+            {/* Animated border glow */}
+            <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-green-500/0 via-green-500/20 to-green-500/0 opacity-0 hover:opacity-100 transition-opacity duration-500 blur-sm" />
+            
+            {/* Inner glow */}
+            <div className="absolute inset-[1px] rounded-2xl bg-gradient-to-br from-green-500/5 via-transparent to-green-500/5" />
+
+            <div className="relative flex items-center justify-between px-3 py-2.5 sm:px-4 sm:py-3 md:px-5 md:py-3.5 lg:px-6 lg:py-4">
+              {/* Logo - Left Side */}
+              <div className="flex-shrink-0">
+                <Link
+                  href="/"
+                  className="group relative flex items-center"
                 >
-                  <ul className="block lg:flex lg:space-x-12">
+                  <div className="relative">
+                    <Image
+                      src="/images/logo/MMlogo.png"
+                      alt="logo"
+                      width={sticky ? 60 : 70}
+                      height={sticky ? 22 : 26}
+                      className="w-auto h-auto transition-all duration-300 group-hover:scale-110 sm:w-[70px] sm:h-[26px] md:w-[75px] md:h-[28px] lg:w-auto lg:h-auto"
+                      priority={true}
+                    />
+                    {/* Logo glow on hover */}
+                    <div className="absolute inset-0 bg-green-500/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10" />
+                  </div>
+                </Link>
+              </div>
+
+              {/* Tablet & Desktop Navigation - Center */}
+              <nav className="hidden md:flex items-center space-x-0.5 md:space-x-1 lg:space-x-1">
+                {menuData.map((menuItem, index) => (
+                  <div key={index} className="relative group">
+                    {menuItem.path ? (
+                      <Link
+                        href={menuItem.path}
+                        className={`relative px-2.5 py-1.5 md:px-3 md:py-2 lg:px-4 lg:py-2 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 ${
+                          usePathName === menuItem.path
+                            ? "text-green-400 bg-green-500/10"
+                            : "text-gray-300 hover:text-green-400 hover:bg-green-500/5"
+                        }`}
+                      >
+                        <span className="relative z-10">{menuItem.title}</span>
+                        {/* Active page indicator */}
+                        {usePathName === menuItem.path && (
+                          <div className="absolute inset-0 rounded-lg bg-green-500/20 border border-green-500/40" />
+                        )}
+                        {/* Hover glow */}
+                        <div className="absolute inset-0 rounded-lg bg-green-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-sm" />
+                      </Link>
+                    ) : (
+                      <div className="relative">
+                        <button
+                          onClick={() => handleSubmenu(index)}
+                          className="relative px-2.5 py-1.5 md:px-3 md:py-2 lg:px-4 lg:py-2 rounded-lg text-xs md:text-sm font-medium text-gray-300 hover:text-green-400 hover:bg-green-500/5 transition-all duration-300 flex items-center gap-0.5 md:gap-1"
+                        >
+                          <span>{menuItem.title}</span>
+                          <svg
+                            width="14"
+                            height="14"
+                            viewBox="0 0 25 24"
+                            className={`transition-transform duration-300 md:w-4 md:h-4 ${openIndex === index ? 'rotate-180' : ''}`}
+                          >
+                            <path
+                              fillRule="evenodd"
+                              clipRule="evenodd"
+                              d="M6.29289 8.8427C6.68342 8.45217 7.31658 8.45217 7.70711 8.8427L12 13.1356L16.2929 8.8427C16.6834 8.45217 17.3166 8.45217 17.7071 8.8427C18.0976 9.23322 18.0976 9.86639 17.7071 10.2569L12 15.964L6.29289 10.2569C5.90237 9.86639 5.90237 9.23322 6.29289 8.8427Z"
+                              fill="currentColor"
+                            />
+                          </svg>
+                        </button>
+                        {openIndex === index && menuItem.submenu && (
+                          <div className="absolute top-full left-0 mt-2 w-44 md:w-48 rounded-xl bg-black/90 backdrop-blur-xl border border-green-500/30 shadow-[0_8px_32px_rgba(0,255,128,0.2)] p-2 z-50">
+                            {menuItem.submenu.map((submenuItem, subIndex) => (
+                              <Link
+                                key={subIndex}
+                                href={submenuItem.path}
+                                className="block px-3 py-1.5 md:px-4 md:py-2 rounded-lg text-xs md:text-sm text-gray-300 hover:text-green-400 hover:bg-green-500/10 transition-all duration-300"
+                              >
+                                {submenuItem.title}
+                              </Link>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </nav>
+
+              {/* Mobile & Tablet Menu Button */}
+              <button
+                onClick={navbarToggleHandler}
+                id="navbarToggler"
+                aria-label="Mobile Menu"
+                className="md:hidden relative p-2 rounded-lg text-green-400 hover:bg-green-500/10 transition-all duration-300"
+              >
+                <div className="w-6 h-5 flex flex-col justify-between">
+                  <span
+                    className={`block h-0.5 w-full bg-current transition-all duration-300 ${
+                      navbarOpen ? "rotate-45 translate-y-2" : ""
+                    }`}
+                  />
+                  <span
+                    className={`block h-0.5 w-full bg-current transition-all duration-300 ${
+                      navbarOpen ? "opacity-0" : ""
+                    }`}
+                  />
+                  <span
+                    className={`block h-0.5 w-full bg-current transition-all duration-300 ${
+                      navbarOpen ? "-rotate-45 -translate-y-2" : ""
+                    }`}
+                  />
+                </div>
+              </button>
+            </div>
+
+            {/* Mobile Menu */}
+            {navbarOpen && (
+              <>
+                <div
+                  className="fixed inset-0 bg-black/80 backdrop-blur-sm z-20 md:hidden"
+                  onClick={() => setNavbarOpen(false)}
+                />
+                <div className="md:hidden absolute top-full left-0 right-0 mt-2 rounded-xl md:rounded-2xl bg-black/90 backdrop-blur-2xl border border-green-500/30 shadow-[0_8px_32px_rgba(0,255,128,0.2)] p-4 sm:p-6 z-30">
+                  <nav className="space-y-2">
                     {menuData.map((menuItem, index) => (
-                      <li key={index} className="group relative">
+                      <div key={index}>
                         {menuItem.path ? (
                           <Link
                             href={menuItem.path}
-                            className={`relative flex py-2 text-base lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 transition-colors duration-300 group ${
+                            onClick={() => setNavbarOpen(false)}
+                            className={`block px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 ${
                               usePathName === menuItem.path
-                                ? "text-mygreen"
-                                : "text-white hover:text-mygreen"
+                                ? "text-green-400 bg-green-500/10 border border-green-500/30"
+                                : "text-gray-300 hover:text-green-400 hover:bg-green-500/5"
                             }`}
                           >
                             {menuItem.title}
-                            <span className="absolute bottom-2 left-0 w-full h-[2px] bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                            <span className="absolute inset-0 bg-green-400 opacity-0  transition-opacity duration-300"></span>
                           </Link>
                         ) : (
                           <>
-                            <p
+                            <button
                               onClick={() => handleSubmenu(index)}
-                              className="relative flex cursor-pointer items-center justify-between py-2 text-base text-white/70 group transition-colors duration-300 lg:mr-0 lg:inline-flex lg:px-0 lg:py-6 hover:text-mygreen"
+                              className="w-full flex items-center justify-between px-4 py-2.5 sm:py-3 rounded-lg text-sm sm:text-base font-medium text-gray-300 hover:text-green-400 hover:bg-green-500/5 transition-all duration-300"
                             >
-                              {menuItem.title}
-                              <span className="pl-3">
-                                <svg width="25" height="24" viewBox="0 0 25 24">
-                                  <path
-                                    fillRule="evenodd"
-                                    clipRule="evenodd"
-                                    d="M6.29289 8.8427C6.68342 8.45217 7.31658 8.45217 7.70711 8.8427L12 13.1356L16.2929 8.8427C16.6834 8.45217 17.3166 8.45217 17.7071 8.8427C18.0976 9.23322 18.0976 9.86639 17.7071 10.2569L12 15.964L6.29289 10.2569C5.90237 9.86639 5.90237 9.23322 6.29289 8.8427Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                            </p>
-                            <div
-                              className={`submenu relative left-0 top-full rounded-sm transition-[top] duration-300 group-hover:opacity-100 bg-dark lg:invisible lg:absolute lg:top-[110%] lg:block lg:w-[250px] lg:p-4 lg:opacity-0 lg:shadow-lg lg:group-hover:visible lg:group-hover:top-full ${
-                                openIndex === index ? "block" : "hidden"
-                              }`}
-                            >
-                              {menuItem.submenu.map((submenuItem, index) => (
-                                <Link
-                                  href={submenuItem.path}
-                                  key={index}
-                                  className="relative inline-block mb-4 text-base text-gray-300 group transition-colors duration-300 hover:text-green-400"
-                                >
-                                  {submenuItem.title}
-                                  <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                                  <span className="absolute inset-0 bg-green-400 opacity-0  transition-opacity duration-300"></span>
-                                </Link>
-                              ))}
-                            </div>
+                              <span>{menuItem.title}</span>
+                              <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 25 24"
+                                className={`transition-transform duration-300 sm:w-5 sm:h-5 ${openIndex === index ? 'rotate-180' : ''}`}
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  clipRule="evenodd"
+                                  d="M6.29289 8.8427C6.68342 8.45217 7.31658 8.45217 7.70711 8.8427L12 13.1356L16.2929 8.8427C16.6834 8.45217 17.3166 8.45217 17.7071 8.8427C18.0976 9.23322 18.0976 9.86639 17.7071 10.2569L12 15.964L6.29289 10.2569C5.90237 9.86639 5.90237 9.23322 6.29289 8.8427Z"
+                                  fill="currentColor"
+                                />
+                              </svg>
+                            </button>
+                            {openIndex === index && menuItem.submenu && (
+                              <div className="mt-2 ml-4 space-y-2 border-l-2 border-green-500/30 pl-3 sm:pl-4">
+                                {menuItem.submenu.map((submenuItem, subIndex) => (
+                                  <Link
+                                    key={subIndex}
+                                    href={submenuItem.path}
+                                    onClick={() => setNavbarOpen(false)}
+                                    className="block px-4 py-1.5 sm:py-2 rounded-lg text-xs sm:text-sm text-gray-400 hover:text-green-400 hover:bg-green-500/5 transition-all duration-300"
+                                  >
+                                    {submenuItem.title}
+                                  </Link>
+                                ))}
+                              </div>
+                            )}
                           </>
                         )}
-                      </li>
+                      </div>
                     ))}
-                  </ul>
-                </nav>
-              </div>
-              <div className="flex items-center justify-end pr-16 lg:pr-0">
-                <div>
-                  {/* <LanguageSwitcher /> */}
+                  </nav>
                 </div>
-              </div>
-            </div>
+              </>
+            )}
           </div>
         </div>
       </header>

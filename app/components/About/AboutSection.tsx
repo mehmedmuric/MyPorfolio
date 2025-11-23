@@ -98,12 +98,12 @@ const AboutSection = () => {
                 priority
                 width={500}
                 height={480}
-                className="relative z-10 drop-shadow-[0_0_35px_rgba(0,255,120,0.25)] transition-all duration-500 hover:drop-shadow-[0_0_45px_rgba(0,255,120,0.5)]"
+                className="relative z-10 drop-shadow-[0_0_35px_rgba(0,255,120,0.25)] transition-all duration-500 hover:drop-shadow-[0_0_50px_rgba(0,255,120,0.6)] hover:scale-105"
               />
             </div>
           </div>
 
-          {/* Tekst */}
+          {/* Text */}
           <div className="w-full px-4 lg:w-1/2">
             <div className="max-w-[470px]">
               {[

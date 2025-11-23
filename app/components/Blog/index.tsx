@@ -21,6 +21,7 @@ const SingleBlog = dynamic(() => import("./SingleBlog"), {
 gsap.registerPlugin(ScrollTrigger);
 
 const BlogList = () => {
+  useScrollAnimations();
   const [projects, setProjects] = useState<Blog[]>([]);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const swiperRef = useRef<any>(null);
@@ -149,30 +150,40 @@ const BlogList = () => {
         <div className="flex justify-center gap-6 mt-4">
           <button
             onClick={handlePrevSlide}
-            className="bg-green-500 border border-green-500 text-black py-3 px-5 rounded-full
-              ease-in-out hover:bg-transparent
-              hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)] transition-all"
+            className="group relative bg-green-500 border border-green-500 text-black py-3 px-6 rounded-full
+              ease-in-out hover:bg-transparent hover:text-green-500 
+              shadow-[0_0_15px_rgba(0,255,128,0.4)] hover:shadow-[0_0_25px_rgba(0,255,128,0.6)]
+              transition-all duration-300 hover:scale-110 overflow-hidden"
+            aria-label="Previous slide"
           >
-            {`<`}
+            <span className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/20 to-green-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className="relative z-10 text-lg font-bold">{`<`}</span>
           </button>
           <button
             onClick={handleNextSlide}
-            className="bg-green-500 border border-green-500 text-black py-3 px-5 rounded-full
-              ease-in-out hover:bg-transparent
-              hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)] transition-all"
+            className="group relative bg-green-500 border border-green-500 text-black py-3 px-6 rounded-full
+              ease-in-out hover:bg-transparent hover:text-green-500 
+              shadow-[0_0_15px_rgba(0,255,128,0.4)] hover:shadow-[0_0_25px_rgba(0,255,128,0.6)]
+              transition-all duration-300 hover:scale-110 overflow-hidden"
+            aria-label="Next slide"
           >
-            {`>`}
+            <span className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/20 to-green-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className="relative z-10 text-lg font-bold">{`>`}</span>
           </button>
         </div>
 
-        <div className="flex justify-center mt-6">
+        <div className="flex justify-center mt-8">
           <Link
             href={"/projects"}
-            className="rounded-lg bg-green-500 px-9 py-4 border border-green-500 text-black
+            className="group relative rounded-lg bg-green-500 px-9 py-4 border border-green-500 text-black
               font-medium text-base duration-300 ease-in-out hover:bg-transparent
-              hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)] transition-all"
+              hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)] 
+              hover:shadow-[0_0_30px_rgba(0,255,128,0.6)] transition-all hover:scale-105 overflow-hidden"
+            data-animate="fade-in-up"
+            style={{ animationDelay: '0.3s' }}
           >
-            All Projects
+            <span className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/20 to-green-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className="relative z-10">All Projects</span>
           </Link>
         </div>
       </div>

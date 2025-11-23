@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SectionTitle from "../Common/SectionTitle";
 import SingleFeature from "./SingleFeature";
 import featuresData from "./featuresData";
+import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -65,15 +66,22 @@ const Features = () => {
         bg-[size:50px_50px]"
       />
 
-      {/* Pulsing green glow layers */}
-      <div className="absolute -inset-40 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.12),_transparent_60%)] blur-3xl animate-pulse-slow" />
-      <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.06),_transparent_70%)] blur-[100px]" />
+      {/* Animated scan lines */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none">
+        <div 
+          className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500 to-transparent"
+          style={{
+            animation: 'scanLine 8s linear infinite'
+          }}
+        />
+      </div>
 
       <div className="container mx-auto relative z-10">
         <SectionTitle
           title="About Web and Mobile Applications"
           paragraph="I specialize in building high-performance web and mobile applications tailored to your business needs — from sleek user interfaces to scalable backend solutions."
           center
+          mb="80px"
         />
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
@@ -95,8 +103,10 @@ const Features = () => {
 
 export default Features;
 
-/* Wrapper for SingleFeature with cyber-neon style */
-const SingleFeatureWrapper = ({ feature }: { feature: any }) => {
+/* Enhanced Wrapper for SingleFeature with cyber-neon style */
+const SingleFeatureWrapper = ({ feature, index }: { feature: any; index: number }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
   return (
     <div
       className="group relative flex flex-col items-center justify-center p-10 sm:p-12 rounded-3xl
@@ -106,7 +116,23 @@ const SingleFeatureWrapper = ({ feature }: { feature: any }) => {
         transition-all duration-500 hover:-translate-y-3 hover:scale-105
         ring-0 ring-green-500 hover:ring-2"
     >
-      <SingleFeature feature={feature} />
+      {/* Animated background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-green-500/0 via-green-500/5 to-green-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      
+      {/* Corner accent */}
+      <div className="absolute top-0 right-0 w-12 h-12 border-t-2 border-r-2 border-green-500/20 rounded-tr-2xl group-hover:border-green-500/50 transition-colors duration-300" />
+
+      <div className="relative z-10">
+        <div className="text-3xl md:text-4xl font-bold text-green-400 mb-2 group-hover:scale-110 transition-transform duration-300">
+          {count}{suffix}
+        </div>
+        <div className="text-sm text-gray-400 group-hover:text-gray-300 transition-colors">
+          {label}
+        </div>
+      </div>
+
+      {/* Hover glow effect */}
+      <div className="absolute inset-0 rounded-2xl bg-green-500/0 group-hover:bg-green-500/10 blur-xl transition-all duration-300 -z-10" />
     </div>
   );
 };

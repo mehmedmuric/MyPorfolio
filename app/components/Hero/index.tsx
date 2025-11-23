@@ -24,19 +24,43 @@ const titleRef = useRef<HTMLHeadingElement>(null);
   return (
     <section
       id="home"
-      className="relative z-10 overflow-hidden
+      className="relative z-10 overflow-hidden min-h-screen flex items-center
         bg-[#010101] bg-[radial-gradient(ellipse_at_top,_#0a3b27_0%,_#010101_85%)] 
         pb-20 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
     >
-      {/* Cyber grid background */}
-      <div className="absolute inset-0 opacity-[0.06] 
+      {/* Animated grid background */}
+      <div className="absolute inset-0 opacity-[0.08] 
         bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),
              linear-gradient(#00ff99_1px,transparent_1px)] 
-        bg-[size:50px_50px]" />
+        bg-[size:50px_50px] animate-[gridMove_20s_linear_infinite]" />
 
-      {/* Neon radial glows */}
-      <div className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.12),_transparent_60%)] blur-3xl animate-pulse-slow" />
-      <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.06),_transparent_70%)] blur-[120px]" />
+      {/* Neon radial glows with parallax */}
+      <div 
+        className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.15),_transparent_60%)] blur-3xl animate-pulse-slow transition-transform duration-1000"
+        style={{
+          transform: `translate(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px)`,
+        }}
+      />
+      <div 
+        className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.08),_transparent_70%)] blur-[120px] transition-transform duration-1000"
+        style={{
+          transform: `translate(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.2}px)`,
+        }}
+      />
+
+      {/* Floating particles */}
+      {[...Array(6)].map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-2 h-2 bg-green-400 rounded-full opacity-30 animate-float"
+          style={{
+            left: `${20 + i * 15}%`,
+            top: `${30 + (i % 3) * 25}%`,
+            animationDelay: `${i * 0.5}s`,
+            animationDuration: `${3 + i * 0.5}s`,
+          }}
+        />
+      ))}
 
       <div className="container relative z-10">
         <div className="-mx-4 flex flex-wrap justify-between">
@@ -44,79 +68,176 @@ const titleRef = useRef<HTMLHeadingElement>(null);
           <div className="w-full px-4 md:w-[40%]">
             <div className="leftSide mt-14">
               <div className="mx-auto max-w-[800px] text-center md:text-left">
-                <h1 className="typingText mb-5 font-bold leading-tight text-white text-center text-3xl sm:text-4xl md:text-4xl lg:text-5xl drop-shadow-[0_0_20px_rgba(0,255,128,0.5)]">
-                  Mehmed Muric
+                {/* Greeting badge */}
+                <div 
+                  className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-sm font-medium backdrop-blur-sm"
+                  data-animate="slide-in-left"
+                >
+                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                  <span>Available for new projects</span>
+                </div>
+
+                {/* Main heading with gradient */}
+                <h1 className="typingText mb-6 font-bold leading-tight text-white text-center md:text-left text-4xl sm:text-5xl md:text-5xl lg:text-7xl drop-shadow-[0_0_30px_rgba(0,255,128,0.6)]">
+                  <span className="bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent">
+                    Mehmed Muric
+                  </span>
                 </h1>
-                <p className="mb-12 text-base text-center !leading-relaxed text-gray-300 sm:text-lg md:text-xl">
-                  Hi, I’m Mehmed Muric, a full-stack developer crafting modern web and mobile applications. I work with technologies like React, React Native, Next.js, Node.js, TailwindCSS, TypeScript, Appwrite, MongoDB, and MySQL — delivering clean, scalable, and high-performance solutions.
+
+                {/* Subtitle */}
+                <div className="mb-6 space-y-2">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-200">
+                    Full-Stack Developer
+                  </h2>
+                  <p className="text-lg sm:text-xl text-green-400 font-medium">
+                    Building Modern Web & Mobile Solutions
+                  </p>
+                </div>
+
+                {/* Description */}
+                <p className="mb-8 text-base text-center md:text-left leading-relaxed text-gray-300 sm:text-lg md:text-xl max-w-[600px]">
+                  I craft scalable, high-performance applications using cutting-edge technologies. 
+                  Passionate about clean code, user experience, and delivering solutions that make an impact.
                 </p>
-                <div className="flex flex-col items-center justify-center space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0 mb-12">
+
+                {/* Technology badges */}
+                <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
+                  {techStack.map((tech, idx) => (
+                    <span
+                      key={tech}
+                      className="px-4 py-2 rounded-full bg-dark/50 border border-green-500/20 text-green-400 text-sm font-medium backdrop-blur-sm hover:border-green-500/50 hover:bg-green-500/10 transition-all duration-300"
+                      style={{ animationDelay: `${idx * 0.1}s` }}
+                      data-animate="scale-in-center"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col items-center justify-center sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 mb-8">
                   <a
                     target="_blank"
+                    rel="noopener noreferrer"
                     href="/MojCV.pdf"
-                    className="rounded-lg bg-mygreen px-8 py-4 text-base font-semibold text-black duration-300 ease-in-out hover:bg-transparent border border-mygreen hover:text-mygreen shadow-[0_0_15px_rgba(0,255,128,0.4)]"
+                    className="group relative px-8 py-4 rounded-lg bg-mygreen text-black font-semibold text-base overflow-hidden transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(0,255,128,0.4)] hover:shadow-[0_0_30px_rgba(0,255,128,0.6)]"
                   >
-                    🔥 View my CV
+                    <span className="relative z-10 flex items-center gap-2">
+                      <span>🔥</span>
+                      <span>View my CV</span>
+                      <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </span>
+                    <span className="absolute inset-0 bg-gradient-to-r from-green-300 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </a>
+                  
                   <Link
                     target="_blank"
+                    rel="noopener noreferrer"
                     href="https://github.com/mehmedmuric"
-                    className="inline-block rounded-lg bg-black px-8 py-4 text-base font-semibold text-white duration-300 ease-in-out hover:bg-transparent border border-green-500 shadow-[0_0_10px_rgba(0,255,128,0.3)] hover:text-green-500"
+                    className="group relative px-8 py-4 rounded-lg bg-transparent border-2 border-green-500 text-white font-semibold text-base overflow-hidden transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(0,255,128,0.3)] hover:shadow-[0_0_25px_rgba(0,255,128,0.5)] hover:bg-green-500/10"
                   >
-                    GitHub Profile
+                    <span className="relative z-10 flex items-center gap-2">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                      </svg>
+                      <span>GitHub Profile</span>
+                    </span>
                   </Link>
+                </div>
+
+                {/* Social Links */}
+                <div className="flex items-center justify-center md:justify-start gap-6">
+                  <a
+                    href="https://github.com/mehmedmuric"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative p-3 rounded-full bg-dark/50 border border-green-500/20 text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-green-500/10 transition-all duration-300 hover:scale-110"
+                    aria-label="GitHub"
+                  >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                  </a>
+                  <a
+                    href="https://linkedin.com/in/mehmed-muric-185297232"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group relative p-3 rounded-full bg-dark/50 border border-green-500/20 text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-green-500/10 transition-all duration-300 hover:scale-110"
+                    aria-label="LinkedIn"
+                  >
+                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right side */}
+          {/* Right side - Profile Image */}
           <div
             className="w-full px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto mt-6 sm:mt-10 md:mt-0"
             
           >
-            <div className="profileImage relative w-40 h-40 sm:w-56 sm:h-56 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-green-500 shadow-[0_0_25px_rgba(0,255,128,0.35)] hover:shadow-[0_0_50px_rgba(0,255,128,0.5)] transition-all duration-500 mb-6">
-              <Image
-                src="/images/logo/mehmed.jpg"
-                alt="mehmed"
-                className="w-full h-full object-cover rounded-full"
-                width={500}
-                height={500}
-                priority
-              />
+            <div className="relative group">
+              {/* Glow ring */}
+              <div className="absolute inset-0 rounded-full bg-green-500 blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 animate-pulse-slow" />
+              
+              {/* Profile image container */}
+              <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-green-500 shadow-[0_0_30px_rgba(0,255,128,0.4)] group-hover:shadow-[0_0_60px_rgba(0,255,128,0.6)] transition-all duration-500 group-hover:scale-105">
+                <Image
+                  src="/images/logo/mehmed.jpg"
+                  alt="Mehmed Muric - Full-Stack Developer"
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  width={500}
+                  height={500}
+                  priority
+                />
+                
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-t from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+
+              {/* Floating badge */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-dark/80 border border-green-500/30 backdrop-blur-md shadow-lg">
+                <p className="text-green-400 font-semibold text-sm md:text-base">
+                  Software Engineer
+                </p>
+              </div>
+
+              {/* Decorative elements */}
+              <div className="absolute -top-8 -right-8 w-24 h-24 border-2 border-green-500/30 rounded-full animate-spin-slow hidden md:block" />
+              <div className="absolute -bottom-8 -left-8 w-16 h-16 border-2 border-green-500/20 rounded-full animate-spin-slow-reverse hidden md:block" />
             </div>
-            <h2 className="text-2xl font-semibold text-green-400 mb-4 italic drop-shadow-[0_0_10px_rgba(0,255,128,0.4)]">
-              Software Engineer
-            </h2>
-            <p className="text-lg text-gray-400 mb-4 underline underline-offset-8 decoration-green-400">
-              Full-stack developer | Mobile & Web Applications
-            </p>
-            <p className="text-base text-gray-400">
-              Developer with experience in building modern applications using the latest technologies. I am dedicated to continuous learning and delivering the best solutions for my clients.
-            </p>
-            <div className="socialLinks flex justify-center mt-6">
-              <a
-                href="https://github.com/mehmedmuric"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative inline-block mb-4 text-base text-gray-400  group transition-colors duration-300 hover:text-green-400 mx-2 "
-              >
-                GitHub
-                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                <span className="absolute inset-0 bg-green-400 opacity-0  transition-opacity duration-300"></span>
-              </a>
-              <a
-                href="https://linkedin.com/in/mehmed-muric-185297232"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="relative inline-block mb-4 text-base text-gray-400  group transition-colors duration-300 hover:text-green-400 mx-2 "
-              >
-                LinkedIn
-                <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-green-400 scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span>
-                <span className="absolute inset-0 bg-green-400 opacity-0  transition-opacity duration-300"></span>
-              </a>
+
+            {/* Stats or additional info */}
+            <div className="mt-16 grid grid-cols-3 gap-6 text-center">
+              <div className="space-y-1">
+                <div className="text-2xl sm:text-3xl font-bold text-green-400">3+</div>
+                <div className="text-sm text-gray-400">Years Experience</div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-2xl sm:text-3xl font-bold text-green-400">20+</div>
+                <div className="text-sm text-gray-400">Projects Done</div>
+              </div>
+              <div className="space-y-1">
+                <div className="text-2xl sm:text-3xl font-bold text-green-400">5+</div>
+                <div className="text-sm text-gray-400">Tech Stack</div>
+              </div>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
+        <div className="flex flex-col items-center gap-2 text-green-400/60">
+          <span className="text-xs uppercase tracking-wider">Scroll</span>
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
         </div>
       </div>
 <div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">

@@ -1,6 +1,9 @@
-import { Feature } from "@/types/feature";
+'use client'
 
-const SingleFeature = ({ feature }: { feature: Feature }) => {
+import { Feature } from "@/types/feature";
+import { useState } from "react";
+
+const SingleFeature = ({ feature, index }: { feature: Feature; index: number }) => {
   const { icon, title, paragraph } = feature;
 
   return (
@@ -26,6 +29,14 @@ const SingleFeature = ({ feature }: { feature: Feature }) => {
                       opacity-0 translate-y-6 animate-fade-in delay-200">
           {paragraph}
         </p>
+
+        {/* Decorative element with glow */}
+        <div className="mt-6 relative">
+          <div className={`h-1 bg-gradient-to-r from-green-500 via-green-400 to-transparent rounded-full transition-all duration-500 ${isHovered ? 'w-24 opacity-100 shadow-[0_0_8px_rgba(0,255,128,0.5)]' : 'w-12 opacity-60'}`} />
+          {isHovered && (
+            <div className="absolute top-0 left-0 h-1 w-24 bg-gradient-to-r from-green-500 to-transparent rounded-full blur-sm opacity-50" />
+          )}
+        </div>
       </div>
     </div>
   );
