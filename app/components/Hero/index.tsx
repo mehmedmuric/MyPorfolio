@@ -1,489 +1,348 @@
-'use client'
+'use client';
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 
-const Hero = () => {
-const titleRef = useRef<HTMLHeadingElement>(null);
-  const textRef = useRef<HTMLParagraphElement>(null);
-  const buttonsRef = useRef<HTMLDivElement>(null);
-  const profileRef = useRef<HTMLDivElement>(null);
+// Define the correct Technology interface
+interface Technology {
+  name: string;
+  src: string;
+}
 
+// Update: Only TailwindCSS icon is visible, others use a fallback
+const techStack: Technology[] = [
+  { name: "JavaScript", src: "/images/models/javascript.svg" }, 
+  { name: "React", src: "/images/models/react.svg" },
+  { name: "Next.js", src: "/images/models/nextjs.svg" },
+  { name: "TypeScript", src: "/images/models/typescript.svg" },
+  { name: "Node.js", src: "/images/models/nodejs.svg" },
+  { name: "MongoDB", src: "/images/models/mongodb.svg" },
+  { name: "TailwindCSS", src: "/images/models/tailwindcss.svg" },
+];
+
+const STATS = [
+  {
+    value: "4+",
+    label: "Years",
+    icon: (
+      <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M8 17l4 4 4-4M12 3v12" /></svg>
+    ),
+  },
+  {
+    value: "30+",
+    label: "Projects",
+    icon: (
+      <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+    ),
+  },
+  {
+    value: "10+",
+    label: "Stacks",
+    icon: (
+      <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M14 10V3.5a1.5 1.5 0 10-3 0V10m7 4a5 5 0 11-10 0 5 5 0 0110 0z" /></svg>
+    ),
+  },
+];
+
+const socialLinks = [
+  {
+    href: "https://github.com/mehmedmuric",
+    aria: "GitHub",
+    icon: (
+      <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+      </svg>
+    )
+  },
+  {
+    href: "https://linkedin.com/in/mehmed-muric-185297232",
+    aria: "LinkedIn",
+    icon: (
+      <svg className="w-5 h-5 md:w-6 md:h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+      </svg>
+    )
+  },
+];
+
+const fallbackIcon = (
+  <span className="w-4 h-4 inline-flex items-center justify-center text-green-300 font-bold">?</span>
+);
+
+const Hero = () => {
+  // Refs & Parallax
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const subtitleRef = useRef<HTMLHeadingElement>(null);
+  const descRef = useRef<HTMLParagraphElement>(null);
+  const ctaRef = useRef<HTMLDivElement>(null);
+  const profileRef = useRef<HTMLDivElement>(null);
+  const badgesRef = useRef<HTMLDivElement>(null);
+
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Parallax
   useEffect(() => {
-    const tl = gsap.timeline();
-    if (titleRef.current && textRef.current && buttonsRef.current && profileRef.current) {
-      tl.from(titleRef.current, { y: 30, opacity: 0, duration: 1, ease: "power3.out" })
-        .from(textRef.current, { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.7")
-        .from(buttonsRef.current, { y: 20, opacity: 0, duration: 0.8, stagger: 0.2, ease: "power3.out" }, "-=0.5")
-        .from(profileRef.current, { scale: 0.9, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.6");
+    const handle = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 60,
+        y: (e.clientY / window.innerHeight - 0.5) * 60,
+      });
+    };
+    if (window.innerWidth > 768) {
+      window.addEventListener('mousemove', handle);
+      return () => window.removeEventListener('mousemove', handle);
+    }
+  }, []);
+
+  // Animation; all initial opacity values must be 1 (visible)
+  useEffect(() => {
+    if (
+      titleRef.current &&
+      subtitleRef.current &&
+      descRef.current &&
+      badgesRef.current &&
+      ctaRef.current &&
+      profileRef.current
+    ) {
+      // Only use slight entrance/transforms, not opacity
+      gsap.fromTo(
+        titleRef.current,
+        { y: 40 },
+        { y: 0, duration: 0.7, ease: "expo.out" }
+      );
+      gsap.fromTo(
+        subtitleRef.current,
+        { x: -30 },
+        { x: 0, duration: 0.7, delay: 0.2, ease: "expo.out" }
+      );
+      gsap.fromTo(
+        descRef.current,
+        { y: 20 },
+        { y: 0, duration: 0.7, delay: 0.3, ease: "expo.out" }
+      );
+      gsap.fromTo(
+        badgesRef.current,
+        { y: 15 },
+        { y: 0, duration: 0.7, delay: 0.5, ease: "power2.out" }
+      );
+      gsap.fromTo(
+        ctaRef.current,
+        { scale: 0.96 },
+        { scale: 1, duration: 0.6, delay: 0.7, ease: "back.out(1.5)" }
+      );
+      gsap.fromTo(
+        profileRef.current,
+        { y: 100, scale: 0.95 },
+        { y: 0, scale: 1, duration: 0.7, delay: 0.2, ease: "expo.out" }
+      );
     }
   }, []);
 
   return (
     <section
       id="home"
-      className="relative z-10 overflow-hidden min-h-screen flex items-center
-        bg-[#010101] bg-[radial-gradient(ellipse_at_top,_#0a3b27_0%,_#010101_85%)] 
-        pb-20 pt-[120px] md:pb-[120px] md:pt-[150px] xl:pb-[160px] xl:pt-[180px] 2xl:pb-[200px] 2xl:pt-[210px]"
+      className="relative z-10 min-h-screen flex items-center bg-[#101011] bg-gradient-to-b from-[#212e26] via-[#010101] to-[#051912] py-12 md:py-26 overflow-hidden"
+      aria-label="Hero Section"
     >
-      {/* Animated grid background */}
-      <div className="absolute inset-0 opacity-[0.08] 
-        bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),
-             linear-gradient(#00ff99_1px,transparent_1px)] 
-        bg-[size:50px_50px] animate-[gridMove_20s_linear_infinite]" />
-
-      {/* Neon radial glows with parallax */}
-      <div 
-        className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.15),_transparent_60%)] blur-3xl animate-pulse-slow transition-transform duration-1000"
+      {/* Decorative circles */}
+      <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[800px] h-[700px] opacity-40 pointer-events-none z-0">
+        <svg width="100%" height="100%" viewBox="0 0 800 700" fill="none">
+          <circle cx="400" cy="350" r="240" fill="rgba(45,255,0,0.10)" />
+          <circle cx="630" cy="150" r="100" fill="rgba(45,255,0,0.08)" />
+          <circle cx="120" cy="480" r="70" fill="rgba(45,255,0,0.04)" />
+        </svg>
+      </div>
+      {/* Parallax Glow */}
+      <div
+        className="absolute left-[5%] top-[14%] w-96 h-96 bg-[radial-gradient(circle,rgba(0,255,140,0.23)_0%,transparent_75%)] rounded-full pointer-events-none blur-2xl z-10"
         style={{
-          transform: `translate(${mousePosition.x * 0.3}px, ${mousePosition.y * 0.3}px)`,
+          transform: `translate(${mousePosition.x * 0.4}px,${mousePosition.y * 0.4}px)`,
         }}
+        aria-hidden
       />
-      <div 
-        className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.08),_transparent_70%)] blur-[120px] transition-transform duration-1000"
+      <div
+        className="absolute right-[10%] bottom-[5%] w-[380px] h-[240px] bg-[radial-gradient(circle,rgba(0,160,255,0.13)_0%,transparent_80%)] rounded-full pointer-events-none blur-2xl z-10"
         style={{
-          transform: `translate(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.2}px)`,
+          transform: `translate(${mousePosition.x * 0.2}px,${mousePosition.y * 0.1}px)`,
         }}
+        aria-hidden
       />
 
-      {/* Floating particles */}
-      {[...Array(6)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-2 h-2 bg-green-400 rounded-full opacity-30 animate-float"
-          style={{
-            left: `${20 + i * 15}%`,
-            top: `${30 + (i % 3) * 25}%`,
-            animationDelay: `${i * 0.5}s`,
-            animationDuration: `${3 + i * 0.5}s`,
-          }}
-        />
-      ))}
-
-      <div className="container relative z-10">
-        <div className="-mx-4 flex flex-wrap justify-between">
-          {/* Left side */}
-          <div className="w-full px-4 md:w-[40%]">
-            <div className="leftSide mt-14">
-              <div className="mx-auto max-w-[800px] text-center md:text-left">
-                {/* Greeting badge */}
-                <div 
-                  className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-sm font-medium backdrop-blur-sm"
-                  data-animate="slide-in-left"
+      <div className="container relative z-20 px-4 sm:px-10 mx-auto">
+        <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
+          {/* Content - left */}
+          <div className="w-full md:w-3/5 lg:w-1/2 max-w-2xl flex flex-col items-center md:items-start text-center md:text-left">
+            {/* Name + color bar */}
+            <h1
+              ref={titleRef}
+              className="font-black text-4xl xs:text-5xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl text-green-300 leading-tight mb-3 tracking-tight flex flex-col items-center md:items-start"
+              style={{ opacity: 1 }}
+            >
+              <span className="">
+                Mehmed <span className="text-green-400">Muric</span>
+              </span>
+              <span className="mt-2 h-2 w-24 bg-gradient-to-r from-green-400 to-green-700 rounded-md opacity-80" />
+            </h1>
+            <h2
+              ref={subtitleRef}
+              className="mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-100 flex items-center gap-2"
+              style={{ opacity: 1 }}
+            >
+              <span>Full-Stack Developer</span>
+              <svg className="w-5 h-5 hidden xs:inline text-green-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path d="M4.5 12.75l6 6 9-13.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="hidden xs:inline">Software Engineer</span>
+            </h2>
+            <p
+              ref={descRef}
+              className="mt-3 mb-4 text-base sm:text-lg text-green-300 font-normal max-w-lg"
+              style={{ opacity: 1 }}
+            >
+              I build robust, scalable web & mobile apps focused on speed, polish, and maintainability. Let's craft solutions that last.
+            </p>
+            {/* TechStack redesigned as pill row */}
+            <div
+              ref={badgesRef}
+              className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start"
+              aria-label="Current Stack"
+              style={{ opacity: 1 }}
+            >
+              {techStack.map((tech) => (
+                <span
+                  key={tech.name}
+                  className="flex items-center gap-1 px-2.5 py-2.5 bg-[#162821] border border-green-400/15 text-green-300 text-xs rounded-lg shadow-sm hover:bg-green-400/10 hover:border-green-500/40 transition"
                 >
-                  <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-                  <span>Available for new projects</span>
-                </div>
-
-                {/* Main heading with gradient */}
-                <h1 className="typingText mb-6 font-bold leading-tight text-white text-center md:text-left text-4xl sm:text-5xl md:text-5xl lg:text-7xl drop-shadow-[0_0_30px_rgba(0,255,128,0.6)]">
-                  <span className="bg-gradient-to-r from-green-400 via-green-300 to-green-500 bg-clip-text text-transparent">
-                    Mehmed Muric
-                  </span>
-                </h1>
-
-                {/* Subtitle */}
-                <div className="mb-6 space-y-2">
-                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-gray-200">
-                    Full-Stack Developer
-                  </h2>
-                  <p className="text-lg sm:text-xl text-green-400 font-medium">
-                    Building Modern Web & Mobile Solutions
-                  </p>
-                </div>
-
-                {/* Description */}
-                <p className="mb-8 text-base text-center md:text-left leading-relaxed text-gray-300 sm:text-lg md:text-xl max-w-[600px]">
-                  I craft scalable, high-performance applications using cutting-edge technologies. 
-                  Passionate about clean code, user experience, and delivering solutions that make an impact.
-                </p>
-
-                {/* Technology badges */}
-                <div className="flex flex-wrap gap-2 mb-8 justify-center md:justify-start">
-                  {techStack.map((tech, idx) => (
-                    <span
-                      key={tech}
-                      className="px-4 py-2 rounded-full bg-dark/50 border border-green-500/20 text-green-400 text-sm font-medium backdrop-blur-sm hover:border-green-500/50 hover:bg-green-500/10 transition-all duration-300"
-                      style={{ animationDelay: `${idx * 0.1}s` }}
-                      data-animate="scale-in-center"
-                    >
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-
-                {/* CTA Buttons */}
-                <div className="flex flex-col items-center justify-center sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 mb-8">
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="/MojCV.pdf"
-                    className="group relative px-8 py-4 rounded-lg bg-mygreen text-black font-semibold text-base overflow-hidden transition-all duration-300 hover:scale-105 shadow-[0_0_20px_rgba(0,255,128,0.4)] hover:shadow-[0_0_30px_rgba(0,255,128,0.6)]"
-                  >
-                    <span className="relative z-10 flex items-center gap-2">
-                      <span>🔥</span>
-                      <span>View my CV</span>
-                      <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </span>
-                    <span className="absolute inset-0 bg-gradient-to-r from-green-300 to-green-600 opacity-0 group-hover:opacity-100 transition-opacity" />
-                  </a>
-                  
-                  <Link
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://github.com/mehmedmuric"
-                    className="group relative px-8 py-4 rounded-lg bg-transparent border-2 border-green-500 text-white font-semibold text-base overflow-hidden transition-all duration-300 hover:scale-105 shadow-[0_0_15px_rgba(0,255,128,0.3)] hover:shadow-[0_0_25px_rgba(0,255,128,0.5)] hover:bg-green-500/10"
-                  >
-                    <span className="relative z-10 flex items-center gap-2">
-                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                      </svg>
-                      <span>GitHub Profile</span>
-                    </span>
-                  </Link>
-                </div>
-
-                {/* Social Links */}
-                <div className="flex items-center justify-center md:justify-start gap-6">
-                  <a
-                    href="https://github.com/mehmedmuric"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative p-3 rounded-full bg-dark/50 border border-green-500/20 text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-green-500/10 transition-all duration-300 hover:scale-110"
-                    aria-label="GitHub"
-                  >
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                  </a>
-                  <a
-                    href="https://linkedin.com/in/mehmed-muric-185297232"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="group relative p-3 rounded-full bg-dark/50 border border-green-500/20 text-gray-400 hover:text-green-400 hover:border-green-500/50 hover:bg-green-500/10 transition-all duration-300 hover:scale-110"
-                    aria-label="LinkedIn"
-                  >
-                    <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                    </svg>
-                  </a>
-                </div>
-              </div>
+                  {tech.src
+                    ? <Image src={tech.src} alt={tech.name} width={16} height={16} className="inline-block" />
+                    : fallbackIcon
+                  }
+                  {tech.name}
+                </span>
+              ))}
+            </div>
+            {/* CTA and social */}
+            <div
+              ref={ctaRef}
+              className="w-full flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-5 my-2"
+              style={{ opacity: 1 }}
+            >
+              <a
+                href="/MojCV.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-7 py-3 rounded-full bg-gradient-to-r from-green-400 to-green-700 text-black font-bold tracking-wide shadow-lg hover:scale-105 active:scale-95 transition group border-2 border-transparent hover:text-white hover:bg-gradient-to-l hover:from-green-500 hover:to-green-800"
+                aria-label="View my CV"
+                style={{ opacity: 1 }}
+              >
+                <span className="mr-2">📄</span>
+                View CV
+                <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+              <Link
+                href="https://github.com/mehmedmuric"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center px-7 py-3 rounded-full border-2 border-green-500 bg-transparent text-green-100 font-bold shadow-md hover:scale-105 hover:bg-green-500/10 transition"
+                aria-label="GitHub"
+                style={{ opacity: 1 }}
+              >
+                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                </svg>
+                GitHub
+              </Link>
+            </div>
+            {/* Social (icons only, new style) */}
+            <div className="flex gap-4 mt-4 mb-0 justify-center md:justify-start" style={{ opacity: 1 }}>
+              {socialLinks.map(({ href, aria, icon }) => (
+                <a
+                  key={href}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={aria}
+                  className="flex items-center justify-center w-10 h-10 rounded-full border border-green-500/30 bg-[#172616] text-green-200 hover:text-green-400 hover:border-green-400/60 hover:scale-110 transition shadow-sm"
+                  style={{ opacity: 1 }}
+                >
+                  {icon}
+                </a>
+              ))}
             </div>
           </div>
-
-          {/* Right side - Profile Image */}
-          <div
-            className="w-full px-4 md:w-[55%] flex flex-col items-center justify-center text-center ml-auto mt-6 sm:mt-10 md:mt-0"
-            
-          >
-            <div className="relative group">
-              {/* Glow ring */}
-              <div className="absolute inset-0 rounded-full bg-green-500 blur-2xl opacity-30 group-hover:opacity-50 transition-opacity duration-500 animate-pulse-slow" />
-              
-              {/* Profile image container */}
-              <div className="relative w-56 h-56 sm:w-72 sm:h-72 md:w-96 md:h-96 rounded-full overflow-hidden border-4 border-green-500 shadow-[0_0_30px_rgba(0,255,128,0.4)] group-hover:shadow-[0_0_60px_rgba(0,255,128,0.6)] transition-all duration-500 group-hover:scale-105">
-                <Image
-                  src="/images/logo/mehmed.jpg"
-                  alt="Mehmed Muric - Full-Stack Developer"
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  width={500}
-                  height={500}
-                  priority
-                />
-                
-                {/* Overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-green-500/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-
-              {/* Floating badge */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-dark/80 border border-green-500/30 backdrop-blur-md shadow-lg">
-                <p className="text-green-400 font-semibold text-sm md:text-base">
+          {/* Profile Card / Stats - right */}
+          <div className="w-full md:w-2/5 lg:w-[34%] flex flex-col items-center justify-center relative mt-14 md:mt-0">
+            <div
+              ref={profileRef}
+              className="relative flex flex-col items-center justify-center"
+              style={{ opacity: 1 }}
+            >
+              {/* Profile Image with Glow */}
+              <div className="relative group flex flex-col items-center">
+                <div className="absolute -inset-4 rounded-full bg-gradient-to-tr from-green-500/30 to-green-400/10 blur-2xl group-hover:opacity-70 opacity-50 transition duration-500 pointer-events-none" />
+                <div className="relative w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 xl:w-72 xl:h-72 rounded-full overflow-hidden border-4 border-green-400/60 shadow-xl group-hover:shadow-[0_0_55px_rgba(0,255,128,0.6)] transition-all duration-700 group-hover:scale-[1.05]">
+                  <Image
+                    src="/images/logo/mehmed.jpg"
+                    alt="Mehmed Muric, Full-Stack Developer"
+                    className="w-full h-full object-cover"
+                    width={500}
+                    height={500}
+                    priority
+                  />
+                  {/* Subtle overlay bounce glow */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-green-500/20 to-transparent opacity-0 group-hover:opacity-100 transition pointer-events-none" />
+                </div>
+                {/* Floating badge */}
+                <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-dark/90 border border-green-500/25 shadow-lg text-green-300 font-bold text-base whitespace-nowrap">
                   Software Engineer
-                </p>
+                </div>
               </div>
-
-              {/* Decorative elements */}
-              <div className="absolute -top-8 -right-8 w-24 h-24 border-2 border-green-500/30 rounded-full animate-spin-slow hidden md:block" />
-              <div className="absolute -bottom-8 -left-8 w-16 h-16 border-2 border-green-500/20 rounded-full animate-spin-slow-reverse hidden md:block" />
-            </div>
-
-            {/* Stats or additional info */}
-            <div className="mt-16 grid grid-cols-3 gap-6 text-center">
-              <div className="space-y-1">
-                <div className="text-2xl sm:text-3xl font-bold text-green-400">3+</div>
-                <div className="text-sm text-gray-400">Years Experience</div>
-              </div>
-              <div className="space-y-1">
-                <div className="text-2xl sm:text-3xl font-bold text-green-400">20+</div>
-                <div className="text-sm text-gray-400">Projects Done</div>
-              </div>
-              <div className="space-y-1">
-                <div className="text-2xl sm:text-3xl font-bold text-green-400">5+</div>
-                <div className="text-sm text-gray-400">Tech Stack</div>
+              {/* Stats - cards */}
+              <div className="mt-16 grid grid-cols-3 gap-x-5 gap-y-1" style={{ opacity: 1 }}>
+                {STATS.map(({ value, label, icon }) => (
+                  <div key={label} className="flex flex-col items-center p-2 w-20">
+                    <div className="rounded-full bg-[#192f21] flex items-center justify-center mb-2 w-9 h-9">
+                      {icon}
+                    </div>
+                    <div className="text-xl md:text-2xl font-bold text-green-400">{value}</div>
+                    <div className="text-[11px] text-gray-400">{label}</div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
-        <div className="flex flex-col items-center gap-2 text-green-400/60">
-          <span className="text-xs uppercase tracking-wider">Scroll</span>
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        {/* Scroll Down Indicator */}
+        <div className="absolute left-1/2 -translate-x-1/2 bottom-6 md:bottom-12 flex flex-col items-center group pointer-events-none" style={{ opacity: 1 }}>
+          <span className="text-sm text-green-400/60 group-animate-bounce mb-2 tracking-wider font-semibold">
+            Scroll
+          </span>
+          <svg className="w-6 h-6 text-green-400/60 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>
         </div>
       </div>
-<div className="absolute right-0 top-0 z-[-1] opacity-30 lg:opacity-100">
-          <svg
-            width="450"
-            height="556"
-            viewBox="0 0 450 556"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle
-              cx="277"
-              cy="63"
-              r="225"
-              fill="rgba(45, 255, 0, 0.16)"
-            />
-            <circle
-              cx="17.9997"
-              cy="182"
-              r="18"
-              fill="rgba(45, 255, 0, 0.16)"
-            />
-            <circle
-              cx="76.9997"
-              cy="288"
-              r="34"
-              fill="rgba(45, 255, 0, 0.16)"
-            />
-            <circle
-              cx="325.486"
-              cy="302.87"
-              r="180"
-              transform="rotate(-37.6852 325.486 302.87)"
-              fill="rgba(45, 255, 0, 0.16))"
-            />
-            <circle
-              opacity="0.8"
-              cx="184.521"
-              cy="315.521"
-              r="132.862"
-              transform="rotate(114.874 184.521 315.521)"
-              stroke="rgba(45, 255, 0, 0.16)"
-            />
-            <circle
-              opacity="0.8"
-              cx="356"
-              cy="290"
-              r="179.5"
-              transform="rotate(-30 356 290)"
-              stroke="rgba(45, 255, 0, 0.16)"
-            />
-            <circle
-              opacity="0.8"
-              cx="191.659"
-              cy="302.659"
-              r="133.362"
-              transform="rotate(133.319 191.659 302.659)"
-              fill="rgba(45, 255, 0, 0.16)"
-            />
-            <defs>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="-54.5003"
-                y1="-178"
-                x2="222"
-                y2="288"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" />
-                <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-              </linearGradient>
-              <radialGradient
-                id="rgba(45, 255, 0, 0.16)"
-                cx="0"
-                cy="0"
-                r="1"
-                gradientUnits="userSpaceOnUse"
-                gradientTransform="translate(17.9997 182) rotate(90) scale(18)"
-              >
-                <stop offset="0.145833" stopColor="#4A6CF7" stopOpacity="0" />
-                <stop offset="1" stopColor="#4A6CF7" stopOpacity="0.08" />
-              </radialGradient>
-              <radialGradient
-                id="rgba(45, 255, 0, 0.16)"
-                cx="0"
-                cy="0"
-                r="1"
-                gradientUnits="userSpaceOnUse"
-                gradientTransform="translate(76.9997 288) rotate(90) scale(34)"
-              >
-                <stop offset="0.145833" stopColor="#4A6CF7" stopOpacity="0" />
-                <stop offset="1" stopColor="#4A6CF7" stopOpacity="0.08" />
-              </radialGradient>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="226.775"
-                y1="-66.1548"
-                x2="292.157"
-                y2="351.421"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" />
-                <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="184.521"
-                y1="182.159"
-                x2="184.521"
-                y2="448.882"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" />
-                <stop offset="1" stopColor="white" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="356"
-                y1="110"
-                x2="356"
-                y2="470"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" />
-                <stop offset="1" stopColor="white" stopOpacity="0" />
-              </linearGradient>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="118.524"
-                y1="29.2497"
-                x2="166.965"
-                y2="338.63"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" />
-                <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-              </linearGradient>
-            </defs>
-          </svg>
-        </div>
-        <div className="absolute bottom-0 left-0 z-[-1] opacity-30 lg:opacity-100">
-          <svg
-            width="364"
-            height="201"
-            viewBox="0 0 364 201"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M5.88928 72.3303C33.6599 66.4798 101.397 64.9086 150.178 105.427C211.155 156.076 229.59 162.093 264.333 166.607C299.076 171.12 337.718 183.657 362.889 212.24"
-              stroke="rgba(45, 255, 0, 0.16)"
-            />
-            <path
-              d="M-22.1107 72.3303C5.65989 66.4798 73.3965 64.9086 122.178 105.427C183.155 156.076 201.59 162.093 236.333 166.607C271.076 171.12 309.718 183.657 334.889 212.24"
-              stroke="rgba(45, 255, 0, 0.16)"
-            />
-            <path
-              d="M-53.1107 72.3303C-25.3401 66.4798 42.3965 64.9086 91.1783 105.427C152.155 156.076 170.59 162.093 205.333 166.607C240.076 171.12 278.718 183.657 303.889 212.24"
-              stroke="rgba(45, 255, 0, 0.16)"
-            />
-            <path
-              d="M-98.1618 65.0889C-68.1416 60.0601 4.73364 60.4882 56.0734 102.431C120.248 154.86 139.905 161.419 177.137 166.956C214.37 172.493 255.575 186.165 281.856 215.481"
-              stroke="rgba(45, 255, 0, 0.16)"
-            />
-            <circle
-              opacity="0.8"
-              cx="214.505"
-              cy="60.5054"
-              r="49.7205"
-              transform="rotate(-13.421 214.505 60.5054)"
-              stroke="rgba(45, 255, 0, 0.16)"
-            />
-            <circle cx="220" cy="63" r="43" fill="rgba(45, 255, 0, 0.16)" />
-            <defs>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="184.389"
-                y1="69.2405"
-                x2="184.389"
-                y2="212.24"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" stopOpacity="0" />
-                <stop offset="1" stopColor="#4A6CF7" />
-              </linearGradient>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="156.389"
-                y1="69.2405"
-                x2="156.389"
-                y2="212.24"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" stopOpacity="0" />
-                <stop offset="1" stopColor="#4A6CF7" />
-              </linearGradient>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="125.389"
-                y1="69.2405"
-                x2="125.389"
-                y2="212.24"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" stopOpacity="0" />
-                <stop offset="1" stopColor="#4A6CF7" />
-              </linearGradient>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="93.8507"
-                y1="67.2674"
-                x2="89.9278"
-                y2="210.214"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" stopOpacity="0" />
-                <stop offset="1" stopColor="#4A6CF7" />
-              </linearGradient>
-              <linearGradient
-                id="rgba(45, 255, 0, 0.16)"
-                x1="214.505"
-                y1="10.2849"
-                x2="212.684"
-                y2="99.5816"
-                gradientUnits="userSpaceOnUse"
-              >
-                <stop stopColor="#4A6CF7" />
-                <stop offset="1" stopColor="#4A6CF7" stopOpacity="0" />
-              </linearGradient>
-              <radialGradient
-                id="rgba(45, 255, 0, 0.16)"
-                cx="0"
-                cy="0"
-                r="1"
-                gradientUnits="userSpaceOnUse"
-                gradientTransform="translate(220 63) rotate(90) scale(43)"
-              >
-                <stop offset="0.145833" stopColor="white" stopOpacity="0" />
-                <stop offset="1" stopColor="white" stopOpacity="0.08" />
-              </radialGradient>
-            </defs>
-          </svg>
-        </div>
-      </section>
+      {/* Floating Neo Particles */}
+      {["15%","69%","23%","46%","77%"].map((left, i) => (
+        <div
+          key={i}
+          className="absolute w-2 h-2 bg-green-500 rounded-full opacity-20 animate-[float_4s_ease-in-out_infinite] pointer-events-none"
+          style={{
+            left,
+            top: `${16 + ((i % 4) * 13)}%`,
+            animationDelay: `${i*0.45}s`,
+            animationDuration: `${3.6 + i * .3}s`,
+            opacity: 1
+          }}
+          aria-hidden
+        />
+      ))}
+    </section>
   );
 };
 
 export default Hero;
-    
