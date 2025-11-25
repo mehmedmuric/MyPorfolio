@@ -7,6 +7,20 @@ import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+// Optional: Success and error icons (for improved feedback UX)
+const SuccessIcon = () => (
+  <svg className="inline w-5 h-5 mr-1 text-green-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" strokeWidth="2" />
+    <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
+  </svg>
+);
+const ErrorIcon = () => (
+  <svg className="inline w-5 h-5 mr-1 text-red-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+    <circle cx="12" cy="12" r="10" strokeWidth="2" />
+    <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M15 9l-6 6m0-6l6 6" />
+  </svg>
+);
+
 gsap.registerPlugin(ScrollTrigger);
 
 const Contact = () => {
@@ -15,10 +29,55 @@ const Contact = () => {
   const imageRef = useRef<HTMLDivElement | null>(null);
   const [isSending, setIsSending] = useState(false);
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+  const [formData, setFormData] = useState({
+    user_name: "",
+    user_email: "",
+    message: "",
+  });
+
+  // Accessibility improvement: focus ref for status
+  const messageStatusRef = useRef<HTMLParagraphElement>(null);
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const validateEmail = (email: string) =>
+    !!String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()\[\]\\.,;:\s@"]+\.)+[^<>()\[\]\\.,;:\s@"]{2,})$/
+      );
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // UX validation before sending
+    if (
+      !formData.user_name.trim() ||
+      !formData.user_email.trim() ||
+      !formData.message.trim()
+    ) {
+      setMessageType("error");
+      setMessage("❌ Please fill in all required fields.");
+      messageStatusRef.current?.focus();
+      return;
+    }
+
+    if (!validateEmail(formData.user_email)) {
+      setMessageType("error");
+      setMessage("❌ Please enter a valid email address.");
+      messageStatusRef.current?.focus();
+      return;
+    }
+
     setIsSending(true);
+    setMessage(""); // Clear old
+
     if (!formRef.current) return;
 
     emailjs
@@ -30,14 +89,21 @@ const Contact = () => {
       )
       .then(
         () => {
-          setMessage("✅ Your message has been sent!");
+          setMessageType("success");
+          setMessage("Your message has been sent! I'll reply shortly.");
           setIsSending(false);
+          setFormData({ user_name: "", user_email: "", message: "" });
           formRef.current?.reset();
+          setTimeout(() => setMessage(""), 7000); // Hide after 7s
         },
         (error) => {
           console.error("EmailJS error:", error);
-          setMessage("❌ Failed to send message. Please try again.");
+          setMessageType("error");
+          setMessage(
+            "Failed to send message. Please try again later or email me directly."
+          );
           setIsSending(false);
+          messageStatusRef.current?.focus();
         }
       );
   };
@@ -46,11 +112,11 @@ const Contact = () => {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // Section fade-in sporije
+      // Section fade in
       gsap.from(".contact-section", {
         opacity: 0,
         y: 100,
-        duration: 4,   // sporije
+        duration: 2.2,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".contact-section",
@@ -58,11 +124,11 @@ const Contact = () => {
         },
       });
 
-      // Title fade + glow sporije
+      // Title animation
       gsap.from(".contact-title", {
         opacity: 0,
         y: 40,
-        duration: 4,
+        duration: 1.8,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".contact-section",
@@ -70,12 +136,12 @@ const Contact = () => {
         },
       });
 
-      // Forma lebdi i fade
+      // Form card float in
       gsap.from(".contact-form-card", {
         opacity: 0,
-        y: 60,
-        scale: 0.97,
-        duration: 4,
+        y: 64,
+        scale: 0.98,
+        duration: 1.95,
         ease: "power3.out",
         scrollTrigger: {
           trigger: ".contact-section",
@@ -83,15 +149,15 @@ const Contact = () => {
         },
       });
 
-      // Slika ulazi i pulse
+      // Image pop
       gsap.fromTo(
         imageRef.current,
-        { opacity: 0, y: 60, scale: 0.95 },
+        { opacity: 0, y: 60, scale: 0.93 },
         {
           opacity: 1,
           y: 0,
           scale: 1,
-          duration: 4,
+          duration: 2.3,
           ease: "power3.out",
           scrollTrigger: {
             trigger: sectionRef.current,
@@ -100,10 +166,10 @@ const Contact = () => {
         }
       );
 
-      // Dugme blagi pulse
+      // Subtle button pulse
       gsap.to(".contact-btn", {
-        boxShadow: "0 0 35px rgba(0,255,128,0.5)",
-        duration: 1.5,
+        boxShadow: "0 0 42px 7px rgba(0,255,128,0.27)",
+        duration: 1.33,
         repeat: -1,
         yoyo: true,
       });
@@ -115,47 +181,46 @@ const Contact = () => {
   return (
     <section
       ref={sectionRef}
-      className="contact-section relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 
-      bg-[#050505] bg-[radial-gradient(ellipse_at_top,_#0f3d2e_0%,_#020202_80%)]"
+      className="contact-section relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8
+        bg-[#041005] bg-[radial-gradient(ellipse_at_top,_#09381e_0%,_#020402_82%)]"
+      aria-label="Contact"
     >
-      {/* Cyber grid background */}
-      <div className="absolute inset-0 opacity-[0.06] 
-        bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),
-             linear-gradient(#00ff99_1px,transparent_1px)] 
-        bg-[size:50px_50px]" />
-
+      {/* Neon cyber grid */}
+      <div className="absolute inset-0 opacity-[0.065]
+        bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),linear-gradient(#00ff99_1px,transparent_1px)]
+        bg-[size:48px_48px]" />
       {/* Neon radial glows */}
-      <div className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.12),_transparent_60%)] blur-3xl animate-pulse-slow" />
-      <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.06),_transparent_70%)] blur-[120px]" />
+      <div className="absolute -inset-32 bg-[radial-gradient(circle_at_70%_40%,_rgba(0,255,128,0.14),_transparent_60%)] blur-3xl animate-pulse-slow pointer-events-none" />
+      <div className="absolute -inset-64 bg-[radial-gradient(circle_at_10%_88%,_rgba(0,255,128,0.09),_transparent_70%)] blur-[130px] pointer-events-none" />
 
       <div className="container mx-auto relative z-10">
         <div className="contact-title">
           <SectionTitle
             title="Contact"
-            paragraph="Let’s get in touch — I’ll respond as soon as possible."
+            paragraph="Let’s get in touch — I respond to every message within a day."
             center
             mb="50px"
           />
         </div>
 
         <div className="-mx-4 flex flex-wrap items-center justify-center">
-          {/* Forma */}
+          {/* Form */}
           <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
-            <div className="contact-form-card relative bg-black/60 border border-green-500/40 backdrop-blur-md 
-              rounded-2xl p-8 sm:p-12 shadow-[0_0_25px_2px_rgba(0,255,128,0.15)] 
-              transition-all duration-300 hover:shadow-[0_0_50px_6px_rgba(0,255,128,0.25)]"
+            <div className="contact-form-card relative bg-black/70 border border-mygreen/25 backdrop-blur-md
+              rounded-2xl p-8 sm:p-12 shadow-[0_0_30px_2px_rgba(0,255,128,0.18)]
+              transition-all duration-300 hover:shadow-[0_0_55px_7px_rgba(0,255,128,0.23)]"
             >
               <h2 className="mb-3 text-2xl font-bold text-white sm:text-3xl lg:text-2xl xl:text-3xl">
                 Send Me a Message
               </h2>
               <p className="mb-10 text-base font-light text-gray-300">
-                Fill in your details and I’ll reply as soon as possible.
+                Fill in your details and I’ll reply as soon as possible.<br className="hidden sm:inline" /> Get direct support from me — not a chatbot!
               </p>
 
-              <form ref={formRef} onSubmit={sendEmail}>
+              <form ref={formRef} onSubmit={sendEmail} autoComplete="off" aria-label="Contact form">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label htmlFor="user_name" className="block mb-2 text-sm font-medium text-green-400">
+                    <label htmlFor="user_name" className="block mb-2 text-sm font-medium text-mygreen">
                       Your Name
                     </label>
                     <input
@@ -163,14 +228,19 @@ const Contact = () => {
                       id="user_name"
                       name="user_name"
                       required
-                      placeholder="Enter your name"
-                      className="w-full rounded-md border border-green-700/50 bg-[#0a0f0a] px-5 py-3 text-base text-gray-100 
-                      outline-none focus:border-green-400 focus:ring-1 focus:ring-green-500 transition"
+                      minLength={2}
+                      maxLength={96}
+                      placeholder="e.g. Jane Doe"
+                      className="w-full rounded-md border border-mygreen/25 bg-[#0a1e15] px-5 py-3 text-base text-gray-100
+                        outline-none focus:border-mygreen focus:ring-1 focus:ring-mygreen transition shadow-sm"
+                      value={formData.user_name}
+                      onChange={handleInput}
+                      autoComplete="name"
                     />
                   </div>
 
                   <div>
-                    <label htmlFor="user_email" className="block mb-2 text-sm font-medium text-green-400">
+                    <label htmlFor="user_email" className="block mb-2 text-sm font-medium text-mygreen">
                       Your Email
                     </label>
                     <input
@@ -178,15 +248,20 @@ const Contact = () => {
                       id="user_email"
                       name="user_email"
                       required
-                      placeholder="Enter your email"
-                      className="w-full rounded-md border border-green-700/50 bg-[#0a0f0a] px-5 py-3 text-base text-gray-100 
-                      outline-none focus:border-green-400 focus:ring-1 focus:ring-green-500 transition"
+                      minLength={4}
+                      maxLength={96}
+                      placeholder="you@email.com"
+                      className="w-full rounded-md border border-mygreen/25 bg-[#0a1e15] px-5 py-3 text-base text-gray-100
+                        outline-none focus:border-mygreen focus:ring-1 focus:ring-mygreen transition shadow-sm"
+                      value={formData.user_email}
+                      onChange={handleInput}
+                      autoComplete="email"
                     />
                   </div>
                 </div>
 
                 <div className="mt-6">
-                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-green-400">
+                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-mygreen">
                     Your Message
                   </label>
                   <textarea
@@ -194,41 +269,99 @@ const Contact = () => {
                     name="message"
                     rows={5}
                     required
-                    placeholder="Type your message..."
-                    className="w-full rounded-md border border-green-700/50 bg-[#0a0f0a] px-5 py-3 text-base text-gray-100 
-                    outline-none focus:border-green-400 focus:ring-1 focus:ring-green-500 transition"
+                    minLength={4}
+                    maxLength={1800}
+                    placeholder="How can I help you?"
+                    className="w-full rounded-md border border-mygreen/25 bg-[#0a1e15] px-5 py-3 text-base text-gray-100
+                      outline-none focus:border-mygreen focus:ring-1 focus:ring-mygreen transition shadow resize-none"
+                    value={formData.message}
+                    onChange={handleInput}
+                    aria-describedby="contact-message-desc"
                   ></textarea>
+                  <p id="contact-message-desc" className="text-xs text-gray-400 mt-1">
+                    Please describe your idea, question, or project!
+                  </p>
                 </div>
 
-                <div className="mt-8 text-center">
+                <div className="mt-8 text-center flex flex-col items-center gap-2">
                   <button
                     type="submit"
                     disabled={isSending}
-                    className="contact-btn rounded-lg  px-12 py-4 font-semibold 
-                     transition-all duration-300 hover:shadow-[0_0_50px_rgba(0,255,128,0.45)]
-                    bg-green-500 border border-green-500 text-black 
-                    ease-in-out hover:bg-transparent
-                    hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)]"
+                    className="contact-btn rounded-lg px-12 py-4 font-semibold text-base
+                      transition-all duration-200
+                      bg-mygreen border border-mygreen text-black
+                      hover:bg-transparent hover:text-mygreen
+                      shadow-[0_0_15px_rgba(0,255,128,0.33)] hover:shadow-[0_0_50px_rgba(0,255,128,0.47)]
+                      focus:outline-none focus:ring-2 focus:ring-mygreen/65 focus:ring-offset-2"
                   >
-                    {isSending ? "Sending..." : "Send Message"}
+                    {isSending ? (
+                      <span className="flex items-center gap-2 justify-center">
+                        <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24">
+                          <circle
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="#00ff93"
+                            strokeWidth="4"
+                            fill="none"
+                            strokeDasharray="62.8"
+                            strokeDashoffset="10"
+                          />
+                        </svg>
+                        Sending...
+                      </span>
+                    ) : (
+                      <>Send Message</>
+                    )}
                   </button>
-
-                  {message && <p className="mt-4 text-sm text-gray-300">{message}</p>}
+                  {message && (
+                    <p
+                      ref={messageStatusRef}
+                      className={`mt-3 text-sm transition-colors duration-300 ${
+                        messageType === "success"
+                          ? "text-mygreen font-semibold"
+                          : "text-red-400 font-semibold"
+                      }`}
+                      tabIndex={-1}
+                      aria-live="polite"
+                    >
+                      {messageType === "success" ? <SuccessIcon /> : <ErrorIcon />}
+                      {message}
+                    </p>
+                  )}
                 </div>
               </form>
+
+              <div className="mt-10 pb-1 text-xs text-gray-400 text-center max-w-xl mx-auto flex">
+                <span className="inline-flex items-center gap-1">
+                  <svg className="inline w-6 h-6 text-mygreen mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity=".27"/><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" /></svg>
+                  All messages are encrypted in transit via EmailJS.
+                </span>
+                <span className="ml-2 mt-2">
+                  You may alternatively email me at <a href="mailto:mehmedmuric22@gmail.com" className="underline text-mygreen font-semibold hover:text-mygreen/80 transition">mehmedmuric22@gmail.com</a>
+                </span>
+              </div>
             </div>
           </div>
 
-          {/* Slika */}
-          <div ref={imageRef} className="w-full px-8 lg:w-5/12 xl:w-4/12 flex justify-center mt-10 lg:mt-0">
-            <Image
-              src="/images/contactus.svg"
-              alt="contact illustration"
-              width={600}
-              height={480}
-              className="drop-shadow-[0_0_35px_rgba(0,255,128,0.35)] animate-pulse-slow"
-              priority
-            />
+          {/* Illustration */}
+          <div
+            ref={imageRef}
+            className="w-full px-8 lg:w-5/12 xl:w-4/12 flex justify-center mt-10 lg:mt-0"
+            aria-label="Contact illustration"
+          >
+            <div className="relative aspect-[6/5] w-full max-w-[420px] rounded-3xl border-4 border-mygreen/15 shadow-2xl shadow-mygreen/10 bg-gradient-to-tr from-mygreen/10 via-transparent to-mygreen/5 overflow-hidden">
+              <div className="absolute inset-0 blur-[66px] opacity-30 bg-mygreen/35 animate-pulse pointer-events-none rounded-3xl" />
+              <Image
+                src="/images/contactus.svg"
+                alt="contact illustration"
+                width={600}
+                height={480}
+                priority
+                className="relative z-10 w-full h-auto drop-shadow-[0_0_35px_rgba(0,255,128,0.23)] hover:scale-105 transition-all duration-400"
+                sizes="(max-width: 600px) 88vw, 420px"
+              />
+            </div>
           </div>
         </div>
       </div>

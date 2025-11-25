@@ -10,13 +10,11 @@ export async function GET() {
     const testimonials = await prisma.testimonial.findMany({
       orderBy: { createdAt: "desc" },
     });
-    return NextResponse.json(testimonials);
+    return NextResponse.json(testimonials ?? []); // uvek niz
   } catch (error) {
     console.error("GET /api/testimonials error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch testimonials" },
-      { status: 500 }
-    );
+    // vraća prazan niz ako je error
+    return NextResponse.json([], { status: 500 });
   }
 }
 
