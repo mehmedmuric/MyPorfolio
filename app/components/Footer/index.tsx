@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import Image from "next/image";
 import Link from "next/link";
 
@@ -52,8 +52,14 @@ const Footer = () => {
                 </Link>
                 <div className="flex gap-2 ml-3">
                   {socials.map((s) => (
-                    <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" aria-label={s.label}
-                      className="group flex items-center justify-center rounded-full border border-green-500/30 bg-[#172616] hover:text-green-400 hover:border-green-400/60 hover:scale-110 transition p-2 shadow">
+                    <a
+                      key={s.label}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={s.label}
+                      className="group flex items-center justify-center rounded-full border border-green-500/30 bg-[#172616] hover:text-green-400 hover:border-green-400/60 hover:scale-110 transition p-2 shadow"
+                    >
                       {s.icon}
                     </a>
                   ))}
@@ -117,6 +123,8 @@ const Footer = () => {
                       {link.href.startsWith("mailto") ? (
                         <a
                           href={link.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
                           className="relative inline-block mb-4 text-lg text-gray-300 group transition-colors duration-300 hover:text-green-400 underline underline-offset-2"
                         >
                           {link.text}
@@ -146,26 +154,26 @@ const Footer = () => {
           <div className="flex gap-3 justify-center">
             <a
               href="https://github.com/mehmedmuric"
-              rel="moreferrerr"
-              className="hover:text-green-400 transition font-medium"
               target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-green-400 transition font-medium"
             >
               GitHub
             </a>
             <span className="mx-2 text-gray-600">|</span>
             <a
               href="https://www.linkedin.com/in/mehmed-muric"
-              rel="noreferrerr"
-              className="hover:text-green-400 transition font-medium"
               target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-green-400 transition font-medium"
             >
               LinkedIn
             </a>
             <span className="mx-2 text-gray-600">|</span>
             <a
               href="mailto:mehmedmuric22@gmail.com"
-               target="_blank" rel="noreferrer"
-              
+              target="_blank"
+              rel="noopener noreferrer"
               className="hover:text-green-400 transition font-medium"
             >
               Email
