@@ -125,3 +125,6 @@ const AboutClient = () => {
   // Cleanup kada se komponenta unmount-a
   return () => ctx.revert();
 }, []);}
+
+
+export default AboutClient;
