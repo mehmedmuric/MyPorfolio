@@ -146,7 +146,7 @@ const Footer = () => {
           <div className="flex gap-3 justify-center">
             <a
               href="https://github.com/mehmedmuric"
-              rel="nofollow noopener"
+              rel="moreferrerr"
               className="hover:text-green-400 transition font-medium"
               target="_blank"
             >
@@ -155,7 +155,7 @@ const Footer = () => {
             <span className="mx-2 text-gray-600">|</span>
             <a
               href="https://www.linkedin.com/in/mehmed-muric"
-              rel="nofollow noopener"
+              rel="noreferrerr"
               className="hover:text-green-400 transition font-medium"
               target="_blank"
             >
@@ -164,7 +164,8 @@ const Footer = () => {
             <span className="mx-2 text-gray-600">|</span>
             <a
               href="mailto:mehmedmuric22@gmail.com"
-              rel="nofollow noopener"
+               target="_blank" rel="noreferrer"
+              
               className="hover:text-green-400 transition font-medium"
             >
               Email
