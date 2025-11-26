@@ -174,16 +174,13 @@ const AboutClient = () => {
       >
         <section className="mb-2 flex flex-col gap-3 md:gap-5 max-w-2xl w-full text-left">
           <h1 className="text-2xl md:text-3xl font-bold text-mygreen highlight-neon">
-            Hello! I'm Mehmed Muric 👋
+            Hello! I&apos;m Mehmed Muric 👋
           </h1>
           <p className="text-base md:text-lg text-gray-300">
-            I’m a <span className="text-mygreen font-semibold">full-stack developer</span> with a passion for building products that solve real-world problems, empower teams, and delight users.
-          </p>
-          <p className="text-base md:text-lg text-gray-400">
-            I thrive in environments where learning never stops—mentoring, leading workshops, or collaborating across borders. I believe in <span className="text-yellow-300 font-medium">clear communication</span> and prioritize reliability, accessibility, and empathy.
+            I&apos;m a <span className="text-mygreen font-semibold">full-stack developer</span> with a passion for building products that solve real-world problems, empower teams, and delight users.
           </p>
           <p className="text-base text-gray-500">
-            Outside coding, I’m an open source enthusiast, hackathon regular, and robotics tinkerer.
+            Outside coding, I&apos;m an open source enthusiast, hackathon regular, and robotics tinkerer.
           </p>
         </section>
 

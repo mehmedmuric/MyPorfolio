@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useRef, useCallback, useState, memo } from "react";
 import gsap from "gsap";
 
+// ---------- DATA ----------
 type Technology = {
   name: string;
   src: string | null;
@@ -21,7 +22,7 @@ const techStack: Technology[] = [
 ];
 
 const fallbackIcon = (
-  <span className="w-4 h-4 inline-flex items-center justify-center text-green-300 font-bold">?</span>
+  <span className="w-5 h-5 inline-flex items-center justify-center text-green-300 font-bold">?</span>
 );
 
 const STATS = [
@@ -43,9 +44,10 @@ const PARTICLE_POSITIONS = [
   { left: "77%", top: "68%" }
 ];
 
+// ---------- MEMO COMPONENTS ----------
 const TechBadge = memo<{ tech: Technology }>(({ tech }) => (
   <span className="flex items-center gap-1 px-2.5 py-2.5 bg-[#162821] border border-green-400/15 text-green-300 text-xs rounded-lg shadow-sm hover:bg-green-400/10 hover:border-green-500/40 transition">
-    {tech.src ? <Image src={tech.src} alt={tech.name} width={16} height={16} loading="lazy" /> : fallbackIcon}
+    {tech.src ? <Image src={tech.src} alt={tech.name} width={20} height={20} loading="lazy" /> : fallbackIcon}
     {tech.name}
   </span>
 ));
@@ -58,6 +60,24 @@ const StatCard = memo<{ stat: typeof STATS[0] }>(({ stat }) => (
   </div>
 ));
 
+const DecorativeCircles = memo(() => (
+  <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[800px] h-[700px] opacity-40 pointer-events-none z-0">
+    <svg width="100%" height="100%" viewBox="0 0 800 700" fill="none">
+      <circle cx="400" cy="350" r="240" fill="rgba(45,255,0,0.10)" />
+      <circle cx="630" cy="150" r="100" fill="rgba(45,255,0,0.08)" />
+      <circle cx="120" cy="480" r="70" fill="rgba(45,255,0,0.04)" />
+    </svg>
+  </div>
+));
+
+const ScrollDownIndicator = memo(() => (
+  <div className="absolute left-1/2 -translate-x-1/2 bottom-6 md:bottom-12 flex flex-col items-center group pointer-events-none">
+    <span className="text-sm text-green-400/60 animate-bounce mb-2 tracking-wider font-semibold">Scroll</span>
+    <svg className="w-6 h-6 text-green-400/60 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
+  </div>
+));
+
+// ---------- HERO COMPONENT ----------
 const Hero = () => {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLHeadingElement>(null);
@@ -97,36 +117,52 @@ const Hero = () => {
   return (
     <section id="home" className="relative z-10 min-h-screen flex items-center bg-[#101011] bg-gradient-to-b from-[#212e26] via-[#010101] to-[#051912] py-12 md:py-28 overflow-hidden">
       <DecorativeCircles />
+      {/* Parallax Background */}
       <div className="absolute left-[5%] top-[14%] w-96 h-96 bg-[radial-gradient(circle,rgba(0,255,140,0.23)_0%,transparent_75%)] rounded-full pointer-events-none blur-2xl z-10 will-change-transform" style={{ transform: `translate3d(${mousePosition.x * 0.45}px,${mousePosition.y * 0.41}px,0)` }} aria-hidden />
       <div className="absolute right-[10%] bottom-[5%] w-[380px] h-[240px] bg-[radial-gradient(circle,rgba(0,160,255,0.13)_0%,transparent_80%)] rounded-full pointer-events-none blur-2xl z-10 will-change-transform" style={{ transform: `translate3d(${mousePosition.x * 0.19}px,${mousePosition.y * 0.08}px,0)` }} aria-hidden />
+      
       <div className="container relative z-20 px-4 sm:px-10 mx-auto select-none">
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
-          {/* Left Content */}
+          
+          {/* LEFT: CONTENT */}
           <div className="w-full md:w-3/5 lg:w-1/2 max-w-2xl flex flex-col items-center md:items-start text-center md:text-left">
             <h1 ref={titleRef} className="font-black text-4xl xs:text-5xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl text-green-300 leading-tight mb-3 tracking-tight flex flex-col items-center md:items-start">
               <span>Mehmed <span className="text-green-400">Muric</span></span>
               <span className="mt-2 h-2 w-24 bg-gradient-to-r from-green-400 to-green-700 rounded-md opacity-80" />
             </h1>
+
             <h2 ref={subtitleRef} className="mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-100 flex items-center gap-2">
               <span>Full-Stack Developer</span>
               <svg className="w-5 h-5 hidden xs:inline text-green-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
               <span className="hidden xs:inline">Software Engineer</span>
             </h2>
+
             <p ref={descRef} className="mt-3 mb-4 text-base sm:text-lg text-green-300 font-normal max-w-lg">
               I build robust, scalable web & mobile apps focused on speed, polish, and maintainability. Let's craft solutions that last.
             </p>
-            <div ref={badgesRef} className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">{techStack.map(tech => <TechBadge tech={tech} key={tech.name} />)}</div>
+
+            <div ref={badgesRef} className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
+              {techStack.map(tech => <TechBadge tech={tech} key={tech.name} />)}
+            </div>
+
             <div ref={ctaRef} className="w-full flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-5 my-2">
               <a href="/MojCV.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-7 py-3 rounded-full bg-gradient-to-r from-green-400 to-green-700 text-black font-bold tracking-wide shadow-lg hover:scale-105 active:scale-95 transition group border-2 border-transparent hover:text-white hover:bg-gradient-to-l hover:from-green-500 hover:to-green-800" aria-label="View my CV">
                 <span className="mr-2">📄</span>View CV
-                <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
               </a>
+
               <Link href="https://github.com/mehmedmuric" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-7 py-3 rounded-full border-2 border-green-500 bg-transparent text-green-100 font-bold shadow-md hover:scale-105 hover:bg-green-500/10 transition" aria-label="GitHub">
-                <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>GitHub</Link>
+                GitHub
+              </Link>
             </div>
-            <div className="flex gap-4 mt-4 mb-0 justify-center md:justify-start">{socialLinks.map(({ href, aria, icon }) => <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={aria} className="flex items-center justify-center w-10 h-10 rounded-full border border-green-500/30 bg-[#172616] text-green-200 hover:text-green-400 hover:border-green-400/60 hover:scale-110 transition shadow-sm">{icon}</a>)}</div>
+
+            <div className="flex gap-4 mt-4 mb-0 justify-center md:justify-start">
+              {socialLinks.map(({ href, aria, icon }) => (
+                <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={aria} className="flex items-center justify-center w-10 h-10 rounded-full border border-green-500/30 bg-[#172616] text-green-200 hover:text-green-400 hover:border-green-400/60 hover:scale-110 transition shadow-sm">{icon}</a>
+              ))}
+            </div>
           </div>
-          {/* Profile + Stats */}
+
+          {/* RIGHT: PROFILE + STATS */}
           <div className="w-full md:w-2/5 lg:w-[34%] flex flex-col items-center justify-center relative mt-14 md:mt-0">
             <div ref={profileRef} className="relative flex flex-col items-center justify-center">
               <div className="relative group flex flex-col items-center">
@@ -139,32 +175,21 @@ const Hero = () => {
                   Software Engineer
                 </div>
               </div>
-              <div className="mt-16 grid grid-cols-3 gap-x-5 gap-y-1 xs:gap-x-6">{STATS.map(stat => <StatCard stat={stat} key={stat.label} />)}</div>
+              <div className="mt-16 grid grid-cols-3 gap-x-5 gap-y-1 xs:gap-x-6">
+                {STATS.map(stat => <StatCard stat={stat} key={stat.label} />)}
+              </div>
             </div>
           </div>
         </div>
         <ScrollDownIndicator />
       </div>
-      {PARTICLE_POSITIONS.map(({ left, top }, i) => <div key={i} className="absolute w-2 h-2 bg-green-500 rounded-full opacity-20 animate-[float_4s_ease-in-out_infinite] pointer-events-none" style={{ left, top, animationDelay: `${i * 0.45}s`, animationDuration: `${3.6 + i * 0.3}s` }} aria-hidden />)}
+
+      {/* PARTICLES */}
+      {PARTICLE_POSITIONS.map(({ left, top }, i) => (
+        <div key={i} className="absolute w-2 h-2 bg-green-500 rounded-full opacity-20 animate-float pointer-events-none" style={{ left, top, animationDelay: `${i * 0.45}s`, animationDuration: `${3.6 + i * 0.3}s` }} aria-hidden />
+      ))}
     </section>
   );
 };
-
-const DecorativeCircles = memo(() => (
-  <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[800px] h-[700px] opacity-40 pointer-events-none z-0">
-    <svg width="100%" height="100%" viewBox="0 0 800 700" fill="none">
-      <circle cx="400" cy="350" r="240" fill="rgba(45,255,0,0.10)" />
-      <circle cx="630" cy="150" r="100" fill="rgba(45,255,0,0.08)" />
-      <circle cx="120" cy="480" r="70" fill="rgba(45,255,0,0.04)" />
-    </svg>
-  </div>
-));
-
-const ScrollDownIndicator = memo(() => (
-  <div className="absolute left-1/2 -translate-x-1/2 bottom-6 md:bottom-12 flex flex-col items-center group pointer-events-none">
-    <span className="text-sm text-green-400/60 animate-bounce mb-2 tracking-wider font-semibold">Scroll</span>
-    <svg className="w-6 h-6 text-green-400/60 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
-  </div>
-));
 
 export default Hero;
