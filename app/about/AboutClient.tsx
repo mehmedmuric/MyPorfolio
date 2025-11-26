@@ -4,76 +4,149 @@ import Breadcrumb from "../components/Common/Breadcrumb";
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
 
-// Iconic timeline of career/learning events for extra visual narrative
+// Expanded Timeline Data - improved descriptions & highlights
+const timelineData = [
+  {
+    period: "2019–2023",
+    title: "Technical HS, Information Technology, Novi Pazar",
+    colorClass: "bg-mygreen ring-mygreen/25",
+    textClass: "text-mygreen",
+    highlights: [
+      "Robotics Club Lead, IT Olympiad Finalist",
+      "Built Arduino- and Raspberry Pi-based robots",
+      "Organized school’s first open hackathon",
+      "First hands-on experience with teamwork under pressure"
+    ],
+    body: "Graduated as an Information Technology Technician, blending hardware and software. Laid a foundation in computer networks, scripting, troubleshooting, and collaborative project execution through club participation and competitions.",
+  },
+  {
+    period: "2023–Present",
+    title: "University of Novi Pazar",
+    colorClass: "bg-mygreen/75 ring-mygreen/20",
+    textClass: "text-mygreen",
+    highlights: [
+      "Teaching Assistant (Web Tech, Systems Programming)",
+      "Co-founded university’s peer study group",
+      "Held workshops on React/Next.js for new students",
+      "Hackathons & leadership in faculty projects"
+    ],
+    body: "Currently pursuing Computer Science, focusing on algorithms, distributed systems, and web engineering. A regular contributor to open source and student initiatives. Enthusiastic about teaching, mentoring, and applying theory to real-world apps.",
+  },
+  {
+    period: "2020–Now",
+    title: "Professional Developer",
+    colorClass: "bg-mygreen/95 ring-mygreen/15",
+    textClass: "text-mygreen",
+    highlights: [
+      "Mentored junior developers; led standups and reviews",
+      "Volunteer & open source contributor (Next.js, Astro)",
+      "Built and shipped multi-platform products (React Native, SaaS, internal tools)",
+      "Collaborated in distributed, international remote teams"
+    ],
+    body: "Delivered real-world web/mobile products for startups/SMBs across diverse industries—leveraging React, Next.js, Node.js, TypeScript, and devops best practices. Advocated for code quality, testing, and documentation in every project.",
+  },
+  {
+    period: "2023-Now",
+    title: "Freelancer & Tech Consultant",
+    colorClass: "bg-yellow-300 ring-yellow-400/20",
+    textClass: "text-yellow-300",
+    highlights: [
+      "Focus on reliability and clear, transparent communication",
+      "Enablement—creating docs, training, and handoff guides",
+      "Bridging business vision to technology with empathy",
+      "Clients include EU/US early-stage SaaS, e-Health, and fintech startups"
+    ],
+    body: "Delivering tailor-made solutions for founders and remote teams: from MVP prototyping to scaling, with special attention to maintainability and modern UX. My mission: empower clients, making tech accessible and sustainable."
+  }
+];
+
 const Timeline = () => (
-  <ol className="relative border-l-2 border-mygreen/40 ml-2 mt-4 mb-10">
-    <li className="mb-8 ml-6">
-      <span className="absolute -left-2 flex items-center justify-center w-5 h-5 bg-mygreen rounded-full ring-4 ring-mygreen/25" />
-      <h3 className="font-semibold text-base md:text-lg text-mygreen">2019–2023: Technical HS, Information Technology, Novi Pazar</h3>
-      <p className="text-xs md:text-sm text-gray-400">
-        Graduated as Information Technology Technician, building a strong engineering and software foundation.
-      </p>
-    </li>
-    <li className="mb-8 ml-6">
-      <span className="absolute -left-2 flex items-center justify-center w-5 h-5 bg-mygreen/75 rounded-full ring-4 ring-mygreen/20" />
-      <h3 className="font-semibold text-base md:text-lg text-mygreen">2021–Present: BSc Computer Science</h3>
-      <p className="text-xs md:text-sm text-gray-400">
-        Ongoing studies at a private university—expanding expertise in algorithms, systems, and modern technologies.
-      </p>
-    </li>
-    <li className="ml-6">
-      <span className="absolute -left-2 flex items-center justify-center w-5 h-5 bg-mygreen/95 rounded-full ring-4 ring-mygreen/15" />
-      <h3 className="font-semibold text-base md:text-lg text-mygreen">2020–Now: Professional Developer</h3>
-      <p className="text-xs md:text-sm text-gray-400">
-        Delivered modern web/mobile apps using React, Next.js, Node.js, TailwindCSS, TypeScript, and more.
-      </p>
-    </li>
+  <ol
+    className="relative border-l-2 border-mygreen/40 ml-2 mt-4 mb-10"
+    aria-label="Career and Learning Timeline"
+  >
+    {timelineData.map(({ period, title, colorClass, textClass, highlights, body }, idx) => (
+      <li
+        key={period + title}
+        className={`mb-10 ml-6 relative ${idx === timelineData.length - 1 ? "mb-0" : ""}`}
+      >
+        <span
+          className={`absolute -left-8 top-3 transform -translate-y-1/2 flex items-center justify-center w-5 h-5 rounded-full ring-4 ${colorClass}`}
+          aria-hidden="true"
+        />
+        <h3 className={`font-semibold text-base md:text-lg ${textClass}`}>
+          <span className="sr-only">Time period:</span>
+          {period}
+          <span className="sr-only">, </span>: {title}
+        </h3>
+        <p className="text-xs md:text-sm text-gray-400">
+          {body}
+          {highlights && (
+            <span
+              className={`block mt-1 ${
+                textClass === "text-yellow-300"
+                  ? "text-yellow-300/70"
+                  : "text-emerald-400/60"
+              }`}
+            >
+              {highlights.map((h, hIdx) => (
+                <span key={hIdx}>
+                  • {h}
+                  {hIdx < highlights.length - 1 && <br />}
+                </span>
+              ))}
+            </span>
+          )}
+        </p>
+      </li>
+    ))}
   </ol>
 );
 
-// Simple animated tech icons grid
-const TechStack = () => {
-  const stack = [
-    { src: "/images/models/javascript.svg", label: "Javascript" },  
-    { src: "/images/models/react.svg", label: "React" },  
-    { src: "/images/models/nextjs.svg", label: "Next.js" },
-    { src: "/images/models/nodejs.svg", label: "Node.js" },
-    { src: "/images/models/typescript.svg", label: "TypeScript" },
-    { src: "/images/models/tailwindcss.svg", label: "TailwindCSS" },
-    { src: "/images/models/mongodb.svg", label: "MongoDB" },
-    { src: "/images/models/mysql.svg", label: "MySQL" },
-    { src: "/images/models/materialui.svg", label: "Material UI" },
-  ];
-  return (
-    <div className="w-full flex flex-col items-center mt-3">
-      <h2 className="font-semibold text-mygreen mb-2 text-lg md:text-xl tracking-widest">
-        My Tech Toolbox
-      </h2>
-      <div className="grid grid-cols-5 sm:grid-cols-6 gap-4 sm:gap-6 justify-center items-center">
-        {stack.map((item, i) => (
-          <div
-            key={item.label}
-            className="flex flex-col items-center group transition-all duration-200 hover:scale-110"
-            style={{ animation: `appearFadeIn 0.8s ${0.08 * i}s both` }}
-          >
-            <Image
-              src={item.src}
-              alt={item.label}
-              width={38}
-              height={38}
-              className="drop-shadow-glow-slim"
-            />
-            <span className="text-xs text-gray-400 mt-1">{item.label}</span>
-          </div>
-        ))}
-      </div>
-      <style jsx global>{`
-        @keyframes appearFadeIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); }}
-        .drop-shadow-glow-slim { filter: drop-shadow(0 0 6px #00ff99a2); }
-      `}</style>
-    </div>
-  );
-};
+const techStack = [
+  { src: "/images/models/javascript.svg", label: "JavaScript" },
+  { src: "/images/models/typescript.svg", label: "TypeScript" },
+  { src: "/images/models/react.svg", label: "React" },
+  { src: "/images/models/nextjs.svg", label: "Next.js" },
+  { src: "/images/models/nodejs.svg", label: "Node.js" },
+  { src: "/images/models/tailwindcss.svg", label: "TailwindCSS" },
+  { src: "/images/models/materialui.svg", label: "Material UI" },
+  { src: "/images/models/mongodb.svg", label: "MongoDB" },
+  { src: "/images/models/mysql.svg", label: "MySQL" },
+  { src: "/images/models/amazonAWS.svg", label: "AWS" }
+];
+
+const TechStack = () => (
+  <section className="w-full flex flex-col items-center mt-3" aria-labelledby="tech-toolbox">
+    <h2 id="tech-toolbox" className="font-semibold text-mygreen mb-2 text-lg md:text-xl tracking-widest">
+      My Tech Toolbox
+    </h2>
+    <ul
+      className={`grid grid-cols-4 xs:grid-cols-5 sm:grid-cols-6 md:grid-cols-7 lg:grid-cols-8 gap-3 xs:gap-4 sm:gap-5 md:gap-6 justify-center items-center w-full max-w-3xl`}
+      aria-label="Technology stack"
+    >
+      {techStack.map((item, i) => (
+        <li
+          key={item.label}
+          className="flex flex-col items-center group transition-all duration-200 hover:scale-110"
+          style={{ animation: `appearFadeIn 0.7s ${0.055 * i}s both` }}
+          tabIndex={0}
+          aria-label={item.label}
+        >
+          <Image src={item.src} alt={item.label} width={36} height={36} className="drop-shadow-glow-slim" draggable={false} loading={i < 4 ? "eager" : "lazy"} />
+          <span className="text-[11px] md:text-xs text-gray-400 mt-1 text-center">{item.label}</span>
+        </li>
+      ))}
+    </ul>
+    <style jsx global>{`
+      @keyframes appearFadeIn {
+        from { opacity: 0; transform: scale(0.82); }
+        to { opacity: 1; transform: scale(1); }
+      }
+      .drop-shadow-glow-slim { filter: drop-shadow(0 0 8px #00ff99a2); }
+    `}</style>
+  </section>
+);
 
 const AboutClient = () => {
   const breadcrumbRef = useRef<HTMLDivElement>(null);
@@ -82,108 +155,50 @@ const AboutClient = () => {
   useEffect(() => {
     if (breadcrumbRef.current && contentRef.current) {
       const tl = gsap.timeline({ defaults: { duration: 0.7, ease: "power3.out" } });
-
-      // Breadcrumb from above
       tl.from(breadcrumbRef.current, { y: -30, opacity: 0 });
-
-      // Hero text + intro staggered
-      tl.from(
-        Array.from(contentRef.current.children).slice(0, 2),
-        { y: 36, opacity: 0, stagger: 0.22 },
-        "-=0.44"
-      );
-
-      // Other sections staggered in
-      tl.from(
-        Array.from(contentRef.current.children).slice(2),
-        { y: 20, opacity: 0, stagger: 0.15 },
-        "-=0.28"
-      );
-
-      // Neon blink effect for h1, h2, important p's
-      gsap.to(
-        contentRef.current.querySelectorAll("h1, h2, .highlight-neon"),
-        {
-          textShadow: "0 0 17px #00ff99, 0 0 4px #48ffa7",
-          repeat: -1,
-          yoyo: true,
-          duration: 1,
-          ease: "power1.inOut"
-        }
-      );
+      tl.from(Array.from(contentRef.current.children).slice(0, 2), { y: 36, opacity: 0, stagger: 0.19 }, "-=0.44");
+      tl.from(Array.from(contentRef.current.children).slice(2), { y: 20, opacity: 0, stagger: 0.13 }, "-=0.22");
+      gsap.to(contentRef.current.querySelectorAll("h1, h2, .highlight-neon"), {
+        textShadow: "0 0 16px #00ff99, 0 0 4px #48ffa7",
+        repeat: -1,
+        yoyo: true,
+        duration: 1,
+        ease: "power1.inOut"
+      });
     }
   }, []);
 
+  // Add improved about-me intro
   return (
     <>
       <div ref={breadcrumbRef}>
-        <Breadcrumb pageName="About Me" description="Who I am, what I do, and how I can help you succeed." />
+        <Breadcrumb
+          pageName="About Me"
+          description="Curious by nature. Driven by building. Enabling others. Welcome to my journey."
+        />
       </div>
 
-      <div
+      <main
         ref={contentRef}
-        className="mx-auto particles-bg overflow-hidden md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8 rounded-3xl max-w-6xl sm:px-6 py-8 flex flex-col items-center md:items-start gap-8 sm:gap-14 lg:gap-20 
-          bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-950
-          relative"
+        className="mx-auto particles-bg overflow-hidden px-4 xs:px-5 sm:px-6 lg:px-8 py-7 sm:py-14 md:py-20 lg:py-28 isolate flex flex-col items-center md:items-start gap-8 sm:gap-14 lg:gap-20 max-w-6xl rounded-3xl bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5 bg-gray-950 relative"
       >
-        {/* Cyber grid background */}
-        <div className="absolute inset-0 opacity-[0.06] 
-          bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),
-               linear-gradient(#00ff99_1px,transparent_1px)] 
-          bg-[size:50px_50px] pointer-events-none" />
-
-        {/* Neon radial glows */}
-        <div className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.12),_transparent_60%)] blur-3xl animate-pulse-slow pointer-events-none" />
-        <div className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.06),_transparent_70%)] blur-[120px] pointer-events-none" />
-
-        {/* About Hero */}
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 underline underline-offset-4 decoration-mygreen">
-          Hi, I’m Mehmed Muric
-        </h1>
-        <div className="flex flex-col md:flex-row items-center gap-6 w-full">
-          {/* Optionally, portrait or avatar */}
-          <div className="w-28 h-28 mb-2 md:mb-0 flex-shrink-0 relative rounded-full border-2 border-mygreen/20 shadow-[0_0_16px_#00ff9940] overflow-hidden bg-mygreen/5 mr-0 md:mr-6">
-            <Image
-              src="/images/logo/mehmed.jpg"
-              alt="Mehmed Muric Avatar"
-              fill
-              sizes="112px"
-              className="object-cover"
-              priority
-            />
-          </div>
-          <div>
-            <p className="text-body-color mb-2 md:mb-4 text-sm sm:text-base md:text-lg">
-              <span className="highlight-neon font-medium tracking-wide">
-                Passionate Full-Stack Developer
-              </span>{" "}
-              from Novi Pazar, on a quest to build high-impact, modern web and mobile applications. I thrive on challenges, solving real-world problems and exceeding user expectations through meticulous, efficient code.
-            </p>
-            <p className="text-body-color mb-2 text-xs md:text-sm italic text-mygreen/90">
-              "Focus on quality, user value, and creative solutions."
-            </p>
-          </div>
-        </div>
-
-        {/* Animated Timeline of Journey */}
+        {/* About Me - Custom Introduction Section */}
+        <section className="mb-2 flex flex-col gap-3 md:gap-5 max-w-2xl w-full text-left">
+          <h1 className="text-2xl md:text-3xl font-bold text-mygreen highlight-neon">Hello! I'm Mehmed Muric 👋</h1>
+          <p className="text-base md:text-lg text-gray-300">
+            I’m a <span className="text-mygreen font-semibold">full-stack developer</span> with a passion for building products that solve real-world problems, empower teams, and delight users.
+            My journey bridges the world of algorithms and software craftsmanship, grounded in <span className="text-emerald-400 font-medium">collaboration, teaching</span>, and relentless curiosity.
+          </p>
+          <p className="text-base md:text-lg text-gray-400">
+            I thrive in environments where learning never stops—whether that’s mentoring, leading workshops, or collaborating across borders. I believe in <span className="text-yellow-300 font-medium">clear communication</span> and always prioritizing reliability, accessibility, and empathy in both code and teamwork.
+          </p>
+          <p className="text-base text-gray-500">
+            Outside coding, I’m an open source enthusiast, hackathon regular, and robotics tinkerer. Let's build solutions that last—and grow together along the way!
+          </p>
+        </section>
         <Timeline />
-
-        {/* Tech stack grid */}
         <TechStack />
-
-        {/* Additional details / philosophy */}
-        <div className="flex flex-col gap-3 mt-4">
-          <p className="text-body-color text-sm sm:text-base md:text-lg">
-            My core toolkit is always evolving. I build with <span className="font-semibold text-mygreen/95">React</span>, <span className="font-semibold text-mygreen/95">Next.js</span>, <span className="font-semibold text-mygreen/95">Node.js</span>, <span className="font-semibold text-mygreen/95">TypeScript</span>, <span className="font-semibold text-mygreen/95">TailwindCSS</span>, <span className="font-semibold text-mygreen/95">MongoDB</span>, <span className="font-semibold text-mygreen/95">MySQL</span> and more—keeping up with the latest best practices to deliver high-performance, secure, and scalable applications.
-          </p>
-          <p className="text-body-color text-sm sm:text-base md:text-lg mt-1">
-            <span className="highlight-neon font-semibold">What motivates me the most</span> is helping clients turn their ideas into reality—and continuing to support their growth long after launch. Every project receives long-term planning, scalability, and performance at its heart.
-          </p>
-          <p className="text-body-color text-xs sm:text-sm md:text-base text-gray-400 mt-3">
-            When I'm not coding, I'm usually exploring new tech, gaming, or enjoying music with friends. Always open to meaningful collaborations!
-          </p>
-        </div>
-      </div>
+      </main>
     </>
   );
 };
