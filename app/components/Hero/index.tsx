@@ -51,6 +51,7 @@ const TechBadge = memo<{ tech: Technology }>(({ tech }) => (
     {tech.name}
   </span>
 ));
+TechBadge.displayName = "TechBadge";
 
 const StatCard = memo<{ stat: typeof STATS[0] }>(({ stat }) => (
   <div className="flex flex-col items-center p-2 w-20 xs:w-24">
@@ -69,13 +70,9 @@ const DecorativeCircles = memo(() => (
     </svg>
   </div>
 ));
+DecorativeCircles.displayName = "DecorativeCircles";
 
-const ScrollDownIndicator = memo(() => (
-  <div className="absolute left-1/2 -translate-x-1/2 bottom-6 md:bottom-12 flex flex-col items-center group pointer-events-none">
-    <span className="text-sm text-green-400/60 animate-bounce mb-2 tracking-wider font-semibold">Scroll</span>
-    <svg className="w-6 h-6 text-green-400/60 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" /></svg>
-  </div>
-));
+
 
 // ---------- HERO COMPONENT ----------
 const Hero = () => {
@@ -138,7 +135,7 @@ const Hero = () => {
             </h2>
 
             <p ref={descRef} className="mt-3 mb-4 text-base sm:text-lg text-green-300 font-normal max-w-lg">
-              I build robust, scalable web & mobile apps focused on speed, polish, and maintainability. Let's craft solutions that last.
+              I build robust, scalable web & mobile apps focused on speed, polish, and maintainability. Lets craft solutions that last.
             </p>
 
             <div ref={badgesRef} className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">
