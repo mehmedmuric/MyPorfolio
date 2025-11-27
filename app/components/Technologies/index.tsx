@@ -286,7 +286,11 @@ const Technologies = () => {
             filteredTechnologies.map((tech, index) => (
               <div
                 key={tech.name}
-                ref={(el) => el && (iconsRef.current[index] = el)}
+                ref={(el) => {
+                  if (el) {
+                    iconsRef.current[index] = el;
+                  }
+                }}
                 onMouseEnter={() => setHoveredTech(index)}
                 onMouseLeave={() => setHoveredTech(null)}
                 className={`
@@ -295,7 +299,7 @@ const Technologies = () => {
                   p-4 sm:p-5 md:p-6 rounded-2xl md:rounded-3xl backdrop-blur-lg
                   bg-black/60 border border-green-500/20  
                   transition-transform duration-300
-                  hover:-translate-y-1 md:hover:-translate-y-2 hover:scale-[1.02] md:hover:scale-105 w-full sm:w-[90%] md:w-[85%] lg:w-[80%] xl:w-auto max-w-[200px]
+                  hover:-translate-y-1 md:hover:-translate-y-2 hover:scale-[1.02] md:hover:scale-105 w-full sm:w-[90%] md:w-[85%] lg:w-[80%] xl:w-auto
                   shadow-lg ring-0 ring-green-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2
                   cursor-pointer
                   ${hoveredTech === index ? "z-20 bg-green-800/10 border-green-500/30 scale-105" : ""}
