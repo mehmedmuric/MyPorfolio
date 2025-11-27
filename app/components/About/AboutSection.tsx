@@ -192,7 +192,11 @@ const AboutSection = () => {
               {features.map((feature, idx) => (
                 <li
                   key={feature.title}
-                  ref={(el) => el && (textRefs.current[idx] = el)}
+                 ref={(el) => {
+                  if (el) {
+                    textRefs.current[idx] = el;
+                  }
+                }}
                   className="
                     flex flex-row items-start bg-gradient-to-l from-black via-transparent to-black
                     rounded-xl shadow-lg border-l-4 border-mygreen/40 py-4 px-5 gap-3
