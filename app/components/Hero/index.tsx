@@ -121,7 +121,7 @@ const Hero = () => {
       <div className="absolute left-[5%] top-[14%] w-96 h-96 bg-[radial-gradient(circle,rgba(0,255,140,0.23)_0%,transparent_75%)] rounded-full pointer-events-none blur-2xl z-10 will-change-transform" style={{ transform: `translate3d(${mousePosition.x * 0.45}px,${mousePosition.y * 0.41}px,0)` }} aria-hidden />
       <div className="absolute right-[10%] bottom-[5%] w-[380px] h-[240px] bg-[radial-gradient(circle,rgba(0,160,255,0.13)_0%,transparent_80%)] rounded-full pointer-events-none blur-2xl z-10 will-change-transform" style={{ transform: `translate3d(${mousePosition.x * 0.19}px,${mousePosition.y * 0.08}px,0)` }} aria-hidden />
       
-      <div className="container relative z-20 px-4 sm:px-10 mx-auto select-none">
+      <div className="container relative z-20 px-4 sm:px-10 mx-auto select-none mt-12 md:mt-16 lg:mt">
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
           
           {/* LEFT: CONTENT */}
@@ -147,7 +147,7 @@ const Hero = () => {
 
             <div ref={ctaRef} className="w-full flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-5 my-2">
               <a href="/MojCV.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-7 py-3 rounded-full bg-gradient-to-r from-green-400 to-green-700 text-black font-bold tracking-wide shadow-lg hover:scale-105 active:scale-95 transition group border-2 border-transparent hover:text-white hover:bg-gradient-to-l hover:from-green-500 hover:to-green-800" aria-label="View my CV">
-                <span className="mr-2">📄</span>View CV
+                View CV
               </a>
 
               <Link href="https://github.com/mehmedmuric" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-7 py-3 rounded-full border-2 border-green-500 bg-transparent text-green-100 font-bold shadow-md hover:scale-105 hover:bg-green-500/10 transition" aria-label="GitHub">
@@ -181,7 +181,6 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        <ScrollDownIndicator />
       </div>
 
       {/* PARTICLES */}

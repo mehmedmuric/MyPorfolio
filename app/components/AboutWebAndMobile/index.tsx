@@ -7,8 +7,12 @@ import SingleFeature from "./SingleFeature";
 import featuresData from "./featuresData";
 
 // Register GSAP plugin once globally
-if (typeof window !== "undefined" && !gsap.core.globals().ScrollTrigger) {
-  gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== "undefined") {
+  // Use a safe runtime check to avoid TypeScript error for gsap.core.globals()
+  const coreGlobals = (gsap as any).core?.globals;
+  if (!((gsap as any).ScrollTrigger || coreGlobals?.ScrollTrigger)) {
+    gsap.registerPlugin(ScrollTrigger);
+  }
 }
 
 const Features = () => {
@@ -238,7 +242,6 @@ const SingleFeatureWrapper = ({
         cursor-pointer
         ${hasFocus ? "ring-2 ring-green-400" : ""}
       `}
-      tabIndex={0}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
