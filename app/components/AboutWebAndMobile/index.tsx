@@ -8,7 +8,6 @@ import featuresData from "./featuresData";
 
 // Register GSAP plugin once globally
 if (typeof window !== "undefined") {
-  // Use a safe runtime check to avoid TypeScript error for gsap.core.globals()
   const coreGlobals = (gsap as any).core?.globals;
   if (!((gsap as any).ScrollTrigger || coreGlobals?.ScrollTrigger)) {
     gsap.registerPlugin(ScrollTrigger);
@@ -20,26 +19,26 @@ const Features = () => {
   const featureRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [hasAnimated, setHasAnimated] = useState(false);
 
-  // Subtle floating effect for entire section (paused while in reduced motion)
+  // Subtle floating effect
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (sectionRef.current && !prefersReducedMotion) {
       const floatAnim = gsap.to(sectionRef.current, {
         y: "+=5",
         repeat: -1,
         yoyo: true,
         duration: 6,
-        ease: "sine.inOut",
+        ease: "sine.inOut"
       });
       return () => { floatAnim.kill(); };
     }
   }, []);
 
-  // GSAP Animations (section and features staggered entry)
+  // GSAP Animations
   useEffect(() => {
     if (hasAnimated) return;
+
     const ctx = gsap.context(() => {
-      // Section entry animation
       gsap.from(sectionRef.current, {
         opacity: 0,
         y: 80,
@@ -47,12 +46,13 @@ const Features = () => {
         ease: "power2.out",
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 80%",
-        },
+          start: "top 80%"
+        }
       });
 
       featureRefs.current.forEach((el, i) => {
         if (!el) return;
+
         gsap.fromTo(
           el,
           { opacity: 0, y: 66, scale: 0.94 },
@@ -65,10 +65,11 @@ const Features = () => {
             ease: "power2.out",
             scrollTrigger: {
               trigger: el,
-              start: "top 94%",
-            },
+              start: "top 94%"
+            }
           }
         );
+
         gsap.fromTo(
           el,
           { boxShadow: "0 0 0px #00ff8055" },
@@ -78,12 +79,11 @@ const Features = () => {
             duration: 0.64,
             scrollTrigger: {
               trigger: el,
-              start: "top 92%",
-            },
+              start: "top 92%"
+            }
           }
         );
 
-        // Neon flicker for corners
         const accents = el.querySelectorAll(".feature-corner");
         accents.forEach((accent, accIdx) => {
           gsap.fromTo(
@@ -95,18 +95,18 @@ const Features = () => {
               yoyo: true,
               duration: 1.5 + Math.random() * 1.1,
               delay: i * 0.185 + accIdx * 0.065,
-              ease: "sine.inOut",
+              ease: "sine.inOut"
             }
           );
         });
       });
+
       setHasAnimated(true);
     }, sectionRef);
 
     return () => ctx.revert();
   }, [hasAnimated]);
 
-  // Improved Title: bolder, more responsive, plus subtle underglow
   const ResponsiveTitle = () => (
     <h2 className="relative text-green-100 text-center font-black text-3xl xs:text-4xl md:text-5.5xl leading-tight mb-5 w-full max-w-3xl mx-auto drop-shadow-[0_2px_10px_rgba(0,255,128,0.12)]">
       <span className="block">
@@ -124,14 +124,13 @@ const Features = () => {
     </h2>
   );
 
-  // Improved Subtitle: softer color, clearer language, better contrast
   const ResponsiveParagraph = () => (
-    <p className="text-green-100/85 text-base xs:text-lg md:text-xl text-center font-medium max-w-2xl mx-auto mb-12 tracking-normal leading-relaxed">
-      I create modern web &amp; mobile apps — blending elegant UI, performance, security, and seamless usability.<br className="hidden xs:inline" /> Below are some core strengths:
+    <p className="text-green-100/85 text-base xs:text-lg md:text-xl text-center font-medium max-w-2xl mx-auto mb-12 leading-relaxed">
+      I create modern web &amp; mobile apps — blending elegant UI, performance, security, and seamless usability.
+      <br className="hidden xs:inline" /> Below are some core strengths:
     </p>
   );
 
-  // Keyboard skip link for accessibility
   const SkipFeaturesLink = () => (
     <a
       href="#after-features"
@@ -151,7 +150,7 @@ const Features = () => {
         aria-label="Web & Mobile Application Features"
         className="relative overflow-hidden py-20 md:py-24 lg:py-32 isolate px-2 xs:px-4 sm:py-32 lg:px-8 bg-[#0a1810] bg-[radial-gradient(ellipse_at_top,_#085b3b_0%,_#010101_80%)]"
       >
-        {/* Cyber grid background (improved density) */}
+        {/* Cyber grid */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.07]
           bg-[linear-gradient(90deg,#00ff88_1px,transparent_1px),linear-gradient(#00ff88_1px,transparent_1px)]
@@ -159,17 +158,15 @@ const Features = () => {
           aria-hidden="true"
         />
 
-        {/* Animated scan lines (thicker, slower) */}
+        {/* Scan line */}
         <div className="pointer-events-none absolute inset-0 opacity-[0.04] z-10 select-none">
           <div
             className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-green-500 to-transparent"
-            style={{
-              animation: 'scanLine 9s linear infinite'
-            }}
+            style={{ animation: "scanLine 9s linear infinite" }}
           />
         </div>
 
-        {/* Subtle outer glow */}
+        {/* Glow */}
         <div
           aria-hidden="true"
           className="pointer-events-none absolute -inset-10 blur-[56px] mix-blend-lighten z-0"
@@ -179,7 +176,6 @@ const Features = () => {
         />
 
         <div className="container mx-auto relative z-20 px-0 md:px-6">
-          {/* Responsive and centered title/paragraph */}
           <ResponsiveTitle />
           <ResponsiveParagraph />
 
@@ -187,7 +183,9 @@ const Features = () => {
             {featuresData.map((feature, i) => (
               <div
                 key={feature.id}
-                ref={el => { featureRefs.current[i] = el; }}
+                ref={(el) => {
+                  featureRefs.current[i] = el;
+                }}
                 className="flex"
               >
                 <SingleFeatureWrapper feature={feature} index={i} />
@@ -195,7 +193,7 @@ const Features = () => {
             ))}
           </div>
         </div>
-        {/* anchor for skip link */}
+
         <div id="after-features" tabIndex={-1} />
       </section>
     </>
@@ -204,15 +202,16 @@ const Features = () => {
 
 export default Features;
 
-// Enhanced Wrapper with focus ring, better a11y, tactile tap, and neon edge accent/animation
 const SingleFeatureWrapper = ({
   feature,
-  index,
-}: { feature: any; index: number }) => {
+  index
+}: {
+  feature: any;
+  index: number;
+}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [hasFocus, setHasFocus] = useState(false);
 
-  // Allow pressing enter/space to activate card (if feature has link)
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLDivElement>) => {
       if ((e.key === "Enter" || e.key === " ") && feature.href) {
@@ -222,9 +221,10 @@ const SingleFeatureWrapper = ({
     [feature]
   );
 
-  // Accent classes for modular highlights
-  const cornerBase = "feature-corner absolute border-green-400/18 transition-colors duration-400";
-  const activeAccent = "group-hover:border-green-400/60 group-focus:border-green-400/90";
+  const cornerBase =
+    "feature-corner absolute border-green-400/18 transition-colors duration-400";
+  const activeAccent =
+    "group-hover:border-green-400/60 group-focus:border-green-400/90";
 
   return (
     <div
@@ -253,19 +253,23 @@ const SingleFeatureWrapper = ({
       }}
       {...(feature.href ? { "aria-describedby": `desc-${feature.id}` } : {})}
     >
-      {/* Shifting animated background */}
+      {/* BG effect */}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-green-400/0 via-green-400/12 to-green-400/0 opacity-0 group-hover:opacity-100 group-focus:opacity-90 transition-opacity duration-300" />
 
-      {/* Four animated corner neon accents */}
-      <div className={`${cornerBase} top-0 right-0 w-11 h-11 border-t-2 border-r-2 rounded-tr-2xl ${activeAccent}`} />
-      <div className={`${cornerBase} bottom-0 left-0 w-11 h-11 border-b-2 border-l-2 rounded-bl-2xl ${activeAccent}`} />
+      {/* Neon accents */}
+      <div
+        className={`${cornerBase} top-0 right-0 w-11 h-11 border-t-2 border-r-2 rounded-tr-2xl ${activeAccent}`}
+      />
+      <div
+        className={`${cornerBase} bottom-0 left-0 w-11 h-11 border-b-2 border-l-2 rounded-bl-2xl ${activeAccent}`}
+      />
       <div className="feature-corner absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-green-400/8 rounded-br-xl" />
       <div className="feature-corner absolute top-0 left-0 w-7 h-7 border-t-2 border-l-2 border-green-400/8 rounded-tl-xl" />
 
-      {/* Extra subtle edge glow */}
+      {/* Glow */}
       <div className="pointer-events-none absolute -inset-1 rounded-2xl blur-[3.2px] bg-green-400/0 group-hover:bg-green-400/[.11] group-focus:bg-green-400/[.19] transition-all duration-300 -z-10" />
 
-      {/* Card content */}
+      {/* Content */}
       <div className="relative z-10 w-full flex flex-col items-center">
         <SingleFeature feature={feature} index={index} />
       </div>
