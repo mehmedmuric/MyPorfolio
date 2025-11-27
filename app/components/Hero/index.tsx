@@ -60,6 +60,7 @@ const StatCard = memo<{ stat: typeof STATS[0] }>(({ stat }) => (
     <div className="text-[11px] text-gray-400">{stat.label}</div>
   </div>
 ));
+StatCard.displayName = "StatCard";
 
 const DecorativeCircles = memo(() => (
   <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[800px] h-[700px] opacity-40 pointer-events-none z-0">
