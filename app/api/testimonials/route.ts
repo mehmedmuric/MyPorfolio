@@ -4,38 +4,49 @@ import { rateLimit } from "@/lib/rateLimit";
 
 const limiter = rateLimit({ windowMs: 60 * 1000, max: 5 }); // 5 req / 1 minut
 
-// Helper: safe JSON
-const safeJson = (data: any) => {
-  try {
-    return JSON.parse(JSON.stringify(data));
-  } catch {
-    return [];
-  }
-};
-
 export async function GET() {
   try {
-    console.log("GET /api/testimonials called");
+    // Debug: log DATABASE_URL
+    console.log("DATABASE_URL:", process.env.DATABASE_URL);
+
+    if (!process.env.DATABASE_URL) {
+      console.error("DATABASE_URL is not set! Cannot connect to DB.");
+      return NextResponse.json(
+        { error: "Server misconfiguration: DATABASE_URL not set" },
+        { status: 500 }
+      );
+    }
+
     const testimonials = await prisma.testimonial.findMany({
       orderBy: { createdAt: "desc" },
     });
-    console.log("Testimonials fetched:", testimonials.length);
-    return NextResponse.json(safeJson(testimonials));
-  } catch (error) {
+
+    return NextResponse.json(testimonials ?? []);
+  } catch (error: any) {
     console.error("GET /api/testimonials error:", error);
-    // Uvek vrati JSON, nikad HTML
-    return NextResponse.json([], { status: 500 });
+    return NextResponse.json({ error: error.message || "Failed to fetch testimonials" }, { status: 500 });
   }
 }
 
 export async function POST(req: Request) {
   try {
+    // Debug: log DATABASE_URL
+    console.log("DATABASE_URL (POST):", process.env.DATABASE_URL);
+
+    if (!process.env.DATABASE_URL) {
+      console.error("DATABASE_URL is not set! Cannot connect to DB.");
+      return NextResponse.json(
+        { error: "Server misconfiguration: DATABASE_URL not set" },
+        { status: 500 }
+      );
+    }
+
     // ⚠️ Sigurno parsiranje JSON-a
     let body;
     try {
       body = await req.json();
     } catch {
-      console.error("Invalid JSON body");
+      console.error("Invalid JSON body received");
       return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
     }
 
@@ -50,7 +61,7 @@ export async function POST(req: Request) {
     role = role ? String(role).trim().slice(0, 100) : null;
     comment = String(comment).trim().slice(0, 500);
 
-    // Validate image (Base64 or fallback)
+    // Validate image URL or Base64
     let finalImage = "/images/testimonials/testimonials.png";
     if (image && typeof image === "string" && image.startsWith("data:image")) {
       finalImage = image;
@@ -71,21 +82,27 @@ export async function POST(req: Request) {
       );
     }
 
-    // MongoDB + Prisma: kreiraj dokument
-    const newTestimonial = await prisma.testimonial.create({
-      data: {
-        name,
-        role,
-        comment,
-        image: finalImage,
-        createdAt: new Date(), // MongoDB DateTime
-        ip,
-      },
-    });
+    // Try creating testimonial
+    let newTestimonial;
+    try {
+      newTestimonial = await prisma.testimonial.create({
+        data: {
+          name,
+          role,
+          comment,
+          image: finalImage,
+          createdAt: new Date(),
+          ip,
+        },
+      });
+    } catch (dbError: any) {
+      console.error("Prisma DB error:", dbError);
+      return NextResponse.json({ error: dbError.message || "Database error" }, { status: 500 });
+    }
 
-    return NextResponse.json(safeJson(newTestimonial), { status: 201 });
-  } catch (error) {
+    return NextResponse.json(newTestimonial, { status: 201 });
+  } catch (error: any) {
     console.error("POST /api/testimonials error:", error);
-    return NextResponse.json({ error: "Failed to create testimonial" }, { status: 500 });
+    return NextResponse.json({ error: error.message || "Failed to create testimonial" }, { status: 500 });
   }
 }
