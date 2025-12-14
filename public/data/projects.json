@@ -1,6 +1,22 @@
 [
     {
       "id": 1,
+      "title": "AG Gradnja – Construction Company Website",
+      "image": "/images/projects/aggradnja.png",
+      "paragraph": "AG Gradnja is a modern, high-performance website developed for a construction company, focused on showcasing services, completed projects, and building trust with potential clients. The website emphasizes clean design, clarity, and reliability, reflecting the company’s professionalism in the construction industry.",
+      "author": {
+        "name": "Mehmed Muric",
+        "designation": "FullStack Developer",
+        "image": "/images/logo/mehmed.jpg"
+      },
+      "tags": ["JavaScript", " - React", " - Next.js", " - Tailwind CSS", " - i18n", " - SEO"],
+      "publishDate": "12-10-2025",
+      "gitlink": "https://github.com/mehmedmuric/ag-gradnja",
+      "livedemo": "https://aggradnja.com",
+      "paragraph2": "This project demonstrates my ability to build scalable, multilingual, and SEO-optimized business websites. The site includes a fully responsive layout, multi-language support (SR, EN, DE, TR, AR), optimized images, fast loading performance, and a clear service and project presentation structure. Built with modern frontend technologies and best practices for real-world production use."
+    },
+    {
+      "id": 2,
       "title": "AI Landing Page GPT-3 Inspired Design",
       "image": "/images/projects/GPT3project.png",
       "paragraph": "This is a static presentation website inspired by modern AI landing page designs, built as part of my portfolio. The page is designed to showcase the potential and possibilities of GPT-3 technology and artificial intelligence in general.",
@@ -16,7 +32,7 @@
       "paragraph2": "To demonstrate my skills in frontend development, content structure, and modern UI/UX design, inspired by real-world SaaS landing pages. Technologies Used: HTML5 / CSS3 React Fully responsive design optimized for different devices"
     },
     {
-      "id": 2,
+      "id": 3,
       "title": "Crypto Landing Page Web3 & Blockchain Design",
       "image": "/images/projects/CryptoExchangeProject.png",
       "paragraph": "A modern static landing page focused on the world of cryptocurrencies and Web3. The site allows users to explore crypto markets, connect their wallets, and simulate sending transactions across the world.",
@@ -32,7 +48,7 @@
       "paragraph2": "The project demonstrates my ability to build Web3-inspired UI with a strong focus on security, usability, and modern frontend practices. Sections include reliability, security, fast transactions, and exchange rates. Technologies Used: HTML5 / CSS3 React Responsive design Wallet connect simulation."
     },
     {
-      "id": 3,
+      "id": 4,
       "title": "Restaurant Landing Page Modern Food & Dining Design",
       "image": "/images/projects/restaurantProject.png",
       "paragraph": "A clean and modern restaurant landing page designed to showcase menus, dining experience, and online reservations. The site provides an elegant introduction to the restaurant with a strong focus on user-friendly navigation and appealing food presentation.",
@@ -48,7 +64,7 @@
       "paragraph2": "The project demonstrates my ability to design and develop a modern restaurant landing page with clear sections such as menu highlights, services, customer testimonials, and a reservation call-to-action. Technologies Used: HTML5 / CSS3, React, TailwindCSS, fully responsive design optimized for all devices."
     },
     {
-      "id": 4,
+      "id": 5,
       "title": "Fintech Landing Page Modern Payment Solutions",
       "image": "/images/projects/bankProject.png",
       "paragraph": "A modern and professional landing page built for a fintech product that showcases digital payment solutions, secure transactions, and financial management features. The design highlights key benefits such as rewards, balance transfers, billing control, and customer testimonials.",
@@ -64,7 +80,7 @@
       "paragraph2": "This project demonstrates my ability to design and develop fintech-oriented user interfaces with a focus on trust, usability, and responsive design. The page includes sections for product features, customer statistics, billing & invoicing, client testimonials, and partner logos. Technologies Used: HTML5 / CSS3, React, TailwindCSS, fully responsive layout optimized for all devices."
     },
    {
-    "id": 5,
+    "id": 6,
     "title": "Ecommerce Shop Vite + React",
     "image": "/images/projects/ViteReactEcommerce.png",
     "paragraph": "A modern ecommerce web application built with Vite and React, designed to provide users with a smooth and responsive online shopping experience. The platform includes product listings, shopping cart functionality, and a clean UI that emphasizes usability and performance.",
