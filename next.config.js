@@ -35,17 +35,36 @@ const securityHeaders = [
 
 const nextConfig = {
   images: {
-    domains: [
-      "images.unsplash.com",
-      "github.com",
-      "cdn.botpress.cloud",
-      "files.bpcontent.cloud",
-    ],
     remotePatterns: [
       {
         protocol: "https",
         hostname: "cdn.sanity.io",
         port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "github.com",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.botpress.cloud",
+        port: "",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "files.bpcontent.cloud",
+        port: "",
+        pathname: "/**",
       },
     ],
   },
