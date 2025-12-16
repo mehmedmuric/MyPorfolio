@@ -30,18 +30,23 @@ const Certifications = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    const ctx = gsap.context(() => {
-      // Section entrance
-      gsap.from(".cert-section", {
-        opacity: 0,
-        y: 90,
-        duration: 1.2,
-        ease: "power4.out",
-        scrollTrigger: {
-          trigger: ".cert-section",
-          start: "top 88%",
-        },
-      });
+    // Delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      if (!document.querySelector(".cert-section")) return;
+
+      const ctx = gsap.context(() => {
+        // Section entrance
+        gsap.from(".cert-section", {
+          opacity: 0,
+          y: 90,
+          duration: 1.2,
+          ease: "power4.out",
+          autoKill: true,
+          scrollTrigger: {
+            trigger: ".cert-section",
+            start: "top 88%",
+          },
+        });
 
       // Title glow
       gsap.from(".cert-title", {
@@ -87,6 +92,9 @@ const Certifications = () => {
     }, sectionRef);
 
     return () => ctx.revert();
+    }, 100); // Delay to allow DOM to render
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (

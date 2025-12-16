@@ -111,71 +111,82 @@ const Contact = () => {
   useEffect(() => {
     if (!sectionRef.current) return;
 
-    const ctx = gsap.context(() => {
-      // Section fade in
-      gsap.from(".contact-section", {
-        opacity: 0,
-        y: 100,
-        duration: 2.2,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".contact-section",
-          start: "top 85%",
-        },
-      });
+    // Delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      if (!document.querySelector(".contact-section")) return;
 
-      // Title animation
-      gsap.from(".contact-title", {
-        opacity: 0,
-        y: 40,
-        duration: 1.8,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".contact-section",
-          start: "top 85%",
-        },
-      });
-
-      // Form card float in
-      gsap.from(".contact-form-card", {
-        opacity: 0,
-        y: 64,
-        scale: 0.98,
-        duration: 1.95,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".contact-section",
-          start: "top 80%",
-        },
-      });
-
-      // Image pop
-      gsap.fromTo(
-        imageRef.current,
-        { opacity: 0, y: 60, scale: 0.93 },
-        {
-          opacity: 1,
-          y: 0,
-          scale: 1,
-          duration: 2.3,
+      const ctx = gsap.context(() => {
+        // Section fade in
+        gsap.from(".contact-section", {
+          opacity: 0,
+          y: 100,
+          duration: 2.2,
           ease: "power3.out",
+          autoKill: true,
           scrollTrigger: {
-            trigger: sectionRef.current,
+            trigger: ".contact-section",
+            start: "top 85%",
+          },
+        });
+
+        // Title animation
+        gsap.from(".contact-title", {
+          opacity: 0,
+          y: 40,
+          duration: 1.8,
+          ease: "power3.out",
+          autoKill: true,
+          scrollTrigger: {
+            trigger: ".contact-section",
+            start: "top 85%",
+          },
+        });
+
+        // Form card float in
+        gsap.from(".contact-form-card", {
+          opacity: 0,
+          y: 64,
+          scale: 0.98,
+          duration: 1.95,
+          ease: "power3.out",
+          autoKill: true,
+          scrollTrigger: {
+            trigger: ".contact-section",
             start: "top 80%",
           },
-        }
-      );
+        });
 
-      // Subtle button pulse
-      gsap.to(".contact-btn", {
-        boxShadow: "0 0 42px 7px rgba(0,255,128,0.27)",
-        duration: 1.33,
-        repeat: -1,
-        yoyo: true,
-      });
-    }, sectionRef);
+        // Image pop
+        gsap.fromTo(
+          imageRef.current,
+          { opacity: 0, y: 60, scale: 0.93 },
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            duration: 2.3,
+            ease: "power3.out",
+            autoKill: true,
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 80%",
+            },
+          }
+        );
 
-    return () => ctx.revert();
+        // Subtle button pulse
+        gsap.to(".contact-btn", {
+          boxShadow: "0 0 42px 7px rgba(0,255,128,0.27)",
+          duration: 1.33,
+          repeat: -1,
+          yoyo: true,
+        });
+      }, sectionRef);
+
+      return () => ctx.revert();
+    }, 100); // Delay to allow DOM to render
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (

@@ -96,60 +96,70 @@ const BlogList = () => {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const ctx = gsap.context(() => {
-      // section reveal
-      gsap.from(".blog-section", {
-        opacity: 0,
-        y: 60,
-        duration: 1.3,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".blog-section",
-          start: "top 80%",
-        },
-      });
+    // Delay to ensure DOM is ready
+    const timer = setTimeout(() => {
+      if (!document.querySelector(".blog-section")) return;
 
-      // title pulse + glow
-      gsap.from(".blog-title", {
-        opacity: 0,
-        scale: 0.9,
-        filter: "drop-shadow(0 0 10px rgba(0,255,128,0))",
-        duration: 1.2,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: ".blog-title",
-          start: "top 85%",
-        },
-      });
-
-      // project cards float + glow
-      gsap.utils.toArray(".blog-card").forEach((el: any, i) => {
-        gsap.fromTo(
-          el,
-          {
-            opacity: 0,
-            y: 80,
-            scale: 0.95,
-            filter: "drop-shadow(0 0 0px rgba(0,255,128,0))",
+      const ctx = gsap.context(() => {
+        // section reveal
+        gsap.from(".blog-section", {
+          opacity: 0,
+          y: 60,
+          duration: 1.3,
+          ease: "power3.out",
+          autoKill: true,
+          scrollTrigger: {
+            trigger: ".blog-section",
+            start: "top 80%",
           },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1,
-            delay: i * 0.12,
-            ease: "power3.out",
-            filter: "drop-shadow(0 0 18px rgba(0,255,128,0.16))",
-            scrollTrigger: {
-              trigger: el,
-              start: "top 85%",
+        });
+
+        // title pulse + glow
+        gsap.from(".blog-title", {
+          opacity: 0,
+          scale: 0.9,
+          filter: "drop-shadow(0 0 10px rgba(0,255,128,0))",
+          duration: 1.2,
+          ease: "power2.out",
+          autoKill: true,
+          scrollTrigger: {
+            trigger: ".blog-title",
+            start: "top 85%",
+          },
+        });
+
+        // project cards float + glow
+        gsap.utils.toArray(".blog-card").forEach((el: any, i) => {
+          gsap.fromTo(
+            el,
+            {
+              opacity: 0,
+              y: 80,
+              scale: 0.95,
+              filter: "drop-shadow(0 0 0px rgba(0,255,128,0))",
             },
-          }
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 1,
+              delay: i * 0.12,
+              ease: "power3.out",
+              filter: "drop-shadow(0 0 18px rgba(0,255,128,0.16))",
+              autoKill: true,
+              scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
+              },
+            }
         );
       });
-    }, containerRef);
+      }, containerRef);
 
-    return () => ctx.revert();
+      return () => ctx.revert();
+    }, 100); // Delay to allow DOM to render
+
+    return () => clearTimeout(timer);
   }, [projects]);
 
   const handlePrevSlide = () => {
