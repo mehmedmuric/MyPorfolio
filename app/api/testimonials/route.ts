@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { rateLimit } from "@/lib/rateLimit";
 
+// Ensure this route runs in Node.js runtime (Prisma requires Node runtime)
+export const runtime = "nodejs";
+
 const limiter = rateLimit({ windowMs: 60 * 1000, max: 5 }); // 5 req / 1 minut
 
 export async function GET() {

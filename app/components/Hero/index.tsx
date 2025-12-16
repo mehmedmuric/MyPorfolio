@@ -4,6 +4,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useCallback, useState, memo } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
 
 // ---------- DATA ----------
 type Technology = {
@@ -113,7 +116,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative z-10 min-h-screen flex items-center bg-[#101011] bg-gradient-to-b from-[#212e26] via-[#010101] to-[#051912] py-12 md:py-28 overflow-hidden">
+    <section id="home" className="relative z-10 min-h-screen flex items-center bg-[#101011] bg-gradient-to-b from-[#212e26] via-[#010101] to-[#051912] py-12 md:py-16 lg:py-20 overflow-hidden">
       <DecorativeCircles />
       {/* Parallax Background */}
       <div className="absolute left-[5%] top-[14%] w-96 h-96 bg-[radial-gradient(circle,rgba(0,255,140,0.23)_0%,transparent_75%)] rounded-full pointer-events-none blur-2xl z-10 will-change-transform" style={{ transform: `translate3d(${mousePosition.x * 0.45}px,${mousePosition.y * 0.41}px,0)` }} aria-hidden />
@@ -144,18 +147,18 @@ const Hero = () => {
             </div>
 
             <div ref={ctaRef} className="w-full flex flex-col sm:flex-row items-center justify-center md:justify-start gap-4 sm:gap-5 my-2">
-              <a href="/MojCV.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-7 py-3 rounded-full bg-gradient-to-r from-green-400 to-green-700 text-black font-bold tracking-wide shadow-lg hover:scale-105 active:scale-95 transition group border-2 border-transparent hover:text-white hover:bg-gradient-to-l hover:from-green-500 hover:to-green-800" aria-label="View my CV">
+              <a href="/MojCV.pdf" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-7 py-3 rounded-full bg-gradient-to-r from-green-400 to-green-700 text-black font-bold tracking-wide shadow-lg hover:shadow-[0_0_30px_rgba(0,255,128,0.4)] hover:scale-105 active:scale-95 transition group border-2 border-transparent hover:from-green-500 hover:to-green-800" aria-label="View my CV">
                 View CV
               </a>
 
-              <Link href="https://github.com/mehmedmuric" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-7 py-3 rounded-full border-2 border-green-500 bg-transparent text-green-100 font-bold shadow-md hover:scale-105 hover:bg-green-500/10 transition" aria-label="GitHub">
+              <Link href="https://github.com/mehmedmuric" target="_blank" rel="noopener noreferrer" className="inline-flex items-center px-7 py-3 rounded-full border-2 border-green-500 bg-transparent text-green-100 font-bold shadow-md hover:shadow-[0_0_20px_rgba(0,255,128,0.3)] hover:scale-105 hover:bg-green-500/15 transition" aria-label="GitHub">
                 GitHub
               </Link>
             </div>
 
             <div className="flex gap-4 mt-4 mb-0 justify-center md:justify-start">
               {socialLinks.map(({ href, aria, icon }) => (
-                <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={aria} className="flex items-center justify-center w-10 h-10 rounded-full border border-green-500/30 bg-[#172616] text-green-200 hover:text-green-400 hover:border-green-400/60 hover:scale-110 transition shadow-sm">{icon}</a>
+                <a key={href} href={href} target="_blank" rel="noopener noreferrer" aria-label={aria} className="flex items-center justify-center w-10 h-10 rounded-full border border-green-500/30 bg-[#172616] text-green-200 hover:text-green-400 hover:border-green-400/60 hover:shadow-[0_0_15px_rgba(0,255,128,0.3)] hover:scale-110 transition shadow-sm">{icon}</a>
               ))}
             </div>
           </div>

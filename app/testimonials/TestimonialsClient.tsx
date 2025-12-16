@@ -26,15 +26,27 @@ const TestimonialsClient = () => {
     const fetchData = async () => {
       try {
         const res = await fetch("/api/testimonials");
+        if (!res.ok) {
+          const text = await res.text().catch(() => null);
+          console.error(`API error: ${res.status}`, text);
+          setTestimonials([]);
+          return;
+        }
+        const contentType = res.headers.get("content-type");
+        if (!contentType?.includes("application/json")) {
+          console.error("Invalid content type:", contentType);
+          setTestimonials([]);
+          return;
+        }
         const data = await res.json();
         if (Array.isArray(data)) {
           setTestimonials(data);
         } else {
-          console.error("API nije vratio niz:", data);
+          console.error("API did not return an array:", data);
           setTestimonials([]);
         }
       } catch (error) {
-        console.error("Greška pri fetchovanju:", error);
+        console.error("Error fetching testimonials:", error);
         setTestimonials([]);
       }
     };
@@ -77,22 +89,34 @@ const TestimonialsClient = () => {
         }),
       });
 
-      let data;
-      try {
-        data = await res.json();
-      } catch {
-        console.error("API nije vratio JSON:", await res.text());
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.error(`POST error (${res.status}):`, errorText);
+        alert("Failed to submit testimonial. Please try again.");
         return;
       }
 
-      if (res.ok) {
-        setTestimonials([data, ...testimonials]);
-        setFormData({ name: "", role: "", comment: "", image: "" });
-      } else {
-        console.error("Greška sa API-jem:", data);
+      const contentType = res.headers.get("content-type");
+      if (!contentType?.includes("application/json")) {
+        console.error("Invalid response content type:", contentType);
+        alert("Server error. Please try again.");
+        return;
       }
+
+      let data;
+      try {
+        data = await res.json();
+      } catch (error) {
+        console.error("Failed to parse JSON response:", error);
+        alert("Server response error. Please try again.");
+        return;
+      }
+
+      setTestimonials([data, ...testimonials]);
+      setFormData({ name: "", role: "", comment: "", image: "" });
     } catch (error) {
       console.error("Failed to submit testimonial:", error);
+      alert("An error occurred. Please try again.");
     }
   };
 

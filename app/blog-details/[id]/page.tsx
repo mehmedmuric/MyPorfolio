@@ -37,39 +37,43 @@ export async function generateMetadata({
   if (isNaN(blogId)) notFound();
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
-  const blogs: Blog[] = await res.json();
-
-  const blog = blogs.find((b) => b.id === blogId);
-
-  if (!blog) {
-    return { title: "Blog Not Found", description: "This blog does not exist" };
-  }
-
-  return {
-    title: `${blog.title} | My Portfolio Blog`,
-    description: blog.paragraph.slice(0, 150),
-    openGraph: {
-      title: `${blog.title} | My Portfolio Blog`,
-      description: blog.paragraph.slice(0, 150),
-      images: [
-        {
-          url: blog.image,
-          alt: blog.title,
-        },
-      ],
-      type: "article",
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: `${blog.title} | My Portfolio Blog`,
-      description: blog.paragraph.slice(0, 150),
-      images: [blog.image]
+  try {
+    const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Failed to fetch");
+    const contentType = res.headers.get("content-type");
+    if (!contentType?.includes("application/json")) throw new Error("Invalid content type");
+    const blogs: Blog[] = await res.json();
+    const blog = blogs.find((b) => b.id === blogId);
+    if (!blog) {
+      return { title: "Blog Not Found", description: "This blog does not exist" };
     }
-  };
+    return {
+      title: `${blog.title} | My Portfolio Blog`,
+      description: blog.paragraph.slice(0, 150),
+      openGraph: {
+        title: `${blog.title} | My Portfolio Blog`,
+        description: blog.paragraph.slice(0, 150),
+        images: [
+          {
+            url: blog.image,
+            alt: blog.title,
+          },
+        ],
+        type: "article",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: `${blog.title} | My Portfolio Blog`,
+        description: blog.paragraph.slice(0, 150),
+        images: [blog.image],
+      },
+    };
+  } catch (error) {
+    console.error("Error fetching blog metadata:", error);
+    return { title: "Blog | My Portfolio", description: "Explore my latest blog posts" };
+  }
 }
 
-// Improved tag splitter, safer for empty/comma/mixed edge cases
 function TagsDisplay({ tags }: { tags: string }) {
   // safely handle possible undefined/null/empty
   if (!tags || typeof tags !== "string") return null;
@@ -105,17 +109,23 @@ export default async function BlogDetailsPage({
   const blogId = Number(resolvedParams.id);
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
-  const blogs: Blog[] = await res.json();
-
-  const blog = blogs.find((b) => b.id === blogId);
-
-  if (!blog)
-    return <div className="text-white p-10 text-center text-xl md:text-2xl">🚫 Project not found</div>;
-
-  return (
-    <Fragment>
-      <Breadcrumb pageName={blog.title} description="Project Details" />
+  try {
+    const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status}`);
+    }
+    const contentType = res.headers.get("content-type");
+    if (!contentType?.includes("application/json")) {
+      throw new Error("Invalid response content type");
+    }
+    const blogs: Blog[] = await res.json();
+    const blog = blogs.find((b) => b.id === blogId);
+    if (!blog) {
+      return <div className="text-white p-10 text-center text-xl md:text-2xl">🚫 Project not found</div>;
+    }
+    return (
+      <Fragment>
+        <Breadcrumb pageName={blog.title} description="Project Details" />
       <section className="overflow-hidden py-16 sm:py-24 lg:py-32 isolate px-2 sm:px-6 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/10 to-mygreen/5 relative">
         <div className="max-w-5xl mx-auto flex flex-col gap-10">
           {/* AUTHOR/META HEADER */}
@@ -230,5 +240,9 @@ export default async function BlogDetailsPage({
         </div>
       </section>
     </Fragment>
-  );
+    );
+  } catch (error) {
+    console.error("Error loading blog:", error);
+    return <div className="text-white p-10 text-center text-xl md:text-2xl">🚫 Error loading project</div>;
+  }
 }

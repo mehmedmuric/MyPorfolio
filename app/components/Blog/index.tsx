@@ -71,9 +71,13 @@ const BlogList = () => {
         if (!res.ok) {
           throw new Error("Failed to fetch projects.");
         }
+        const contentType = res.headers.get("content-type");
+        if (!contentType?.includes("application/json")) {
+          throw new Error("Invalid response content type");
+        }
         const data = await res.json();
         if (isMounted) {
-          setProjects(data);
+          setProjects(Array.isArray(data) ? data : []);
         }
       } catch (err: any) {
         if (isMounted) setFetchError(err.message || "Fetch error.");
@@ -161,7 +165,6 @@ const BlogList = () => {
   };
 
   // Stats
-  const totalProjects = projects.length;
   const recentProjects = useMemo(
     () => projects.slice(0, Math.min(3, projects.length)),
     [projects]
@@ -170,7 +173,7 @@ const BlogList = () => {
   return (
     <section
       ref={containerRef}
-      className="blog-section relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8
+      className="blog-section relative overflow-hidden py-16 md:py-20 lg:py-28 isolate px-4 sm:px-6 md:px-8 lg:px-8
         bg-[#010101] bg-[radial-gradient(ellipse_at_top,_#0a3b27_0%,_#010101_85%)]"
       aria-labelledby="projects-title"
       tabIndex={-1}
@@ -197,7 +200,7 @@ const BlogList = () => {
           </div>
           <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/40 border border-green-400/30 shadow-green-900/40 shadow text-green-200 font-mono text-xs sm:text-sm">
             <span role="img" aria-label="Projects">🗂</span>
-            <span className="font-bold">{totalProjects}</span>
+            <span className="font-bold">{projects.length}</span>
             <span className="hidden sm:inline">Total</span>
           </div>
         </div>

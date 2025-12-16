@@ -34,7 +34,20 @@ const timelineData = [
     body: "Currently pursuing Computer Science, focusing on algorithms, distributed systems, and web engineering. A regular contributor to open source and student initiatives. Enthusiastic about teaching, mentoring, and applying theory to real-world apps.",
   },
   {
-    period: "2020–Now",
+    period: "2023-2024",
+    title: "Freelancer & Tech Consultant",
+    colorClass: "bg-yellow-300 ring-yellow-400/20",
+    textClass: "text-yellow-300",
+    highlights: [
+      "Focus on reliability and clear, transparent communication",
+      "Enablement—creating docs, training, and handoff guides",
+      "Bridging business vision to technology with empathy",
+      "Clients include EU/US early-stage SaaS, e-Health, and fintech startups"
+    ],
+    body: "Delivering tailor-made solutions for founders and remote teams: from MVP prototyping to scaling, with special attention to maintainability and modern UX. My mission: empower clients, making tech accessible and sustainable."
+  },
+  {
+    period: "2024–Now",
     title: "Professional Developer",
     colorClass: "bg-mygreen/95 ring-mygreen/15",
     textClass: "text-mygreen",
@@ -46,19 +59,6 @@ const timelineData = [
     ],
     body: "Delivered real-world web/mobile products for startups/SMBs across diverse industries—leveraging React, Next.js, Node.js, TypeScript, and devops best practices. Advocated for code quality, testing, and documentation in every project.",
   },
-  {
-    period: "2023–Now",
-    title: "Freelancer & Tech Consultant",
-    colorClass: "bg-yellow-300 ring-yellow-400/20",
-    textClass: "text-yellow-300",
-    highlights: [
-      "Focus on reliability and clear, transparent communication",
-      "Enablement—creating docs, training, and handoff guides",
-      "Bridging business vision to technology with empathy",
-      "Clients include EU/US early-stage SaaS, e-Health, and fintech startups"
-    ],
-    body: "Delivering tailor-made solutions for founders and remote teams: from MVP prototyping to scaling, with special attention to maintainability and modern UX. My mission: empower clients, making tech accessible and sustainable."
-  }
 ];
 
 // ---------------- TIMELINE COMPONENT ----------------

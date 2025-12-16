@@ -92,8 +92,7 @@ const Certifications = () => {
   return (
     <section
       ref={sectionRef}
-      className="
-        cert-section relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-16 
+      className="cert-section relative overflow-hidden py-16 md:py-20 lg:py-28 isolate px-4 sm:px-6 md:px-8 lg:px-16 
         bg-[#050505] 
         bg-[radial-gradient(ellipse_at_top_left,_#163a2a_10%,_#0b1e15_40%,_#020202_90%)]
         after:pointer-events-none after:absolute after:inset-0 after:bg-[radial-gradient(circle,av(42,244,180/0.07)_0%,_transparent_70%)] after:z-0

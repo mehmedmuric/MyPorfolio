@@ -33,21 +33,7 @@ const Header = () => {
     }
   };
 
-  const usePathName = usePathname();
-
-  // Adjusted dimensions for header/nav
-  const headerStyle = {
-    minHeight: sticky ? "48px" : "58px",
-    marginBottom: "0.75rem",
-  };
-
-  const navOuterStyle = {
-    minHeight: "44px",
-    maxWidth: "98vw",
-    marginBottom: "0.55rem",
-    paddingLeft: "2px",
-    paddingRight: "2px",
-  };
+  const pathname = usePathname();
 
   return (
     <>
@@ -57,10 +43,8 @@ const Header = () => {
             ? "fixed z-[9999] pt-3 md:pt-4 lg:pt-5"
             : "absolute pt-3 md:pt-4"
         }`}
-        style={headerStyle}
       >
-        <div className="container mx-auto"
-          style={{maxWidth: "98vw", paddingLeft: "7px", paddingRight: "7px"}}
+        <div className="container mx-auto px-2 sm:px-3 md:px-5 max-w-7xl"
         >
           {/* Floating Navigation Bar */}
           <div
@@ -69,16 +53,13 @@ const Header = () => {
                 ? "bg-black/60 backdrop-blur-2xl border border-green-500/30 shadow-[0_4px_16px_rgba(0,255,128,0.10)]"
                 : "bg-black/40 backdrop-blur-xl border border-green-500/20 shadow-[0_2px_12px_rgba(0,255,128,0.06)]"
             }`}
-            style={navOuterStyle}
           >
             {/* Animated border glow */}
             <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-green-500/0 via-green-500/20 to-green-500/0 opacity-0 hover:opacity-100 transition-opacity duration-500 blur-sm" />
             {/* Inner glow */}
             <div className="absolute inset-[1px] rounded-xl bg-gradient-to-br from-green-500/5 via-transparent to-green-500/5" />
 
-            <div className="relative flex items-center justify-between px-2 py-2 sm:px-3 sm:py-2.5 md:px-5 md:py-3.5 lg:px-6 lg:py-4"
-              style={{minHeight: "40px"}}
-            >
+            <div className="relative flex items-center justify-between px-2 py-2 sm:px-3 sm:py-2.5 md:px-5 md:py-3.5 lg:px-6 lg:py-4">
               {/* Logo - Left Side */}
               <div className="flex-shrink-0">
                 <Link
@@ -108,14 +89,14 @@ const Header = () => {
                       <Link
                         href={menuItem.path}
                         className={`relative px-3 py-2 md:px-3.5 md:py-2.5 lg:px-4 lg:py-2.5 rounded-lg text-xs md:text-sm font-medium transition-all duration-300 ${
-                          usePathName === menuItem.path
+                          pathname === menuItem.path
                             ? "text-green-400 bg-green-500/10"
                             : "text-gray-300 hover:text-green-400 hover:bg-green-500/5"
                         }`}
                       >
                         <span className="relative z-10">{menuItem.title}</span>
                         {/* Active page indicator */}
-                        {usePathName === menuItem.path && (
+                        {pathname === menuItem.path && (
                           <div className="absolute inset-0 rounded-lg bg-green-500/20 border border-green-500/40" />
                         )}
                         {/* Hover glow */}
@@ -215,7 +196,7 @@ const Header = () => {
                             href={menuItem.path}
                             onClick={() => setNavbarOpen(false)}
                             className={`block px-5 py-2.5 sm:py-3.5 rounded-lg text-sm sm:text-base font-medium transition-all duration-300 ${
-                              usePathName === menuItem.path
+                              pathname === menuItem.path
                                 ? "text-green-400 bg-green-500/10 border border-green-500/30"
                                 : "text-gray-300 hover:text-green-400 hover:bg-green-500/5"
                             }`}

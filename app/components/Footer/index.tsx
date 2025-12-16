@@ -38,7 +38,7 @@ const Footer = () => {
     <footer className="relative z-10 pt-16 md:pt-20 lg:pt-24 bg-slate-950/10 text-gray-300">
       <div className="container relative">
         <div className="-mx-4 flex flex-wrap">
-          <div className="w-full px-4 md:w-1/2 lg:w-4/12 xl:w-5/12">
+          <div className="w-full px-4 md:w-1/2 lg:w-1/3 xl:w-5/12">
             <div className="mb-12 max-w-[360px] lg:mb-16">
               <div className="flex items-center gap-2 mb-4">
                 <Link href="/" className="inline-block">
@@ -58,7 +58,7 @@ const Footer = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={s.label}
-                      className="group flex items-center justify-center rounded-full border border-green-500/30 bg-[#172616] hover:text-green-400 hover:border-green-400/60 hover:scale-110 transition p-2 shadow"
+                      className="group flex items-center justify-center rounded-full border border-green-500/30 bg-[#172616] hover:text-green-400 hover:border-green-400/60 hover:shadow-[0_0_15px_rgba(0,255,128,0.3)] hover:scale-110 transition p-2 shadow"
                     >
                       {s.icon}
                     </a>

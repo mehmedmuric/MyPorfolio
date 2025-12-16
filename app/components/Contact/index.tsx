@@ -203,9 +203,9 @@ const Contact = () => {
           />
         </div>
 
-        <div className="-mx-4 flex flex-wrap items-center justify-center">
+        <div className="flex flex-col-reverse lg:flex-row gap-8 lg:gap-12 items-center justify-center">
           {/* Form */}
-          <div className="w-full px-4 lg:w-7/12 xl:w-8/12">
+          <div className="w-full lg:w-1/2">
             <div className="contact-form-card relative bg-black/70 border border-mygreen/25 backdrop-blur-md
               rounded-2xl p-8 sm:p-12 shadow-[0_0_30px_2px_rgba(0,255,128,0.18)]
               transition-all duration-300 hover:shadow-[0_0_55px_7px_rgba(0,255,128,0.23)]"
@@ -347,7 +347,7 @@ const Contact = () => {
           {/* Illustration */}
           <div
             ref={imageRef}
-            className="w-full px-8 lg:w-5/12 xl:w-4/12 flex justify-center mt-10 lg:mt-0"
+            className="w-full lg:w-1/2 flex justify-center"
             aria-label="Contact illustration"
           >
             <div className="relative aspect-[6/5] w-full max-w-[420px] rounded-3xl border-4 border-mygreen/15 shadow-2xl shadow-mygreen/10 bg-gradient-to-tr from-mygreen/10 via-transparent to-mygreen/5 overflow-hidden">

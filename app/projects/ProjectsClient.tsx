@@ -26,10 +26,15 @@ const ProjectsClient = () => {
         setError(null);
         const res = await fetch("/data/projects.json");
         if (!res.ok) throw new Error('Failed to load projects');
+        const contentType = res.headers.get("content-type");
+        if (!contentType?.includes("application/json")) {
+          throw new Error("Invalid response content type");
+        }
         const data = await res.json();
-        setProjects(data);
+        setProjects(Array.isArray(data) ? data : []);
       } catch (e: any) {
         setError(e.message || 'Could not load projects.');
+        setProjects([]);
       } finally {
         setLoading(false);
       }
