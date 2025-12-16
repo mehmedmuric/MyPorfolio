@@ -1,9 +1,9 @@
 'use client';
 
+import { useRef, useState, useEffect, memo } from "react";
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
 import emailjs from "@emailjs/browser";
-import { useRef, useState, useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -369,4 +369,4 @@ const Contact = () => {
   );
 };
 
-export default Contact;
+export default memo(Contact);

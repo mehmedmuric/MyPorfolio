@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, memo } from "react";
 import { Blog } from "@/types/blog";
 import SectionTitle from "../Common/SectionTitle";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -325,4 +325,4 @@ const BlogList = () => {
   );
 };
 
-export default BlogList;
+export default memo(BlogList);

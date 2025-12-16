@@ -34,7 +34,14 @@ const securityHeaders = [
 ];
 
 const nextConfig = {
+  compress: true,
+  poweredByHeader: false,
+  productionBrowserSourceMaps: false,
+  optimizeFonts: true,
+  swcMinify: true,
   images: {
+    minimumCacheTTL: 60 * 60 * 24 * 365,
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
         protocol: "https",
@@ -71,7 +78,25 @@ const nextConfig = {
 
   async headers() {
     return [
-      // ✅ Dodaj MIME type za manifest.webmanifest
+      // ✅ Static assets caching (1 year)
+      {
+        source: "/images/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/_next/static/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
       {
         source: "/manifest.webmanifest",
         headers: [
@@ -79,10 +104,12 @@ const nextConfig = {
             key: "Content-Type",
             value: "application/manifest+json",
           },
+          {
+            key: "Cache-Control",
+            value: "public, max-age=3600",
+          },
         ],
       },
-
-      // ✅ Security headers (kao i do sada)
       {
         source: "/(.*)",
         headers: securityHeaders,

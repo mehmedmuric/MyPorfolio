@@ -1,4 +1,5 @@
 "use client";
+import { useCallback, memo } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -7,31 +8,23 @@ import menuData from "./menuData";
 
 const Header = () => {
   const [navbarOpen, setNavbarOpen] = useState(false);
-  const navbarToggleHandler = () => {
-    setNavbarOpen(!navbarOpen);
-  };
+  const navbarToggleHandler = useCallback(() => {
+    setNavbarOpen(prev => !prev);
+  }, []);
 
   const [sticky, setSticky] = useState(false);
-  const handleStickyNavbar = () => {
-    if (window.scrollY >= 80) {
-      setSticky(true);
-    } else {
-      setSticky(false);
-    }
-  };
+  const handleStickyNavbar = useCallback(() => {
+    setSticky(window.scrollY >= 80);
+  }, []);
   useEffect(() => {
     window.addEventListener("scroll", handleStickyNavbar);
     return () => window.removeEventListener("scroll", handleStickyNavbar);
-  }, []);
+  }, [handleStickyNavbar]);
 
   const [openIndex, setOpenIndex] = useState(-1);
-  const handleSubmenu = (index) => {
-    if (openIndex === index) {
-      setOpenIndex(-1);
-    } else {
-      setOpenIndex(index);
-    }
-  };
+  const handleSubmenu = useCallback((index) => {
+    setOpenIndex(prev => prev === index ? -1 : index);
+  }, []);
 
   const pathname = usePathname();
 
@@ -253,4 +246,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default memo(Header);

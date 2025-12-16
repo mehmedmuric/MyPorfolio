@@ -6,9 +6,11 @@ import BotpressChat from './components/BotpressChat';
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-
-
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  preload: true,
+});
 
 import type { Metadata } from "next";
 
@@ -88,19 +90,21 @@ export default async function LocaleLayout({
 
   return (
     <html lang="en">
-    <head>
-      <link rel="manifest" href="/manifest.webmanifest" />
-      <meta name="theme-color" content="#00FF88" />
-    </head>
+      <head>
+        <link rel="manifest" href="/manifest.webmanifest" />
+        <link rel="preconnect" href="https://cdn.botpress.cloud" />
+        <link rel="preconnect" href="https://files.bpcontent.cloud" />
+        <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
+        <link rel="dns-prefetch" href="https://messaging.botpress.cloud" />
+        <meta name="theme-color" content="#00FF88" />
+      </head>
       <body className={`${inter.className} ${isHome ? "home" : ""}`}>
-        
         <Header />
         {children}
-        <Analytics/>
+        <Analytics />
         <SpeedInsights />
-        <BotpressChat  />
+        <BotpressChat />
         <Footer />
-       
       </body>
     </html>
   );
