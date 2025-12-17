@@ -520,3 +520,63 @@ textarea:-webkit-autofill:focus {
 .fade-in-up {
   animation: fade-in-up 0.8s ease-out forwards;
 }
+
+/* ===== Modern Green Cyber Glass Morphism Styles ===== */
+
+/* Glass morphism base */
+.modern-tech-card,
+.modern-skill-card,
+.modern-stat-card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Modern filter buttons */
+.modern-filter-btn {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Modern tech badge */
+.modern-tech-badge {
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+/* Smooth hover transitions */
+.modern-tech-card,
+.modern-skill-card,
+.modern-stat-card,
+.modern-filter-btn,
+.modern-tech-badge {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Subtle glow on hover */
+.modern-tech-card:hover,
+.modern-skill-card:hover,
+.modern-stat-card:hover {
+  box-shadow: 0 8px 32px rgba(16, 185, 129, 0.12);
+}
+
+/* Smooth scale on hover */
+.modern-filter-btn:hover {
+  transform: translateY(-1px);
+}
+
+/* Glass card entrance animation */
+@keyframes glassFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modern-tech-card,
+.modern-skill-card {
+  animation: glassFadeIn 0.6s ease-out forwards;
+}

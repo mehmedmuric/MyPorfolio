@@ -37,11 +37,17 @@ const nextConfig = {
   compress: true,
   poweredByHeader: false,
   productionBrowserSourceMaps: false,
-  optimizeFonts: true,
-  swcMinify: true,
+  // Performance optimizations
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'gsap', '@tsparticles/react'],
+  },
+  // Enable static page generation
+  output: 'standalone',
   images: {
-    minimumCacheTTL: 60 * 60 * 24 * 365,
+    minimumCacheTTL: 60 * 60 * 24 * 365, // 1 year
     formats: ['image/avif', 'image/webp'],
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     remotePatterns: [
       {
         protocol: "https",

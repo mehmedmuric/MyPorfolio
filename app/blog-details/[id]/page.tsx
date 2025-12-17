@@ -7,10 +7,13 @@ import { Fragment } from "react";
 import SharePost from "../../components/Blog/SharePost";
 import TagButton from "../../components/Blog/TagButton";
 import Breadcrumb from "@/app/components/Common/Breadcrumb";
+import { generateArticleStructuredData, generateBreadcrumbStructuredData } from "@/lib/structuredData";
+import { calculateReadingTime } from "@/lib/utils";
 
 interface BlogAuthor {
   name: string;
   image: string;
+  designation?: string;
 }
 
 interface Blog {
@@ -20,13 +23,62 @@ interface Blog {
   paragraph2?: string;
   author: BlogAuthor;
   publishDate: string;
-  tags: string;
+  tags: string | string[] | undefined; // Can be string, array, or undefined
   image: string;
   livedemo: string;
   gitlink: string;
 }
 
-// ✅ Metadata
+// Helper function to parse date format MM-DD-YYYY to ISO string
+function parseDate(dateStr: string): string {
+  try {
+    const [month, day, year] = dateStr.split('-');
+    const date = new Date(`${year}-${month}-${day}`);
+    return isNaN(date.getTime()) ? new Date().toISOString() : date.toISOString();
+  } catch {
+    return new Date().toISOString();
+  }
+}
+
+// Helper function to safely parse tags (handles string, array, or undefined)
+function parseTags(tags: string | string[] | undefined): string[] {
+  if (!tags) return [];
+  if (Array.isArray(tags)) return tags.filter(Boolean);
+  if (typeof tags !== 'string') return [];
+  
+  // Handle string tags - split by comma or space, filter empty
+  if (tags.includes(',')) {
+    return tags.split(',').map(tag => tag.trim()).filter(Boolean);
+  }
+  return tags.split(/\s+/).map(tag => tag.trim()).filter(Boolean);
+}
+
+// Helper function to fetch blogs with caching
+async function getBlogs(): Promise<Blog[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mehmedmuric.com";
+  try {
+    const res = await fetch(`${baseUrl}/data/projects.json`, {
+      next: { revalidate: 3600 }, // Revalidate every hour (ISR)
+    });
+    if (!res.ok) throw new Error("Failed to fetch");
+    const contentType = res.headers.get("content-type");
+    if (!contentType?.includes("application/json")) throw new Error("Invalid content type");
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching blogs:", error);
+    return [];
+  }
+}
+
+// ✅ Generate static params for all blog posts (Performance optimization)
+export async function generateStaticParams() {
+  const blogs = await getBlogs();
+  return blogs.map((blog) => ({
+    id: blog.id.toString(),
+  }));
+}
+
+// ✅ Enhanced Metadata with comprehensive SEO
 export async function generateMetadata({
   params,
 }: {
@@ -36,55 +88,75 @@ export async function generateMetadata({
   const blogId = Number(resolvedParams.id);
   if (isNaN(blogId)) notFound();
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  try {
-    const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
-    if (!res.ok) throw new Error("Failed to fetch");
-    const contentType = res.headers.get("content-type");
-    if (!contentType?.includes("application/json")) throw new Error("Invalid content type");
-    const blogs: Blog[] = await res.json();
-    const blog = blogs.find((b) => b.id === blogId);
-    if (!blog) {
-      return { title: "Blog Not Found", description: "This blog does not exist" };
-    }
-    return {
-      title: `${blog.title} | My Portfolio Blog`,
-      description: blog.paragraph.slice(0, 150),
-      openGraph: {
-        title: `${blog.title} | My Portfolio Blog`,
-        description: blog.paragraph.slice(0, 150),
-        images: [
-          {
-            url: blog.image,
-            alt: blog.title,
-          },
-        ],
-        type: "article",
-      },
-      twitter: {
-        card: "summary_large_image",
-        title: `${blog.title} | My Portfolio Blog`,
-        description: blog.paragraph.slice(0, 150),
-        images: [blog.image],
-      },
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mehmedmuric.com";
+  const blogs = await getBlogs();
+  const blog = blogs.find((b) => b.id === blogId);
+  
+  if (!blog) {
+    return { 
+      title: "Project Not Found | Mehmed Muric",
+      description: "The requested project could not be found.",
+      robots: { index: false, follow: false },
     };
-  } catch (error) {
-    console.error("Error fetching blog metadata:", error);
-    return { title: "Blog | My Portfolio", description: "Explore my latest blog posts" };
   }
+
+  const fullImageUrl = blog.image.startsWith('http') 
+    ? blog.image 
+    : `${baseUrl}${blog.image.startsWith('/') ? '' : '/'}${blog.image}`;
+  
+  const description = blog.paragraph.slice(0, 160).trim() + (blog.paragraph.length > 160 ? '...' : '');
+  const canonicalUrl = `${baseUrl}/blog-details/${blogId}`;
+  const publishDate = parseDate(blog.publishDate);
+
+  return {
+    title: `${blog.title} | Mehmed Muric Portfolio`,
+    description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
+    openGraph: {
+      title: `${blog.title} | Mehmed Muric Portfolio`,
+      description,
+      url: canonicalUrl,
+      siteName: "Mehmed Muric Portfolio",
+      images: [
+        {
+          url: fullImageUrl,
+          width: 1200,
+          height: 630,
+          alt: blog.title,
+        },
+      ],
+      type: "article",
+      publishedTime: publishDate,
+      authors: [blog.author.name],
+      tags: parseTags(blog.tags),
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${blog.title} | Mehmed Muric Portfolio`,
+      description,
+      images: [fullImageUrl],
+      creator: "@mehmedmuric",
+    },
+    keywords: [
+      ...parseTags(blog.tags),
+      "portfolio",
+      "web development",
+      "full-stack developer",
+      "React",
+      "Next.js",
+    ],
+    authors: [{ name: blog.author.name }],
+    other: {
+      "article:published_time": publishDate,
+      "article:author": blog.author.name,
+    },
+  };
 }
 
-function TagsDisplay({ tags }: { tags: string }) {
-  // safely handle possible undefined/null/empty
-  if (!tags || typeof tags !== "string") return null;
-  // Split by either "," or " " (accounts for both possible separators), flatten, filter empty
-  // Also support both comma and space separated values (e.g. "tag1, tag2 tag3")
-  let tagList: string[] = [];
-  if (tags.includes(",")) {
-    tagList = tags.split(",").map(tag => tag.trim()).filter(Boolean);
-  } else {
-    tagList = tags.split(" ").map(tag => tag.trim()).filter(Boolean);
-  }
+function TagsDisplay({ tags }: { tags: string | string[] | undefined }) {
+  const tagList = parseTags(tags);
   if (tagList.length === 0) return null;
   return (
     <div className="flex flex-wrap gap-2 items-center">
@@ -100,6 +172,51 @@ function TagsDisplay({ tags }: { tags: string }) {
   );
 }
 
+// Structured Data Components for SEO
+function ArticleStructuredData({ blog }: { blog: Blog }) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mehmedmuric.com";
+  
+  const structuredData = generateArticleStructuredData({
+    headline: blog.title,
+    description: blog.paragraph,
+    image: blog.image,
+    datePublished: parseDate(blog.publishDate),
+    author: {
+      name: blog.author.name,
+      image: blog.author.image,
+      jobTitle: blog.author.designation || "Full-Stack Developer",
+    },
+    url: `${baseUrl}/blog-details/${blog.id}`,
+    keywords: parseTags(blog.tags),
+  });
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
+  );
+}
+
+function BreadcrumbStructuredData({ blog }: { blog: Blog }) {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mehmedmuric.com";
+  
+  const structuredData = generateBreadcrumbStructuredData({
+    items: [
+      { name: "Home", url: baseUrl },
+      { name: "Projects", url: `${baseUrl}/projects` },
+      { name: blog.title, url: `${baseUrl}/blog-details/${blog.id}` },
+    ],
+  });
+
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+    />
+  );
+}
+
 export default async function BlogDetailsPage({
   params,
 }: {
@@ -108,25 +225,45 @@ export default async function BlogDetailsPage({
   const resolvedParams = await params;
   const blogId = Number(resolvedParams.id);
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  try {
-    const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
-    if (!res.ok) {
-      throw new Error(`API error: ${res.status}`);
-    }
-    const contentType = res.headers.get("content-type");
-    if (!contentType?.includes("application/json")) {
-      throw new Error("Invalid response content type");
-    }
-    const blogs: Blog[] = await res.json();
-    const blog = blogs.find((b) => b.id === blogId);
-    if (!blog) {
-      return <div className="text-white p-10 text-center text-xl md:text-2xl">🚫 Project not found</div>;
-    }
-    return (
-      <Fragment>
-        <Breadcrumb pageName={blog.title} description="Project Details" />
-      <section className="overflow-hidden py-16 sm:py-24 lg:py-32 isolate px-2 sm:px-6 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/10 to-mygreen/5 relative">
+  if (isNaN(blogId)) {
+    notFound();
+  }
+
+  const blogs = await getBlogs();
+  const blog = blogs.find((b) => b.id === blogId);
+  
+  if (!blog) {
+    notFound();
+  }
+  return (
+    <Fragment>
+      <ArticleStructuredData blog={blog} />
+      <BreadcrumbStructuredData blog={blog} />
+      <div className="relative min-h-screen bg-[#0a0a0a] bg-gradient-to-b from-[#0f1419] via-[#000000] to-[#051912] overflow-hidden">
+        {/* Cyberpunk Grid Background */}
+        <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+          style={{
+            backgroundImage: 'linear-gradient(cyan 1px, transparent 1px), linear-gradient(90deg, cyan 1px, transparent 1px)',
+            backgroundSize: '50px 50px',
+          }}
+        />
+        
+        {/* Animated Scan Lines */}
+        <div className="absolute inset-0 pointer-events-none">
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/5 to-transparent animate-scanLine" />
+        </div>
+
+        {/* Enhanced Parallax Background with Cyberpunk Glow */}
+        <div className="absolute left-[5%] top-[14%] w-96 h-96 bg-[radial-gradient(circle,rgba(0,255,140,0.3)_0%,rgba(0,255,200,0.15)_40%,transparent_75%)] rounded-full pointer-events-none blur-3xl z-10 will-change-transform animate-pulse" aria-hidden />
+        <div className="absolute right-[10%] bottom-[5%] w-[380px] h-[240px] bg-[radial-gradient(circle,rgba(0,200,255,0.2)_0%,rgba(100,200,255,0.1)_40%,transparent_80%)] rounded-full pointer-events-none blur-3xl z-10 will-change-transform" aria-hidden />
+        
+        {/* Cyberpunk Neon Accents */}
+        <div className="absolute top-20 left-10 w-2 h-32 bg-gradient-to-b from-green-400 to-transparent opacity-60 blur-sm animate-pulse" />
+        <div className="absolute bottom-20 right-10 w-32 h-2 bg-gradient-to-r from-cyan-400 to-transparent opacity-60 blur-sm animate-pulse" style={{ animationDelay: '1s' }} />
+
+        <div className="relative z-20">
+          <Breadcrumb pageName={blog.title} description="Project Details" />
+          <section className="overflow-hidden py-16 sm:py-24 lg:py-32 isolate px-2 sm:px-6 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/10 to-mygreen/5 relative">
         <div className="max-w-5xl mx-auto flex flex-col gap-10">
           {/* AUTHOR/META HEADER */}
           <div className="flex flex-col gap-8 sm:gap-0 sm:flex-row sm:justify-between sm:items-center border-b border-mygreen/40 pb-5">
@@ -146,7 +283,15 @@ export default async function BlogDetailsPage({
                 <span className="text-xs sm:text-sm text-body-color/90">
                   By <strong>{blog.author.name}</strong>
                 </span>
-                <span className="text-xs sm:text-sm text-body-color/70">{blog.publishDate}</span>
+                <div className="flex items-center gap-3 flex-wrap">
+                  <span className="text-xs sm:text-sm text-body-color/70">{blog.publishDate}</span>
+                  <span className="text-xs sm:text-sm text-body-color/70 flex items-center gap-1">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    {calculateReadingTime(blog.paragraph + (blog.paragraph2 || ''))} min read
+                  </span>
+                </div>
               </div>
             </div>
             <TagsDisplay tags={blog.tags} />
@@ -239,10 +384,8 @@ export default async function BlogDetailsPage({
           </svg>
         </div>
       </section>
+        </div>
+      </div>
     </Fragment>
-    );
-  } catch (error) {
-    console.error("Error loading blog:", error);
-    return <div className="text-white p-10 text-center text-xl md:text-2xl">🚫 Error loading project</div>;
-  }
+  );
 }

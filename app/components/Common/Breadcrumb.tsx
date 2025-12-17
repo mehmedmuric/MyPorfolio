@@ -1,4 +1,3 @@
-'use client'
 import Link from "next/link";
 import { Fragment } from "react";
 
@@ -18,8 +17,10 @@ const Breadcrumb = ({
   ]
 }: BreadcrumbProps) => {
   return (
-    <section className="relative z-10 overflow-hidden pt-28 lg:pt-[150px] particles-bg">
-      <div className="container mx-auto">
+    <section className="relative z-10 overflow-hidden pt-28 lg:pt-[150px] particles-bg bg-gradient-to-b from-transparent via-transparent to-transparent">
+      {/* Subtle background glow for breadcrumb */}
+      <div className="absolute inset-0 bg-gradient-to-b from-green-500/5 via-transparent to-transparent pointer-events-none" />
+      <div className="container mx-auto relative z-10">
         <nav aria-label="Breadcrumb" className="mb-3 sm:mb-0">
           <ol className="flex flex-wrap items-center space-x-2 md:justify-end mb-6 text-[15px] font-medium">
             {crumbs.map((crumb, idx) => (

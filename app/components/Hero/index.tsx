@@ -22,6 +22,10 @@ const techStack: Technology[] = [
   { name: "Node.js", src: "/images/models/nodejs.svg" },
   { name: "MongoDB", src: "/images/models/mongodb.svg" },
   { name: "TailwindCSS", src: "/images/models/tailwindcss.svg" },
+  { name: "Flutter", src: "/images/models/flutter.svg" },
+  { name: "AWS", src: "/images/models/amazonAWS.svg" },
+  { name: "Kali Linux", src: "/images/models/kalilinux.svg" },
+  { name: "MySQL", src: "/images/models/mysql.svg" },
 ];
 
 const fallbackIcon = (
@@ -49,9 +53,20 @@ const PARTICLE_POSITIONS = [
 
 // ---------- MEMO COMPONENTS ----------
 const TechBadge = memo<{ tech: Technology }>(({ tech }) => (
-  <span className="flex items-center gap-1 px-2.5 py-2.5 bg-[#162821] border border-green-400/15 text-green-300 text-xs rounded-lg shadow-sm hover:bg-green-400/10 hover:border-green-500/40 transition">
-    {tech.src ? <Image src={tech.src} alt={tech.name} width={20} height={20} loading="lazy" /> : fallbackIcon}
-    {tech.name}
+  <span className="modern-tech-badge group flex items-center gap-1.5 px-3 py-2 bg-white/5 backdrop-blur-md border border-white/10 text-gray-300 text-xs rounded-xl shadow-sm hover:bg-emerald-500/10 hover:border-emerald-400/30 hover:text-emerald-300 transition-all duration-300">
+    {tech.src ? (
+      <Image 
+        src={tech.src} 
+        alt={tech.name} 
+        width={18} 
+        height={18} 
+        loading="lazy"
+        className="filter brightness-110 group-hover:brightness-125 transition-all"
+      />
+    ) : (
+      fallbackIcon
+    )}
+    <span className="font-medium">{tech.name}</span>
   </span>
 ));
 TechBadge.displayName = "TechBadge";
@@ -116,30 +131,56 @@ const Hero = () => {
   }, []);
 
   return (
-    <section id="home" className="relative z-10 min-h-screen flex items-center bg-[#101011] bg-gradient-to-b from-[#212e26] via-[#010101] to-[#051912] py-12 md:py-16 lg:py-20 overflow-hidden">
+    <section id="home" className="relative z-10 min-h-screen flex items-center bg-[#0a0a0a] bg-gradient-to-b from-[#0f1419] via-[#000000] to-[#051912] py-12 md:py-16 lg:py-20 overflow-hidden">
+      {/* Cyberpunk Grid Background */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+        style={{
+          backgroundImage: 'linear-gradient(cyan 1px, transparent 1px), linear-gradient(90deg, cyan 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+        }}
+      />
+      
+      {/* Animated Scan Lines */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/5 to-transparent animate-scanLine" />
+      </div>
+
       <DecorativeCircles />
-      {/* Parallax Background */}
-      <div className="absolute left-[5%] top-[14%] w-96 h-96 bg-[radial-gradient(circle,rgba(0,255,140,0.23)_0%,transparent_75%)] rounded-full pointer-events-none blur-2xl z-10 will-change-transform" style={{ transform: `translate3d(${mousePosition.x * 0.45}px,${mousePosition.y * 0.41}px,0)` }} aria-hidden />
-      <div className="absolute right-[10%] bottom-[5%] w-[380px] h-[240px] bg-[radial-gradient(circle,rgba(0,160,255,0.13)_0%,transparent_80%)] rounded-full pointer-events-none blur-2xl z-10 will-change-transform" style={{ transform: `translate3d(${mousePosition.x * 0.19}px,${mousePosition.y * 0.08}px,0)` }} aria-hidden />
+      
+      {/* Enhanced Parallax Background with Cyberpunk Glow */}
+      <div className="absolute left-[5%] top-[14%] w-96 h-96 bg-[radial-gradient(circle,rgba(0,255,140,0.3)_0%,rgba(0,255,200,0.15)_40%,transparent_75%)] rounded-full pointer-events-none blur-3xl z-10 will-change-transform animate-pulse" style={{ transform: `translate3d(${mousePosition.x * 0.45}px,${mousePosition.y * 0.41}px,0)` }} aria-hidden />
+      <div className="absolute right-[10%] bottom-[5%] w-[380px] h-[240px] bg-[radial-gradient(circle,rgba(0,200,255,0.2)_0%,rgba(100,200,255,0.1)_40%,transparent_80%)] rounded-full pointer-events-none blur-3xl z-10 will-change-transform" style={{ transform: `translate3d(${mousePosition.x * 0.19}px,${mousePosition.y * 0.08}px,0)` }} aria-hidden />
+      
+      {/* Cyberpunk Neon Accents */}
+      <div className="absolute top-20 left-10 w-2 h-32 bg-gradient-to-b from-green-400 to-transparent opacity-60 blur-sm animate-pulse" />
+      <div className="absolute bottom-20 right-10 w-32 h-2 bg-gradient-to-r from-cyan-400 to-transparent opacity-60 blur-sm animate-pulse" style={{ animationDelay: '1s' }} />
       
       <div className="container relative z-20 px-4 sm:px-10 mx-auto select-none mt-12 md:mt-16 lg:mt">
         <div className="flex flex-col-reverse md:flex-row items-center justify-between gap-10">
           
           {/* LEFT: CONTENT */}
           <div className="w-full md:w-3/5 lg:w-1/2 max-w-2xl flex flex-col items-center md:items-start text-center md:text-left">
-            <h1 ref={titleRef} className="font-black text-4xl xs:text-5xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl text-green-300 leading-tight mb-3 tracking-tight flex flex-col items-center md:items-start">
-              <span>Mehmed <span className="text-green-400">Muric</span></span>
-              <span className="mt-2 h-2 w-24 bg-gradient-to-r from-green-400 to-green-700 rounded-md opacity-80" />
+            <h1 ref={titleRef} className="font-black text-4xl xs:text-5xl sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-3 tracking-tight flex flex-col items-center md:items-start relative">
+              <span className="relative">
+                <span className="text-green-300 drop-shadow-[0_0_10px_rgba(0,255,140,0.5)]">Mehmed</span>
+                <span className="text-green-400 drop-shadow-[0_0_15px_rgba(0,255,140,0.8)] animate-pulse"> Muric</span>
+                {/* Cyberpunk underline effect */}
+                <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-green-400 via-cyan-400 to-green-400 rounded-full opacity-80 shadow-[0_0_10px_rgba(0,255,140,0.6)] animate-pulse" />
+              </span>
             </h1>
 
-            <h2 ref={subtitleRef} className="mt-2 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold text-gray-100 flex items-center gap-2">
-              <span>Full-Stack Developer</span>
-              <svg className="w-5 h-5 hidden xs:inline text-green-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path d="M4.5 12.75l6 6 9-13.5" strokeLinecap="round" strokeLinejoin="round" /></svg>
-              <span className="hidden xs:inline">Software Engineer</span>
+            <h2 ref={subtitleRef} className="mt-4 text-lg sm:text-xl md:text-2xl lg:text-3xl font-semibold flex items-center gap-2 flex-wrap">
+              <span className="text-cyan-300 drop-shadow-[0_0_8px_rgba(0,200,255,0.4)]">Full-Stack Developer</span>
+              <span className="text-green-400 animate-pulse">|</span>
+              <span className="text-gray-200">Software Engineer</span>
+              <span className="hidden sm:inline-flex items-center gap-1 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/30 text-green-400 text-xs md:text-sm">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                Available
+              </span>
             </h2>
 
-            <p ref={descRef} className="mt-3 mb-4 text-base sm:text-lg text-green-300 font-normal max-w-lg">
-              I build robust, scalable web & mobile apps focused on speed, polish, and maintainability. Lets craft solutions that last.
+            <p ref={descRef} className="mt-4 mb-6 text-base sm:text-lg text-gray-300 font-normal max-w-lg leading-relaxed">
+              I build <span className="text-green-400 font-semibold">robust</span>, <span className="text-cyan-400 font-semibold">scalable</span> web & mobile apps focused on <span className="text-green-400 font-semibold">speed</span>, <span className="text-cyan-400 font-semibold">polish</span>, and <span className="text-green-400 font-semibold">maintainability</span>. Let's craft solutions that last.
             </p>
 
             <div ref={badgesRef} className="flex flex-wrap gap-2 mb-4 justify-center md:justify-start">

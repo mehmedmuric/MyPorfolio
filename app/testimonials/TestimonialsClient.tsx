@@ -121,10 +121,32 @@ const TestimonialsClient = () => {
   };
 
   return (
-    <>
-      <Breadcrumb pageName="Testimonials" description="" />
+    <div className="relative min-h-screen bg-[#0a0a0a] bg-gradient-to-b from-[#0f1419] via-[#000000] to-[#051912] overflow-hidden">
+      {/* Cyberpunk Grid Background */}
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" 
+        style={{
+          backgroundImage: 'linear-gradient(cyan 1px, transparent 1px), linear-gradient(90deg, cyan 1px, transparent 1px)',
+          backgroundSize: '50px 50px',
+        }}
+      />
+      
+      {/* Animated Scan Lines */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-green-500/5 to-transparent animate-scanLine" />
+      </div>
 
-      <section className="relative isolate overflow-hidden bg-gray-900/50 px-6 py-12 sm:py-16 lg:px-8 particles-bg bg-gradient-to-b from-gray-950 via-mygreen/5 to-mygreen/5">
+      {/* Enhanced Parallax Background with Cyberpunk Glow */}
+      <div className="absolute left-[5%] top-[14%] w-96 h-96 bg-[radial-gradient(circle,rgba(0,255,140,0.3)_0%,rgba(0,255,200,0.15)_40%,transparent_75%)] rounded-full pointer-events-none blur-3xl z-10 will-change-transform animate-pulse" aria-hidden />
+      <div className="absolute right-[10%] bottom-[5%] w-[380px] h-[240px] bg-[radial-gradient(circle,rgba(0,200,255,0.2)_0%,rgba(100,200,255,0.1)_40%,transparent_80%)] rounded-full pointer-events-none blur-3xl z-10 will-change-transform" aria-hidden />
+      
+      {/* Cyberpunk Neon Accents */}
+      <div className="absolute top-20 left-10 w-2 h-32 bg-gradient-to-b from-green-400 to-transparent opacity-60 blur-sm animate-pulse" />
+      <div className="absolute bottom-20 right-10 w-32 h-2 bg-gradient-to-r from-cyan-400 to-transparent opacity-60 blur-sm animate-pulse" style={{ animationDelay: '1s' }} />
+
+      <div className="relative z-20">
+        <Breadcrumb pageName="Testimonials" description="See what clients and collaborators say about my work. Read testimonials from satisfied clients and leave your feedback." />
+
+        <section className="relative isolate overflow-hidden bg-gray-900/30 px-6 py-12 sm:py-16 lg:px-8 particles-bg bg-gradient-to-b from-gray-950/80 via-mygreen/5 to-mygreen/5">
         {/* Cyber grid background */}
         <div className="absolute inset-0 opacity-[0.06] 
           bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),
@@ -257,7 +279,8 @@ const TestimonialsClient = () => {
           </div>
         </div>
       </section>
-    </>
+      </div>
+    </div>
   );
 };
 

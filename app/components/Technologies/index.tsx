@@ -63,17 +63,6 @@ const categories = [
   }
 ] as const;
 
-const getCategoryColor = (category?: TechCategory) => {
-  if (!category) return 'from-green-500/20 to-emerald-500/20 border-green-500/30';
-  const colors = {
-    frontend: 'from-blue-500/20 to-cyan-500/20 border-blue-500/30',
-    backend: 'from-purple-500/20 to-pink-500/20 border-purple-500/30',
-    database: 'from-green-500/20 to-emerald-500/20 border-green-500/30',
-    cloud: 'from-orange-500/20 to-yellow-500/20 border-orange-500/30',
-    tools: 'from-gray-500/20 to-slate-500/20 border-gray-500/30',
-  };
-  return colors[category] || colors.frontend;
-};
 
 const technologies: Technology[] = [
   { name: "HTML", src: "/images/models/html5.svg", category: "frontend", years: 7, docUrl: "https://developer.mozilla.org/en-US/docs/Web/HTML" },
@@ -85,13 +74,19 @@ const technologies: Technology[] = [
   { name: "SASS", src: "/images/models/sass.svg", category: "frontend", years: 3, docUrl: "https://sass-lang.com/" },
   { name: "Bootstrap", src: "/images/models/bootstrap.svg", category: "frontend", years: 3, docUrl: "https://getbootstrap.com/" },
   { name: "MaterialUI", src: "/images/models/materialui.svg", category: "frontend", years: 2, docUrl: "https://mui.com/" },
+  { name: "Flutter", src: "/images/models/flutter.svg", category: "frontend", years: 2, docUrl: "https://flutter.dev/" },
+  { name: "React Native", src: "/images/models/reactnative.svg", category: "frontend", years: 2, docUrl: "https://reactnative.dev/" },
   { name: "TypeScript", src: "/images/models/typescript.svg", category: "frontend", proficiency: "Advanced", years: 5, docUrl: "https://www.typescriptlang.org/" },
   { name: "ReduxJS", src: "/images/models/reduxjs.svg", category: "frontend", years: 4, docUrl: "https://redux.js.org/" },
   { name: "NodeJS", src: "/images/models/nodejs.svg", category: "backend", proficiency: "Advanced", years: 5, docUrl: "https://nodejs.org/" },
   { name: "ExpressJS", src: "/images/models/expressjs.svg", category: "backend", years: 4, docUrl: "https://expressjs.com/" },
+  { name: "REST APIs", src: "/images/models/restapi.svg", category: "backend", years: 5, docUrl: "https://restfulapi.net/" },
   { name: "MongoDB", src: "/images/models/mongodb.svg", category: "database", years: 4, docUrl: "https://www.mongodb.com/" },
   { name: "MySQL", src: "/images/models/mysql.svg", category: "database", years: 3, docUrl: "https://www.mysql.com/" },
   { name: "AWS", src: "/images/models/amazonAWS.svg", category: "cloud", years: 3, docUrl: "https://aws.amazon.com/" },
+  { name: "Git/GitHub", src: "/images/models/github.svg", category: "tools", years: 5, docUrl: "https://github.com/" },
+  { name: "Docker", src: "/images/models/docker.svg", category: "tools", years: 2, docUrl: "https://www.docker.com/" },
+  { name: "Prisma", src: "/images/models/prisma.svg", category: "tools", years: 3, docUrl: "https://www.prisma.io/" },
   { name: "Kali Linux", src: "/images/models/kalilinux.svg", category: "tools", years: 1, docUrl: "https://www.kali.org/" },
 ];
 
@@ -115,37 +110,25 @@ const Technologies = () => {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // GSAP entrance & floating effect
+  // GSAP entrance animation - smooth and minimal
   useEffect(() => {
     iconsRef.current.forEach((el, index) => {
       if (!el) return;
       gsap.fromTo(
         el,
-        { opacity: 0, y: 30, rotationY: -20, scale: 0.93 },
+        { opacity: 0, y: 20 },
         {
           opacity: 1,
           y: 0,
-          rotationY: 0,
-          scale: 1,
-          duration: 1.1,
+          duration: 0.8,
           ease: "power2.out",
           scrollTrigger: {
             trigger: el,
             start: "top 85%",
           },
-          delay: index * 0.08,
+          delay: index * 0.05,
         }
       );
-      // floating
-      gsap.to(el, {
-        y: "+=7",
-        rotationY: 5,
-        repeat: -1,
-        yoyo: true,
-        duration: 2 + Math.random(),
-        ease: "sine.inOut",
-        delay: index * 0.1,
-      });
     });
   }, []);
 
@@ -168,62 +151,28 @@ const Technologies = () => {
     return result;
   }, []);
 
-  // For color glow of active cat
-  const getLegendActiveGlow = (cat: typeof categories[number], active: boolean) =>
-    active ? `shadow-[0_0_24px_4px_rgba(16,255,128,0.19)] ring-2 ring-green-500/50 scale-[1.08]` : '';
 
   return (
     <section
-      className="relative overflow-hidden py-16 md:py-20 lg:py-28 isolate px-4 sm:px-6 md:px-8 lg:px-8 bg-[#010101] bg-[radial-gradient(ellipse_at_top,_#0a3b27_0%,_#010101_85%)]"
+      className="relative overflow-hidden py-16 md:py-20 lg:py-28 isolate px-4 sm:px-6 md:px-8 lg:px-8 bg-gradient-to-b from-[#0a0f0a] via-[#0d1a0f] to-[#0a0f0a]"
       id="technologies"
     >
-      {/* Animated grid, glows & floating bits */}
+      {/* Soft green gradient backgrounds */}
       <div
-        className="absolute inset-0 opacity-[0.06] bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),linear-gradient(#00ff99_1px,transparent_1px)] bg-[size:50px_50px] animate-[gridMove_20s_linear_infinite]"
+        className="absolute inset-0 bg-gradient-to-br from-emerald-950/20 via-transparent to-green-950/15 pointer-events-none"
       />
       <div
-        className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),linear-gradient(#00ff99_1px,transparent_1px)] bg-[size:25px_25px]"
-        style={{ animation: 'gridMove-reverse 15s linear infinite' }}
-      />
-      <div
-        className="absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.12),_transparent_70%)] blur-3xl animate-pulse-slow transition-transform duration-1000"
+        className="absolute -inset-40 bg-[radial-gradient(circle_at_30%_40%,rgba(16,185,129,0.08),_transparent_60%)] blur-3xl transition-transform duration-[3000ms] ease-out pointer-events-none"
         style={{
-          transform: `translate(${mousePosition.x * 0.22}px, ${mousePosition.y * 0.19}px)`,
+          transform: `translate(${mousePosition.x * 0.1}px, ${mousePosition.y * 0.08}px)`,
         }}
       />
       <div
-        className="absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.05),_transparent_70%)] blur-[120px] transition-transform duration-1000"
+        className="absolute -inset-60 bg-[radial-gradient(circle_at_70%_60%,rgba(5,150,105,0.05),_transparent_70%)] blur-[100px] transition-transform duration-[4000ms] ease-out pointer-events-none"
         style={{
-          transform: `translate(${mousePosition.x * 0.15}px, ${mousePosition.y * 0.17}px)`,
+          transform: `translate(${mousePosition.x * 0.06}px, ${mousePosition.y * 0.05}px)`,
         }}
       />
-      <div
-        className="absolute top-1/4 left-1/3 w-96 h-96 bg-green-500/5 rounded-full blur-[120px] animate-pulse-slow"
-        style={{
-          transform: `translate(${mousePosition.x * 0.08}px, ${mousePosition.y * 0.13}px)`,
-        }}
-      />
-      {[...Array(8)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute bg-green-400 rounded-full opacity-15 animate-float"
-          style={{
-            left: `${8 + (i * 12) % 84}%`,
-            top: `${10 + ((i * 17) % 67)}%`,
-            animationDelay: `${i * 0.51}s`,
-            animationDuration: `${3.7 + i * 0.52}s`,
-            width: `${2 + (i % 2)}px`,
-            height: `${2 + (i % 2)}px`,
-          }}
-        />
-      ))}
-      {/* Animated scan lines */}
-      <div className="absolute inset-0 opacity-[0.018] pointer-events-none">
-        <div
-          className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-green-500 to-transparent"
-          style={{ animation: 'scanLine 8s linear infinite' }}
-        />
-      </div>
 
       {/* Section title */}
       <div className="container relative z-10">
@@ -234,52 +183,51 @@ const Technologies = () => {
           mb="80px"
         />
 
-        {/* Category buttons */}
-        <div className="flex justify-center flex-wrap gap-2 md:gap-4 mb-8 sm:mb-12 select-none">
+        {/* Modern Category Filter Buttons */}
+        <div className="flex justify-center flex-wrap gap-3 md:gap-4 mb-10 sm:mb-14 select-none">
           <button
             className={`
-              flex items-center text-[14px] font-semibold px-4 py-1.5 md:px-5 md:py-2 rounded-lg
-              bg-gradient-to-br from-green-400/30 to-emerald-500/10 border border-green-700/20 text-white/90 shadow-sm
-              transition-all duration-200 relative hover:scale-105 hover:shadow-lg
-              group overflow-hidden
-              ${activeCategory === "all" ? "ring-green-400/80 ring-2 bg-green-400/30" : ""}
+              modern-filter-btn flex items-center text-sm font-medium px-5 py-2.5 rounded-xl
+              backdrop-blur-md border transition-all duration-300
+              ${activeCategory === "all" 
+                ? "bg-emerald-500/10 border-emerald-400/40 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.15)]" 
+                : "bg-white/5 border-white/10 text-gray-300 hover:border-emerald-400/30 hover:text-emerald-300 hover:bg-emerald-500/5"
+              }
             `}
             aria-pressed={activeCategory === "all"}
             tabIndex={0}
             onClick={() => setActiveCategory("all")}
           >
-            <span className="font-bold mr-2 text-green-400">All</span>
-            <span className="bg-black/60 px-2 rounded-lg text-xs ml-1">{technologies.length}</span>
+            <span className="font-semibold mr-2">All</span>
+            <span className="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-xs font-medium">{technologies.length}</span>
           </button>
           {categories.map(cat => (
             <button
               key={cat.label}
               className={`
-                flex items-center gap-1.5 text-xs md:text-sm px-3 md:px-4 py-1.5 md:py-2 rounded-lg
-                bg-gradient-to-br ${cat.color} ${cat.border}
-                shadow-md backdrop-blur text-white/90 font-semibold
-                transition-all duration-200
-                hover:scale-105 focus:scale-105 hover:shadow-lg focus:shadow-lg
-                group relative overflow-hidden
-                border-2 border-transparent
-                ${activeCategory === cat.key ? getLegendActiveGlow(cat, true) : ""}
+                modern-filter-btn flex items-center gap-2 text-sm px-4 py-2.5 rounded-xl
+                backdrop-blur-md border transition-all duration-300
+                ${activeCategory === cat.key 
+                  ? "bg-emerald-500/10 border-emerald-400/40 text-emerald-300 shadow-[0_0_20px_rgba(16,185,129,0.15)]" 
+                  : "bg-white/5 border-white/10 text-gray-300 hover:border-emerald-400/30 hover:text-emerald-300 hover:bg-emerald-500/5"
+                }
               `}
               aria-pressed={activeCategory === cat.key}
               tabIndex={0}
               title={cat.description}
               onClick={() => setActiveCategory(cat.key as TechCategory)}
             >
-              <span className="text-[1.2em] md:text-xl drop-shadow">{cat.icon}</span>
-              <span>{cat.label}</span>
-              <span className="bg-black/50 px-1 min-w-6 rounded text-[10px] ml-1 font-bold text-green-300/90 drop-shadow">{categoryCounts[cat.key as TechCategory] || 0}</span>
+              <span className="text-lg">{cat.icon}</span>
+              <span className="font-medium">{cat.label}</span>
+              <span className="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 text-xs font-medium">{categoryCounts[cat.key as TechCategory] || 0}</span>
             </button>
           ))}
         </div>
 
-        {/* Tech Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 md:gap-6 lg:gap-8 place-items-center">
+        {/* Modern Glass Tech Cards Grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 sm:gap-5 md:gap-6 lg:gap-7 place-items-center">
           {filteredTechnologies.length === 0 ? (
-            <div className="col-span-full text-white/60 text-center py-20 text-lg">
+            <div className="col-span-full text-gray-400 text-center py-20 text-lg">
               <span>No technologies found for this category.</span>
             </div>
           ) : (
@@ -294,15 +242,14 @@ const Technologies = () => {
                 onMouseEnter={() => setHoveredTech(index)}
                 onMouseLeave={() => setHoveredTech(null)}
                 className={`
-                  text-emerald-300/80 font-mono tracking-wide max-w-3xl 
-                  group relative flex flex-col items-center justify-center 
-                  p-4 sm:p-5 md:p-6 rounded-2xl md:rounded-3xl backdrop-blur-lg
-                  bg-black/60 border border-green-500/20  
-                  transition-transform duration-300
-                  hover:-translate-y-1 md:hover:-translate-y-2 hover:scale-[1.02] md:hover:scale-105 w-full sm:w-[90%] md:w-[85%] lg:w-[80%] xl:w-auto
-                  shadow-lg ring-0 ring-green-500 hover:shadow-[0_0_40px_rgba(34,197,94,0.6)] hover:ring-2
-                  cursor-pointer
-                  ${hoveredTech === index ? "z-20 bg-green-800/10 border-green-500/30 scale-105" : ""}
+                  modern-tech-card group relative flex flex-col items-center justify-center 
+                  p-5 sm:p-6 md:p-7 w-full sm:w-[90%] md:w-[85%] lg:w-[80%] xl:w-auto
+                  rounded-2xl backdrop-blur-xl
+                  bg-white/5 border border-white/10
+                  transition-all duration-300 ease-out cursor-pointer
+                  hover:-translate-y-2 hover:border-emerald-400/40 hover:bg-white/8
+                  hover:shadow-[0_8px_32px_rgba(16,185,129,0.12)]
+                  ${hoveredTech === index ? "z-20 scale-105" : ""}
                 `}
                 tabIndex={0}
                 title={`Learn about ${tech.name}`}
@@ -315,54 +262,50 @@ const Technologies = () => {
                 }}
                 aria-label={tech.name + (tech.proficiency ? ` (${tech.proficiency})` : "")}
               >
-                {/* Icon */}
-                <div className="relative flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 rounded-full
-                  bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.70),_transparent_70%)]
-                  shadow-[0_0_20px_rgba(0,255,128,0.25)] group-hover:shadow-[0_0_38px_rgba(0,255,128,0.82)]
-                  transition-all duration-500"
-                >
+                {/* Subtle green glow on hover */}
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-500/0 via-emerald-500/0 to-emerald-500/0 group-hover:from-emerald-500/5 group-hover:via-emerald-500/3 group-hover:to-emerald-500/5 transition-all duration-300 pointer-events-none" />
+
+                {/* Icon Container */}
+                <div className="relative flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 mb-4
+                  rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-500/5
+                  border border-emerald-400/20
+                  group-hover:border-emerald-400/40 group-hover:shadow-[0_0_24px_rgba(16,185,129,0.2)]
+                  transition-all duration-300
+                ">
                   <Image
                     src={tech.src}
                     alt={tech.name}
                     width={80}
                     height={80}
-                    className={`object-contain transition-transform duration-500 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 ${
-                      hoveredTech === index ? 'scale-110 blur-[.5px] saturate-125' : 'scale-100'
-                    }`}
+                    className={`object-contain transition-all duration-300 w-14 h-14 sm:w-18 sm:h-18 md:w-22 md:h-22
+                      filter brightness-110
+                      group-hover:scale-110 group-hover:brightness-125
+                      ${hoveredTech === index ? 'scale-110' : 'scale-100'}
+                    `}
                     priority={index < 7}
                   />
                   
-                  {/* Proficiency badge */}
+                  {/* Proficiency badge - Modern style */}
                   {tech.proficiency && (
-                    <div className="absolute -top-2 -right-2 px-2 py-1 rounded-full bg-green-500/30 border border-green-500/40 text-green-300 text-xs font-bold opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 shadow-md backdrop-blur-[2px]">
+                    <div className="absolute -top-2 -right-2 px-2.5 py-1 rounded-lg bg-emerald-500/20 backdrop-blur-sm border border-emerald-400/30 text-emerald-300 text-[10px] font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-lg">
                       {tech.proficiency}
                     </div>
                   )}
-                  {/* Years badge, only if >1 */}
+                  {/* Years badge - Modern style */}
                   {tech.years && tech.years > 1 && (
-                    <div className="absolute -bottom-2 -left-2 px-2 py-0.5 rounded-full bg-neutral-800/80 border border-green-900/40 text-green-400 text-[10px] font-bold opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 shadow-md select-none pointer-events-none">
+                    <div className="absolute -bottom-2 -left-2 px-2 py-0.5 rounded-md bg-emerald-950/60 backdrop-blur-sm border border-emerald-500/20 text-emerald-400 text-[9px] font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 shadow-md">
                       {tech.years}y
                     </div>
                   )}
                 </div>
-                {/* Tech name, clickable if docUrl exists */}
-                <p className="text-xs sm:text-sm md:text-base font-semibold text-center text-white/80 
-                  group-hover:text-green-400 group-focus:text-green-400 transition-colors duration-300 relative z-10 mt-2
-                  underline-offset-2 decoration-green-400/50 cursor-pointer select-none"
-                >
-                  {tech.docUrl ? (
-                    <span className="underline decoration-dotted">{tech.name}</span>
-                  ) : (
-                    tech.name
-                  )}
+                
+                {/* Tech name */}
+                <p className="text-xs sm:text-sm md:text-base font-medium text-center text-gray-200 
+                  group-hover:text-emerald-300 transition-colors duration-300 relative z-10
+                  ${tech.docUrl ? 'cursor-pointer' : ''}
+                ">
+                  {tech.name}
                 </p>
-                {/* Category indicator */}
-                <div className={`
-                  absolute bottom-2 left-2 right-2 h-1 rounded-full bg-gradient-to-r
-                  ${getCategoryColor(tech.category)}
-                  ${hoveredTech === index ? "opacity-70" : "opacity-0"}
-                  group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300
-                `} />
               </div>
             ))
           )}

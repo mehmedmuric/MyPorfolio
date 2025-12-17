@@ -4,10 +4,20 @@ import { Blog } from "@/types/blog";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { calculateReadingTime } from "@/lib/utils";
+
+// Helper to safely get first tag
+const getFirstTag = (tags: string | string[] | undefined): string => {
+  if (!tags) return 'Project';
+  if (Array.isArray(tags)) return tags[0] || 'Project';
+  const tagArray = tags.split(/[,\s-]+/).filter(Boolean);
+  return tagArray[0] || 'Project';
+};
 
 const SingleBlog = ({ blog }: { blog: Blog }) => {
   const { title, image, paragraph, author, tags, publishDate } = blog;
   const [isHovered, setIsHovered] = useState(false);
+  const readingTime = calculateReadingTime(paragraph);
 
   return (
     <div
@@ -42,7 +52,7 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           bg-mygreen px-4 py-2 text-sm font-semibold capitalize text-white
           shadow-[0_0_15px_rgba(0,255,128,0.4)] group-hover:shadow-[0_0_25px_rgba(0,255,128,0.6)]
           transition-all duration-300 group-hover:scale-110">
-          {tags[0]}
+          {getFirstTag(tags)}
         </span>
         <Image 
           src={image} 
@@ -99,9 +109,14 @@ const SingleBlog = ({ blog }: { blog: Blog }) => {
           </div>
           <div className="inline-block">
             <h4 className="mb-1 text-sm font-medium text-white group-hover:text-green-400 transition-colors">
-              Date
+              {publishDate}
             </h4>
-            <p className="text-xs text-body-color group-hover:text-gray-400 transition-colors">{publishDate}</p>
+            <p className="text-xs text-body-color group-hover:text-gray-400 transition-colors flex items-center gap-1">
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              {readingTime} min read
+            </p>
           </div>
         </div>
       </div>

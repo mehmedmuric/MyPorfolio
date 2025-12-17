@@ -1,18 +1,30 @@
-# Dozvoli svim pretraživačima da indeksiraju sajt
+# Allow all search engines to crawl the site
 User-agent: *
 Allow: /
 
-# Poveži sitemap
+# Disallow unnecessary directories
+Disallow: /api/
+Disallow: /_next/
+Disallow: /node_modules/
+
+# Allow important paths
+Allow: /api/testimonials
+
+# Sitemap location
 Sitemap: https://mehmedmuric.com/sitemap.xml
 
-# Preporučene SEO direktive
-Crawl-delay: 10
-Host: https://mehmedmuric.com
+# Crawl delay (optional, helps prevent server overload)
+Crawl-delay: 1
 
-# Opcioni: spreči indeksiranje nepotrebnih direktorijuma (ako ih ima)
-Disallow: /node_modules/
-Disallow: /api/
+# Specific rules for major search engines
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
 
-# Keywords i dodatne preporuke (meta keywords se više ne koriste za ranking, ali mogu se dodati)
-# Ovo je samo informativno, Google ih ne koristi za SEO
-# Keywords: full-stack, developer, React, Next.js, Node.js, portfolio, web development, mobile applications, projects
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: Slurp
+Allow: /
+Crawl-delay: 1

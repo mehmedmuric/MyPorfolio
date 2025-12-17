@@ -1,62 +1,79 @@
 // app/sitemap.xml/route.ts
 import { NextResponse } from "next/server";
 
-export async function GET() {
-  const baseUrl = "https://mehmedmuric.com";
+interface Blog {
+  id: number;
+  title: string;
+  publishDate: string;
+}
 
-  // Ako imaš projects.json ili dinamičke ID-jeve
-  const projects = [
-    { id: 1 },
-    { id: 2 },
-    { id: 3 },
-    { id: 4 },
-    { id: 5 },
-    // dodaj sve projekte koje imaš u /data/projects.json
-  ];
+async function getProjects(): Promise<Blog[]> {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mehmedmuric.com";
+  try {
+    const res = await fetch(`${baseUrl}/data/projects.json`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
+    if (!res.ok) throw new Error("Failed to fetch projects");
+    return await res.json();
+  } catch (error) {
+    console.error("Error fetching projects for sitemap:", error);
+    return [];
+  }
+}
+
+export async function GET() {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://mehmedmuric.com";
+  const now = new Date().toISOString();
+
+  // Fetch projects dynamically
+  const projects = await getProjects();
 
   const staticPages = [
-    "",
-    "about",
-    "contact",
-    "projects",
-    "testimonials",
-    "blog",
+    { path: "", priority: "1.0", changefreq: "weekly" },
+    { path: "about", priority: "0.9", changefreq: "monthly" },
+    { path: "contact", priority: "0.8", changefreq: "monthly" },
+    { path: "projects", priority: "0.9", changefreq: "weekly" },
+    { path: "testimonials", priority: "0.7", changefreq: "monthly" },
+    { path: "privacyPolicy", priority: "0.5", changefreq: "yearly" },
+    { path: "TermsOfUse", priority: "0.5", changefreq: "yearly" },
   ];
 
   const urls = [
-    // statične rute
+    // Static pages
     ...staticPages.map(
       (page) => `
       <url>
-        <loc>${baseUrl}/${page}</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>${page === "" ? "1.0" : "0.8"}</priority>
+        <loc>${baseUrl}/${page.path}</loc>
+        <lastmod>${now}</lastmod>
+        <changefreq>${page.changefreq}</changefreq>
+        <priority>${page.priority}</priority>
       </url>
     `
     ),
 
-    // dinamičke rute za blog-details
+    // Dynamic blog-details routes
     ...projects.map(
       (project) => `
       <url>
         <loc>${baseUrl}/blog-details/${project.id}</loc>
-        <lastmod>${new Date().toISOString()}</lastmod>
+        <lastmod>${new Date(project.publishDate).toISOString()}</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
+        <priority>0.8</priority>
       </url>
     `
     ),
   ].join("");
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+          xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     ${urls}
   </urlset>`;
 
   return new NextResponse(sitemap, {
     headers: {
-      "Content-Type": "application/xml",
+      "Content-Type": "application/xml; charset=utf-8",
+      "Cache-Control": "public, s-maxage=3600, stale-while-revalidate",
     },
   });
 }
