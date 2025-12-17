@@ -1,9 +1,8 @@
-"use client";
-
+'use client';
 import Image from "next/image";
 import Breadcrumb from "../components/Common/Breadcrumb";
 import { useRef, useEffect } from "react";
-import { gsap } from "gsap";
+import gsap from "gsap";
 
 // ---------------- TIMELINE DATA ----------------
 const timelineData = [
@@ -12,26 +11,16 @@ const timelineData = [
     title: "Technical HS, Information Technology, Novi Pazar",
     colorClass: "bg-mygreen ring-mygreen/25",
     textClass: "text-mygreen",
-    highlights: [
-      "Robotics Club Lead, IT Olympiad Finalist",
-      "Built Arduino- and Raspberry Pi-based robots",
-      "Organized school’s first open hackathon",
-      "First hands-on experience with teamwork under pressure"
-    ],
-    body: "Graduated as an Information Technology Technician, blending hardware and software. Laid a foundation in computer networks, scripting, troubleshooting, and collaborative project execution through club participation and competitions.",
+    highlights: ["Robotics Club, IT Olympiad finalist", "First hackathon experience"],
+    body: "Graduated as an Information Technology Technician, with a robust foundation in hardware and software. Developed skills in network configuration, problem-solving, and collaboration."
   },
   {
     period: "2023–Present",
     title: "University of Novi Pazar",
     colorClass: "bg-mygreen/75 ring-mygreen/20",
     textClass: "text-mygreen",
-    highlights: [
-      "Teaching Assistant (Web Tech, Systems Programming)",
-      "Co-founded university’s peer study group",
-      "Held workshops on React/Next.js for new students",
-      "Hackathons & leadership in faculty projects"
-    ],
-    body: "Currently pursuing Computer Science, focusing on algorithms, distributed systems, and web engineering. A regular contributor to open source and student initiatives. Enthusiastic about teaching, mentoring, and applying theory to real-world apps.",
+    highlights: ["Teaching Assistant (Web Tech)", "Co-founded peer study group"],
+    body: "Ongoing at a leading private university. Interests: algorithms, distributed systems, and web engineering. Regular contributor to open source and student groups."
   },
   {
     period: "2023-2024",
@@ -51,13 +40,8 @@ const timelineData = [
     title: "Professional Developer",
     colorClass: "bg-mygreen/95 ring-mygreen/15",
     textClass: "text-mygreen",
-    highlights: [
-      "Mentored junior developers; led standups and reviews",
-      "Volunteer & open source contributor (Next.js, Astro)",
-      "Built and shipped multi-platform products (React Native, SaaS, internal tools)",
-      "Collaborated in distributed, international remote teams"
-    ],
-    body: "Delivered real-world web/mobile products for startups/SMBs across diverse industries—leveraging React, Next.js, Node.js, TypeScript, and devops best practices. Advocated for code quality, testing, and documentation in every project.",
+    highlights: ["Mentoring junior developers", "Volunteer & open source contributor"],
+    body: "Built and shipped multiple web/mobile apps and SaaS platforms using React, Next.js, Node.js, TypeScript, and modern stacks."
   },
 ];
 
