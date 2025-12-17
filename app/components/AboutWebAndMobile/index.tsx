@@ -7,16 +7,12 @@ import SingleFeature from "./SingleFeature";
 import featuresData from "./featuresData";
 
 // Register GSAP plugin once globally
-<<<<<<< HEAD
 if (typeof window !== "undefined") {
   const coreGlobals = (gsap as any).core?.globals;
   if (!((gsap as any).ScrollTrigger || coreGlobals?.ScrollTrigger)) {
     gsap.registerPlugin(ScrollTrigger);
   }
 }
-=======
-
->>>>>>> a7b21dbffcb852d8c32100580af45fc949c743b7
 
 const Features = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
