@@ -30,8 +30,14 @@ module.exports = {
 
       "2xl": "1400px",
       // => @media (min-width: 1400px) { ... }
+
+      "3xl": "1920px",
+      // => @media (min-width: 1920px) { ... }
     },
     extend: {
+      fontFamily: {
+        mono: ['var(--font-jetbrains-mono)', 'JetBrains Mono', 'monospace'],
+      },
       colors: {
         current: "currentColor",
         transparent: "transparent",

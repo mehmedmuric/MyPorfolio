@@ -10,10 +10,14 @@ const limiter = rateLimit({ windowMs: 60 * 1000, max: 5 }); // 5 req / 1 minut
 export async function GET() {
   try {
     // Debug: log DATABASE_URL
-    console.log("DATABASE_URL:", process.env.DATABASE_URL);
+    if (process.env.NODE_ENV === 'development') {
+      console.log("DATABASE_URL:", process.env.DATABASE_URL);
+    }
 
     if (!process.env.DATABASE_URL) {
-      console.error("DATABASE_URL is not set! Cannot connect to DB.");
+      if (process.env.NODE_ENV === 'development') {
+        console.error("DATABASE_URL is not set! Cannot connect to DB.");
+      }
       return NextResponse.json(
         { error: "Server misconfiguration: DATABASE_URL not set" },
         { status: 500 }
@@ -26,7 +30,9 @@ export async function GET() {
 
     return NextResponse.json(testimonials ?? []);
   } catch (error: any) {
-    console.error("GET /api/testimonials error:", error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error("GET /api/testimonials error:", error);
+    }
     return NextResponse.json({ error: error.message || "Failed to fetch testimonials" }, { status: 500 });
   }
 }
@@ -34,10 +40,14 @@ export async function GET() {
 export async function POST(req: Request) {
   try {
     // Debug: log DATABASE_URL
-    console.log("DATABASE_URL (POST):", process.env.DATABASE_URL);
+    if (process.env.NODE_ENV === 'development') {
+      console.log("DATABASE_URL (POST):", process.env.DATABASE_URL);
+    }
 
     if (!process.env.DATABASE_URL) {
-      console.error("DATABASE_URL is not set! Cannot connect to DB.");
+      if (process.env.NODE_ENV === 'development') {
+        console.error("DATABASE_URL is not set! Cannot connect to DB.");
+      }
       return NextResponse.json(
         { error: "Server misconfiguration: DATABASE_URL not set" },
         { status: 500 }
@@ -49,7 +59,9 @@ export async function POST(req: Request) {
     try {
       body = await req.json();
     } catch {
-      console.error("Invalid JSON body received");
+      if (process.env.NODE_ENV === 'development') {
+        console.error("Invalid JSON body received");
+      }
       return NextResponse.json({ error: "Invalid JSON body" }, { status: 400 });
     }
 
@@ -99,13 +111,17 @@ export async function POST(req: Request) {
         },
       });
     } catch (dbError: any) {
-      console.error("Prisma DB error:", dbError);
+      if (process.env.NODE_ENV === 'development') {
+        console.error("Prisma DB error:", dbError);
+      }
       return NextResponse.json({ error: dbError.message || "Database error" }, { status: 500 });
     }
 
     return NextResponse.json(newTestimonial, { status: 201 });
   } catch (error: any) {
-    console.error("POST /api/testimonials error:", error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error("POST /api/testimonials error:", error);
+    }
     return NextResponse.json({ error: error.message || "Failed to create testimonial" }, { status: 500 });
   }
 }

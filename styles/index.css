@@ -8,9 +8,18 @@ html,body{
   padding: 0;
   background-color: #0f0f0f;
   color: #ffffff;
-   overflow-x: hidden; /* sprečava horizontalno guranje */
   position: relative; /* chat ostaje u svom sloju */
   min-height: 100vh;
+}
+
+html {
+  overflow-x: hidden; /* sprečava horizontalno guranje */
+  overflow-y: auto; /* omogućava vertikalno skrolovanje */
+}
+
+body {
+  overflow-x: hidden; /* sprečava horizontalno guranje */
+  overflow-y: hidden; /* sprečava dupli scroll bar */
 }
 /* Ako imaš glavni container za content */
 main, .container {
@@ -125,6 +134,20 @@ textarea:-webkit-autofill:focus {
 
   input#checkboxLabel:checked ~ .box span {
     @apply opacity-100;
+  }
+
+  /* Focus-visible styles for accessibility */
+  *:focus-visible {
+    outline: 2px solid #00FF41;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  button:focus-visible,
+  a:focus-visible {
+    outline: 2px solid #00FF41;
+    outline-offset: 3px;
+    box-shadow: 0 0 0 3px rgba(0, 255, 65, 0.3);
   }
 }
 
@@ -505,6 +528,104 @@ textarea:-webkit-autofill:focus {
   animation: spin-slow-reverse 15s linear infinite;
 }
 
+/* Hero Entrance Animations - Optimized CSS replacements for GSAP */
+@keyframes heroTitleEnter {
+  from {
+    transform: translateY(48px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroSubtitleEnter {
+  from {
+    transform: translateX(-36px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroDescEnter {
+  from {
+    transform: translateY(28px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroBadgesEnter {
+  from {
+    transform: translateY(17px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes heroCtaEnter {
+  from {
+    transform: scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes heroProfileEnter {
+  from {
+    transform: translateY(112px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/* Apply animations with proper timing and easing */
+.animate-hero-title {
+  animation: heroTitleEnter 0.6s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+  opacity: 0;
+}
+
+.animate-hero-subtitle {
+  animation: heroSubtitleEnter 0.5s cubic-bezier(0.19, 1, 0.22, 1) 0.3s forwards;
+  opacity: 0;
+}
+
+.animate-hero-desc {
+  animation: heroDescEnter 0.45s cubic-bezier(0.19, 1, 0.22, 1) 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-hero-badges {
+  animation: heroBadgesEnter 0.5s cubic-bezier(0.33, 1, 0.68, 1) 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-hero-cta {
+  animation: heroCtaEnter 0.38s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s forwards;
+  opacity: 0;
+}
+
+.animate-hero-profile {
+  animation: heroProfileEnter 0.68s cubic-bezier(0.19, 1, 0.22, 1) 0s forwards;
+  opacity: 0;
+}
+
 /* Fade in up animation for Hero */
 @keyframes fade-in-up {
   from {
@@ -519,4 +640,438 @@ textarea:-webkit-autofill:focus {
 
 .fade-in-up {
   animation: fade-in-up 0.8s ease-out forwards;
+}
+
+/* Cyberpunk HUD Animations */
+@keyframes scanLine {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.animate-scanLine {
+  animation: scanLine 4s linear infinite;
+}
+
+@keyframes dataStream {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.animate-data-stream {
+  animation: dataStream 4s linear infinite;
+}
+
+.animate-spin-slow-reverse {
+  animation: spin-slow-reverse 15s linear infinite;
+}
+
+/* Cyberpunk HUD Animations for About Web & Mobile Section */
+@keyframes hudPulse {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes hudGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(0,255,65,0.3), 0 0 20px rgba(0,255,65,0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0,255,65,0.6), 0 0 40px rgba(0,255,65,0.4), 0 0 60px rgba(0,255,65,0.2);
+  }
+}
+
+@keyframes floatHUD {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  25% {
+    transform: translateY(-8px) translateX(4px);
+  }
+  50% {
+    transform: translateY(-4px) translateX(-4px);
+  }
+  75% {
+    transform: translateY(4px) translateX(4px);
+  }
+}
+
+.animate-hud-float {
+  animation: floatHUD 6s ease-in-out infinite;
+}
+
+.animate-hud-pulse {
+  animation: hudPulse 2s ease-in-out infinite;
+}
+
+.animate-hud-glow {
+  animation: hudGlow 3s ease-in-out infinite;
+}
+
+/* ===================== Technologies Section - Cyber Green HUD Styles ===================== */
+
+/* CRT Scanline Effect */
+.crt-scanlines {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(0, 0, 0, 0.15),
+    rgba(0, 0, 0, 0.15) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+.crt-scanlines::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    transparent 50%,
+    rgba(0, 255, 65, 0.03) 50%
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  animation: crtFlicker 0.15s infinite;
+}
+
+@keyframes crtFlicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.98; }
+}
+
+/* HUD Grid Animations */
+@keyframes hudGridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(40px, 40px);
+  }
+}
+
+@keyframes hudGridMoveReverse {
+  0% {
+    transform: translate(40px, 40px);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* HUD Scanning Line Animation */
+@keyframes hudScanLine {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.4;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* HUD Data Stream Animation */
+@keyframes hudDataStream {
+  0% {
+    transform: translateY(-100vh);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.3;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+/* HUD Button Scan Animation */
+@keyframes hudButtonScan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-hudButtonScan {
+  animation: hudButtonScan 1.5s ease-in-out infinite;
+}
+
+/* HUD Card Scan Animation */
+@keyframes hudCardScan {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+.animate-hudCardScan {
+  animation: hudCardScan 2s ease-in-out infinite;
+}
+
+/* HUD Icon Pulse Animation */
+@keyframes hudIconPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 255, 65, 0.4), 0 0 10px rgba(0, 255, 65, 0.2);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(0, 255, 65, 0.8), 0 0 25px rgba(0, 255, 65, 0.4);
+    transform: scale(1.05);
+  }
+}
+
+.animate-hudIconPulse {
+  animation: hudIconPulse 2s ease-in-out infinite;
+}
+
+/* Technologies Section Title Styling */
+#technologies h2 {
+  font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+  color: #00FF41 !important;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.3) !important;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+#technologies p {
+  color: rgba(0, 255, 65, 0.8) !important;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Certifications Section Title Styling - HUD Aesthetic */
+#certifications h2 {
+  font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+  color: #00FF41 !important;
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.3) !important;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+
+#certifications p {
+  color: rgba(0, 255, 65, 0.8) !important;
+  font-family: 'JetBrains Mono', 'Courier New', monospace;
+  letter-spacing: 0.05em;
+}
+
+/* Responsive adjustments for ultra-wide screens */
+@media (min-width: 1920px) {
+  .crt-scanlines {
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.12),
+      rgba(0, 0, 0, 0.12) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+  }
+  
+  #technologies .grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+  }
+  
+  #certifications .cert-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    max-width: 90rem;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  #technologies .grid {
+    gap: 0.75rem;
+  }
+  
+  #technologies h2 {
+    font-size: 1.75rem !important;
+  }
+  
+  #technologies p {
+    font-size: 0.875rem !important;
+  }
+  
+  #certifications .cert-grid {
+    gap: 1.5rem;
+  }
+  
+  #certifications h2 {
+    font-size: 1.75rem !important;
+  }
+  
+  #certifications p {
+    font-size: 0.875rem !important;
+  }
+}
+
+/* ===================== About Page - HUD Animations ===================== */
+@keyframes appearFadeIn {
+  from { opacity: 0; transform: scale(0.82); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.about-hud-grid-primary {
+  animation: hudGridMove 25s linear infinite;
+}
+.about-hud-grid-secondary {
+  animation: hudGridMoveReverse 18s linear infinite;
+}
+.about-hud-scanline {
+  animation: hudScanLine 8s linear infinite;
+}
+.about-hud-particle {
+  animation: hudDataStream 4s linear infinite;
+}
+.about-hud-corner {
+  animation: floatHUD 3s ease-in-out infinite;
+}
+
+/* HUD Scanline Animation for About Page */
+@keyframes hudScanline {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.5;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.animate-hudScanline {
+  animation: hudScanline 6s linear infinite;
+}
+
+/* Glitch Effect for Cyber Theme */
+@keyframes glitch {
+  0%, 100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+  20% {
+    transform: translate(-2px, 2px);
+    filter: hue-rotate(90deg);
+  }
+  40% {
+    transform: translate(-2px, -2px);
+    filter: hue-rotate(180deg);
+  }
+  60% {
+    transform: translate(2px, 2px);
+    filter: hue-rotate(270deg);
+  }
+  80% {
+    transform: translate(2px, -2px);
+    filter: hue-rotate(360deg);
+  }
+}
+
+.animate-glitch {
+  animation: glitch 0.3s infinite;
+}
+
+/* Terminal Blink Cursor */
+@keyframes terminalBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+.animate-terminal-blink {
+  animation: terminalBlink 1s step-end infinite;
+}
+
+/* Data Matrix Rain Effect */
+@keyframes matrixRain {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
+}
+
+.animate-matrix-rain {
+  animation: matrixRain 3s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-hud-grid-primary,
+  .about-hud-grid-secondary,
+  .about-hud-scanline,
+  .about-hud-particle,
+  .about-hud-corner,
+  .animate-hudScanline,
+  .animate-glitch,
+  .animate-terminal-blink,
+  .animate-matrix-rain {
+    animation: none !important;
+  }
 }

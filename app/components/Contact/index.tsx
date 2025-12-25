@@ -1,35 +1,41 @@
 'use client';
 
-import { useRef, useState, useEffect, memo } from "react";
+import { useRef, useState, useEffect, memo, useMemo, useCallback } from "react";
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
 import emailjs from "@emailjs/browser";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// Optional: Success and error icons (for improved feedback UX)
+// Success and error icons with HUD styling
 const SuccessIcon = () => (
-  <svg className="inline w-5 h-5 mr-1 text-green-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg className="inline w-5 h-5 mr-1 text-[#00FF41]" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
     <circle cx="12" cy="12" r="10" strokeWidth="2" />
     <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
   </svg>
 );
 const ErrorIcon = () => (
-  <svg className="inline w-5 h-5 mr-1 text-red-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+  <svg className="inline w-5 h-5 mr-1 text-red-400" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" aria-hidden="true">
     <circle cx="12" cy="12" r="10" strokeWidth="2" />
     <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M15 9l-6 6m0-6l6 6" />
   </svg>
 );
 
-gsap.registerPlugin(ScrollTrigger);
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 const Contact = () => {
   const formRef = useRef<HTMLFormElement>(null);
   const sectionRef = useRef<HTMLDivElement | null>(null);
   const imageRef = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLDivElement | null>(null);
+  const formCardRef = useRef<HTMLDivElement | null>(null);
   const [isSending, setIsSending] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"success" | "error" | "">("");
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isReducedMotion, setIsReducedMotion] = useState(false);
   const [formData, setFormData] = useState({
     user_name: "",
     user_email: "",
@@ -38,6 +44,40 @@ const Contact = () => {
 
   // Accessibility improvement: focus ref for status
   const messageStatusRef = useRef<HTMLParagraphElement>(null);
+
+  // Check for reduced motion preference
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    setIsReducedMotion(mediaQuery.matches);
+    
+    const handleChange = (e: MediaQueryListEvent) => setIsReducedMotion(e.matches);
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  // Optimized mouse parallax with throttling
+  useEffect(() => {
+    if (isReducedMotion) return;
+    
+    let rafId: number | null = null;
+    const handleMouseMove = (e: MouseEvent) => {
+      if (rafId) return;
+      
+      rafId = requestAnimationFrame(() => {
+        setMousePosition({
+          x: (e.clientX / window.innerWidth - 0.5) * 25,
+          y: (e.clientY / window.innerHeight - 0.5) * 25,
+        });
+        rafId = null;
+      });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      if (rafId) cancelAnimationFrame(rafId);
+    };
+  }, [isReducedMotion]);
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({
@@ -97,7 +137,9 @@ const Contact = () => {
           setTimeout(() => setMessage(""), 7000); // Hide after 7s
         },
         (error) => {
-          console.error("EmailJS error:", error);
+          if (process.env.NODE_ENV === 'development') {
+            console.error("EmailJS error:", error);
+          }
           setMessageType("error");
           setMessage(
             "Failed to send message. Please try again later or email me directly."
@@ -108,131 +150,339 @@ const Contact = () => {
       );
   };
 
+  // Optimized GSAP animations
   useEffect(() => {
-    if (!sectionRef.current) return;
+    if (!sectionRef.current || isReducedMotion || typeof window === 'undefined') return;
 
-    // Delay to ensure DOM is ready
-    const timer = setTimeout(() => {
-      if (!document.querySelector(".contact-section")) return;
+    let ctx: gsap.Context | null = null;
+    let timer: NodeJS.Timeout | null = null;
 
-      const ctx = gsap.context(() => {
-        // Section fade in
-        gsap.from(".contact-section", {
-          opacity: 0,
-          y: 100,
-          duration: 2.2,
-          ease: "power3.out",
-          autoKill: true,
-          scrollTrigger: {
-            trigger: ".contact-section",
-            start: "top 85%",
-          },
-        });
+    const initAnimations = () => {
+      if (!sectionRef.current) return;
 
+      // Clean up any existing context
+      if (ctx) {
+        ctx.revert();
+      }
+
+      ctx = gsap.context(() => {
         // Title animation
-        gsap.from(".contact-title", {
-          opacity: 0,
-          y: 40,
-          duration: 1.8,
-          ease: "power3.out",
-          autoKill: true,
-          scrollTrigger: {
-            trigger: ".contact-section",
-            start: "top 85%",
-          },
-        });
-
-        // Form card float in
-        gsap.from(".contact-form-card", {
-          opacity: 0,
-          y: 64,
-          scale: 0.98,
-          duration: 1.95,
-          ease: "power3.out",
-          autoKill: true,
-          scrollTrigger: {
-            trigger: ".contact-section",
-            start: "top 80%",
-          },
-        });
-
-        // Image pop
-        gsap.fromTo(
-          imageRef.current,
-          { opacity: 0, y: 60, scale: 0.93 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 2.3,
-            ease: "power3.out",
-            autoKill: true,
-            scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 80%",
+        if (titleRef.current) {
+          gsap.fromTo(
+            titleRef.current,
+            {
+              opacity: 0,
+              y: 30,
+              scale: 0.95,
             },
-          }
-        );
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.7,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: titleRef.current,
+                start: 'top 90%',
+                toggleActions: 'play none none none',
+                once: true,
+              },
+            }
+          );
+        }
 
-        // Subtle button pulse
-        gsap.to(".contact-btn", {
-          boxShadow: "0 0 42px 7px rgba(0,255,128,0.27)",
-          duration: 1.33,
-          repeat: -1,
-          yoyo: true,
-        });
+        // Section entrance animation
+        if (sectionRef.current) {
+          gsap.fromTo(
+            sectionRef.current,
+            {
+              opacity: 0,
+              y: 50,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: sectionRef.current,
+                start: 'top 85%',
+                toggleActions: 'play none none none',
+                once: true,
+              },
+            }
+          );
+        }
+
+        // Form card animation
+        if (formCardRef.current) {
+          gsap.fromTo(
+            formCardRef.current,
+            {
+              opacity: 0,
+              y: 40,
+              scale: 0.96,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: formCardRef.current,
+                start: 'top 85%',
+                toggleActions: 'play none none none',
+                once: true,
+              },
+            }
+          );
+        }
+
+        // Image animation
+        if (imageRef.current) {
+          gsap.fromTo(
+            imageRef.current,
+            {
+              opacity: 0,
+              y: 40,
+              scale: 0.96,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.6,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: imageRef.current,
+                start: 'top 85%',
+                toggleActions: 'play none none none',
+                once: true,
+              },
+            }
+          );
+        }
+
+        // Subtle button pulse (only if not reduced motion)
+        if (!isReducedMotion) {
+          gsap.to(".contact-btn", {
+            boxShadow: "0 0 30px rgba(0,255,65,0.4)",
+            duration: 1.5,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+          });
+        }
       }, sectionRef);
+    };
 
-      return () => ctx.revert();
-    }, 100); // Delay to allow DOM to render
+    // Delay initialization to ensure DOM is ready and refs are populated
+    timer = setTimeout(() => {
+      initAnimations();
+    }, 150);
 
-    return () => clearTimeout(timer);
-  }, []);
+    return () => {
+      if (timer) clearTimeout(timer);
+      if (ctx) {
+        ctx.revert();
+        ctx = null;
+      }
+    };
+  }, [isReducedMotion]);
+
+  // Memoize particle arrays for performance
+  const scanningLines = useMemo(() => [...Array(3)], []);
+  const particles = useMemo(() => [...Array(isReducedMotion ? 5 : 10)], [isReducedMotion]);
 
   return (
     <section
       ref={sectionRef}
-      className="contact-section relative overflow-hidden py-24 md:py-20 lg:py-28 isolate px-6 sm:py-32 lg:px-8
-        bg-[#041005] bg-[radial-gradient(ellipse_at_top,_#09381e_0%,_#020402_82%)]"
+      className="contact-section relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 isolate px-4 sm:px-6 md:px-8 lg:px-8 bg-[#000000]"
       aria-label="Contact"
     >
-      {/* Neon cyber grid */}
-      <div className="absolute inset-0 opacity-[0.065]
-        bg-[linear-gradient(90deg,#00ff99_1px,transparent_1px),linear-gradient(#00ff99_1px,transparent_1px)]
-        bg-[size:48px_48px]" />
-      {/* Neon radial glows */}
-      <div className="absolute -inset-32 bg-[radial-gradient(circle_at_70%_40%,_rgba(0,255,128,0.14),_transparent_60%)] blur-3xl animate-pulse-slow pointer-events-none" />
-      <div className="absolute -inset-64 bg-[radial-gradient(circle_at_10%_88%,_rgba(0,255,128,0.09),_transparent_70%)] blur-[130px] pointer-events-none" />
-
-      <div className="container mx-auto relative z-10">
-        <div className="contact-title">
-          <SectionTitle
-            title="Contact"
-            paragraph="Let’s get in touch — I respond to every message within a day."
-            center
-            mb="50px"
+      {/* Dark futuristic background with subtle texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,65,0.03)_0%,_transparent_70%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,_transparent_0%,_rgba(0,255,65,0.01)_50%,_transparent_100%)]" />
+      
+      {/* Animated HUD Grid Pattern - reduced on mobile */}
+      <div
+        className="absolute inset-0 opacity-[0.06] sm:opacity-[0.08] bg-[linear-gradient(90deg,#00FF41_1px,transparent_1px),linear-gradient(#00FF41_1px,transparent_1px)] bg-[size:30px_30px] sm:bg-[size:40px_40px]"
+        style={{ animation: isReducedMotion ? 'none' : 'hudGridMove 25s linear infinite' }}
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0 opacity-[0.03] sm:opacity-[0.04] bg-[linear-gradient(90deg,#00FF41_1px,transparent_1px),linear-gradient(#00FF41_1px,transparent_1px)] bg-[size:15px_15px] sm:bg-[size:20px_20px]"
+        style={{ animation: isReducedMotion ? 'none' : 'hudGridMoveReverse 18s linear infinite' }}
+        aria-hidden
+      />
+      
+      {/* Animated scanning lines - lightweight, hidden on mobile */}
+      {!isReducedMotion && (
+        <div className="absolute inset-0 pointer-events-none overflow-hidden hidden sm:block">
+          {scanningLines.map((_, i) => (
+            <div
+              key={`scan-${i}`}
+              className="absolute left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent opacity-30"
+              style={{
+                animation: `hudScanLine ${8 + i * 2}s linear infinite`,
+                animationDelay: `${i * 2.5}s`,
+                top: `${(i * 33) % 100}%`,
+              }}
+              aria-hidden
+            />
+          ))}
+        </div>
+      )}
+      
+      {/* Data stream particles - reduced on mobile */}
+      {!isReducedMotion && (
+        <div className="hidden sm:block">
+          {particles.map((_, i) => (
+            <div
+              key={`particle-${i}`}
+              className="absolute w-[1px] h-[20px] bg-[#00FF41] opacity-20"
+              style={{
+                left: `${5 + (i * 9) % 90}%`,
+                animation: `hudDataStream ${4 + (i % 3)}s linear infinite`,
+                animationDelay: `${i * 0.3}s`,
+                boxShadow: `0 0 ${2 + (i % 3)}px #00FF41`,
+              }}
+              aria-hidden
+            />
+          ))}
+        </div>
+      )}
+      
+      {/* Floating HUD corner brackets - smaller on mobile */}
+      <div className="absolute top-4 left-4 sm:top-8 sm:left-8 w-8 h-8 sm:w-12 sm:h-16 border-t-2 border-l-2 border-[#00FF41] opacity-30 sm:opacity-40" 
+        style={{ animation: isReducedMotion ? 'none' : 'hud-float 3s ease-in-out infinite' }}
+        aria-hidden 
+      />
+      <div className="absolute top-4 right-4 sm:top-8 sm:right-8 w-8 h-8 sm:w-12 sm:h-16 border-t-2 border-r-2 border-[#00FF41] opacity-30 sm:opacity-40" 
+        style={{ animation: isReducedMotion ? 'none' : 'hud-float 3s ease-in-out infinite', animationDelay: '1s' }}
+        aria-hidden 
+      />
+      <div className="absolute bottom-4 left-4 sm:bottom-8 sm:left-8 w-8 h-8 sm:w-12 sm:h-16 border-b-2 border-l-2 border-[#00FF41] opacity-30 sm:opacity-40" 
+        style={{ animation: isReducedMotion ? 'none' : 'hud-float 3s ease-in-out infinite', animationDelay: '2s' }}
+        aria-hidden 
+      />
+      <div className="absolute bottom-4 right-4 sm:bottom-8 sm:right-8 w-8 h-8 sm:w-12 sm:h-16 border-b-2 border-r-2 border-[#00FF41] opacity-30 sm:opacity-40" 
+        style={{ animation: isReducedMotion ? 'none' : 'hud-float 3s ease-in-out infinite', animationDelay: '1.5s' }}
+        aria-hidden 
+      />
+      
+      {/* HUD Status Lines - hidden on mobile */}
+      <div className="absolute top-16 sm:top-20 left-4 sm:left-8 w-16 sm:w-32 h-[1px] bg-[#00FF41] opacity-20 sm:opacity-30 hidden sm:block" aria-hidden />
+      <div className="absolute top-16 sm:top-20 left-4 sm:left-8 w-[1px] h-6 sm:h-8 bg-[#00FF41] opacity-20 sm:opacity-30 hidden sm:block" aria-hidden />
+      <div className="absolute top-16 sm:top-20 right-4 sm:right-8 w-16 sm:w-32 h-[1px] bg-[#00FF41] opacity-20 sm:opacity-30 hidden sm:block" aria-hidden />
+      <div className="absolute top-16 sm:top-20 right-4 sm:right-8 w-[1px] h-6 sm:h-8 bg-[#00FF41] opacity-20 sm:opacity-30 hidden sm:block" aria-hidden />
+      
+      {/* HUD Info Panels - hidden on mobile */}
+      <div className="absolute bottom-16 sm:bottom-20 left-4 sm:left-8 px-2 sm:px-3 py-1 sm:py-1.5 bg-black/60 border border-[#00FF41]/30 font-mono text-[#00FF41]/60 text-[8px] sm:text-[10px] tracking-wider backdrop-blur-sm hidden sm:block" aria-hidden>
+        <span className="text-[#00FF41]">[CONTACT_ACTIVE]</span>
+      </div>
+      <div className="absolute bottom-16 sm:bottom-20 right-4 sm:right-8 px-2 sm:px-3 py-1 sm:py-1.5 bg-black/60 border border-[#00FF41]/30 font-mono text-[#00FF41]/60 text-[8px] sm:text-[10px] tracking-wider backdrop-blur-sm hidden sm:block" aria-hidden>
+        <span className="text-[#00FF41]">[FORM_READY]</span>
+      </div>
+      
+      {/* Glowing orbs for depth with mouse parallax - reduced on mobile */}
+      {!isReducedMotion && (
+        <>
+          <div
+            className="absolute -inset-20 sm:-inset-40 bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.12)_0%,_rgba(0,255,65,0.15)_50%,_transparent_70%)] blur-2xl sm:blur-3xl transition-transform duration-1000 will-change-transform"
+            style={{
+              transform: `translate(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.18}px)`,
+            }}
+            aria-hidden
           />
+          <div
+            className="absolute top-1/4 right-1/4 w-48 h-48 sm:w-96 sm:h-96 bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.06)_0%,_rgba(0,255,65,0.08)_50%,_transparent_70%)] blur-[80px] sm:blur-[120px] transition-transform duration-1000 will-change-transform"
+            style={{
+              transform: `translate(${mousePosition.x * 0.12}px, ${mousePosition.y * 0.1}px)`,
+            }}
+            aria-hidden
+          />
+        </>
+      )}
+
+      <div className="container mx-auto relative z-10 max-w-7xl">
+        {/* Section title with HUD styling */}
+        <div ref={titleRef} className="relative mb-8 sm:mb-10 md:mb-12 lg:mb-16 xl:mb-20">
+          {/* HUD Panel behind title */}
+          <div className="absolute inset-0 -inset-x-2 sm:-inset-x-4 md:-inset-x-8 bg-black/40 border border-[#00FF41]/30 rounded-lg backdrop-blur-sm shadow-[0_0_15px_rgba(0,255,65,0.15)] sm:shadow-[0_0_20px_rgba(0,255,65,0.2)]" />
+          <div className="absolute top-0 left-0 w-1.5 sm:w-2 h-full bg-[#00FF41] opacity-50 sm:opacity-60" />
+          <div className="relative px-4 sm:px-6 md:px-8 py-5 sm:py-6 md:py-8 contact-title">
+            <SectionTitle
+              title="Contact"
+              paragraph="Let's get in touch — I respond to every message within a day."
+              center
+              mb="0px"
+            />
+          </div>
         </div>
 
-        <div className="flex flex-col-reverse lg:flex-row gap-8 lg:gap-12 items-center justify-center">
+        <div className="flex flex-col-reverse lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-center justify-center">
           {/* Form */}
           <div className="w-full lg:w-1/2">
-            <div className="contact-form-card relative bg-black/70 border border-mygreen/25 backdrop-blur-md
-              rounded-2xl p-8 sm:p-12 shadow-[0_0_30px_2px_rgba(0,255,128,0.18)]
-              transition-all duration-300 hover:shadow-[0_0_55px_7px_rgba(0,255,128,0.23)]"
+            <div
+              ref={formCardRef}
+              className="contact-form-card group relative transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] will-change-transform"
+              style={{
+                backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                border: '2px solid rgba(0, 255, 65, 0.3)',
+                boxShadow: '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 30px rgba(0, 255, 65, 0.05)',
+                backdropFilter: 'blur(8px)',
+                clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
+                padding: '2rem 1.5rem'
+              }}
+              onMouseEnter={(e) => {
+                if (!isReducedMotion) {
+                  e.currentTarget.style.boxShadow = '0 0 40px rgba(0, 255, 65, 0.6), inset 0 0 40px rgba(0, 255, 65, 0.1)';
+                  e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 1)';
+                  e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 30px rgba(0, 255, 65, 0.05)';
+                e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 0.3)';
+                e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+              }}
             >
-              <h2 className="mb-3 text-2xl font-bold text-white sm:text-3xl lg:text-2xl xl:text-3xl">
-                Send Me a Message
-              </h2>
-              <p className="mb-10 text-base font-light text-gray-300">
-                Fill in your details and I’ll reply as soon as possible.<br className="hidden sm:inline" /> Get direct support from me — not a chatbot!
-              </p>
+              {/* HUD Corner Brackets */}
+              <div className="absolute top-1 left-1 w-4 h-4 border-t-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20" />
+              <div className="absolute top-1 right-1 w-4 h-4 border-t-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20" />
+              <div className="absolute bottom-1 left-1 w-4 h-4 border-b-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20" />
+              <div className="absolute bottom-1 right-1 w-4 h-4 border-b-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20" />
+              
+              {/* HUD Status Indicator */}
+              <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-black/80 border border-[#00FF41]/40 font-mono text-[8px] text-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 backdrop-blur-sm hidden sm:block"
+                style={{
+                  clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                  boxShadow: '0 0 10px rgba(0, 255, 65, 0.3)'
+                }}
+              >
+                <span className="text-[#00FF41]">[FORM_ACTIVE]</span>
+              </div>
+              
+              {/* Scanning line effect */}
+              {!isReducedMotion && (
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-300 pointer-events-none" />
+              )}
+
+              <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
+                <h2 className="mb-3 text-xl sm:text-2xl md:text-3xl font-bold text-white font-mono">
+                  Send Me a Message
+                </h2>
+                <p className="mb-8 sm:mb-10 text-sm sm:text-base font-light text-gray-300">
+                  Fill in your details and I'll reply as soon as possible.<br className="hidden sm:inline" /> Get direct support from me — not a chatbot!
+                </p>
 
               <form ref={formRef} onSubmit={sendEmail} autoComplete="off" aria-label="Contact form">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
                   <div>
-                    <label htmlFor="user_name" className="block mb-2 text-sm font-medium text-mygreen">
-                      Your Name
+                    <label htmlFor="user_name" className="block mb-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#00FF41] font-mono">
+                      YOUR NAME
                     </label>
                     <input
                       type="text"
@@ -242,8 +492,11 @@ const Contact = () => {
                       minLength={2}
                       maxLength={96}
                       placeholder="e.g. Jane Doe"
-                      className="w-full rounded-md border border-mygreen/25 bg-[#0a1e15] px-5 py-3 text-base text-gray-100
-                        outline-none focus:border-mygreen focus:ring-1 focus:ring-mygreen transition shadow-sm"
+                      className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base text-gray-200 font-mono bg-black/60 border-2 border-[#00FF41]/30 focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41]/50 transition-all duration-300 outline-none"
+                      style={{
+                        clipPath: 'polygon(3px 0, 100% 0, 100% 100%, 0 100%, 0 3px)',
+                        boxShadow: 'inset 0 0 10px rgba(0, 255, 65, 0.05)'
+                      }}
                       value={formData.user_name}
                       onChange={handleInput}
                       autoComplete="name"
@@ -251,8 +504,8 @@ const Contact = () => {
                   </div>
 
                   <div>
-                    <label htmlFor="user_email" className="block mb-2 text-sm font-medium text-mygreen">
-                      Your Email
+                    <label htmlFor="user_email" className="block mb-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#00FF41] font-mono">
+                      YOUR EMAIL
                     </label>
                     <input
                       type="email"
@@ -262,8 +515,11 @@ const Contact = () => {
                       minLength={4}
                       maxLength={96}
                       placeholder="you@email.com"
-                      className="w-full rounded-md border border-mygreen/25 bg-[#0a1e15] px-5 py-3 text-base text-gray-100
-                        outline-none focus:border-mygreen focus:ring-1 focus:ring-mygreen transition shadow-sm"
+                      className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base text-gray-200 font-mono bg-black/60 border-2 border-[#00FF41]/30 focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41]/50 transition-all duration-300 outline-none"
+                      style={{
+                        clipPath: 'polygon(3px 0, 100% 0, 100% 100%, 0 100%, 0 3px)',
+                        boxShadow: 'inset 0 0 10px rgba(0, 255, 65, 0.05)'
+                      }}
                       value={formData.user_email}
                       onChange={handleInput}
                       autoComplete="email"
@@ -271,9 +527,9 @@ const Contact = () => {
                   </div>
                 </div>
 
-                <div className="mt-6">
-                  <label htmlFor="message" className="block mb-2 text-sm font-medium text-mygreen">
-                    Your Message
+                <div className="mt-4 sm:mt-6">
+                  <label htmlFor="message" className="block mb-2 text-xs sm:text-sm font-bold uppercase tracking-wider text-[#00FF41] font-mono">
+                    YOUR MESSAGE
                   </label>
                   <textarea
                     id="message"
@@ -283,54 +539,84 @@ const Contact = () => {
                     minLength={4}
                     maxLength={1800}
                     placeholder="How can I help you?"
-                    className="w-full rounded-md border border-mygreen/25 bg-[#0a1e15] px-5 py-3 text-base text-gray-100
-                      outline-none focus:border-mygreen focus:ring-1 focus:ring-mygreen transition shadow resize-none"
+                    className="w-full px-4 sm:px-5 py-2.5 sm:py-3 text-sm sm:text-base text-gray-200 font-mono bg-black/60 border-2 border-[#00FF41]/30 focus:border-[#00FF41] focus:ring-1 focus:ring-[#00FF41]/50 transition-all duration-300 outline-none resize-none"
+                    style={{
+                      clipPath: 'polygon(3px 0, 100% 0, 100% 100%, 0 100%, 0 3px)',
+                      boxShadow: 'inset 0 0 10px rgba(0, 255, 65, 0.05)'
+                    }}
                     value={formData.message}
                     onChange={handleInput}
                     aria-describedby="contact-message-desc"
                   ></textarea>
-                  <p id="contact-message-desc" className="text-xs text-gray-400 mt-1">
+                  <p id="contact-message-desc" className="text-xs text-gray-400 mt-1.5 font-mono">
                     Please describe your idea, question, or project!
                   </p>
                 </div>
 
-                <div className="mt-8 text-center flex flex-col items-center gap-2">
+                <div className="mt-6 sm:mt-8 text-center flex flex-col items-center gap-2">
                   <button
                     type="submit"
                     disabled={isSending}
-                    className="contact-btn rounded-lg px-12 py-4 font-semibold text-base
-                      transition-all duration-200
-                      bg-mygreen border border-mygreen text-black
-                      hover:bg-transparent hover:text-mygreen
-                      shadow-[0_0_15px_rgba(0,255,128,0.33)] hover:shadow-[0_0_50px_rgba(0,255,128,0.47)]
-                      focus:outline-none focus:ring-2 focus:ring-mygreen/65 focus:ring-offset-2"
+                    className="contact-btn group/btn relative inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-3.5 md:px-10 md:py-4 border-2 font-mono font-bold uppercase tracking-wider transition-all duration-300 hover:scale-[1.02] sm:hover:scale-105 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-[#00FF41]/80 focus:ring-offset-2 focus:ring-offset-black overflow-hidden text-xs sm:text-sm md:text-base min-h-[44px] sm:min-h-[48px] touch-manipulation disabled:opacity-50 disabled:cursor-not-allowed"
+                    style={{
+                      backgroundColor: 'rgba(0, 255, 65, 0.1)',
+                      borderColor: '#00FF41',
+                      color: '#00FF41',
+                      boxShadow: '0 0 20px rgba(0, 255, 65, 0.4), inset 0 0 20px rgba(0, 255, 65, 0.05)',
+                      clipPath: 'polygon(4px 0, 100% 0, 100% 100%, 0 100%, 0 4px)'
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isReducedMotion && !isSending) {
+                        e.currentTarget.style.boxShadow = '0 0 35px rgba(0, 255, 65, 0.8), inset 0 0 30px rgba(0, 255, 65, 0.1)';
+                        e.currentTarget.style.backgroundColor = 'rgba(0, 255, 65, 0.2)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.4), inset 0 0 20px rgba(0, 255, 65, 0.05)';
+                      e.currentTarget.style.backgroundColor = 'rgba(0, 255, 65, 0.1)';
+                    }}
                   >
-                    {isSending ? (
-                      <span className="flex items-center gap-2 justify-center">
-                        <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24">
-                          <circle
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="#00ff93"
-                            strokeWidth="4"
-                            fill="none"
-                            strokeDasharray="62.8"
-                            strokeDashoffset="10"
-                          />
-                        </svg>
-                        Sending...
-                      </span>
-                    ) : (
-                      <>Send Message</>
+                    {/* Button corner accents */}
+                    <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                    <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                    <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                    <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                    {/* Button scanning line effect */}
+                    {!isReducedMotion && (
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover/btn:opacity-100 group-hover/btn:animate-hudButtonScan transition-opacity duration-200 pointer-events-none" />
                     )}
+                    <span className="relative z-10 flex items-center gap-2">
+                      {isSending ? (
+                        <>
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5 animate-spin" viewBox="0 0 24 24" aria-hidden="true">
+                            <circle
+                              cx="12"
+                              cy="12"
+                              r="10"
+                              stroke="#00FF41"
+                              strokeWidth="4"
+                              fill="none"
+                              strokeDasharray="62.8"
+                              strokeDashoffset="10"
+                            />
+                          </svg>
+                          <span>Sending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span className="text-[#00FF41]/60">▶</span>
+                          <span>Send Message</span>
+                          <span className="text-[#00FF41]/60">◀</span>
+                        </>
+                      )}
+                    </span>
                   </button>
                   {message && (
                     <p
                       ref={messageStatusRef}
-                      className={`mt-3 text-sm transition-colors duration-300 ${
+                      className={`mt-3 text-xs sm:text-sm transition-colors duration-300 font-mono ${
                         messageType === "success"
-                          ? "text-mygreen font-semibold"
+                          ? "text-[#00FF41] font-semibold"
                           : "text-red-400 font-semibold"
                       }`}
                       tabIndex={-1}
@@ -343,14 +629,22 @@ const Contact = () => {
                 </div>
               </form>
 
-              <div className="mt-10 pb-1 text-xs text-gray-400 text-center max-w-xl mx-auto flex">
+              <div className="mt-8 sm:mt-10 pb-1 text-[10px] sm:text-xs text-gray-400 text-center max-w-xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 font-mono">
                 <span className="inline-flex items-center gap-1">
-                  <svg className="inline w-6 h-6 text-mygreen mb-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" strokeOpacity=".27"/><path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" /></svg>
+                  <svg className="inline w-4 h-4 sm:w-5 sm:h-5 text-[#00FF41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                    <circle cx="12" cy="12" r="10" strokeOpacity=".3"/>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
+                  </svg>
                   All messages are encrypted in transit via EmailJS.
                 </span>
-                <span className="ml-2 mt-2">
-                  You may alternatively email me at <a href="mailto:mehmedmuric22@gmail.com" className="underline text-mygreen font-semibold hover:text-mygreen/80 transition">mehmedmuric22@gmail.com</a>
+                <span className="hidden sm:inline mx-2">|</span>
+                <span>
+                  Or email directly: <a href="mailto:mehmedmuric22@gmail.com" className="underline text-[#00FF41] font-semibold hover:text-[#00FF41]/80 transition">mehmedmuric22@gmail.com</a>
                 </span>
+              </div>
+              
+              {/* HUD Bottom Status Bar */}
+              <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </div>
             </div>
           </div>
@@ -361,17 +655,41 @@ const Contact = () => {
             className="w-full lg:w-1/2 flex justify-center"
             aria-label="Contact illustration"
           >
-            <div className="relative aspect-[6/5] w-full max-w-[420px] rounded-3xl border-4 border-mygreen/15 shadow-2xl shadow-mygreen/10 bg-gradient-to-tr from-mygreen/10 via-transparent to-mygreen/5 overflow-hidden">
-              <div className="absolute inset-0 blur-[66px] opacity-30 bg-mygreen/35 animate-pulse pointer-events-none rounded-3xl" />
-              <Image
-                src="/images/contactus.svg"
-                alt="contact illustration"
-                width={600}
-                height={480}
-                priority
-                className="relative z-10 w-full h-auto drop-shadow-[0_0_35px_rgba(0,255,128,0.23)] hover:scale-105 transition-all duration-400"
-                sizes="(max-width: 600px) 88vw, 420px"
-              />
+            <div className="relative aspect-[6/5] w-full max-w-[380px] sm:max-w-[420px] group will-change-transform"
+              style={{
+                clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+              }}
+            >
+              {/* HUD Corner Brackets */}
+              <div className="absolute top-1 left-1 w-4 h-4 border-t-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20" />
+              <div className="absolute top-1 right-1 w-4 h-4 border-t-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20" />
+              <div className="absolute bottom-1 left-1 w-4 h-4 border-b-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20" />
+              <div className="absolute bottom-1 right-1 w-4 h-4 border-b-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20" />
+              
+              {/* HUD Border */}
+              <div className="absolute inset-0 border-2 border-[#00FF41]/30 bg-black/70 backdrop-blur-sm group-hover:border-[#00FF41] group-hover:shadow-[0_0_30px_rgba(0,255,65,0.6),inset_0_0_20px_rgba(0,255,65,0.1)] transition-all duration-300" />
+              
+              {/* Scanning line effect */}
+              {!isReducedMotion && (
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-300 pointer-events-none" />
+              )}
+              
+              {/* Inner container */}
+              <div className="relative rounded-2xl p-3 sm:p-4 m-2 overflow-hidden">
+                {/* Pulsing inner glow */}
+                {!isReducedMotion && (
+                  <div className="absolute inset-0 rounded-2xl bg-[#00FF41]/20 blur-2xl opacity-30 sm:opacity-40 animate-pulse pointer-events-none" />
+                )}
+                <Image
+                  src="/images/contactus.svg"
+                  alt="contact illustration"
+                  width={600}
+                  height={480}
+                  priority
+                  className="relative z-10 w-full h-auto drop-shadow-[0_0_30px_rgba(0,255,65,0.2)] sm:drop-shadow-[0_0_50px_rgba(0,255,65,0.25)] group-hover:drop-shadow-[0_0_60px_rgba(0,255,65,0.3)] sm:group-hover:drop-shadow-[0_0_70px_rgba(0,255,65,0.35)] transition-all duration-500 group-hover:scale-[1.01] sm:group-hover:scale-[1.02]"
+                  sizes="(max-width: 640px) 90vw, (max-width: 1024px) 50vw, 420px"
+                />
+              </div>
             </div>
           </div>
         </div>

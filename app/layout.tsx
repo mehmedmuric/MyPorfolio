@@ -1,4 +1,4 @@
-import { Inter } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import '../styles/index.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -12,6 +12,12 @@ const inter = Inter({
   preload: true,
 });
 
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
+});
+
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -23,6 +29,9 @@ export const metadata: Metadata = {
   description:
     "Portfolio of Mehmed Muric, a full-stack developer specialized in modern web and mobile applications using React, Next.js, Node.js, and more.",
   metadataBase: new URL("https://mehmedmuric.com"),
+  alternates: {
+    canonical: "https://mehmedmuric.com",
+  },
   openGraph: {
     type: "website",
     url: "https://mehmedmuric.com",
@@ -97,8 +106,26 @@ export default async function LocaleLayout({
         <link rel="dns-prefetch" href="https://vitals.vercel-insights.com" />
         <link rel="dns-prefetch" href="https://messaging.botpress.cloud" />
         <meta name="theme-color" content="#00FF88" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "name": "Mehmed Muric",
+              "jobTitle": "Full-Stack Developer",
+              "url": "https://mehmedmuric.com",
+              "sameAs": [
+                "https://github.com/mehmedmuric",
+                "https://linkedin.com/in/mehmed-muric-185297232"
+              ],
+              "email": "mehmedmuric22@gmail.com",
+              "image": "https://mehmedmuric.com/images/logo/mehmed.jpg"
+            })
+          }}
+        />
       </head>
-      <body className={`${inter.className} ${isHome ? "home" : ""}`}>
+      <body className={`${inter.className} ${jetbrainsMono.variable} ${isHome ? "home" : ""}`}>
         <Header />
         {children}
         <Analytics />

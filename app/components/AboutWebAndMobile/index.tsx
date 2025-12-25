@@ -18,20 +18,32 @@ const Features = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
   const featureRefs = useRef<Array<HTMLDivElement | null>>([]);
   const [hasAnimated, setHasAnimated] = useState(false);
+  const dataStreamRef = useRef<HTMLDivElement | null>(null);
 
-  // Subtle floating effect
+  // Create animated data streams
   useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (sectionRef.current && !prefersReducedMotion) {
-      const floatAnim = gsap.to(sectionRef.current, {
-        y: "+=5",
-        repeat: -1,
-        yoyo: true,
-        duration: 6,
-        ease: "sine.inOut"
-      });
-      return () => { floatAnim.kill(); };
-    }
+    const createDataStream = () => {
+      if (!sectionRef.current) return;
+      
+      const streamContainer = document.createElement('div');
+      streamContainer.className = 'absolute inset-0 pointer-events-none overflow-hidden';
+      streamContainer.style.zIndex = '5';
+      
+      for (let i = 0; i < 8; i++) {
+        const stream = document.createElement('div');
+        stream.className = 'absolute w-px h-20 bg-gradient-to-b from-transparent via-[#00FF41] to-transparent opacity-20 animate-data-stream';
+        stream.style.left = `${Math.random() * 100}%`;
+        stream.style.animationDuration = `${3 + Math.random() * 4}s`;
+        stream.style.animationDelay = `${Math.random() * 2}s`;
+        streamContainer.appendChild(stream);
+      }
+      
+      sectionRef.current.appendChild(streamContainer);
+      return () => streamContainer.remove();
+    };
+
+    const cleanup = createDataStream();
+    return cleanup;
   }, []);
 
   // GSAP Animations
@@ -69,36 +81,6 @@ const Features = () => {
             }
           }
         );
-
-        gsap.fromTo(
-          el,
-          { boxShadow: "0 0 0px #00ff8055" },
-          {
-            boxShadow: "0 0 28px #00ff8060, 0 0 0 #00ff80",
-            borderColor: "#2cffae44",
-            duration: 0.64,
-            scrollTrigger: {
-              trigger: el,
-              start: "top 92%"
-            }
-          }
-        );
-
-        const accents = el.querySelectorAll(".feature-corner");
-        accents.forEach((accent, accIdx) => {
-          gsap.fromTo(
-            accent,
-            { opacity: 0.62 + Math.random() * 0.12 },
-            {
-              opacity: 1,
-              repeat: -1,
-              yoyo: true,
-              duration: 1.5 + Math.random() * 1.1,
-              delay: i * 0.185 + accIdx * 0.065,
-              ease: "sine.inOut"
-            }
-          );
-        });
       });
 
       setHasAnimated(true);
@@ -108,36 +90,63 @@ const Features = () => {
   }, [hasAnimated]);
 
   const ResponsiveTitle = () => (
-    <h2 className="relative text-green-100 text-center font-black text-3xl xs:text-4xl md:text-5.5xl leading-tight mb-5 w-full max-w-3xl mx-auto drop-shadow-[0_2px_10px_rgba(0,255,128,0.12)]">
-      <span className="block">
-        Web <span className="text-green-400">&amp;</span> Mobile
-        <br className="block sm:hidden" />
-        <span className="sm:block hidden">&nbsp;Application Features</span>
-        <span className="sm:hidden">
-          Application<br />Features
+    <div className="relative mb-8 md:mb-12">
+      {/* HUD Border Top */}
+      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-[#00FF41] shadow-[0_0_10px_#00FF41] opacity-60" />
+      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-[#00FF41] shadow-[0_0_20px_#00FF41]" />
+      
+      <h2 
+        className="relative text-[#00FF41] text-center font-mono font-bold text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-2 w-full max-w-4xl mx-auto tracking-wider"
+        style={{
+          textShadow: '0 0 10px #00FF41, 0 0 20px #00FF41, 0 0 30px #00FF41',
+          fontVariantNumeric: 'tabular-nums'
+        }}
+      >
+        <span className="inline-block relative">
+          <span className="absolute -left-4 top-0 text-[#00FF41]/30 font-mono text-lg xs:text-xl">[</span>
+          Web <span className="text-[#00FF41]/80">&amp;</span> Mobile
+          <br className="block sm:hidden" />
+          <span className="sm:block hidden">&nbsp;Application Features</span>
+          <span className="sm:hidden">
+            <br />Application<br />Features
+          </span>
+          <span className="absolute -right-4 top-0 text-[#00FF41]/30 font-mono text-lg xs:text-xl">]</span>
         </span>
-      </span>
-      <span
-        aria-hidden="true"
-        className="absolute left-1/2 -translate-x-1/2 bottom-0 w-8/12 h-3 blur-lg bg-green-400/10 z-[-1]"
-      />
-    </h2>
+      </h2>
+      
+      {/* HUD Border Bottom */}
+      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-[#00FF41] shadow-[0_0_10px_#00FF41] opacity-60" />
+      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-[#00FF41] shadow-[0_0_20px_#00FF41]" />
+    </div>
   );
 
   const ResponsiveParagraph = () => (
-    <p className="text-green-100/85 text-base xs:text-lg md:text-xl text-center font-medium max-w-2xl mx-auto mb-12 leading-relaxed">
-      I create modern web &amp; mobile apps — blending elegant UI, performance, security, and seamless usability.
-      <br className="hidden xs:inline" /> Below are some core strengths:
-    </p>
+    <div className="relative mb-12 md:mb-16">
+      <div className="absolute left-0 top-0 bottom-0 w-px bg-[#00FF41]/30" />
+      <div className="absolute right-0 top-0 bottom-0 w-px bg-[#00FF41]/30" />
+      
+      <p 
+        className="text-[#00FF41]/90 text-sm xs:text-base md:text-lg lg:text-xl text-center font-mono max-w-3xl mx-auto leading-relaxed px-6 md:px-8 py-4 relative"
+        style={{
+          textShadow: '0 0 5px rgba(0,255,65,0.5)'
+        }}
+      >
+        <span className="inline-block text-[#00FF41]/50 mr-2">[INFO]</span>
+        I create modern web &amp; mobile apps — blending elegant UI, performance, security, and seamless usability.
+        <br className="hidden xs:inline" />
+        <span className="xs:hidden"><br /></span>
+        <span className="inline-block ml-2 text-[#00FF41]/50">[STATUS: ACTIVE]</span>
+      </p>
+    </div>
   );
 
   const SkipFeaturesLink = () => (
     <a
       href="#after-features"
-      className="skip-to-content-link sr-only focus:not-sr-only absolute z-50 left-3 top-3 bg-green-950 px-4 py-2 rounded shadow outline-none text-green-100 font-bold"
+      className="skip-to-content-link sr-only focus:not-sr-only absolute z-50 left-3 top-3 bg-black/90 border border-[#00FF41]/50 px-4 py-2 font-mono text-[#00FF41] text-xs shadow-[0_0_10px_#00FF41] outline-none focus:ring-2 focus:ring-[#00FF41]"
       tabIndex={0}
     >
-      Skip Features Section
+      [SKIP SECTION]
     </a>
   );
 
@@ -148,38 +157,77 @@ const Features = () => {
         id="features"
         ref={sectionRef}
         aria-label="Web & Mobile Application Features"
-        className="relative overflow-hidden py-20 md:py-24 lg:py-32 isolate px-2 xs:px-4 sm:py-32 lg:px-8 bg-[#0a1810] bg-[radial-gradient(ellipse_at_top,_#085b3b_0%,_#010101_80%)]"
+        className="relative overflow-hidden py-16 xs:py-20 md:py-24 lg:py-32 xl:py-40 isolate px-3 xs:px-4 sm:px-6 lg:px-8"
+        style={{
+          background: 'radial-gradient(ellipse at center, #001108 0%, #000000 100%)',
+          backgroundImage: 'linear-gradient(rgba(0,255,65,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px)',
+          backgroundSize: '40px 40px'
+        }}
       >
-        {/* Cyber grid */}
-        <div
-          className="pointer-events-none absolute inset-0 opacity-[0.07]
-          bg-[linear-gradient(90deg,#00ff88_1px,transparent_1px),linear-gradient(#00ff88_1px,transparent_1px)]
-          bg-[size:36px_36px]"
+        {/* CRT Scanlines Overlay */}
+        <div 
+          className="pointer-events-none absolute inset-0 z-30 opacity-[0.08]"
+          style={{
+            backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,255,65,0.03) 2px, rgba(0,255,65,0.03) 4px)',
+          }}
           aria-hidden="true"
         />
 
-        {/* Scan line */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.04] z-10 select-none">
+        {/* Animated Scan Line */}
+        <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden" aria-hidden="true">
           <div
-            className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-green-500 to-transparent"
-            style={{ animation: "scanLine 9s linear infinite" }}
+            className="absolute left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent"
+            style={{ 
+              animation: 'scanLine 8s linear infinite',
+              boxShadow: '0 0 20px #00FF41, 0 0 40px #00FF41'
+            }}
           />
         </div>
 
-        {/* Glow */}
+        {/* Corner HUD Elements */}
+        <div className="pointer-events-none absolute top-0 left-0 w-16 h-16 border-t-2 border-l-2 border-[#00FF41]/40 z-10" />
+        <div className="pointer-events-none absolute top-0 right-0 w-16 h-16 border-t-2 border-r-2 border-[#00FF41]/40 z-10" />
+        <div className="pointer-events-none absolute bottom-0 left-0 w-16 h-16 border-b-2 border-l-2 border-[#00FF41]/40 z-10" />
+        <div className="pointer-events-none absolute bottom-0 right-0 w-16 h-16 border-b-2 border-r-2 border-[#00FF41]/40 z-10" />
+
+        {/* Floating HUD Elements */}
+        <div 
+          className="absolute top-20 left-8 w-2 h-2 bg-[#00FF41] opacity-60 animate-pulse hidden lg:block"
+          style={{ boxShadow: '0 0 10px #00FF41' }}
+          aria-hidden="true"
+        />
+        <div 
+          className="absolute top-40 right-12 w-1.5 h-1.5 bg-[#00FF41] opacity-50 animate-ping hidden xl:block"
+          style={{ animationDelay: '1s', boxShadow: '0 0 8px #00FF41' }}
+          aria-hidden="true"
+        />
+        <div 
+          className="absolute bottom-32 left-16 w-2 h-2 bg-[#00FF41] opacity-70 animate-pulse hidden lg:block"
+          style={{ animationDelay: '2s', boxShadow: '0 0 12px #00FF41' }}
+          aria-hidden="true"
+        />
+
+        {/* Glow Effects */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -inset-10 blur-[56px] mix-blend-lighten z-0"
+          className="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 blur-3xl opacity-20 z-0"
           style={{
-            background: "radial-gradient(ellipse at 70% 11%,rgba(27,255,163,0.08) 0%,transparent 80%)"
+            background: 'radial-gradient(circle, #00FF41 0%, transparent 70%)'
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 blur-3xl opacity-15 z-0"
+          style={{
+            background: 'radial-gradient(circle, #00FF41 0%, transparent 70%)'
           }}
         />
 
-        <div className="container mx-auto relative z-20 px-0 md:px-6">
+        <div className="container mx-auto relative z-20 px-2 xs:px-4 md:px-6 lg:px-8">
           <ResponsiveTitle />
           <ResponsiveParagraph />
 
-          <div className="mx-auto grid grid-cols-1 gap-x-8 gap-y-10 sm:gap-x-12 sm:gap-y-12 md:grid-cols-2 lg:grid-cols-3 max-w-7xl">
+          <div className="mx-auto grid grid-cols-1 gap-6 xs:gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3 max-w-7xl 2xl:max-w-[1600px]">
             {featuresData.map((feature, i) => (
               <div
                 key={feature.id}
@@ -221,58 +269,77 @@ const SingleFeatureWrapper = ({
     [feature]
   );
 
-  const cornerBase =
-    "feature-corner absolute border-green-400/18 transition-colors duration-400";
-  const activeAccent =
-    "group-hover:border-green-400/60 group-focus:border-green-400/90";
-
   return (
     <div
       tabIndex={0}
       aria-label={feature.title || feature.name}
       role={feature.href ? "link" : "region"}
       className={`
-        group relative flex flex-col items-center justify-center w-full p-7 xs:p-9 md:p-11 lg:p-14
-        bg-gradient-to-br from-green-900/30 to-black/80 rounded-2xl md:rounded-3xl outline-none
-        border border-green-400/15
-        shadow-[0_0_24px_rgba(0,255,128,0.11)]
-        hover:shadow-[0_0_48px_rgba(0,255,128,0.35)]
-        focus:ring-2 focus:ring-green-400 ring-0 ring-green-500/60 hover:ring-2
-        transition-all duration-500 hover:-translate-y-2 md:hover:-translate-y-3 hover:scale-[1.018] md:hover:scale-105
+        group relative flex flex-col w-full p-6 xs:p-7 md:p-8 lg:p-10 xl:p-12
+        bg-gradient-to-br from-black/90 via-black/95 to-black
+        border-2 border-[#00FF41]/30
+        outline-none
+        transition-all duration-500
         cursor-pointer
-        ${hasFocus ? "ring-2 ring-green-400" : ""}
+        hover:border-[#00FF41]
+        hover:shadow-[0_0_30px_rgba(0,255,65,0.4),inset_0_0_30px_rgba(0,255,65,0.1)]
+        hover:-translate-y-1
+        hover:scale-[1.02]
+        focus:ring-2 focus:ring-[#00FF41] focus:ring-offset-2 focus:ring-offset-black
+        ${hasFocus ? "ring-2 ring-[#00FF41] ring-offset-2 ring-offset-black" : ""}
       `}
+      style={{
+        clipPath: 'polygon(0% 0%, calc(100% - 20px) 0%, 100% 20px, 100% 100%, 20px 100%, 0% calc(100% - 20px))',
+        WebkitTapHighlightColor: "rgba(0,255,65,0.2)",
+        boxShadow: isHovered 
+          ? '0 0 40px rgba(0,255,65,0.5), inset 0 0 40px rgba(0,255,65,0.1)' 
+          : '0 0 15px rgba(0,255,65,0.15)'
+      }}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       onFocus={() => setHasFocus(true)}
       onBlur={() => setHasFocus(false)}
-      style={{
-        WebkitTapHighlightColor: "rgba(0,255,160,0.15)",
-        outline: "none"
-      }}
       {...(feature.href ? { "aria-describedby": `desc-${feature.id}` } : {})}
     >
-      {/* BG effect */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-tr from-green-400/0 via-green-400/12 to-green-400/0 opacity-0 group-hover:opacity-100 group-focus:opacity-90 transition-opacity duration-300" />
+      {/* HUD Corner Accents */}
+      <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#00FF41]/60 group-hover:border-[#00FF41] transition-colors duration-300" />
+      <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#00FF41]/60 group-hover:border-[#00FF41] transition-colors duration-300" />
+      <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#00FF41]/60 group-hover:border-[#00FF41] transition-colors duration-300" />
+      <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#00FF41]/60 group-hover:border-[#00FF41] transition-colors duration-300" />
 
-      {/* Neon accents */}
-      <div
-        className={`${cornerBase} top-0 right-0 w-11 h-11 border-t-2 border-r-2 rounded-tr-2xl ${activeAccent}`}
+      {/* Scanning Line Effect */}
+      <div 
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        style={{
+          background: 'linear-gradient(180deg, transparent 0%, rgba(0,255,65,0.1) 50%, transparent 100%)',
+          animation: isHovered ? 'scanLine 2s linear infinite' : 'none'
+        }}
       />
-      <div
-        className={`${cornerBase} bottom-0 left-0 w-11 h-11 border-b-2 border-l-2 rounded-bl-2xl ${activeAccent}`}
-      />
-      <div className="feature-corner absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-green-400/8 rounded-br-xl" />
-      <div className="feature-corner absolute top-0 left-0 w-7 h-7 border-t-2 border-l-2 border-green-400/8 rounded-tl-xl" />
 
-      {/* Glow */}
-      <div className="pointer-events-none absolute -inset-1 rounded-2xl blur-[3.2px] bg-green-400/0 group-hover:bg-green-400/[.11] group-focus:bg-green-400/[.19] transition-all duration-300 -z-10" />
+      {/* HUD Panel Number Badge */}
+      <div 
+        className="absolute -top-3 -right-3 w-8 h-8 bg-black border-2 border-[#00FF41] flex items-center justify-center font-mono text-xs text-[#00FF41] font-bold z-20"
+        style={{
+          boxShadow: '0 0 15px #00FF41',
+          clipPath: 'polygon(0% 0%, calc(100% - 8px) 0%, 100% 8px, 100% 100%, 8px 100%, 0% calc(100% - 8px))'
+        }}
+      >
+        {String(index + 1).padStart(2, '0')}
+      </div>
+
+      {/* Background Glow */}
+      <div 
+        className="absolute -inset-0.5 bg-[#00FF41]/0 group-hover:bg-[#00FF41]/20 blur-xl transition-all duration-500 -z-10 opacity-0 group-hover:opacity-100"
+      />
 
       {/* Content */}
       <div className="relative z-10 w-full flex flex-col items-center">
         <SingleFeature feature={feature} index={index} />
       </div>
+
+      {/* Bottom HUD Bar */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00FF41]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
     </div>
   );
 };

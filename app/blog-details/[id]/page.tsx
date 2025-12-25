@@ -6,6 +6,8 @@ import { Fragment } from "react";
 
 import SharePost from "../../components/Blog/SharePost";
 import TagButton from "../../components/Blog/TagButton";
+import ReadingProgress from "../../components/Blog/ReadingProgress";
+import BlogBackgroundEffects from "../../components/Blog/BlogBackgroundEffects";
 import Breadcrumb from "@/app/components/Common/Breadcrumb";
 
 interface BlogAuthor {
@@ -20,7 +22,7 @@ interface Blog {
   paragraph2?: string;
   author: BlogAuthor;
   publishDate: string;
-  tags: string;
+  tags: string | string[];
   image: string;
   livedemo: string;
   gitlink: string;
@@ -38,7 +40,9 @@ export async function generateMetadata({
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   try {
-    const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
+    const res = await fetch(`${baseUrl}/data/projects.json`, { 
+      next: { revalidate: 3600 } 
+    });
     if (!res.ok) throw new Error("Failed to fetch");
     const contentType = res.headers.get("content-type");
     if (!contentType?.includes("application/json")) throw new Error("Invalid content type");
@@ -47,12 +51,17 @@ export async function generateMetadata({
     if (!blog) {
       return { title: "Blog Not Found", description: "This blog does not exist" };
     }
+    const canonicalUrl = `${baseUrl}/blog-details/${blogId}`;
     return {
       title: `${blog.title} | My Portfolio Blog`,
       description: blog.paragraph.slice(0, 150),
+      alternates: {
+        canonical: canonicalUrl,
+      },
       openGraph: {
         title: `${blog.title} | My Portfolio Blog`,
         description: blog.paragraph.slice(0, 150),
+        url: canonicalUrl,
         images: [
           {
             url: blog.image,
@@ -69,34 +78,96 @@ export async function generateMetadata({
       },
     };
   } catch (error) {
-    console.error("Error fetching blog metadata:", error);
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Error fetching blog metadata:", error);
+    }
     return { title: "Blog | My Portfolio", description: "Explore my latest blog posts" };
   }
 }
 
-function TagsDisplay({ tags }: { tags: string }) {
-  // safely handle possible undefined/null/empty
-  if (!tags || typeof tags !== "string") return null;
-  // Split by either "," or " " (accounts for both possible separators), flatten, filter empty
-  // Also support both comma and space separated values (e.g. "tag1, tag2 tag3")
+// Tags Display Component - Improved Design
+function TagsDisplay({ tags }: { tags: string | string[] }) {
+  if (!tags) return null;
+  
   let tagList: string[] = [];
-  if (tags.includes(",")) {
-    tagList = tags.split(",").map(tag => tag.trim()).filter(Boolean);
-  } else {
-    tagList = tags.split(" ").map(tag => tag.trim()).filter(Boolean);
+  
+  // Handle both string and array formats
+  if (Array.isArray(tags)) {
+    tagList = tags;
+  } else if (typeof tags === "string") {
+    if (tags.includes(",")) {
+      tagList = tags.split(",").map(tag => tag.trim()).filter(Boolean);
+    } else {
+      tagList = tags.split(" ").map(tag => tag.trim()).filter(Boolean);
+    }
   }
+  
+  // Clean up tags: remove leading dashes and spaces
+  tagList = tagList.map(tag => tag.replace(/^[\s-]+/, "").trim()).filter(Boolean);
+  
   if (tagList.length === 0) return null;
+  
   return (
-    <div className="flex flex-wrap gap-2 items-center">
-      {tagList.map((tag) => (
+    <div className="flex flex-wrap gap-2.5 sm:gap-3 items-center">
+      {tagList.map((tag, index) => (
         <span
-          key={tag}
-          className="inline-flex items-center justify-center rounded-full bg-mygreen px-3 py-2 text-xs sm:text-sm font-semibold text-white shadow-sm hover:bg-green-700 hover:text-white transition-colors"
+          key={`${tag}-${index}`}
+          className="inline-flex items-center justify-center min-h-[36px] sm:min-h-[40px] 
+            px-3 sm:px-4 py-1.5 sm:py-2 rounded-sm 
+            bg-[#0a0a0a]/90 backdrop-blur-sm border border-[#00ff41]/50 
+            text-xs sm:text-sm font-mono font-semibold 
+            text-[#00ff41] 
+            shadow-[0_0_10px_rgba(0,255,65,0.3)] 
+            hover:border-[#00ff41] 
+            hover:shadow-[0_0_20px_rgba(0,255,65,0.6)] 
+            hover:bg-[#00ff41]/10 
+            transition-all duration-200 
+            will-change-transform
+            cursor-default
+            whitespace-nowrap"
+          style={{ color: '#00ff41' }}
         >
-          #{tag}
+          {tag}
         </span>
       ))}
     </div>
+  );
+}
+
+// Cyberpunk Terminal Container
+function TerminalContainer({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+  return (
+    <div className={`relative ${className}`}>
+      {/* Corner Brackets */}
+      <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#00ff41]/60" />
+      <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#00ff41]/60" />
+      <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-[#00ff41]/60" />
+      <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#00ff41]/60" />
+      
+      {/* Glow Border */}
+      <div className="absolute inset-0 rounded-sm border border-[#00ff41]/40 
+        shadow-[0_0_20px_rgba(0,255,65,0.3),inset_0_0_20px_rgba(0,255,65,0.1)] 
+        pointer-events-none" />
+      
+      {/* Content */}
+      <div className="relative bg-[#0a0a0a]/60 backdrop-blur-sm rounded-sm p-4 sm:p-6 lg:p-8">
+        {children}
+      </div>
+    </div>
+  );
+}
+
+// HUD Panel Component
+function HUDPanel({ title, children, className = "" }: { title: string; children: React.ReactNode; className?: string }) {
+  return (
+    <aside className={`bg-[#0a0a0a]/80 backdrop-blur-sm border border-[#00ff41]/30 
+      rounded-sm p-4 sm:p-5 shadow-[0_0_15px_rgba(0,255,65,0.2)] ${className}`}>
+      <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#00ff41] mb-4 
+        border-b border-[#00ff41]/20 pb-2">
+        [{title}]
+      </h3>
+      {children}
+    </aside>
   );
 }
 
@@ -110,7 +181,9 @@ export default async function BlogDetailsPage({
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   try {
-    const res = await fetch(`${baseUrl}/data/projects.json`, { cache: "no-store" });
+    const res = await fetch(`${baseUrl}/data/projects.json`, { 
+      next: { revalidate: 3600 } 
+    });
     if (!res.ok) {
       throw new Error(`API error: ${res.status}`);
     }
@@ -121,128 +194,253 @@ export default async function BlogDetailsPage({
     const blogs: Blog[] = await res.json();
     const blog = blogs.find((b) => b.id === blogId);
     if (!blog) {
-      return <div className="text-white p-10 text-center text-xl md:text-2xl">🚫 Project not found</div>;
+      return (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0a0a0a] via-[#050805] to-[#0a0a0a]">
+          <div className="text-[#00ff41] p-10 text-center text-xl md:text-2xl font-mono">
+            🚫 Project not found
+          </div>
+        </div>
+      );
     }
+
+    const baseUrlForSchema = process.env.NEXT_PUBLIC_SITE_URL || "https://mehmedmuric.com";
+    const articleSchema = {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": blog.title,
+      "description": blog.paragraph.slice(0, 150),
+      "author": {
+        "@type": "Person",
+        "name": blog.author.name,
+        "image": blog.author.image
+      },
+      "datePublished": blog.publishDate,
+      "image": blog.image.startsWith("http") ? blog.image : `${baseUrlForSchema}${blog.image}`,
+      "url": `${baseUrlForSchema}/blog-details/${blogId}`,
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": `${baseUrlForSchema}/blog-details/${blogId}`
+      }
+    };
+
     return (
       <Fragment>
-        <Breadcrumb pageName={blog.title} description="Project Details" />
-      <section className="overflow-hidden py-16 sm:py-24 lg:py-32 isolate px-2 sm:px-6 lg:px-8 bg-gradient-to-b bg-gray-900/20 from-gray-950 via-mygreen/10 to-mygreen/5 relative">
-        <div className="max-w-5xl mx-auto flex flex-col gap-10">
-          {/* AUTHOR/META HEADER */}
-          <div className="flex flex-col gap-8 sm:gap-0 sm:flex-row sm:justify-between sm:items-center border-b border-mygreen/40 pb-5">
-            <div className="flex flex-row items-center gap-6">
-              {/* Author Avatar */}
-              <div className="relative h-12 w-12 rounded-full overflow-hidden border-2 border-mygreen shadow">
-                <Image
-                  src={blog.author.image}
-                  alt={`Author: ${blog.author.name}`}
-                  fill
-                  className="object-cover"
-                  sizes="48px"
-                  priority
-                />
-              </div>
-              <div className="flex flex-col justify-center">
-                <span className="text-xs sm:text-sm text-body-color/90">
-                  By <strong>{blog.author.name}</strong>
-                </span>
-                <span className="text-xs sm:text-sm text-body-color/70">{blog.publishDate}</span>
-              </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(articleSchema)
+          }}
+        />
+        
+        {/* Main Content Section */}
+        <section className="relative min-h-screen bg-[#000000] bg-gradient-to-b from-[#0a0a0a] via-[#000000] to-[#050a08] 
+          overflow-hidden py-8 sm:py-12 lg:py-16 pt-24 sm:pt-28 lg:pt-32 mt-12 sm:mt-24 lg:mt-28">
+          
+          {/* Background Effects */}
+          <BlogBackgroundEffects />
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-20">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+              
+              {/* Main Content Column */}
+              <article className="lg:col-span-8 space-y-6 sm:space-y-8">
+                
+                {/* Title Section */}
+                <div className="space-y-4 sm:space-y-6">
+                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black 
+                    text-[#00ff41] leading-tight font-mono tracking-tight
+                    drop-shadow-[0_0_15px_rgba(0,255,65,0.6)]">
+                    {blog.title}
+                  </h1>
+                  
+                  {/* Author & Date Info */}
+                  <div className="flex flex-wrap items-center gap-4 sm:gap-6">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="relative h-12 w-12 sm:h-14 sm:w-14 rounded-full overflow-hidden 
+                        border-2 border-[#00ff41]/60 shadow-[0_0_15px_rgba(0,255,65,0.4)]">
+                        <Image
+                          src={blog.author.image}
+                          alt={`Author: ${blog.author.name}`}
+                          fill
+                          className="object-cover"
+                          sizes="56px"
+                          priority
+                        />
+                      </div>
+                      <div className="flex flex-col">
+                        <span className="text-sm sm:text-base font-mono text-[#00ff41]/90">
+                          By <strong className="text-[#00ff41]">{blog.author.name}</strong>
+                        </span>
+                        <span className="text-xs sm:text-sm font-mono text-[#788293] mt-0.5" suppressHydrationWarning>
+                          {blog.publishDate}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Hero Section: Featured Image - No Text Overlay */}
+                <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden 
+                  rounded-sm border border-[#00ff41]/40 shadow-[0_0_30px_rgba(0,255,65,0.2)] 
+                  group will-change-transform">
+                  <Image
+                    src={blog.image}
+                    alt={`Featured image for ${blog.title}`}
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 800px"
+                    priority
+                    quality={90}
+                  />
+                  
+                  {/* Subtle Overlay for better image visibility */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent 
+                    opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                </div>
+
+                {/* Main Article Content - Cyberpunk Terminal */}
+                <TerminalContainer className="mt-6 sm:mt-8">
+                  <div className="prose prose-invert prose-lg max-w-none 
+                    prose-headings:text-[#00ff41] prose-headings:font-mono prose-headings:font-bold
+                    prose-p:text-[#e0e0e0] prose-p:leading-relaxed prose-p:text-base sm:text-lg
+                    prose-a:text-[#00ff41] prose-a:no-underline hover:prose-a:underline
+                    prose-strong:text-[#00ff41] prose-code:text-[#00ff41] prose-code:bg-[#050805]
+                    prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-sm
+                    prose-blockquote:border-l-[#00ff41] prose-blockquote:text-[#b0b0b0]
+                    prose-ul:text-[#e0e0e0] prose-ol:text-[#e0e0e0]
+                    prose-li:marker:text-[#00ff41]">
+                    <p className="text-center sm:text-left text-base sm:text-lg leading-relaxed 
+                      text-[#e0e0e0] max-w-[65ch] mx-auto sm:mx-0">
+                      {blog.paragraph}
+                    </p>
+                  </div>
+                </TerminalContainer>
+
+                {/* Action Buttons: Live Demo & GitHub */}
+                <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4 mt-6 sm:mt-8">
+                  <Link
+                    href={blog.livedemo}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="See Live Demo"
+                    className="group relative inline-flex items-center justify-center min-h-[44px] gap-2 
+                      px-6 sm:px-8 py-3 rounded-sm bg-gradient-to-r from-[#00ff41] to-[#00cc33] 
+                      text-black font-bold text-sm sm:text-base tracking-wide 
+                      shadow-[0_0_20px_rgba(0,255,65,0.5)] hover:shadow-[0_0_30px_rgba(0,255,65,0.7)]
+                      hover:scale-105 active:scale-100 transition-all duration-200 
+                      border-2 border-transparent hover:border-[#00ff41] will-change-transform"
+                  >
+                    <span>🚀</span>
+                    <span>Live Demo</span>
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" 
+                      fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} 
+                        d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </Link>
+                  
+                  <Link
+                    href={blog.gitlink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="View on GitHub"
+                    className="group relative inline-flex items-center justify-center min-h-[44px] gap-2 
+                      px-6 sm:px-8 py-3 rounded-sm border-2 border-[#00ff41]/60 bg-[#0a0a0a]/80 
+                      backdrop-blur-sm text-[#00ff41] font-bold text-sm sm:text-base 
+                      shadow-[0_0_15px_rgba(0,255,65,0.3)] hover:border-[#00ff41] 
+                      hover:bg-[#00ff41]/10 hover:shadow-[0_0_25px_rgba(0,255,65,0.5)]
+                      hover:scale-105 active:scale-100 transition-all duration-200 will-change-transform"
+                  >
+                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    <span>GitHub Code</span>
+                  </Link>
+                </div>
+
+                {/* Optional Secondary Paragraph */}
+                {blog.paragraph2 && (
+                  <TerminalContainer className="mt-6 sm:mt-8">
+                    <div className="relative">
+                      <div className="absolute -top-2 left-1/2 -translate-x-1/2">
+                        <svg className="w-8 h-8 text-[#00ff41]/60" fill="none" stroke="currentColor" 
+                          strokeWidth={2} viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" 
+                            d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2m6-4v12m6-6H6" />
+                        </svg>
+                      </div>
+                      <p className="text-center sm:text-left text-base sm:text-lg leading-relaxed 
+                        text-[#b0b0b0] italic max-w-[65ch] mx-auto sm:mx-0 pt-4">
+                        {blog.paragraph2}
+                      </p>
+                    </div>
+                  </TerminalContainer>
+                )}
+
+                {/* Tags & Share Section */}
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center 
+                  gap-6 sm:gap-8 pt-6 sm:pt-8 border-t border-[#00ff41]/20 mt-6 sm:mt-8">
+                  <div className="flex flex-wrap justify-center sm:justify-start gap-3 sm:gap-4">
+                    <TagButton href="https://github.com/mehmedmuric" text="Github Profile" />
+                    <TagButton href="/contact" text="Contact Me" />
+                    <TagButton href="/about" text="About Me" />
+                  </div>
+                  <div className="flex justify-center sm:justify-end w-full sm:w-auto">
+                    <SharePost />
+                  </div>
+                </div>
+              </article>
+
+              {/* Sidebar - HUD Panels (Desktop) */}
+              <aside className="lg:col-span-4 space-y-6 lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)] 
+                lg:overflow-y-auto lg:overflow-x-hidden">
+                
+                {/* Tags HUD Panel */}
+                <HUDPanel title="TAGS">
+                  <TagsDisplay tags={blog.tags} />
+                </HUDPanel>
+
+                {/* Author HUD Panel */}
+                <HUDPanel title="AUTHOR">
+                  <div className="flex flex-col sm:flex-row lg:flex-col items-center sm:items-start 
+                    lg:items-center gap-4">
+                    <div className="relative h-20 w-20 sm:h-24 sm:w-24 rounded-full overflow-hidden 
+                      border-2 border-[#00ff41]/60 shadow-[0_0_15px_rgba(0,255,65,0.4)] flex-shrink-0">
+                      <Image
+                        src={blog.author.image}
+                        alt={`Author: ${blog.author.name}`}
+                        fill
+                        className="object-cover"
+                        sizes="96px"
+                        loading="lazy"
+                      />
+                    </div>
+                    <div className="text-center sm:text-left lg:text-center">
+                      <h4 className="text-base sm:text-lg font-mono font-bold text-[#00ff41] mb-1">
+                        {blog.author.name}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-[#788293] font-mono">
+                        FullStack Developer
+                      </p>
+                    </div>
+                  </div>
+                </HUDPanel>
+              </aside>
             </div>
-            <TagsDisplay tags={blog.tags} />
           </div>
-
-          {/* TITLE */}
-          <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-center sm:text-left mt-2 mb-2 tracking-tight text-green-100">
-            {blog.title}
-          </h1>
-
-          {/* PARAGRAPH */}
-          <p className="text-center sm:text-left text-base sm:text-lg leading-relaxed text-body-color/90 max-w-3xl mx-auto">
-            {blog.paragraph}
-          </p>
-
-          {/* IMAGE */}
-          <div className="w-full rounded-xl overflow-hidden border border-mygreen/70 shadow-lg group relative">
-            <div className="relative aspect-[16/9] w-full bg-mygreen/5 transition-all duration-300 group-hover:scale-[1.01] group-hover:shadow-xl">
-              <Image
-                src={blog.image}
-                alt={`Image for ${blog.title}`}
-                fill
-                className="object-cover object-center"
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 50vw"
-                priority
-              />
-              {/* Overlay effect */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/10 pointer-events-none"></div>
-            </div>
-          </div>
-
-          {/* LIVE DEMO / GITHUB */}
-          <div className="flex flex-wrap sm:flex-row justify-center sm:justify-start items-center gap-4 mt-4">
-            <Link
-              href={blog.livedemo}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="See Live Demo"
-              className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-green-400 to-green-700 px-7 py-3 text-base font-bold tracking-wide shadow-lg hover:scale-105 active:scale-95 transition group border-2 border-transparent hover:text-white hover:bg-gradient-to-l hover:from-green-500 hover:to-green-800 text-black"
-            >
-              <span className="">🚀</span>
-              Live Demo
-              <svg className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-            <Link
-              href={blog.gitlink}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="View on GitHub"
-              className="inline-flex items-center gap-2 rounded-full border-2 border-green-500 bg-black px-7 py-3 font-bold text-white shadow-md hover:scale-105 hover:bg-green-500/10 hover:text-green-300 transition"
-            >
-              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-              </svg>
-              GitHub Code
-            </Link>
-          </div>
-
-          {/* OPTIONAL SECONDARY PARAGRAPH */}
-          {blog.paragraph2 && (
-            <div className="bg-primary/15 rounded-xl p-6 sm:p-8 text-center italic text-body-color shadow border-t border-b border-mygreen/10 max-w-2xl mx-auto mt-2">
-              <svg className="mx-auto mb-3 w-7 h-7 text-green-400 opacity-80" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2m6-4v12m6-6H6" />
-              </svg>
-              {blog.paragraph2}
-            </div>
-          )}
-
-          {/* TAG BUTTONS & SHARE */}
-          <div className="flex flex-col sm:flex-row justify-between items-center gap-7 pt-4 border-t border-mygreen/20">
-            <div className="flex flex-wrap justify-center sm:justify-start gap-2 sm:gap-4">
-              <TagButton href="https://github.com/mehmedmuric" text="Github Profile" />
-              <TagButton href="/contact" text="Contact Me" />
-              <TagButton href="/about" text="About Me" />
-            </div>
-            <div className="flex justify-center sm:justify-end">
-              <SharePost />
-            </div>
-          </div>
-        </div>
-        {/* SCROLL DOWN INDICATOR (for style/continuity with home) */}
-        <div className="absolute left-1/2 -translate-x-1/2 bottom-6 flex flex-col items-center group pointer-events-none" style={{ opacity: 1 }}>
-          <span className="text-xs text-green-400/60 mb-2 tracking-wider font-semibold group-animate-bounce">
-            Scroll for More
-          </span>
-          <svg className="w-5 h-5 text-green-400/60 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-          </svg>
-        </div>
-      </section>
-    </Fragment>
+        </section>
+      </Fragment>
     );
   } catch (error) {
-    console.error("Error loading blog:", error);
-    return <div className="text-white p-10 text-center text-xl md:text-2xl">🚫 Error loading project</div>;
+    if (process.env.NODE_ENV === 'development') {
+      console.error("Error loading blog:", error);
+    }
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0a0a0a] via-[#050805] to-[#0a0a0a]">
+        <div className="text-[#00ff41] p-10 text-center text-xl md:text-2xl font-mono">
+          🚫 Error loading project
+        </div>
+      </div>
+    );
   }
 }

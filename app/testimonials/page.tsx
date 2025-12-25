@@ -4,10 +4,13 @@ import TestimonialsClient from "./TestimonialsClient";
 export const metadata: Metadata = {
   title: "Testimonials",
   description: "See what clients say about my work and leave your feedback.",
+  alternates: {
+    canonical: "https://mehmedmuric.com/testimonials",
+  },
   openGraph: {
-    title: "About Me | Mehmed Muric",
+    title: "Testimonials | Mehmed Muric",
     description: "See what clients say about my work and leave your feedback.",
-    url: "https://mehmedmuric/testimonials",
+    url: "https://mehmedmuric.com/testimonials",
     images: ["/images/logo/MMlogo.png"],
   },
 };

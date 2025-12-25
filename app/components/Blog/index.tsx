@@ -14,7 +14,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 
-// Inline SVGs for left/right arrows to avoid missing FaArrowLeft/FaArrowRight
+// Inline SVGs for navigation arrows
 const ArrowLeftIcon = ({ className = "", ...props }: React.SVGProps<SVGSVGElement>) => (
   <svg
     className={className}
@@ -57,8 +57,21 @@ const BlogList = () => {
   const [projects, setProjects] = useState<Blog[]>([]);
   const [loading, setLoading] = useState(true);
   const [fetchError, setFetchError] = useState<string | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLElement | null>(null);
   const swiperRef = useRef<any>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Mouse parallax for cyber effects
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({
+        x: (e.clientX / window.innerWidth - 0.5) * 25,
+        y: (e.clientY / window.innerHeight - 0.5) * 25,
+      });
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   useEffect(() => {
     let isMounted = true;
@@ -96,241 +109,556 @@ const BlogList = () => {
   useEffect(() => {
     if (!containerRef.current) return;
 
-    // Delay to ensure DOM is ready
     const timer = setTimeout(() => {
-      if (!document.querySelector(".blog-section")) return;
+      const blogSection = document.querySelector(".blog-section");
+      const blogTitle = document.querySelector(".blog-title");
+      if (!blogSection || !blogTitle) return;
 
       const ctx = gsap.context(() => {
-        // section reveal
-        gsap.from(".blog-section", {
+        gsap.from(blogSection, {
           opacity: 0,
-          y: 60,
-          duration: 1.3,
-          ease: "power3.out",
-          autoKill: true,
-          scrollTrigger: {
-            trigger: ".blog-section",
-            start: "top 80%",
-          },
-        });
-
-        // title pulse + glow
-        gsap.from(".blog-title", {
-          opacity: 0,
-          scale: 0.9,
-          filter: "drop-shadow(0 0 10px rgba(0,255,128,0))",
-          duration: 1.2,
+          y: 50,
+          duration: 0.8,
           ease: "power2.out",
-          autoKill: true,
           scrollTrigger: {
-            trigger: ".blog-title",
+            trigger: blogSection,
             start: "top 85%",
+            invalidateOnRefresh: true,
           },
         });
 
-        // project cards float + glow
+        gsap.from(blogTitle, {
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.7,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: blogTitle,
+            start: "top 90%",
+            invalidateOnRefresh: true,
+          },
+        });
+
         gsap.utils.toArray(".blog-card").forEach((el: any, i) => {
+          if (!el) return;
           gsap.fromTo(
             el,
             {
               opacity: 0,
-              y: 80,
-              scale: 0.95,
-              filter: "drop-shadow(0 0 0px rgba(0,255,128,0))",
+              y: 40,
+              scale: 0.96,
             },
             {
               opacity: 1,
               y: 0,
               scale: 1,
-              duration: 1,
-              delay: i * 0.12,
-              ease: "power3.out",
-              filter: "drop-shadow(0 0 18px rgba(0,255,128,0.16))",
-              autoKill: true,
+              duration: 0.6,
+              delay: i * 0.05,
+              ease: "power2.out",
               scrollTrigger: {
                 trigger: el,
-                start: "top 85%",
+                start: "top 90%",
+                invalidateOnRefresh: true,
               },
             }
-        );
-      });
+          );
+        });
       }, containerRef);
 
       return () => ctx.revert();
-    }, 100); // Delay to allow DOM to render
+    }, 100);
 
     return () => clearTimeout(timer);
   }, [projects]);
 
   const handlePrevSlide = () => {
-    if (swiperRef.current && swiperRef.current.swiper) {
+    if (swiperRef.current?.swiper) {
       swiperRef.current.swiper.slidePrev();
     }
   };
 
   const handleNextSlide = () => {
-    if (swiperRef.current && swiperRef.current.swiper) {
+    if (swiperRef.current?.swiper) {
       swiperRef.current.swiper.slideNext();
     }
   };
 
-  // Stats
   const recentProjects = useMemo(
     () => projects.slice(0, Math.min(3, projects.length)),
     [projects]
   );
 
+  // Calculate if loop should be enabled (need at least 4 slides for loop to work properly)
+  const shouldEnableLoop = projects.length > 3;
+
   return (
     <section
       ref={containerRef}
-      className="blog-section relative overflow-hidden py-16 md:py-20 lg:py-28 isolate px-4 sm:px-6 md:px-8 lg:px-8
-        bg-[#010101] bg-[radial-gradient(ellipse_at_top,_#0a3b27_0%,_#010101_85%)]"
+      className="blog-section relative overflow-hidden py-12 sm:py-16 md:py-20 lg:py-24 isolate px-4 sm:px-6 lg:px-8 bg-[#000000]"
+      id="projects"
       aria-labelledby="projects-title"
-      tabIndex={-1}
     >
-      {/* Neon overlays */}
-      <div className="pointer-events-none absolute -inset-32 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.11),_transparent_85%)] blur-3xl animate-pulse-slow" />
-      <div className="pointer-events-none absolute -inset-64 bg-[radial-gradient(circle_at_center,_rgba(0,255,128,0.04),_transparent_85%)] blur-[120px]" />
-
-      <div className="container relative z-10">
-        <div className="blog-title">
-          <SectionTitle
-            title="Projects"
-            paragraph="Browse featured and recent creations."
-            center
-            mb="36px"
+      {/* Dark futuristic background with subtle texture */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,65,0.03)_0%,_transparent_70%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,_transparent_0%,_rgba(0,255,65,0.01)_50%,_transparent_100%)]" />
+      
+      {/* Animated HUD Grid Pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(90deg,#00FF41_1px,transparent_1px),linear-gradient(#00FF41_1px,transparent_1px)] bg-[size:40px_40px]"
+        style={{ animation: 'hudGridMove 25s linear infinite' }}
+        aria-hidden
+      />
+      <div
+        className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(90deg,#00FF41_1px,transparent_1px),linear-gradient(#00FF41_1px,transparent_1px)] bg-[size:20px_20px]"
+        style={{ animation: 'hudGridMoveReverse 18s linear infinite' }}
+        aria-hidden
+      />
+      
+      {/* Animated scanning lines */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        {[...Array(3)].map((_, i) => (
+          <div
+            key={`scan-${i}`}
+            className="absolute left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent opacity-30"
+            style={{
+              animation: `hudScanLine ${8 + i * 2}s linear infinite`,
+              animationDelay: `${i * 2.5}s`,
+              top: `${(i * 33) % 100}%`,
+            }}
+            aria-hidden
           />
-        </div>
-        {/* Stats Row */}
-        <div className="flex justify-center flex-wrap gap-3 sm:gap-5 mb-8">
-          <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/40 border border-green-400/30 shadow-green-900/40 shadow text-green-200 font-mono text-xs sm:text-sm">
-            <span role="img" aria-label="New">🆕</span>
-            <span className="font-bold">{recentProjects.length}</span>
-            <span className="hidden sm:inline">Recent</span>
-          </div>
-          <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-black/40 border border-green-400/30 shadow-green-900/40 shadow text-green-200 font-mono text-xs sm:text-sm">
-            <span role="img" aria-label="Projects">🗂</span>
-            <span className="font-bold">{projects.length}</span>
-            <span className="hidden sm:inline">Total</span>
+        ))}
+      </div>
+      
+      {/* Data stream particles */}
+      {[...Array(10)].map((_, i) => (
+        <div
+          key={`particle-${i}`}
+          className="absolute w-[1px] h-[20px] bg-[#00FF41] opacity-20"
+          style={{
+            left: `${5 + (i * 9) % 90}%`,
+            animation: `hudDataStream ${4 + (i % 3)}s linear infinite`,
+            animationDelay: `${i * 0.3}s`,
+            boxShadow: `0 0 ${2 + (i % 3)}px #00FF41`,
+          }}
+          aria-hidden
+        />
+      ))}
+      
+      {/* Floating HUD corner brackets */}
+      <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-[#00FF41] opacity-40 animate-hud-float" aria-hidden />
+      <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-[#00FF41] opacity-40 animate-hud-float" style={{ animationDelay: '1s' }} aria-hidden />
+      <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-[#00FF41] opacity-40 animate-hud-float" style={{ animationDelay: '2s' }} aria-hidden />
+      <div className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-[#00FF41] opacity-40 animate-hud-float" style={{ animationDelay: '1.5s' }} aria-hidden />
+      
+      {/* HUD Status Lines */}
+      <div className="absolute top-20 left-8 w-32 h-[1px] bg-[#00FF41] opacity-30" aria-hidden />
+      <div className="absolute top-20 left-8 w-[1px] h-8 bg-[#00FF41] opacity-30" aria-hidden />
+      <div className="absolute top-20 right-8 w-32 h-[1px] bg-[#00FF41] opacity-30" aria-hidden />
+      <div className="absolute top-20 right-8 w-[1px] h-8 bg-[#00FF41] opacity-30" aria-hidden />
+      
+      {/* HUD Info Panels - Enhanced */}
+      <div 
+        className="absolute bottom-20 left-8 px-3 py-1.5 bg-black/60 border border-[#00FF41]/30 font-mono text-[#00FF41]/60 text-[10px] tracking-wider backdrop-blur-sm transition-all duration-300 hover:border-[#00FF41]/60 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)]" 
+        aria-hidden
+        style={{
+          clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))'
+        }}
+      >
+        <span className="text-[#00FF41]">[PROJECTS_ACTIVE]</span>
+      </div>
+      <div 
+        className="absolute bottom-20 right-8 px-3 py-1.5 bg-black/60 border border-[#00FF41]/30 font-mono text-[#00FF41]/60 text-[10px] tracking-wider backdrop-blur-sm transition-all duration-300 hover:border-[#00FF41]/60 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)]" 
+        aria-hidden
+        style={{
+          clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))'
+        }}
+      >
+        <span className="text-[#00FF41]">[{projects.length} ITEMS]</span>
+      </div>
+      
+      {/* Glowing orbs for depth with mouse parallax */}
+      <div
+        className="absolute -inset-40 bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.15),_transparent_70%)] blur-3xl transition-transform duration-1000"
+        style={{
+          transform: `translate(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.18}px)`,
+        }}
+        aria-hidden
+      />
+      <div
+        className="absolute top-1/4 right-1/4 w-96 h-96 bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.08),_transparent_70%)] blur-[120px] transition-transform duration-1000"
+        style={{
+          transform: `translate(${mousePosition.x * 0.12}px, ${mousePosition.y * 0.1}px)`,
+        }}
+        aria-hidden
+      />
+
+      <div className="container mx-auto relative z-10 max-w-7xl">
+        {/* Section title with HUD styling */}
+        <div className="relative mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+          {/* HUD Panel behind title */}
+          <div className="absolute inset-0 -inset-x-4 md:-inset-x-8 bg-black/40 border border-[#00FF41]/30 rounded-lg backdrop-blur-sm shadow-[0_0_20px_rgba(0,255,65,0.2)]" />
+          <div className="absolute top-0 left-0 w-2 h-full bg-[#00FF41] opacity-60" />
+          <div className="relative px-4 md:px-8 py-6 md:py-8 blog-title">
+            <SectionTitle
+              title="Projects"
+              paragraph="Browse featured and recent creations."
+              center
+              mb="0px"
+            />
           </div>
         </div>
 
-        {/* Loader/Error State */}
+        {/* Descriptive text - HUD style */}
+        <p
+          className="text-center text-[#00FF41]/80 font-mono tracking-wide max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 text-sm sm:text-base md:text-lg relative z-10"
+        >
+          Explore my portfolio of innovative web applications, full-stack solutions, and creative digital experiences:
+        </p>
+
+        {/* Stats Badges - Enhanced HUD Style */}
+        <div className="flex justify-center flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12 relative z-10">
+          <div 
+            className="group relative flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105 hover:border-[#00FF41]"
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              borderColor: 'rgba(0, 255, 65, 0.3)',
+              boxShadow: '0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05)',
+              color: '#00FF41',
+              clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 65, 0.4), inset 0 0 30px rgba(0, 255, 65, 0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05)';
+            }}
+          >
+            {/* HUD corner brackets with glow */}
+            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute top-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            </div>
+            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute top-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            </div>
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute bottom-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            </div>
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute bottom-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            </div>
+            {/* Scanning line effect */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-300 pointer-events-none" />
+            <span role="img" aria-label="New" className="text-base sm:text-lg relative z-10">🆕</span>
+            <span className="font-bold text-sm sm:text-base font-mono relative z-10">{recentProjects.length}</span>
+            <span className="hidden sm:inline text-sm sm:text-base font-mono relative z-10">Recent</span>
+          </div>
+          <div 
+            className="group relative flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105 hover:border-[#00FF41]"
+            style={{
+              backgroundColor: 'rgba(0, 0, 0, 0.7)',
+              borderColor: 'rgba(0, 255, 65, 0.3)',
+              boxShadow: '0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05)',
+              color: '#00FF41',
+              clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 65, 0.4), inset 0 0 30px rgba(0, 255, 65, 0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05)';
+            }}
+          >
+            {/* HUD corner brackets with glow */}
+            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute top-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            </div>
+            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute top-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            </div>
+            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute bottom-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            </div>
+            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+              <div className="absolute bottom-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+            </div>
+            {/* Scanning line effect */}
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-300 pointer-events-none" />
+            <span role="img" aria-label="Projects" className="text-base sm:text-lg relative z-10">🗂</span>
+            <span className="font-bold text-sm sm:text-base font-mono relative z-10">{projects.length}</span>
+            <span className="hidden sm:inline text-sm sm:text-base font-mono relative z-10">Total</span>
+          </div>
+        </div>
+
+        {/* Content Area */}
         {loading ? (
-          <div className="flex justify-center py-20">
+          <div className="flex justify-center py-16 sm:py-20 md:py-24">
             <Loader />
           </div>
         ) : fetchError ? (
-          <div className="flex justify-center items-center py-14 text-red-400 text-center font-mono text-lg">
+          <div 
+            className="flex justify-center items-center py-12 sm:py-14 text-center font-mono text-base sm:text-lg px-4"
+            style={{ color: '#f87171' }}
+          >
             {fetchError}
           </div>
         ) : projects.length === 0 ? (
-          <div className="flex justify-center items-center py-14 text-white/60 font-mono text-lg">
+          <div 
+            className="flex justify-center items-center py-12 sm:py-14 font-mono text-base sm:text-lg px-4"
+            style={{ color: 'rgba(255, 255, 255, 0.6)' }}
+          >
             No projects found.
           </div>
         ) : (
           <>
-            <Swiper
-              className="!p-3 sm:!p-4 md:!p-6 lg:!p-8"
-              ref={swiperRef}
-              spaceBetween={24}
-              slidesPerView={3}
-              loop={true}
-              autoplay={{ delay: 2600, disableOnInteraction: false }}
-              modules={[Autoplay, Navigation, Pagination]}
-              pagination={{
-                el: ".swiper-pagination",
-                clickable: true,
-                bulletClass: "project-swiper-bullet",
-                bulletActiveClass: "project-swiper-bullet-active",
-              }}
-              breakpoints={{
-                0: { slidesPerView: 1, spaceBetween: 15 },
-                640: { slidesPerView: 1, spaceBetween: 20 },
-                768: { slidesPerView: 2, spaceBetween: 28 },
-                1024: { slidesPerView: 3, spaceBetween: 32 },
-              }}
+            {/* Swiper Carousel */}
+            <div className="mb-6 sm:mb-8">
+              <Swiper
+                className="!pb-2 sm:!pb-4"
+                ref={swiperRef}
+                spaceBetween={16}
+                slidesPerView={1}
+                loop={shouldEnableLoop}
+                autoplay={shouldEnableLoop ? {
+                  delay: 3000, 
+                  disableOnInteraction: false,
+                  pauseOnMouseEnter: true
+                } : false}
+                modules={[Autoplay, Navigation, Pagination]}
+                pagination={{
+                  el: ".swiper-pagination",
+                  clickable: true,
+                  bulletClass: "swiper-bullet-custom",
+                  bulletActiveClass: "swiper-bullet-active-custom",
+                }}
+                breakpoints={{
+                  640: { slidesPerView: 1, spaceBetween: 20 },
+                  768: { slidesPerView: 2, spaceBetween: 24 },
+                  1024: { slidesPerView: 3, spaceBetween: 28 },
+                }}
+              >
+                {projects.map((blog, index) => (
+                  <SwiperSlide key={`${blog.id}-${index}`}>
+                    <article
+                      className="blog-card group relative h-full overflow-hidden transition-all duration-300 ease-out hover:-translate-y-1 md:hover:-translate-y-2 hover:scale-[1.02]"
+                      style={{
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+                        border: '2px solid rgba(0, 255, 65, 0.3)',
+                        boxShadow: '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 30px rgba(0, 255, 65, 0.05)',
+                        backdropFilter: 'blur(8px)',
+                        clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.boxShadow = '0 0 40px rgba(0, 255, 65, 0.6), inset 0 0 40px rgba(0, 255, 65, 0.1)';
+                        e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 1)';
+                        e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.boxShadow = '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 30px rgba(0, 255, 65, 0.05)';
+                        e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 0.3)';
+                        e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                      }}
+                    >
+                      {/* HUD Corner Brackets - Enhanced */}
+                      <div className="absolute top-1 left-1 w-4 h-4 border-t-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
+                        <div className="absolute top-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      </div>
+                      <div className="absolute top-1 right-1 w-4 h-4 border-t-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
+                        <div className="absolute top-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      </div>
+                      <div className="absolute bottom-1 left-1 w-4 h-4 border-b-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
+                        <div className="absolute bottom-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      </div>
+                      <div className="absolute bottom-1 right-1 w-4 h-4 border-b-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20">
+                        <div className="absolute bottom-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                      </div>
+                      
+                      {/* HUD Status Indicator - Enhanced */}
+                      <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-black/80 border border-[#00FF41]/40 font-mono text-[8px] text-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 backdrop-blur-sm"
+                        style={{
+                          clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                          boxShadow: '0 0 10px rgba(0, 255, 65, 0.3)'
+                        }}
+                      >
+                        <span className="text-[#00FF41]">[ACTIVE]</span>
+                      </div>
+                      
+                      {/* HUD Top Accent Line */}
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-[1px] bg-[#00FF41]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      {/* Scanning line effect on hover */}
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-300 pointer-events-none" />
+                      
+                      {/* HUD Side Panels */}
+                      <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-16 bg-[#00FF41]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[2px] h-16 bg-[#00FF41]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      {/* HUD Bottom Status Bar */}
+                      <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                      
+                      <div className="relative z-10">
+                        <SingleBlog blog={blog} />
+                      </div>
+                    </article>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            </div>
+
+            {/* Pagination Dots - Enhanced HUD Style */}
+            <div className="swiper-pagination flex justify-center items-center gap-2 mb-6 sm:mb-8 relative z-10" 
+              style={{
+                '--swiper-pagination-color': 'rgba(0, 255, 65, 0.3)',
+              } as React.CSSProperties}
             >
-              {projects.map((blog, index) => (
-                <SwiperSlide key={index}>
-                  <div
-                    className={`blog-card group relative rounded-3xl overflow-hidden 
-                      shadow-[0_0_22px_rgba(0,255,128,0.14)] hover:shadow-[0_0_40px_rgba(0,255,128,0.34)]
-                      transition-all duration-500 hover:-translate-y-2 hover:scale-105
-                      backdrop-blur-md p-4 border border-green-500/15
-                      `}
-                  >
-                    <SingleBlog blog={blog} />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
+              {/* HUD indicator line above pagination */}
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-[1px] bg-[#00FF41]/30" aria-hidden />
+            </div>
 
-            {/* Swiper Pagination Dots */}
-            <div className="swiper-pagination flex justify-center items-center gap-2 mt-5 z-20 mb-1 [&>span]:!w-3.5 [&>span]:!h-3.5 [&>span]:bg-green-500/20 [&>span.project-swiper-bullet-active]:bg-green-500/90 [&>span]:transition-all" />
-
-            {/* Navigation buttons with improved a11y and Fa icons */}
-            <div className="flex justify-center gap-4 md:gap-6 mt-3 md:mt-6">
+            {/* Navigation Controls - HUD Style */}
+            <nav className="flex justify-center items-center gap-4 sm:gap-6 mb-8 sm:mb-10" aria-label="Project carousel navigation">
               <button
                 onClick={handlePrevSlide}
-                className="group relative bg-green-500 border border-green-500 text-black py-2.5 px-5 md:py-3 md:px-6 rounded-full
-                  focus:outline-none focus:ring-2 focus:ring-green-400/70
-                  hover:bg-transparent hover:text-green-500 
-                  shadow-[0_0_15px_rgba(0,255,128,0.4)] hover:shadow-[0_0_25px_rgba(0,255,128,0.6)]
-                  transition-all duration-300 hover:scale-110 overflow-hidden flex items-center justify-center"
+                className="group/btn relative border-2 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#00FF41]/80 focus:ring-offset-2 focus:ring-offset-black flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed font-mono"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                  borderColor: '#00FF41',
+                  color: '#00FF41',
+                  padding: '0.625rem 1.25rem',
+                  boxShadow: '0 0 20px rgba(0, 255, 65, 0.4)',
+                  clipPath: 'polygon(4px 0, 100% 0, 100% 100%, 0 100%, 0 4px)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 65, 0.8), inset 0 0 20px rgba(0, 255, 65, 0.1)';
+                  e.currentTarget.style.backgroundColor = 'rgba(0, 255, 65, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.4)';
+                  e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                }}
                 aria-label="Previous project slide"
-                tabIndex={0}
                 type="button"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/30 to-green-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative z-10 text-base md:text-lg font-bold flex items-center">
-                  <ArrowLeftIcon className="w-5 h-5 mr-1 text-green-900 group-hover:text-green-400 transition-colors duration-200" aria-hidden="true" />
-                  <span className="sr-only">Previous</span>
-                </span>
+                {/* Button corner accents */}
+                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                {/* Button scanning line effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover/btn:opacity-100 group-hover/btn:animate-hudButtonScan transition-opacity duration-200 pointer-events-none" />
+                <ArrowLeftIcon 
+                  className="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-200 relative z-10" 
+                  aria-hidden="true" 
+                />
+                <span className="sr-only">Previous</span>
               </button>
               <button
                 onClick={handleNextSlide}
-                className="group relative bg-green-500 border border-green-500 text-black py-2.5 px-5 md:py-3 md:px-6 rounded-full
-                  focus:outline-none focus:ring-2 focus:ring-green-400/70
-                  hover:bg-transparent hover:text-green-500 
-                  shadow-[0_0_15px_rgba(0,255,128,0.4)] hover:shadow-[0_0_25px_rgba(0,255,128,0.6)]
-                  transition-all duration-300 hover:scale-110 overflow-hidden flex items-center justify-center"
+                className="group/btn relative border-2 transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-[#00FF41]/80 focus:ring-offset-2 focus:ring-offset-black flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed font-mono"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                  borderColor: '#00FF41',
+                  color: '#00FF41',
+                  padding: '0.625rem 1.25rem',
+                  boxShadow: '0 0 20px rgba(0, 255, 65, 0.4)',
+                  clipPath: 'polygon(4px 0, 100% 0, 100% 100%, 0 100%, 0 4px)'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 65, 0.8), inset 0 0 20px rgba(0, 255, 65, 0.1)';
+                  e.currentTarget.style.backgroundColor = 'rgba(0, 255, 65, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.4)';
+                  e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                }}
                 aria-label="Next project slide"
-                tabIndex={0}
                 type="button"
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/30 to-green-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <span className="relative z-10 text-base md:text-lg font-bold flex items-center">
-                  <ArrowRightIcon className="w-5 h-5 ml-1 text-green-900 group-hover:text-green-400 transition-colors duration-200" aria-hidden="true" />
-                  <span className="sr-only">Next</span>
-                </span>
+                {/* Button corner accents */}
+                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+                {/* Button scanning line effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover/btn:opacity-100 group-hover/btn:animate-hudButtonScan transition-opacity duration-200 pointer-events-none" />
+                <ArrowRightIcon 
+                  className="w-5 h-5 sm:w-6 sm:h-6 transition-colors duration-200 relative z-10" 
+                  aria-hidden="true" 
+                />
+                <span className="sr-only">Next</span>
               </button>
-            </div>
+            </nav>
 
-            {/* "All Projects" Button */}
-            <div className="flex justify-center mt-6 md:mt-8">
+            {/* CTA Button - HUD Style */}
+            <div className="flex justify-center">
               <Link
-                href={"/projects"}
-                className="group relative rounded-lg bg-green-500 px-6 py-3 md:px-9 md:py-4 border border-green-500 text-black
-                  font-medium text-sm md:text-base duration-300 ease-in-out hover:bg-transparent
-                  hover:text-green-500 shadow-[0_0_15px_rgba(0,255,128,0.4)] 
-                  hover:shadow-[0_0_30px_rgba(0,255,128,0.6)] transition-all hover:scale-105 overflow-hidden
-                  focus:outline-none focus:ring-2 focus:ring-green-400/70"
+                href="/projects"
+                className="group/cta relative border-2 font-mono font-bold uppercase tracking-wider transition-all duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#00FF41]/80 focus:ring-offset-2 focus:ring-offset-black overflow-hidden inline-flex items-center gap-2 px-6 py-3 sm:px-8 sm:py-3.5 md:px-9 md:py-4 text-xs sm:text-sm md:text-base"
+                style={{
+                  backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                  borderColor: '#00FF41',
+                  color: '#00FF41',
+                  boxShadow: '0 0 20px rgba(0, 255, 65, 0.4)',
+                  animationDelay: '0.3s',
+                  clipPath: 'polygon(4px 0, 100% 0, 100% 100%, 0 100%, 0 4px)'
+                } as React.CSSProperties}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 35px rgba(0, 255, 65, 0.8), inset 0 0 30px rgba(0, 255, 65, 0.1)';
+                  e.currentTarget.style.backgroundColor = 'rgba(0, 255, 65, 0.1)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.4)';
+                  e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+                }}
                 data-animate="fade-in-up"
-                style={{ animationDelay: '0.3s' }}
                 aria-label="View all projects"
-                tabIndex={0}
               >
-                <span className="absolute inset-0 bg-gradient-to-r from-green-500/0 via-green-500/20 to-green-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Button corner accents */}
+                <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#00FF41]/60 opacity-0 group-hover/cta:opacity-100 transition-opacity duration-200" />
+                <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#00FF41]/60 opacity-0 group-hover/cta:opacity-100 transition-opacity duration-200" />
+                <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#00FF41]/60 opacity-0 group-hover/cta:opacity-100 transition-opacity duration-200" />
+                <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#00FF41]/60 opacity-0 group-hover/cta:opacity-100 transition-opacity duration-200" />
+                {/* Button scanning line effect */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover/cta:opacity-100 group-hover/cta:animate-hudButtonScan transition-opacity duration-200 pointer-events-none" />
+                {/* Button glow effect */}
+                <div className="absolute inset-0 bg-[#00FF41]/5 opacity-0 group-hover/cta:opacity-100 transition-opacity duration-200" />
                 <span className="relative z-10 flex items-center gap-2">
-                  All Projects
-                  <ArrowRightIcon className="w-4 h-4 md:w-5 md:h-5 text-green-700 group-hover:text-green-400 transition-colors duration-200" aria-hidden="true" />
+                  <span className="text-[#00FF41]/60">▶</span>
+                  <span>ALL PROJECTS</span>
+                  <ArrowRightIcon 
+                    className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-200 group-hover/cta:translate-x-1" 
+                    aria-hidden="true" 
+                  />
+                  <span className="text-[#00FF41]/60">◀</span>
                 </span>
               </Link>
             </div>
           </>
         )}
       </div>
+
+      <style jsx>{`
+        .swiper-bullet-custom {
+          background-color: rgba(0, 255, 65, 0.25) !important;
+          opacity: 1 !important;
+          width: 10px !important;
+          height: 10px !important;
+          border: 1px solid rgba(0, 255, 65, 0.3) !important;
+          transition: all 0.3s ease !important;
+        }
+        .swiper-bullet-active-custom {
+          background-color: rgba(0, 255, 65, 0.9) !important;
+          transform: scale(1.3);
+          box-shadow: 0 0 15px rgba(0, 255, 65, 0.8), inset 0 0 8px rgba(0, 255, 65, 0.4);
+          border-color: rgba(0, 255, 65, 1) !important;
+        }
+        @media (min-width: 640px) {
+          .swiper-bullet-custom {
+            width: 12px !important;
+            height: 12px !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };

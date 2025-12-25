@@ -4,6 +4,9 @@ import ContactClient from "./ContactClient";
 export const metadata: Metadata = {
   title: "Contact",
   description: "Reach out to me via the contact form or social media.",
+  alternates: {
+    canonical: "https://mehmedmuric.com/contact",
+  },
   openGraph: {
     title: "Contact | Mehmed Muric",
     description: "Full-stack developer portfolio contact page.",

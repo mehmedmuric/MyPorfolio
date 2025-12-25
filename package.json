@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "reset": "powershell -c \"Stop-Process -Name 'node' -Force -ErrorAction SilentlyContinue; Remove-Item -Recurse -Force .next -ErrorAction SilentlyContinue; Remove-Item -Recurse -Force node_modules/.cache -ErrorAction SilentlyContinue; npm cache clean --force\""
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

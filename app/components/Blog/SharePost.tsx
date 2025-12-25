@@ -1,47 +1,100 @@
 const SharePost = () => {
   return (
-    <>
-      <a
-        href="https://www.linkedin.com/in/mehmed-muric-185297232/"
-        aria-label="social-share"
-        className="bg-gray-dark mb-3 inline-flex h-9 w-9 items-center justify-center rounded-sm text-body-color duration-300 hover:bg-mygreen hover:text-white sm:ml-3"
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          className="fill-current"
+    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-5">
+      {/* Section Label */}
+      <span className="text-xs font-mono font-bold uppercase tracking-wider text-[#00ff41] 
+        whitespace-nowrap flex-shrink-0 border-b border-[#00ff41]/30 pb-1">
+        [SHARE]
+      </span>
+
+      {/* Share Buttons Container */}
+      <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+        {/* LinkedIn */}
+        <a
+          href="https://www.linkedin.com/in/mehmed-muric-185297232/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Share on LinkedIn"
+          className="group relative inline-flex items-center justify-center min-h-[44px] min-w-[44px] 
+            px-4 sm:px-5 rounded-sm bg-[#0a0a0a]/90 backdrop-blur-sm border border-[#00ff41]/40 
+            text-[#00ff41] transition-all duration-200 hover:border-[#00ff41] 
+            hover:bg-[#00ff41]/10 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] 
+            hover:scale-110 active:scale-100 focus:outline-none focus:ring-2 focus:ring-[#00ff41] 
+            focus:ring-offset-2 focus:ring-offset-[#050805] will-change-transform"
         >
-          <path d="M14.3442 0H1.12455C0.499798 0 0 0.497491 0 1.11936V14.3029C0 14.8999 0.499798 15.4222 1.12455 15.4222H14.2942C14.919 15.4222 15.4188 14.9247 15.4188 14.3029V1.09448C15.4688 0.497491 14.969 0 14.3442 0ZM4.57316 13.1089H2.29907V5.7709H4.57316V13.1089ZM3.42362 4.75104C2.67392 4.75104 2.09915 4.15405 2.09915 3.43269C2.09915 2.71133 2.69891 2.11434 3.42362 2.11434C4.14833 2.11434 4.74809 2.71133 4.74809 3.43269C4.74809 4.15405 4.19831 4.75104 3.42362 4.75104ZM13.1947 13.1089H10.9206V9.55183C10.9206 8.7061 10.8956 7.58674 9.72108 7.58674C8.52156 7.58674 8.34663 8.53198 8.34663 9.47721V13.1089H6.07255V5.7709H8.29665V6.79076H8.32164C8.64651 6.19377 9.37122 5.59678 10.4958 5.59678C12.8198 5.59678 13.2447 7.08925 13.2447 9.12897V13.1089H13.1947Z" />
-        </svg>
-      </a>
-      <a
-        href="https://www.instagram.com/mehmedmuricc/"
-        aria-label="social-share"
-        className="bg-gray-dark mb-3 ml-3 inline-flex h-9 w-9 items-center justify-center rounded-sm text-body-color duration-300 hover:bg-mygreen hover:text-white "
-      >
-       <svg
-        width="20" 
-        height="20" 
-        viewBox="0 0 24 24" 
-        fill="none" 
-        xmlns="http://www.w3.org/2000/svg">
-           <path fillRule="evenodd" clipRule="evenodd" d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" fill="#b7aeae"></path> <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z" fill="#b7aeae"></path> <path fillRule="evenodd" clipRule="evenodd" d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z" fill="#b7aeae"></path> 
-       
-       
-       
-       </svg>
-      </a>
-      <a
-        href="https://www.facebook.com/profile.php?id=100023228495593"
-        aria-label="social-share"
-        className="bg-gray-dark mb-3 ml-3 inline-flex h-9 w-9 items-center justify-center rounded-sm text-body-color duration-300 hover:text-white hover:bg-mygreen"
-      >
-        <svg width="9" height="18" viewBox="0 0 9 18" className="fill-current">
-          <path d="M8.13643 7H6.78036H6.29605V6.43548V4.68548V4.12097H6.78036H7.79741C8.06378 4.12097 8.28172 3.89516 8.28172 3.55645V0.564516C8.28172 0.254032 8.088 0 7.79741 0H6.02968C4.11665 0 2.78479 1.58064 2.78479 3.92339V6.37903V6.94355H2.30048H0.65382C0.314802 6.94355 0 7.25403 0 7.70564V9.7379C0 10.1331 0.266371 10.5 0.65382 10.5H2.25205H2.73636V11.0645V16.7379C2.73636 17.1331 3.00273 17.5 3.39018 17.5H5.66644C5.81174 17.5 5.93281 17.4153 6.02968 17.3024C6.12654 17.1895 6.19919 16.9919 6.19919 16.8226V11.0927V10.5282H6.70771H7.79741C8.11222 10.5282 8.35437 10.3024 8.4028 9.96371V9.93548V9.90726L8.74182 7.95968C8.76604 7.7621 8.74182 7.53629 8.59653 7.31048C8.54809 7.16935 8.33016 7.02823 8.13643 7Z" />
-        </svg>
-      </a>
-    </>
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 16 16"
+            className="fill-current transition-transform duration-200 group-hover:scale-125"
+            aria-hidden="true"
+          >
+            <path d="M14.3442 0H1.12455C0.499798 0 0 0.497491 0 1.11936V14.3029C0 14.8999 0.499798 15.4222 1.12455 15.4222H14.2942C14.919 15.4222 15.4188 14.9247 15.4188 14.3029V1.09448C15.4688 0.497491 14.969 0 14.3442 0ZM4.57316 13.1089H2.29907V5.7709H4.57316V13.1089ZM3.42362 4.75104C2.67392 4.75104 2.09915 4.15405 2.09915 3.43269C2.09915 2.71133 2.69891 2.11434 3.42362 2.11434C4.14833 2.11434 4.74809 2.71133 4.74809 3.43269C4.74809 4.15405 4.19831 4.75104 3.42362 4.75104ZM13.1947 13.1089H10.9206V9.55183C10.9206 8.7061 10.8956 7.58674 9.72108 7.58674C8.52156 7.58674 8.34663 8.53198 8.34663 9.47721V13.1089H6.07255V5.7709H8.29665V6.79076H8.32164C8.64651 6.19377 9.37122 5.59678 10.4958 5.59678C12.8198 5.59678 13.2447 7.08925 13.2447 9.12897V13.1089H13.1947Z" />
+          </svg>
+          <span className="ml-2 text-xs sm:text-sm font-mono font-medium hidden sm:inline">
+            LinkedIn
+          </span>
+        </a>
+
+        {/* Instagram */}
+        <a
+          href="https://www.instagram.com/mehmedmuricc/"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Share on Instagram"
+          className="group relative inline-flex items-center justify-center min-h-[44px] min-w-[44px] 
+            px-4 sm:px-5 rounded-sm bg-[#0a0a0a]/90 backdrop-blur-sm border border-[#00ff41]/40 
+            text-[#00ff41] transition-all duration-200 hover:border-[#00ff41] 
+            hover:bg-[#00ff41]/10 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] 
+            hover:scale-110 active:scale-100 focus:outline-none focus:ring-2 focus:ring-[#00ff41] 
+            focus:ring-offset-2 focus:ring-offset-[#050805] will-change-transform"
+        >
+          <svg
+            width="20"
+            height="20"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            className="fill-current transition-transform duration-200 group-hover:scale-125"
+            aria-hidden="true"
+          >
+            <path fillRule="evenodd" clipRule="evenodd" d="M12 18C15.3137 18 18 15.3137 18 12C18 8.68629 15.3137 6 12 6C8.68629 6 6 8.68629 6 12C6 15.3137 8.68629 18 12 18ZM12 16C14.2091 16 16 14.2091 16 12C16 9.79086 14.2091 8 12 8C9.79086 8 8 9.79086 8 12C8 14.2091 9.79086 16 12 16Z" />
+            <path d="M18 5C17.4477 5 17 5.44772 17 6C17 6.55228 17.4477 7 18 7C18.5523 7 19 6.55228 19 6C19 5.44772 18.5523 5 18 5Z" />
+            <path fillRule="evenodd" clipRule="evenodd" d="M1.65396 4.27606C1 5.55953 1 7.23969 1 10.6V13.4C1 16.7603 1 18.4405 1.65396 19.7239C2.2292 20.8529 3.14708 21.7708 4.27606 22.346C5.55953 23 7.23969 23 10.6 23H13.4C16.7603 23 18.4405 23 19.7239 22.346C20.8529 21.7708 21.7708 20.8529 22.346 19.7239C23 18.4405 23 16.7603 23 13.4V10.6C23 7.23969 23 5.55953 22.346 4.27606C21.7708 3.14708 20.8529 2.2292 19.7239 1.65396C18.4405 1 16.7603 1 13.4 1H10.6C7.23969 1 5.55953 1 4.27606 1.65396C3.14708 2.2292 2.2292 3.14708 1.65396 4.27606ZM13.4 3H10.6C8.88684 3 7.72225 3.00156 6.82208 3.0751C5.94524 3.14674 5.49684 3.27659 5.18404 3.43597C4.43139 3.81947 3.81947 4.43139 3.43597 5.18404C3.27659 5.49684 3.14674 5.94524 3.0751 6.82208C3.00156 7.72225 3 8.88684 3 10.6V13.4C3 15.1132 3.00156 16.2777 3.0751 17.1779C3.14674 18.0548 3.27659 18.5032 3.43597 18.816C3.81947 19.5686 4.43139 20.1805 5.18404 20.564C5.49684 20.7234 5.94524 20.8533 6.82208 20.9249C7.72225 20.9984 8.88684 21 10.6 21H13.4C15.1132 21 16.2777 20.9984 17.1779 20.9249C18.0548 20.8533 18.5032 20.7234 18.816 20.564C19.5686 20.1805 20.1805 19.5686 20.564 18.816C20.7234 18.5032 20.8533 18.0548 20.9249 17.1779C20.9984 16.2777 21 15.1132 21 13.4V10.6C21 8.88684 20.9984 7.72225 20.9249 6.82208C20.8533 5.94524 20.7234 5.49684 20.564 5.18404C20.1805 4.43139 19.5686 3.81947 18.816 3.43597C18.5032 3.27659 18.0548 3.14674 17.1779 3.0751C16.2777 3.00156 15.1132 3 13.4 3Z" />
+          </svg>
+          <span className="ml-2 text-xs sm:text-sm font-mono font-medium hidden sm:inline">
+            Instagram
+          </span>
+        </a>
+
+        {/* Facebook */}
+        <a
+          href="https://www.facebook.com/profile.php?id=100023228495593"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Share on Facebook"
+          className="group relative inline-flex items-center justify-center min-h-[44px] min-w-[44px] 
+            px-4 sm:px-5 rounded-sm bg-[#0a0a0a]/90 backdrop-blur-sm border border-[#00ff41]/40 
+            text-[#00ff41] transition-all duration-200 hover:border-[#00ff41] 
+            hover:bg-[#00ff41]/10 hover:shadow-[0_0_20px_rgba(0,255,65,0.5)] 
+            hover:scale-110 active:scale-100 focus:outline-none focus:ring-2 focus:ring-[#00ff41] 
+            focus:ring-offset-2 focus:ring-offset-[#050805] will-change-transform"
+        >
+          <svg 
+            width="18" 
+            height="18" 
+            viewBox="0 0 9 18" 
+            className="fill-current transition-transform duration-200 group-hover:scale-125"
+            aria-hidden="true"
+          >
+            <path d="M8.13643 7H6.78036H6.29605V6.43548V4.68548V4.12097H6.78036H7.79741C8.06378 4.12097 8.28172 3.89516 8.28172 3.55645V0.564516C8.28172 0.254032 8.088 0 7.79741 0H6.02968C4.11665 0 2.78479 1.58064 2.78479 3.92339V6.37903V6.94355H2.30048H0.65382C0.314802 6.94355 0 7.25403 0 7.70564V9.7379C0 10.1331 0.266371 10.5 0.65382 10.5H2.25205H2.73636V11.0645V16.7379C2.73636 17.1331 3.00273 17.5 3.39018 17.5H5.66644C5.81174 17.5 5.93281 17.4153 6.02968 17.3024C6.12654 17.1895 6.19919 16.9919 6.19919 16.8226V11.0927V10.5282H6.70771H7.79741C8.11222 10.5282 8.35437 10.3024 8.4028 9.96371V9.93548V9.90726L8.74182 7.95968C8.76604 7.7621 8.74182 7.53629 8.59653 7.31048C8.54809 7.16935 8.33016 7.02823 8.13643 7Z" />
+          </svg>
+          <span className="ml-2 text-xs sm:text-sm font-mono font-medium hidden sm:inline">
+            Facebook
+          </span>
+        </a>
+      </div>
+    </div>
   );
 };
 

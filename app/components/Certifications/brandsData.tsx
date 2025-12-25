@@ -4,7 +4,7 @@ const brandsData: Brand[] = [
   {
     id: 1,
     name: "Python",
-    href: "https://centarnit.com/wp-content/uploads/2021/12/2021-12-11_16-34-43.jpg",
+    href: "",
     image: "/images/certificates/python.png",
     issued: "Dec 2021",
     platform: "Centar NIT",
