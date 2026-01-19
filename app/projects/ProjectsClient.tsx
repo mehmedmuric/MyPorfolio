@@ -324,56 +324,82 @@ const ProjectsClient = () => {
         <div className="absolute left-[5%] top-[14%] w-32 h-32 xs:w-40 xs:h-40 sm:w-56 sm:h-56 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-[radial-gradient(circle,rgba(0,255,65,0.12)_0%,transparent_75%)] rounded-full pointer-events-none blur-2xl sm:blur-3xl z-10 will-change-transform opacity-40 xs:opacity-50 sm:opacity-65 md:opacity-80 lg:opacity-100" style={{ transform: `translate3d(${mousePosition.x * 0.45}px,${mousePosition.y * 0.41}px,0)` }} aria-hidden />
         <div className="absolute right-[5%] xs:right-[8%] sm:right-[10%] bottom-[5%] w-[120px] h-[75px] xs:w-[150px] xs:h-[95px] sm:w-[220px] sm:h-[140px] md:w-[300px] md:h-[190px] lg:w-[380px] lg:h-[240px] bg-[radial-gradient(circle,rgba(0,255,65,0.08)_0%,transparent_80%)] rounded-full pointer-events-none blur-2xl sm:blur-3xl z-10 will-change-transform opacity-40 xs:opacity-50 sm:opacity-65 md:opacity-80 lg:opacity-100" style={{ transform: `translate3d(${mousePosition.x * 0.19}px,${mousePosition.y * 0.08}px,0)` }} aria-hidden />
 
-        {/* Section Heading - Cyberpunk Style - Responsive */}
-        <header className="mb-8 mt-4 xs:mb-10 xs:mt-6 sm:mb-12 sm:mt-8 md:mb-16 md:mt-12 flex flex-col items-center text-center w-full px-3 xs:px-4 sm:px-6 relative z-20">
+        {/* Section Heading - Modern Cyberpunk Style - Responsive */}
+        <header className="mb-10 mt-6 xs:mb-12 xs:mt-8 sm:mb-16 sm:mt-10 md:mb-20 md:mt-14 flex flex-col items-center text-center w-full px-3 xs:px-4 sm:px-6 relative z-20">
           <div className="relative inline-block">
-            {/* Corner brackets - Responsive sizing */}
-            <div className="absolute -top-1 xs:-top-1.5 sm:-top-2 -left-3 xs:-left-3.5 sm:-left-4 w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 border-t-[1.5px] xs:border-t-2 border-l-[1.5px] xs:border-l-2 border-[#00FF41]/50 sm:border-[#00FF41]/60" />
-            <div className="absolute -top-1 xs:-top-1.5 sm:-top-2 -right-3 xs:-right-3.5 sm:-right-4 w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 border-t-[1.5px] xs:border-t-2 border-r-[1.5px] xs:border-r-2 border-[#00FF41]/50 sm:border-[#00FF41]/60" />
-            <div className="absolute -bottom-1 xs:-bottom-1.5 sm:-bottom-2 -left-3 xs:-left-3.5 sm:-left-4 w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 border-b-[1.5px] xs:border-b-2 border-l-[1.5px] xs:border-l-2 border-[#00FF41]/50 sm:border-[#00FF41]/60" />
-            <div className="absolute -bottom-1 xs:-bottom-1.5 sm:-bottom-2 -right-3 xs:-right-3.5 sm:-right-4 w-2 h-2 xs:w-2.5 xs:h-2.5 sm:w-3 sm:h-3 border-b-[1.5px] xs:border-b-2 border-r-[1.5px] xs:border-r-2 border-[#00FF41]/50 sm:border-[#00FF41]/60" />
+            {/* Modern decorative elements */}
+            <div className="absolute -top-2 xs:-top-3 sm:-top-4 -left-4 xs:-left-5 sm:-left-6 w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5">
+              <div className="absolute inset-0 border-t-2 border-l-2 border-[#00FF41]/40"></div>
+              <div className="absolute inset-0 border-t-2 border-l-2 border-[#00FF41] blur-sm opacity-50"></div>
+            </div>
+            <div className="absolute -top-2 xs:-top-3 sm:-top-4 -right-4 xs:-right-5 sm:-right-6 w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5">
+              <div className="absolute inset-0 border-t-2 border-r-2 border-[#00FF41]/40"></div>
+              <div className="absolute inset-0 border-t-2 border-r-2 border-[#00FF41] blur-sm opacity-50"></div>
+            </div>
+            <div className="absolute -bottom-2 xs:-bottom-3 sm:-bottom-4 -left-4 xs:-left-5 sm:-left-6 w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5">
+              <div className="absolute inset-0 border-b-2 border-l-2 border-[#00FF41]/40"></div>
+              <div className="absolute inset-0 border-b-2 border-l-2 border-[#00FF41] blur-sm opacity-50"></div>
+            </div>
+            <div className="absolute -bottom-2 xs:-bottom-3 sm:-bottom-4 -right-4 xs:-right-5 sm:-right-6 w-3 h-3 xs:w-4 xs:h-4 sm:w-5 sm:h-5">
+              <div className="absolute inset-0 border-b-2 border-r-2 border-[#00FF41]/40"></div>
+              <div className="absolute inset-0 border-b-2 border-r-2 border-[#00FF41] blur-sm opacity-50"></div>
+            </div>
             
-            <h1 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-[#00FF41] font-mono tracking-tight sm:tracking-normal drop-shadow-[0_0_6px_rgba(0,255,65,0.4)] sm:drop-shadow-[0_0_8px_rgba(0,255,65,0.5)] relative z-10 px-1.5 xs:px-2 leading-tight sm:leading-normal">
-              {'[ PROJECTS PORTFOLIO ]'}
+            <h1 className="relative z-10 text-xl xs:text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#00FF41] via-[#39FF6D] to-[#00FF41] font-mono tracking-tight sm:tracking-normal px-2 xs:px-3 sm:px-4 leading-tight sm:leading-tight drop-shadow-[0_0_10px_rgba(0,255,65,0.5)] sm:drop-shadow-[0_0_15px_rgba(0,255,65,0.6)]">
+              <span className="relative inline-block">
+                PROJECTS PORTFOLIO
+                <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent opacity-60"></span>
+              </span>
             </h1>
           </div>
           
-          <p className="mt-3 xs:mt-4 sm:mt-5 md:mt-6 text-[11px] xs:text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl text-gray-300/85 sm:text-gray-300/90 max-w-[95%] xs:max-w-md sm:max-w-lg md:max-w-2xl mx-auto font-mono leading-relaxed px-3 xs:px-4 sm:px-2">
-            Explore my web/mobile projects, client work, and experiments – using React, Next.js, Node.js, TypeScript, and more.
+          <p className="mt-5 xs:mt-6 sm:mt-8 md:mt-10 text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-gray-300/80 sm:text-gray-300/85 md:text-gray-300/90 max-w-[95%] xs:max-w-lg sm:max-w-2xl md:max-w-3xl mx-auto font-sans leading-relaxed px-3 xs:px-4 sm:px-2 font-light">
+            Explore my web/mobile projects, client work, and experiments – built with React, Next.js, Node.js, TypeScript, and modern technologies.
           </p>
           
-          {/* Decorative line - Responsive */}
-          <div className="mt-3 xs:mt-4 sm:mt-5 md:mt-6 w-20 xs:w-24 sm:w-28 md:w-32 h-[0.5px] xs:h-px bg-gradient-to-r from-transparent via-[#00FF41]/50 xs:via-[#00FF41]/60 to-transparent" />
+          {/* Modern decorative line - Responsive */}
+          <div className="mt-5 xs:mt-6 sm:mt-8 md:mt-10 flex items-center gap-3 xs:gap-4 sm:gap-6">
+            <div className="h-px w-12 xs:w-16 sm:w-24 md:w-32 bg-gradient-to-r from-transparent to-[#00FF41]/60"></div>
+            <div className="w-1.5 h-1.5 xs:w-2 xs:h-2 rounded-full bg-[#00FF41]/80 shadow-[0_0_8px_rgba(0,255,65,0.6)]"></div>
+            <div className="h-px w-12 xs:w-16 sm:w-24 md:w-32 bg-gradient-to-l from-transparent to-[#00FF41]/60"></div>
+          </div>
         </header>
 
-        {/* Category Filter Buttons - Cyberpunk Style */}
+        {/* Category Filter Buttons - Modern Cyberpunk Style */}
         {categories.length > 0 && (
-          <div className="w-full max-w-7xl mx-auto px-2.5 xs:px-3 sm:px-4 md:px-6 lg:px-8 mb-6 xs:mb-8 sm:mb-10 md:mb-12 relative z-20">
-            <div className="flex flex-col items-center gap-3 xs:gap-4">
-              {/* Section Label */}
-              <span className="text-xs xs:text-sm font-mono font-semibold uppercase tracking-wider text-[#00ff41]/70">
-                [FILTER_BY_CATEGORY]
-              </span>
+          <div className="w-full max-w-7xl mx-auto px-2.5 xs:px-3 sm:px-4 md:px-6 lg:px-8 mb-8 xs:mb-10 sm:mb-12 md:mb-16 relative z-20">
+            <div className="flex flex-col items-center gap-4 xs:gap-5 sm:gap-6">
+              {/* Section Label - Modern Design */}
+              <div className="flex items-center gap-3 xs:gap-4">
+                <div className="h-px w-8 xs:w-12 sm:w-16 bg-gradient-to-r from-transparent to-[#00ff41]/50"></div>
+                <span className="text-xs xs:text-sm sm:text-base font-mono font-semibold uppercase tracking-[0.15em] text-[#00ff41]/80">
+                  Filter by Category
+                </span>
+                <div className="h-px w-8 xs:w-12 sm:w-16 bg-gradient-to-l from-transparent to-[#00ff41]/50"></div>
+              </div>
               
-              {/* Filter Buttons */}
-              <div className="flex flex-wrap justify-center items-center gap-2 xs:gap-3 sm:gap-4">
+              {/* Filter Buttons - Glassmorphism Design */}
+              <div className="flex flex-wrap justify-center items-center gap-3 xs:gap-4 sm:gap-5">
                 {/* All Button */}
                 <button
                   onClick={() => setSelectedCategory(null)}
-                  className={`group relative inline-flex items-center justify-center min-h-[44px] px-4 xs:px-5 sm:px-6 py-2.5 xs:py-3 
-                    rounded-sm border text-sm xs:text-base font-mono font-medium transition-all duration-200
+                  className={`group relative inline-flex items-center justify-center min-h-[46px] xs:min-h-[48px] px-5 xs:px-6 sm:px-7 py-2.5 xs:py-3 
+                    rounded-lg border backdrop-blur-sm text-sm xs:text-base font-medium transition-all duration-300 ease-out
                     focus:outline-none focus:ring-2 focus:ring-[#00ff41] focus:ring-offset-2 focus:ring-offset-[#050805]
                     will-change-transform ${
                       !selectedCategory
-                        ? 'border-[#00ff41] bg-[#00ff41]/10 text-[#00ff41] shadow-[0_0_15px_rgba(0,255,65,0.4)]'
-                        : 'border-[#00ff41]/30 bg-[#0a0a0a] text-[#788293] hover:border-[#00ff41] hover:text-[#00ff41] hover:bg-[#00ff41]/10 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)] hover:scale-105 active:scale-100'
+                        ? 'border-[#00ff41] bg-[#00ff41]/15 text-[#00ff41] shadow-[0_0_20px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.05)] backdrop-blur-md'
+                        : 'border-[#00ff41]/20 bg-[#0a0a0a]/60 text-gray-400 hover:border-[#00ff41]/60 hover:text-[#00ff41] hover:bg-[#00ff41]/10 hover:shadow-[0_0_20px_rgba(0,255,65,0.4)] hover:scale-105 active:scale-95'
                     }`}
                   aria-label="Show all projects"
                   aria-pressed={!selectedCategory}
                 >
-                  <span className="relative z-10">[ALL]</span>
+                  <span className="relative z-10 font-mono tracking-wide">All Projects</span>
                   {!selectedCategory && (
-                    <span className="absolute inset-0 rounded-sm bg-[#00ff41]/5 blur-md pointer-events-none" />
+                    <>
+                      <span className="absolute inset-0 rounded-lg bg-[#00ff41]/10 blur-xl pointer-events-none animate-pulse" />
+                      <span className="absolute -inset-[1px] rounded-lg bg-[#00ff41]/20 blur-sm pointer-events-none" />
+                    </>
                   )}
                 </button>
 
@@ -382,20 +408,23 @@ const ProjectsClient = () => {
                   <button
                     key={category}
                     onClick={() => setSelectedCategory(category)}
-                    className={`group relative inline-flex items-center justify-center min-h-[44px] px-4 xs:px-5 sm:px-6 py-2.5 xs:py-3 
-                      rounded-sm border text-sm xs:text-base font-mono font-medium transition-all duration-200
+                    className={`group relative inline-flex items-center justify-center min-h-[46px] xs:min-h-[48px] px-5 xs:px-6 sm:px-7 py-2.5 xs:py-3 
+                      rounded-lg border backdrop-blur-sm text-sm xs:text-base font-medium transition-all duration-300 ease-out
                       focus:outline-none focus:ring-2 focus:ring-[#00ff41] focus:ring-offset-2 focus:ring-offset-[#050805]
                       will-change-transform ${
                         selectedCategory === category
-                          ? 'border-[#00ff41] bg-[#00ff41]/10 text-[#00ff41] shadow-[0_0_15px_rgba(0,255,65,0.4)]'
-                          : 'border-[#00ff41]/30 bg-[#0a0a0a] text-[#788293] hover:border-[#00ff41] hover:text-[#00ff41] hover:bg-[#00ff41]/10 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)] hover:scale-105 active:scale-100'
+                          ? 'border-[#00ff41] bg-[#00ff41]/15 text-[#00ff41] shadow-[0_0_20px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.05)] backdrop-blur-md'
+                          : 'border-[#00ff41]/20 bg-[#0a0a0a]/60 text-gray-400 hover:border-[#00ff41]/60 hover:text-[#00ff41] hover:bg-[#00ff41]/10 hover:shadow-[0_0_20px_rgba(0,255,65,0.4)] hover:scale-105 active:scale-95'
                       }`}
                     aria-label={`Filter by ${category}`}
                     aria-pressed={selectedCategory === category}
                   >
-                    <span className="relative z-10">{category}</span>
+                    <span className="relative z-10 font-mono tracking-wide">{category.replace(/^[\s-]+/, '')}</span>
                     {selectedCategory === category && (
-                      <span className="absolute inset-0 rounded-sm bg-[#00ff41]/5 blur-md pointer-events-none" />
+                      <>
+                        <span className="absolute inset-0 rounded-lg bg-[#00ff41]/10 blur-xl pointer-events-none animate-pulse" />
+                        <span className="absolute -inset-[1px] rounded-lg bg-[#00ff41]/20 blur-sm pointer-events-none" />
+                      </>
                     )}
                   </button>
                 ))}
@@ -404,17 +433,17 @@ const ProjectsClient = () => {
           </div>
         )}
         
-        {/* Projects Grid - Cyberpunk HUD Layout - Responsive */}
-        <div className="w-full max-w-7xl mx-auto px-2.5 xs:px-3 sm:px-4 md:px-6 lg:px-8 pb-12 xs:pb-14 sm:pb-16 md:pb-20 lg:pb-24 xl:pb-32 relative z-20">
+        {/* Projects Grid - Modern Layout - Responsive */}
+        <div className="w-full max-w-7xl mx-auto px-3 xs:px-4 sm:px-5 md:px-6 lg:px-8 pb-16 xs:pb-18 sm:pb-20 md:pb-24 lg:pb-28 xl:pb-32 relative z-20">
           <div
             className={[
-              "grid gap-3.5 xs:gap-4 sm:gap-5 md:gap-6 lg:gap-7 xl:gap-8",
+              "grid gap-5 xs:gap-6 sm:gap-7 md:gap-8 lg:gap-9 xl:gap-10",
               "grid-cols-1",
-              "xs:max-w-[360px] xs:mx-auto",
+              "xs:max-w-[380px] xs:mx-auto",
               "sm:grid-cols-2 sm:max-w-none",
               "md:grid-cols-2",
               "lg:grid-cols-3",
-              "xl:grid-cols-4",
+              "xl:grid-cols-3 2xl:grid-cols-4",
               "justify-items-center",
               "auto-rows-fr"
             ].join(" ")}
@@ -446,19 +475,22 @@ const ProjectsClient = () => {
               filteredProjects.map((blog, index) => (
                 <article
                   key={index}
-                  className="project-card w-full max-w-full xs:max-w-[320px] sm:max-w-[340px] md:max-w-[365px] relative group"
+                  className="project-card w-full max-w-full xs:max-w-[350px] sm:max-w-[360px] md:max-w-[380px] relative group"
                 >
-                  {/* HUD Corner Brackets - Responsive */}
-                  <div className="absolute top-0 left-0 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 border-t-[1.5px] xs:border-t-2 border-l-[1.5px] xs:border-l-2 border-[#00FF41]/35 sm:border-[#00FF41]/40 group-hover:border-[#00FF41] transition-all duration-200 z-30" />
-                  <div className="absolute top-0 right-0 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 border-t-[1.5px] xs:border-t-2 border-r-[1.5px] xs:border-r-2 border-[#00FF41]/35 sm:border-[#00FF41]/40 group-hover:border-[#00FF41] transition-all duration-200 z-30" />
-                  <div className="absolute bottom-0 left-0 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 border-b-[1.5px] xs:border-b-2 border-l-[1.5px] xs:border-l-2 border-[#00FF41]/35 sm:border-[#00FF41]/40 group-hover:border-[#00FF41] transition-all duration-200 z-30" />
-                  <div className="absolute bottom-0 right-0 w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 border-b-[1.5px] xs:border-b-2 border-r-[1.5px] xs:border-r-2 border-[#00FF41]/35 sm:border-[#00FF41]/40 group-hover:border-[#00FF41] transition-all duration-200 z-30" />
+                  {/* Modern Glassmorphism Border */}
+                  <div className="absolute -inset-0.5 rounded-lg bg-gradient-to-r from-[#00FF41]/20 via-[#00FF41]/10 to-[#00FF41]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm z-0" />
+                  
+                  {/* Corner accent dots - Modern Design */}
+                  <div className="absolute top-2 left-2 w-2 h-2 rounded-full bg-[#00FF41]/30 group-hover:bg-[#00FF41] group-hover:shadow-[0_0_12px_rgba(0,255,65,0.8)] transition-all duration-300 z-30" />
+                  <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-[#00FF41]/30 group-hover:bg-[#00FF41] group-hover:shadow-[0_0_12px_rgba(0,255,65,0.8)] transition-all duration-300 z-30" />
+                  <div className="absolute bottom-2 left-2 w-2 h-2 rounded-full bg-[#00FF41]/30 group-hover:bg-[#00FF41] group-hover:shadow-[0_0_12px_rgba(0,255,65,0.8)] transition-all duration-300 z-30" />
+                  <div className="absolute bottom-2 right-2 w-2 h-2 rounded-full bg-[#00FF41]/30 group-hover:bg-[#00FF41] group-hover:shadow-[0_0_12px_rgba(0,255,65,0.8)] transition-all duration-300 z-30" />
 
-                  {/* Scanline overlay on hover */}
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudScan transition-opacity duration-200 pointer-events-none z-20 rounded" />
+                  {/* Glow overlay on hover - Modern effect */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#00FF41]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-10 rounded-lg" />
 
-                  {/* Glow border effect */}
-                  <div className="absolute -inset-[1px] bg-[#00FF41]/0 group-hover:bg-[#00FF41]/20 blur-sm transition-all duration-200 rounded -z-10" />
+                  {/* Subtle scanline effect on hover */}
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudScan transition-opacity duration-300 pointer-events-none z-20 rounded-lg" />
 
                   {/* Card content */}
                   <div className="relative z-10">
@@ -476,18 +508,19 @@ const ProjectsClient = () => {
         @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
         
         .project-card {
-          transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+          transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1), box-shadow 0.4s ease-out;
         }
         
         .project-card:hover,
         .project-card:focus-within {
-          transform: translateY(-8px) scale(1.02);
+          transform: translateY(-12px) scale(1.03);
           outline: none;
         }
         
         .project-card:focus-visible {
           outline: 2px solid #00FF41;
-          outline-offset: 4px;
+          outline-offset: 6px;
+          border-radius: 12px;
         }
 
         @keyframes hudScan {
@@ -495,8 +528,14 @@ const ProjectsClient = () => {
             transform: translateY(-100%);
             opacity: 0;
           }
+          20% {
+            opacity: 0.6;
+          }
           50% {
-            opacity: 1;
+            opacity: 0.8;
+          }
+          80% {
+            opacity: 0.6;
           }
           100% {
             transform: translateY(100%);
@@ -505,21 +544,28 @@ const ProjectsClient = () => {
         }
 
         .animate-hudScan {
-          animation: hudScan 0.8s ease-out;
+          animation: hudScan 1.2s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         /* Responsive adjustments */
         @media (max-width: 475px) {
           .project-card:hover,
           .project-card:focus-within {
-            transform: translateY(-4px) scale(1.01);
+            transform: translateY(-6px) scale(1.02);
           }
         }
         
         @media (min-width: 476px) and (max-width: 639px) {
           .project-card:hover,
           .project-card:focus-within {
-            transform: translateY(-6px) scale(1.015);
+            transform: translateY(-8px) scale(1.025);
+          }
+        }
+        
+        @media (min-width: 1920px) {
+          .project-card:hover,
+          .project-card:focus-within {
+            transform: translateY(-14px) scale(1.04);
           }
         }
         

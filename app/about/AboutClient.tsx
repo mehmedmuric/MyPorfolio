@@ -65,46 +65,78 @@ const timelineData = [
 
 /* ===================== TIMELINE ===================== */
 const Timeline = () => (
-  <section className="relative w-full" style={{ overflow: 'hidden' }}>
-    <ol className="relative space-y-8">
-        {timelineData.map((item) => (
+  <section className="relative w-full">
+    <h2 className="font-mono text-[#00FF41] text-xl mb-8 flex items-center gap-3">
+      <span className="text-[#00FF41]/50">[</span>
+      <span>JOURNEY</span>
+      <span className="text-[#00FF41]/50">]</span>
+      <div className="flex-1 h-px bg-gradient-to-r from-[#00FF41]/40 to-transparent"></div>
+    </h2>
+    
+    <div className="relative">
+      {/* Vertical timeline connector line */}
+      <div className="absolute left-6 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00FF41]/60 via-[#00FF41]/30 to-transparent hidden md:block"></div>
+      
+      <ol className="relative space-y-10 md:space-y-12">
+        {timelineData.map((item, index) => (
           <li key={item.period} className="relative">
+            {/* Timeline dot */}
+            <div className="absolute left-0 top-6 w-12 h-12 hidden md:flex items-center justify-center z-10">
+              <div className={`w-4 h-4 rounded-full ${item.colorClass} ring-4 ring-black ring-offset-2 ring-offset-black transition-all duration-300 group-hover:scale-125 group-hover:ring-[#00FF41]/50`}></div>
+            </div>
+            
             <article
-              className="relative bg-black/80 border border-[#00FF41]/40 backdrop-blur-md p-6 transition-all duration-300 hover:border-[#00FF41] hover:shadow-[0_0_30px_rgba(0,255,65,0.6)]"
+              className="group relative bg-black/60 border border-[#00FF41]/30 backdrop-blur-xl p-6 md:p-8 md:ml-16 transition-all duration-500 hover:border-[#00FF41] hover:bg-black/80 hover:shadow-[0_0_40px_rgba(0,255,65,0.4)] hover:-translate-y-1"
               style={{
                 clipPath:
-                  "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
+                  "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))",
               }}
             >
-              <h3
-                className={`font-mono font-bold text-xl ${item.textClass}`}
-              >
-                <span className="text-[#00FF41]/50 mr-2">
-                  [{item.period}]
-                </span>
-                {item.title}
-              </h3>
-
-              <p className="mt-3 text-gray-300 font-mono text-sm leading-relaxed">
-                {item.body}
-              </p>
-
-              <ul className="mt-4 space-y-2">
-                {item.highlights.map((h, i) => (
-                  <li
-                    key={i}
-                    className="text-sm font-mono text-[#00FF41] flex gap-2"
+              {/* Gradient overlay on hover */}
+              <div className="absolute inset-0 bg-gradient-to-br from-[#00FF41]/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                style={{
+                  clipPath:
+                    "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))",
+                }}
+              ></div>
+              
+              <div className="relative z-10">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+                  <h3
+                    className={`font-mono font-bold text-lg sm:text-xl ${item.textClass} transition-colors duration-300`}
                   >
-                    <span>▶</span>
-                    <span>{h}</span>
-                  </li>
-                ))}
-              </ul>
+                    <span className="text-[#00FF41]/60 mr-3 font-normal">
+                      [{item.period}]
+                    </span>
+                    {item.title}
+                  </h3>
+                </div>
+
+                <p className="mt-2 text-gray-300/90 font-mono text-sm sm:text-base leading-relaxed mb-5">
+                  {item.body}
+                </p>
+
+                <ul className="mt-5 space-y-2.5 border-t border-[#00FF41]/20 pt-4">
+                  {item.highlights.map((h, i) => (
+                    <li
+                      key={i}
+                      className="text-sm font-mono text-[#00FF41]/80 flex gap-3 items-start group/item"
+                    >
+                      <span className="text-[#00FF41]/60 group-hover/item:text-[#00FF41] transition-colors duration-300 mt-0.5">▶</span>
+                      <span className="flex-1 group-hover/item:text-[#00FF41] transition-colors duration-300">{h}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              
+              {/* Corner accent */}
+              <div className="absolute top-0 right-0 w-16 h-16 border-t border-r border-[#00FF41]/20 group-hover:border-[#00FF41]/50 transition-colors duration-300"></div>
             </article>
           </li>
         ))}
       </ol>
-    </section>
+    </div>
+  </section>
 );
 
 /* ===================== TECH STACK ===================== */
@@ -122,21 +154,35 @@ const techStack = [
 
 const TechStack = () => (
   <section className="w-full">
-    <h2 className="font-mono text-[#00FF41] text-xl mb-6">
-      [ TECH STACK ]
+    <h2 className="font-mono text-[#00FF41] text-xl mb-8 flex items-center gap-3">
+      <span className="text-[#00FF41]/50">[</span>
+      <span>TECH STACK</span>
+      <span className="text-[#00FF41]/50">]</span>
+      <div className="flex-1 h-px bg-gradient-to-r from-[#00FF41]/40 to-transparent"></div>
     </h2>
 
-    <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-6">
+    <ul className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4 sm:gap-6">
       {techStack.map((t) => (
-        <li key={t.label} className="flex flex-col items-center">
-          <Image
-            src={t.src}
-            alt={t.label}
-            width={40}
-            height={40}
-            className="mb-2 drop-shadow-[0_0_10px_rgba(0,255,65,0.6)]"
-          />
-          <span className="text-xs font-mono text-gray-400">
+        <li 
+          key={t.label} 
+          className="group flex flex-col items-center p-4 sm:p-6 bg-black/40 border border-[#00FF41]/20 rounded-lg backdrop-blur-sm transition-all duration-300 hover:border-[#00FF41] hover:bg-black/60 hover:shadow-[0_0_20px_rgba(0,255,65,0.3)] hover:-translate-y-1"
+          style={{
+            clipPath:
+              "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
+          }}
+        >
+          <div className="relative mb-3 transform transition-all duration-300 group-hover:scale-110">
+            <Image
+              src={t.src}
+              alt={t.label}
+              width={48}
+              height={48}
+              className="drop-shadow-[0_0_10px_rgba(0,255,65,0.6)] group-hover:drop-shadow-[0_0_20px_rgba(0,255,65,0.9)] transition-all duration-300"
+            />
+            {/* Glow effect on hover */}
+            <div className="absolute inset-0 bg-[#00FF41]/20 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+          </div>
+          <span className="text-xs sm:text-sm font-mono text-gray-400 group-hover:text-[#00FF41]/80 transition-colors duration-300 text-center">
             {t.label}
           </span>
         </li>
@@ -364,14 +410,17 @@ const AboutClient = () => {
         className="relative mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-20 flex flex-col gap-20 z-20"
       >
         {/* HEADER */}
-        <section className="max-w-2xl font-mono">
-          <h1 className="text-4xl text-[#00FF41] mb-4">
-            [ Hello, I'm Mehmed Muric ]
-          </h1>
-          <p className="text-gray-300 text-base leading-relaxed">
-            Software Enigineer focused on scalable systems,
-            clean UX and production-ready code.
-          </p>
+        <section className="max-w-3xl font-mono relative">
+          <div className="relative">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl text-[#00FF41] mb-6 font-bold leading-tight">
+              <span className="text-[#00FF41]/50">[</span> Hello, I'm Mehmed Muric <span className="text-[#00FF41]/50">]</span>
+            </h1>
+            <p className="text-gray-300/90 text-base sm:text-lg leading-relaxed max-w-2xl">
+              Software Engineer focused on scalable systems, clean UX and production-ready code.
+            </p>
+            {/* Decorative line */}
+            <div className="mt-6 h-px w-32 bg-gradient-to-r from-[#00FF41]/60 to-transparent"></div>
+          </div>
         </section>
 
         <Timeline />

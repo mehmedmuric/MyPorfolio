@@ -293,13 +293,25 @@ const BlogList = () => {
         aria-hidden
       />
 
-      <div className="container mx-auto relative z-10 max-w-7xl">
-        {/* Section title with HUD styling */}
-        <div className="relative mb-8 sm:mb-10 md:mb-12 lg:mb-16">
-          {/* HUD Panel behind title */}
-          <div className="absolute inset-0 -inset-x-4 md:-inset-x-8 bg-black/40 border border-[#00FF41]/30 rounded-lg backdrop-blur-sm shadow-[0_0_20px_rgba(0,255,65,0.2)]" />
-          <div className="absolute top-0 left-0 w-2 h-full bg-[#00FF41] opacity-60" />
-          <div className="relative px-4 md:px-8 py-6 md:py-8 blog-title">
+      <div className="container mx-auto relative z-10 max-w-7xl px-4 sm:px-6 md:px-8">
+        {/* Section title with Enhanced HUD styling */}
+        <div className="relative mb-10 sm:mb-12 md:mb-16 lg:mb-20">
+          {/* Modern Glassmorphism Panel behind title */}
+          <div className="absolute inset-0 -inset-x-4 md:-inset-x-8 bg-gradient-to-br from-black/70 via-black/50 to-black/70 border-2 border-[#00FF41]/40 rounded-2xl backdrop-blur-md shadow-[0_0_40px_rgba(0,255,65,0.3),inset_0_0_30px_rgba(0,255,65,0.05)] transition-all duration-500 hover:border-[#00FF41]/60 hover:shadow-[0_0_60px_rgba(0,255,65,0.4),inset_0_0_40px_rgba(0,255,65,0.08)]" />
+          {/* Enhanced accent bar */}
+          <div className="absolute top-0 left-0 w-3 h-full bg-gradient-to-b from-[#00FF41] via-[#00FF41]/80 to-[#00FF41] opacity-70 rounded-l-2xl" />
+          {/* Top glow line */}
+          <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41]/60 to-transparent" />
+          {/* Bottom glow line */}
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent" />
+          
+          {/* HUD Corner Accents */}
+          <div className="absolute -top-2 -left-2 w-6 h-6 border-t-2 border-l-2 border-[#00FF41]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute -top-2 -right-2 w-6 h-6 border-t-2 border-r-2 border-[#00FF41]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute -bottom-2 -left-2 w-6 h-6 border-b-2 border-l-2 border-[#00FF41]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute -bottom-2 -right-2 w-6 h-6 border-b-2 border-r-2 border-[#00FF41]/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          
+          <div className="relative px-6 md:px-10 py-8 md:py-10 blog-title group">
             <SectionTitle
               title="Projects"
               paragraph="Browse featured and recent creations."
@@ -309,84 +321,85 @@ const BlogList = () => {
           </div>
         </div>
 
-        {/* Descriptive text - HUD style */}
-        <p
-          className="text-center text-[#00FF41]/80 font-mono tracking-wide max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 text-sm sm:text-base md:text-lg relative z-10"
-        >
-          Explore my portfolio of innovative web applications, full-stack solutions, and creative digital experiences:
-        </p>
+        {/* Enhanced Descriptive text with modern styling */}
+        <div className="relative mb-10 sm:mb-12 md:mb-16 lg:mb-20">
+          <p className="text-center text-[#00FF41]/90 font-mono tracking-wider max-w-3xl mx-auto text-base sm:text-lg md:text-xl leading-relaxed relative z-10 px-4">
+            <span className="inline-block relative">
+              <span className="text-[#00FF41]/50 mr-2">[</span>
+              <span className="drop-shadow-[0_0_8px_rgba(0,255,65,0.5)]">Explore my portfolio of innovative web applications, full-stack solutions, and creative digital experiences</span>
+              <span className="text-[#00FF41]/50 ml-2">]</span>
+              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-24 h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/60 to-transparent"></span>
+            </span>
+          </p>
+        </div>
 
-        {/* Stats Badges - Enhanced HUD Style */}
-        <div className="flex justify-center flex-wrap gap-3 sm:gap-4 mb-8 sm:mb-10 md:mb-12 relative z-10">
+        {/* Stats Badges - Modern Glassmorphism Design */}
+        <div className="flex justify-center flex-wrap gap-4 sm:gap-5 md:gap-6 mb-10 sm:mb-12 md:mb-16 relative z-10">
           <div 
-            className="group relative flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105 hover:border-[#00FF41]"
+            className="group relative flex items-center gap-2.5 sm:gap-3 px-5 py-3 sm:px-6 sm:py-3.5 md:px-7 md:py-4 rounded-xl backdrop-blur-md border-2 transition-all duration-500 hover:scale-110 hover:-translate-y-1 shadow-lg"
             style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              borderColor: 'rgba(0, 255, 65, 0.3)',
-              boxShadow: '0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05)',
+              background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 20, 8, 0.6) 100%)',
+              borderColor: 'rgba(0, 255, 65, 0.4)',
+              boxShadow: '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 25px rgba(0, 255, 65, 0.05), 0 4px 20px rgba(0, 0, 0, 0.5)',
               color: '#00FF41',
-              clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 65, 0.4), inset 0 0 30px rgba(0, 255, 65, 0.1)';
+              e.currentTarget.style.boxShadow = '0 0 40px rgba(0, 255, 65, 0.6), inset 0 0 35px rgba(0, 255, 65, 0.12), 0 8px 30px rgba(0, 255, 65, 0.3)';
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 0.9)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05)';
+              e.currentTarget.style.boxShadow = '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 25px rgba(0, 255, 65, 0.05), 0 4px 20px rgba(0, 0, 0, 0.5)';
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 0.4)';
             }}
           >
-            {/* HUD corner brackets with glow */}
-            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <div className="absolute top-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </div>
-            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <div className="absolute top-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </div>
-            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <div className="absolute bottom-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </div>
-            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <div className="absolute bottom-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </div>
+            {/* Modern corner accents */}
+            <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-tl-lg shadow-[0_0_8px_rgba(0,255,65,0.5)]" />
+            <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-tr-lg shadow-[0_0_8px_rgba(0,255,65,0.5)]" />
+            <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-bl-lg shadow-[0_0_8px_rgba(0,255,65,0.5)]" />
+            <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-br-lg shadow-[0_0_8px_rgba(0,255,65,0.5)]" />
+            
+            {/* Glowing orb effect */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,65,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl blur-xl" />
+            
             {/* Scanning line effect */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-300 pointer-events-none" />
-            <span role="img" aria-label="New" className="text-base sm:text-lg relative z-10">🆕</span>
-            <span className="font-bold text-sm sm:text-base font-mono relative z-10">{recentProjects.length}</span>
-            <span className="hidden sm:inline text-sm sm:text-base font-mono relative z-10">Recent</span>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/15 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-500 pointer-events-none rounded-xl" />
+            
+            <span role="img" aria-label="New" className="text-lg sm:text-xl md:text-2xl relative z-10 drop-shadow-[0_0_8px_rgba(0,255,65,0.6)]">🆕</span>
+            <span className="font-bold text-base sm:text-lg md:text-xl font-mono relative z-10 drop-shadow-[0_0_6px_rgba(0,255,65,0.5)]">{recentProjects.length}</span>
+            <span className="hidden sm:inline text-base sm:text-lg md:text-xl font-mono relative z-10 drop-shadow-[0_0_6px_rgba(0,255,65,0.5)]">Recent</span>
           </div>
           <div 
-            className="group relative flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 backdrop-blur-sm border-2 transition-all duration-300 hover:scale-105 hover:border-[#00FF41]"
+            className="group relative flex items-center gap-2.5 sm:gap-3 px-5 py-3 sm:px-6 sm:py-3.5 md:px-7 md:py-4 rounded-xl backdrop-blur-md border-2 transition-all duration-500 hover:scale-110 hover:-translate-y-1 shadow-lg"
             style={{
-              backgroundColor: 'rgba(0, 0, 0, 0.7)',
-              borderColor: 'rgba(0, 255, 65, 0.3)',
-              boxShadow: '0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05)',
+              background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 20, 8, 0.6) 100%)',
+              borderColor: 'rgba(0, 255, 65, 0.4)',
+              boxShadow: '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 25px rgba(0, 255, 65, 0.05), 0 4px 20px rgba(0, 0, 0, 0.5)',
               color: '#00FF41',
-              clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
             }}
             onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 65, 0.4), inset 0 0 30px rgba(0, 255, 65, 0.1)';
+              e.currentTarget.style.boxShadow = '0 0 40px rgba(0, 255, 65, 0.6), inset 0 0 35px rgba(0, 255, 65, 0.12), 0 8px 30px rgba(0, 255, 65, 0.3)';
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 0.9)';
             }}
             onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.15), inset 0 0 20px rgba(0, 255, 65, 0.05)';
+              e.currentTarget.style.boxShadow = '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 25px rgba(0, 255, 65, 0.05), 0 4px 20px rgba(0, 0, 0, 0.5)';
+              e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 0.4)';
             }}
           >
-            {/* HUD corner brackets with glow */}
-            <div className="absolute top-0 left-0 w-3 h-3 border-t-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <div className="absolute top-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </div>
-            <div className="absolute top-0 right-0 w-3 h-3 border-t-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <div className="absolute top-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </div>
-            <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <div className="absolute bottom-0 left-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </div>
-            <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-              <div className="absolute bottom-0 right-0 w-full h-full bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-            </div>
+            {/* Modern corner accents */}
+            <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-tl-lg shadow-[0_0_8px_rgba(0,255,65,0.5)]" />
+            <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-tr-lg shadow-[0_0_8px_rgba(0,255,65,0.5)]" />
+            <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-bl-lg shadow-[0_0_8px_rgba(0,255,65,0.5)]" />
+            <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-br-lg shadow-[0_0_8px_rgba(0,255,65,0.5)]" />
+            
+            {/* Glowing orb effect */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,255,65,0.15)_0%,transparent_70%)] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-xl blur-xl" />
+            
             {/* Scanning line effect */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-300 pointer-events-none" />
-            <span role="img" aria-label="Projects" className="text-base sm:text-lg relative z-10">🗂</span>
-            <span className="font-bold text-sm sm:text-base font-mono relative z-10">{projects.length}</span>
-            <span className="hidden sm:inline text-sm sm:text-base font-mono relative z-10">Total</span>
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/15 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-500 pointer-events-none rounded-xl" />
+            
+            <span role="img" aria-label="Projects" className="text-lg sm:text-xl md:text-2xl relative z-10 drop-shadow-[0_0_8px_rgba(0,255,65,0.6)]">🗂</span>
+            <span className="font-bold text-base sm:text-lg md:text-xl font-mono relative z-10 drop-shadow-[0_0_6px_rgba(0,255,65,0.5)]">{projects.length}</span>
+            <span className="hidden sm:inline text-base sm:text-lg md:text-xl font-mono relative z-10 drop-shadow-[0_0_6px_rgba(0,255,65,0.5)]">Total</span>
           </div>
         </div>
 
@@ -440,23 +453,22 @@ const BlogList = () => {
                 {projects.map((blog, index) => (
                   <SwiperSlide key={`${blog.id}-${index}`}>
                     <article
-                      className="blog-card group relative h-full overflow-hidden transition-all duration-300 ease-out hover:-translate-y-1 md:hover:-translate-y-2 hover:scale-[1.02]"
+                      className="blog-card group relative h-full overflow-hidden rounded-2xl transition-all duration-500 ease-out hover:-translate-y-2 md:hover:-translate-y-3 hover:scale-[1.03] shadow-2xl"
                       style={{
-                        backgroundColor: 'rgba(0, 0, 0, 0.7)',
-                        border: '2px solid rgba(0, 255, 65, 0.3)',
-                        boxShadow: '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 30px rgba(0, 255, 65, 0.05)',
-                        backdropFilter: 'blur(8px)',
-                        clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))'
+                        background: 'linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 20, 8, 0.65) 100%)',
+                        border: '2px solid rgba(0, 255, 65, 0.4)',
+                        boxShadow: '0 0 30px rgba(0, 255, 65, 0.25), inset 0 0 35px rgba(0, 255, 65, 0.06), 0 8px 25px rgba(0, 0, 0, 0.6)',
+                        backdropFilter: 'blur(12px)',
                       }}
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.boxShadow = '0 0 40px rgba(0, 255, 65, 0.6), inset 0 0 40px rgba(0, 255, 65, 0.1)';
+                        e.currentTarget.style.boxShadow = '0 0 50px rgba(0, 255, 65, 0.7), inset 0 0 50px rgba(0, 255, 65, 0.15), 0 12px 40px rgba(0, 255, 65, 0.4)';
                         e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 1)';
-                        e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
+                        e.currentTarget.style.background = 'linear-gradient(135deg, rgba(0, 0, 0, 0.95) 0%, rgba(0, 30, 12, 0.75) 100%)';
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.boxShadow = '0 0 25px rgba(0, 255, 65, 0.2), inset 0 0 30px rgba(0, 255, 65, 0.05)';
-                        e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 0.3)';
-                        e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+                        e.currentTarget.style.boxShadow = '0 0 30px rgba(0, 255, 65, 0.25), inset 0 0 35px rgba(0, 255, 65, 0.06), 0 8px 25px rgba(0, 0, 0, 0.6)';
+                        e.currentTarget.style.borderColor = 'rgba(0, 255, 65, 0.4)';
+                        e.currentTarget.style.background = 'linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(0, 20, 8, 0.65) 100%)';
                       }}
                     >
                       {/* HUD Corner Brackets - Enhanced */}

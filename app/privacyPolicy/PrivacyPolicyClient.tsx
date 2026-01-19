@@ -38,8 +38,7 @@ const DataStream = ({ delay, left, speed = 8 }: { delay: number; left: string; s
       style={{ 
         left, 
         top: '-10%',
-        animation: `dataStream ${speed}s linear infinite`,
-        animationDelay: `${delay}s`,
+        animation: `dataStream ${speed}s linear ${delay}s infinite`,
         textShadow: '0 0 3px rgba(0,255,65,0.3), 0 0 6px rgba(0,255,65,0.2)',
       }}
       aria-hidden="true"
@@ -80,8 +79,7 @@ const FloatingParticle = ({ delay, left, size, duration }: { delay: number; left
       width: `${size}px`,
       height: `${size}px`,
       opacity: Math.random() * 0.3 + 0.1,
-      animation: `floatParticle ${duration}s ease-in-out infinite`,
-      animationDelay: `${delay}s`,
+      animation: `floatParticle ${duration}s ease-in-out ${delay}s infinite`,
       boxShadow: `0 0 ${size * 2}px rgba(0, 255, 65, 0.5)`,
     }}
     aria-hidden="true"
@@ -96,6 +94,36 @@ const PrivacyPolicyClient = () => {
     setMounted(true);
     // Set first section as active on mount
     setActiveSection("intro");
+  }, []);
+
+  // Scroll spy effect
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        "intro",
+        "information-collection",
+        "use-of-information",
+        "data-sharing",
+        "cookies",
+        "security",
+        "your-rights",
+        "contact",
+      ];
+      
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+      
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial check
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const sections = [
@@ -185,23 +213,21 @@ const PrivacyPolicyClient = () => {
             <div
               className="absolute w-full h-[1px] sm:h-[1.5px] md:h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent opacity-30 sm:opacity-35 md:opacity-40"
               style={{
-                animation: "scanLine 4s linear infinite",
+                animation: "scanLine 4s linear 0s infinite",
                 boxShadow: "0 0 8px #00FF41, 0 0 15px #00FF41, 0 0 25px rgba(0,255,65,0.2)",
               }}
             />
             <div
               className="absolute w-full h-[0.5px] sm:h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/60 to-transparent opacity-25 sm:opacity-30 md:opacity-35"
               style={{
-                animation: "scanLine 6s linear infinite",
-                animationDelay: "2s",
+                animation: "scanLine 6s linear 2s infinite",
                 boxShadow: "0 0 5px #00FF41, 0 0 10px rgba(0,255,65,0.3)",
               }}
             />
             <div
               className="absolute w-full h-[0.5px] bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent opacity-20"
               style={{
-                animation: "scanLine 8s linear infinite",
-                animationDelay: "4s",
+                animation: "scanLine 8s linear 4s infinite",
                 boxShadow: "0 0 3px rgba(0,255,65,0.2)",
               }}
             />
@@ -249,32 +275,36 @@ const PrivacyPolicyClient = () => {
             <aside className="lg:w-56 xl:w-64 lg:flex-shrink-0 lg:-ml-4 xl:-ml-6">
               <nav
                 aria-label="Table of contents"
-                className="sticky top-8 bg-black/40 backdrop-blur-sm border border-[#00FF41]/20 p-4 sm:p-6 rounded-sm"
+                className="sticky top-8 bg-black/50 backdrop-blur-md border border-[#00FF41]/30 p-4 sm:p-6 rounded-sm hover:border-[#00FF41]/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,255,65,0.2)]"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
                   boxShadow: "0 0 20px rgba(0, 255, 65, 0.1), inset 0 0 20px rgba(0, 255, 65, 0.05)",
                 }}
               >
-                <div className="absolute top-0 left-0 w-1 h-full bg-[#00FF41] opacity-50" />
-                <h2 className="text-sm font-mono text-[#00FF41] mb-4 tracking-wider uppercase">
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#00FF41]/80 via-[#00FF41]/40 to-transparent" />
+                <h2 className="text-xs sm:text-sm font-mono text-[#00FF41] mb-6 tracking-wider uppercase relative">
+                  <span className="absolute -left-2 top-0 bottom-0 w-0.5 bg-[#00FF41]/60"></span>
                   [NAVIGATION]
                 </h2>
-                <ul className="space-y-2">
+                <ul className="space-y-1.5">
                   {sections.map((section, index) => (
                     <li key={section.id}>
                       <button
                         onClick={() => scrollToSection(section.id)}
-                        className={`w-full text-left px-3 py-2 text-sm font-mono transition-all duration-200 ${
+                        className={`w-full text-left px-3 py-2.5 text-xs sm:text-sm font-mono transition-all duration-300 rounded-sm relative overflow-hidden group ${
                           activeSection === section.id
-                            ? "text-[#00FF41] bg-[#00FF41]/10 border-l-2 border-[#00FF41]"
-                            : "text-gray-400 hover:text-[#00FF41]/70 hover:bg-[#00FF41]/5"
+                            ? "text-[#00FF41] bg-[#00FF41]/15 border-l-2 border-[#00FF41] shadow-[0_0_10px_rgba(0,255,65,0.2)]"
+                            : "text-gray-400 hover:text-[#00FF41]/90 hover:bg-[#00FF41]/8 hover:border-l-2 hover:border-[#00FF41]/50"
                         }`}
                         aria-current={activeSection === section.id ? "page" : undefined}
                       >
-                        <span className="text-[#00FF41]/50">
+                        <span className={`${activeSection === section.id ? "text-[#00FF41]" : "text-[#00FF41]/50 group-hover:text-[#00FF41]/70"} transition-colors duration-300`}>
                           {String(index + 1).padStart(2, "0")}.
                         </span>{" "}
-                        {section.title}
+                        <span className="ml-1">{section.title}</span>
+                        {activeSection === section.id && (
+                          <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[#00FF41] opacity-60 animate-pulse">▸</span>
+                        )}
                       </button>
                     </li>
                   ))}
@@ -286,7 +316,7 @@ const PrivacyPolicyClient = () => {
             <main className="flex-1 max-w-none lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl">
               {/* Terminal Window Container */}
               <article
-                className="bg-black/60 backdrop-blur-sm border border-[#00FF41]/30 p-6 sm:p-8 lg:p-12 rounded-sm relative"
+                className="bg-black/70 backdrop-blur-md border border-[#00FF41]/30 p-6 sm:p-8 lg:p-12 rounded-sm relative hover:border-[#00FF41]/50 transition-all duration-500 hover:shadow-[0_0_40px_rgba(0,255,65,0.25)]"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
                   boxShadow: "0 0 30px rgba(0, 255, 65, 0.15), inset 0 0 30px rgba(0, 255, 65, 0.05)",
@@ -299,13 +329,14 @@ const PrivacyPolicyClient = () => {
                 <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#00FF41] opacity-40" />
 
                 {/* Terminal Header */}
-                <div className="mb-8 pb-6 border-b border-[#00FF41]/20">
+                <div className="mb-10 pb-8 border-b border-[#00FF41]/25 relative">
+                  <div className="absolute bottom-0 left-0 h-px w-1/3 bg-gradient-to-r from-[#00FF41] to-transparent"></div>
                   <div className="flex items-center justify-between flex-wrap gap-4">
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-mono text-[#00FF41] tracking-tight">
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-bold font-mono text-[#00FF41] tracking-tight group-hover:tracking-wider transition-all duration-300">
                       [PRIVACY_POLICY]
                     </h1>
-                    <div className="text-xs sm:text-sm font-mono text-[#00FF41]/60 flex items-center gap-2">
-                      <span className="animate-pulse">●</span>
+                    <div className="text-xs sm:text-sm font-mono text-[#00FF41]/70 flex items-center gap-2 px-3 py-1.5 bg-[#00FF41]/5 rounded-sm border border-[#00FF41]/20">
+                      <span className="animate-pulse text-[#00FF41]">●</span>
                       <span>[LAST_UPDATED: {new Date().toISOString().split("T")[0]}]</span>
                     </div>
                   </div>
@@ -314,244 +345,274 @@ const PrivacyPolicyClient = () => {
                 {/* Introduction Section */}
                 <section
                   id="intro"
-                  className="mb-12 scroll-mt-8"
+                  className="mb-16 scroll-mt-8 group relative"
                   onMouseEnter={() => setActiveSection("intro")}
                 >
-                  <p
-                    className="text-gray-300 leading-relaxed mb-8"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    Your privacy is important. This page explains what information may be collected while using
-                    my portfolio website and how it is used.
-                  </p>
+                  <div className="absolute -left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00FF41]/60 via-[#00FF41]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="pl-6 group-hover:pl-8 transition-all duration-300">
+                    <p
+                      className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                      style={{
+                        maxWidth: "70ch",
+                        fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      Your privacy is important. This page explains what information may be collected while using
+                      my portfolio website and how it is used.
+                    </p>
+                  </div>
                 </section>
 
                 {/* Information Collection Section */}
                 <section
                   id="information-collection"
-                  className="mb-12 scroll-mt-8"
+                  className="mb-16 scroll-mt-8 group relative"
                   onMouseEnter={() => setActiveSection("information-collection")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">01.</span>
-                      Information Collection
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
-                    </h2>
+                  <div className="absolute -left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00FF41]/60 via-[#00FF41]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="pl-6 group-hover:pl-8 transition-all duration-300">
+                    <div className="mb-8">
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block group-hover:tracking-wider transition-all duration-300">
+                        <span className="absolute -left-8 sm:-left-10 text-[#00FF41]/50 font-mono">01.</span>
+                        Information Collection
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF41]/60 to-transparent w-full group-hover:w-[120%] transition-all duration-500"
+                          style={{
+                            boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
+                          }}
+                        />
+                      </h2>
+                    </div>
+                    <ul
+                      className="space-y-5 text-gray-300 leading-relaxed"
+                      style={{
+                        maxWidth: "70ch",
+                        fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      <li className="relative pl-8 before:content-['▸'] before:absolute before:left-0 before:text-[#00FF41]/70 before:font-mono before:text-lg group-hover:before:text-[#00FF41] transition-colors duration-300">
+                        <span className="font-semibold text-[#00FF41]/90 group-hover:text-[#00FF41] transition-colors duration-300">Personal Data</span>{" "}
+                        <span className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">–</span> Collected only if you voluntarily
+                        provide it via the contact form (name, email, message).
+                      </li>
+                      <li className="relative pl-8 before:content-['▸'] before:absolute before:left-0 before:text-[#00FF41]/70 before:font-mono before:text-lg group-hover:before:text-[#00FF41] transition-colors duration-300">
+                        <span className="font-semibold text-[#00FF41]/90 group-hover:text-[#00FF41] transition-colors duration-300">Automatic Data</span>{" "}
+                        <span className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">–</span> Like most websites, this portfolio
+                        may use basic analytics tools (e.g., Google Analytics) that collect anonymous information
+                        such as IP address, browser type, and time of visit.
+                      </li>
+                    </ul>
                   </div>
-                  <ul
-                    className="list-disc pl-6 space-y-3 text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    <li>
-                      <span className="font-medium text-[#00FF41]/80">Personal Data</span> – Collected only if you voluntarily
-                      provide it via the contact form (name, email, message).
-                    </li>
-                    <li>
-                      <span className="font-medium text-[#00FF41]/80">Automatic Data</span> – Like most websites, this portfolio
-                      may use basic analytics tools (e.g., Google Analytics) that collect anonymous information
-                      such as IP address, browser type, and time of visit.
-                    </li>
-                  </ul>
                 </section>
 
                 {/* Use of Information Section */}
                 <section
                   id="use-of-information"
-                  className="mb-12 scroll-mt-8"
+                  className="mb-16 scroll-mt-8 group relative"
                   onMouseEnter={() => setActiveSection("use-of-information")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">02.</span>
-                      Use of Information
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
-                    </h2>
+                  <div className="absolute -left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00FF41]/60 via-[#00FF41]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="pl-6 group-hover:pl-8 transition-all duration-300">
+                    <div className="mb-8">
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block group-hover:tracking-wider transition-all duration-300">
+                        <span className="absolute -left-8 sm:-left-10 text-[#00FF41]/50 font-mono">02.</span>
+                        Use of Information
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF41]/60 to-transparent w-full group-hover:w-[120%] transition-all duration-500"
+                          style={{
+                            boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
+                          }}
+                        />
+                      </h2>
+                    </div>
+                    <ul
+                      className="space-y-5 text-gray-300 leading-relaxed"
+                      style={{
+                        maxWidth: "70ch",
+                        fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      <li className="relative pl-8 before:content-['▸'] before:absolute before:left-0 before:text-[#00FF41]/70 before:font-mono before:text-lg group-hover:before:text-[#00FF41] transition-colors duration-300 group-hover:text-gray-200">
+                        To respond to messages sent through the contact form.
+                      </li>
+                      <li className="relative pl-8 before:content-['▸'] before:absolute before:left-0 before:text-[#00FF41]/70 before:font-mono before:text-lg group-hover:before:text-[#00FF41] transition-colors duration-300 group-hover:text-gray-200">
+                        To understand how visitors use the site and improve its content and functionality.
+                      </li>
+                    </ul>
                   </div>
-                  <ul
-                    className="list-disc pl-6 space-y-3 text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    <li>To respond to messages sent through the contact form.</li>
-                    <li>To understand how visitors use the site and improve its content and functionality.</li>
-                  </ul>
                 </section>
 
                 {/* Data Sharing Section */}
                 <section
                   id="data-sharing"
-                  className="mb-12 scroll-mt-8"
+                  className="mb-16 scroll-mt-8 group relative"
                   onMouseEnter={() => setActiveSection("data-sharing")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">03.</span>
-                      Data Sharing
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
-                    </h2>
+                  <div className="absolute -left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00FF41]/60 via-[#00FF41]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="pl-6 group-hover:pl-8 transition-all duration-300">
+                    <div className="mb-8">
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block group-hover:tracking-wider transition-all duration-300">
+                        <span className="absolute -left-8 sm:-left-10 text-[#00FF41]/50 font-mono">03.</span>
+                        Data Sharing
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF41]/60 to-transparent w-full group-hover:w-[120%] transition-all duration-500"
+                          style={{
+                            boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
+                          }}
+                        />
+                      </h2>
+                    </div>
+                    <p
+                      className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                      style={{
+                        maxWidth: "70ch",
+                        fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      Your personal data is <span className="font-semibold text-[#00FF41]/90 group-hover:text-[#00FF41] transition-colors duration-300 px-1 bg-[#00FF41]/5 rounded-sm">not shared</span> with third parties and
+                      is not used for marketing purposes.
+                    </p>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    Your personal data is <span className="font-medium text-[#00FF41]/80">not shared</span> with third parties and
-                    is not used for marketing purposes.
-                  </p>
                 </section>
 
                 {/* Cookies Section */}
                 <section
                   id="cookies"
-                  className="mb-12 scroll-mt-8"
+                  className="mb-16 scroll-mt-8 group relative"
                   onMouseEnter={() => setActiveSection("cookies")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">04.</span>
-                      Cookies
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
-                    </h2>
+                  <div className="absolute -left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00FF41]/60 via-[#00FF41]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="pl-6 group-hover:pl-8 transition-all duration-300">
+                    <div className="mb-8">
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block group-hover:tracking-wider transition-all duration-300">
+                        <span className="absolute -left-8 sm:-left-10 text-[#00FF41]/50 font-mono">04.</span>
+                        Cookies
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF41]/60 to-transparent w-full group-hover:w-[120%] transition-all duration-500"
+                          style={{
+                            boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
+                          }}
+                        />
+                      </h2>
+                    </div>
+                    <p
+                      className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                      style={{
+                        maxWidth: "70ch",
+                        fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      This website may use cookies for basic functionality and analytics. You can disable cookies
+                      in your browser settings at any time.
+                    </p>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    This website may use cookies for basic functionality and analytics. You can disable cookies
-                    in your browser settings at any time.
-                  </p>
                 </section>
 
                 {/* Security Section */}
                 <section
                   id="security"
-                  className="mb-12 scroll-mt-8"
+                  className="mb-16 scroll-mt-8 group relative"
                   onMouseEnter={() => setActiveSection("security")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">05.</span>
-                      Security
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
-                    </h2>
+                  <div className="absolute -left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00FF41]/60 via-[#00FF41]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="pl-6 group-hover:pl-8 transition-all duration-300">
+                    <div className="mb-8">
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block group-hover:tracking-wider transition-all duration-300">
+                        <span className="absolute -left-8 sm:-left-10 text-[#00FF41]/50 font-mono">05.</span>
+                        Security
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF41]/60 to-transparent w-full group-hover:w-[120%] transition-all duration-500"
+                          style={{
+                            boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
+                          }}
+                        />
+                      </h2>
+                    </div>
+                    <p
+                      className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                      style={{
+                        maxWidth: "70ch",
+                        fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      Reasonable measures are taken to protect your data, but please note that no internet
+                      transmission is <span className="font-semibold text-[#00FF41]/90 group-hover:text-[#00FF41] transition-colors duration-300 px-1 bg-[#00FF41]/5 rounded-sm">100% secure</span>.
+                    </p>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    Reasonable measures are taken to protect your data, but please note that no internet
-                    transmission is 100% secure.
-                  </p>
                 </section>
 
                 {/* Your Rights Section */}
                 <section
                   id="your-rights"
-                  className="mb-12 scroll-mt-8"
+                  className="mb-16 scroll-mt-8 group relative"
                   onMouseEnter={() => setActiveSection("your-rights")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">06.</span>
-                      Your Rights
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
-                    </h2>
+                  <div className="absolute -left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00FF41]/60 via-[#00FF41]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="pl-6 group-hover:pl-8 transition-all duration-300">
+                    <div className="mb-8">
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block group-hover:tracking-wider transition-all duration-300">
+                        <span className="absolute -left-8 sm:-left-10 text-[#00FF41]/50 font-mono">06.</span>
+                        Your Rights
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF41]/60 to-transparent w-full group-hover:w-[120%] transition-all duration-500"
+                          style={{
+                            boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
+                          }}
+                        />
+                      </h2>
+                    </div>
+                    <p
+                      className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                      style={{
+                        maxWidth: "70ch",
+                        fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      You may request the <span className="font-semibold text-[#00FF41]/90 group-hover:text-[#00FF41] transition-colors duration-300 px-1 bg-[#00FF41]/5 rounded-sm">deletion</span> of any personal information you submitted via the contact
+                      form at any time.
+                    </p>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    You may request the deletion of any personal information you submitted via the contact
-                    form at any time.
-                  </p>
                 </section>
 
                 {/* Contact Section */}
                 <section
                   id="contact"
-                  className="mb-8 scroll-mt-8"
+                  className="mb-12 scroll-mt-8 group relative"
                   onMouseEnter={() => setActiveSection("contact")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">07.</span>
-                      Contact
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
-                    </h2>
+                  <div className="absolute -left-2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-[#00FF41]/60 via-[#00FF41]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  <div className="pl-6 group-hover:pl-8 transition-all duration-300">
+                    <div className="mb-8">
+                      <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block group-hover:tracking-wider transition-all duration-300">
+                        <span className="absolute -left-8 sm:-left-10 text-[#00FF41]/50 font-mono">07.</span>
+                        Contact
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF41]/60 to-transparent w-full group-hover:w-[120%] transition-all duration-500"
+                          style={{
+                            boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
+                          }}
+                        />
+                      </h2>
+                    </div>
+                    <p
+                      className="text-gray-300 leading-relaxed group-hover:text-gray-200 transition-colors duration-300"
+                      style={{
+                        maxWidth: "70ch",
+                        fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      For any privacy-related questions, feel free to contact me via the email address provided
+                      on this website.
+                    </p>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    For any privacy-related questions, feel free to contact me via the email address provided
-                    on this website.
-                  </p>
                 </section>
 
                 {/* Footer Divider */}

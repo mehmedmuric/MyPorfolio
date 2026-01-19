@@ -155,71 +155,134 @@ const StarRating = memo(({ rating = 5 }: { rating?: number }) => (
 ));
 StarRating.displayName = "StarRating";
 
-// Testimonial Card Component - Optimized and moved outside
+// Testimonial Card Component - Optimized and moved outside with Modern Design
 const TestimonialCard = memo(({ testimonial }: { testimonial: Testimonial }) => (
-  <figure className="relative h-full group min-h-[420px] sm:min-h-[480px] md:min-h-[500px]">
-    {/* Enhanced HUD Card Container */}
+  <figure className="relative h-full group min-h-[420px] sm:min-h-[480px] md:min-h-[520px]">
+    {/* Modern Glassmorphism Card Container with Enhanced Effects */}
     <div
-      className="relative h-full p-5 sm:p-6 md:p-7 lg:p-8 bg-black/85 border border-[#00ff41]/30 backdrop-blur-md
-      rounded-xl shadow-[0_0_30px_rgba(0,255,65,0.15),inset_0_0_40px_rgba(0,255,65,0.03)]
-      transition-all duration-500 hover:border-[#00ff41]/70 hover:shadow-[0_0_50px_rgba(0,255,65,0.35)]
-      hover:scale-[1.02] flex flex-col items-center text-center"
+      className="relative h-full p-6 sm:p-7 md:p-8 lg:p-9 
+      bg-gradient-to-br from-black/90 via-[#0a0f0a]/95 to-black/90 
+      border border-[#00ff41]/40 backdrop-blur-xl
+      rounded-2xl shadow-[0_8px_32px_rgba(0,255,65,0.12),inset_0_1px_0_rgba(0,255,65,0.1),inset_0_-1px_0_rgba(0,255,65,0.05)]
+      transition-all duration-700 ease-out
+      hover:border-[#00ff41]/80 
+      hover:shadow-[0_20px_60px_rgba(0,255,65,0.25),0_0_80px_rgba(0,255,65,0.15),inset_0_0_60px_rgba(0,255,65,0.08)]
+      hover:scale-[1.03] hover:-translate-y-2
+      flex flex-col items-center text-center
+      before:absolute before:inset-0 before:rounded-2xl 
+      before:bg-gradient-to-br before:from-[#00ff41]/5 before:via-transparent before:to-transparent
+      before:opacity-0 before:transition-opacity before:duration-700
+      hover:before:opacity-100
+      overflow-hidden"
       style={{
-        clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
+        clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))",
       }}
     >
-      {/* HUD Corner Brackets - Enhanced */}
-      <div className="absolute top-3 left-3 w-5 h-5 sm:w-6 sm:h-6 border-t-2 border-l-2 border-[#00ff41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <div className="absolute top-3 right-3 w-5 h-5 sm:w-6 sm:h-6 border-t-2 border-r-2 border-[#00ff41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <div className="absolute bottom-3 left-3 w-5 h-5 sm:w-6 sm:h-6 border-b-2 border-l-2 border-[#00ff41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-      <div className="absolute bottom-3 right-3 w-5 h-5 sm:w-6 sm:h-6 border-b-2 border-r-2 border-[#00ff41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* Animated Gradient Border Glow */}
+      <div className="absolute -inset-[1px] bg-gradient-to-r from-[#00ff41]/0 via-[#00ff41]/50 to-[#00ff41]/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-700 -z-10 animate-pulse" />
+      
+      {/* HUD Corner Brackets - Always Visible but Enhanced on Hover */}
+      <div className="absolute top-4 left-4 w-6 h-6 sm:w-7 sm:h-7 border-t-[3px] border-l-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
+      <div className="absolute top-4 right-4 w-6 h-6 sm:w-7 sm:h-7 border-t-[3px] border-r-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
+      <div className="absolute bottom-4 left-4 w-6 h-6 sm:w-7 sm:h-7 border-b-[3px] border-l-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
+      <div className="absolute bottom-4 right-4 w-6 h-6 sm:w-7 sm:h-7 border-b-[3px] border-r-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
 
-      {/* Subtle Scanline overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00ff41]/3 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scanline_3s_linear_infinite] pointer-events-none rounded-xl" />
+      {/* Animated Scanline overlay */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00ff41]/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scanline_3s_linear_infinite] pointer-events-none rounded-2xl" />
+      
+      {/* Animated Diagonal Lines Pattern */}
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-2xl" style={{
+        backgroundImage: `repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 10px,
+          rgba(0,255,65,0.03) 10px,
+          rgba(0,255,65,0.03) 20px
+        )`,
+      }} />
 
-      {/* Enhanced Quote Mark */}
-      <div className="absolute -top-3 sm:-top-4 md:-top-5 -left-2 sm:-left-3 text-[#00ff41]/15 text-7xl sm:text-8xl md:text-9xl font-bold leading-none select-none pointer-events-none group-hover:text-[#00ff41]/25 transition-colors duration-500" style={{ fontFamily: 'serif' }}>
+      {/* Enhanced Quote Mark with Glow */}
+      <div className="absolute -top-4 sm:-top-5 md:-top-6 -left-3 sm:-left-4 
+      text-[#00ff41]/10 group-hover:text-[#00ff41]/20 
+      text-8xl sm:text-9xl md:text-[10rem] font-bold leading-none select-none 
+      pointer-events-none transition-all duration-700
+      group-hover:drop-shadow-[0_0_30px_rgba(0,255,65,0.4)]
+      group-hover:scale-110 group-hover:translate-x-2 group-hover:-translate-y-2" 
+      style={{ fontFamily: 'serif' }}>
         "
       </div>
 
-      {/* Star Rating - Enhanced spacing */}
-      <div className="mt-6 sm:mt-8 mb-4 sm:mb-5 relative z-10">
+      {/* Star Rating - Enhanced with Animation */}
+      <div className="mt-8 sm:mt-10 mb-5 sm:mb-6 relative z-10 transform group-hover:scale-110 transition-transform duration-500">
         <StarRating rating={5} />
       </div>
 
-      {/* Enhanced Testimonial Text */}
-      <blockquote className="mb-6 sm:mb-7 md:mb-8 relative z-10 flex-1 flex items-center px-3 sm:px-5">
-        <p className="text-gray-200 text-sm sm:text-base md:text-lg leading-relaxed font-light italic">
+      {/* Enhanced Testimonial Text with Better Typography */}
+      <blockquote className="mb-8 sm:mb-9 md:mb-10 relative z-10 flex-1 flex items-center px-4 sm:px-6">
+        <p className="text-gray-100 text-[15px] sm:text-base md:text-lg lg:text-xl 
+        leading-[1.8] sm:leading-[1.9] font-light italic
+        group-hover:text-white transition-colors duration-500">
           {testimonial.comment}
         </p>
       </blockquote>
 
-      {/* Enhanced Closing Quote */}
-      <div className="absolute -bottom-3 sm:-bottom-4 md:-bottom-5 -right-2 sm:-right-3 text-[#00ff41]/15 text-7xl sm:text-8xl md:text-9xl font-bold leading-none select-none pointer-events-none group-hover:text-[#00ff41]/25 transition-colors duration-500" style={{ fontFamily: 'serif' }}>
+      {/* Enhanced Closing Quote with Glow */}
+      <div className="absolute -bottom-4 sm:-bottom-5 md:-bottom-6 -right-3 sm:-right-4 
+      text-[#00ff41]/10 group-hover:text-[#00ff41]/20 
+      text-8xl sm:text-9xl md:text-[10rem] font-bold leading-none select-none 
+      pointer-events-none transition-all duration-700
+      group-hover:drop-shadow-[0_0_30px_rgba(0,255,65,0.4)]
+      group-hover:scale-110 group-hover:-translate-x-2 group-hover:translate-y-2" 
+      style={{ fontFamily: 'serif' }}>
         "
       </div>
 
-      {/* Enhanced Author Info */}
-      <figcaption className="flex flex-col items-center mt-6 sm:mt-7 md:mt-8 relative z-10 w-full">
-        {/* Enhanced Avatar with better glow */}
-        <div className="relative mb-4 sm:mb-5">
-          <div className="absolute inset-0 rounded-full bg-[#00ff41]/20 blur-xl animate-pulse-slow" />
+      {/* Enhanced Author Info with Modern Styling */}
+      <figcaption className="flex flex-col items-center mt-8 sm:mt-9 md:mt-10 relative z-10 w-full">
+        {/* Enhanced Avatar with Animated Ring */}
+        <div className="relative mb-5 sm:mb-6">
+          {/* Outer Glow Ring */}
+          <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-[#00ff41]/30 via-[#00ff88]/30 to-[#00ff41]/30 blur-xl opacity-50 group-hover:opacity-100 group-hover:animate-spin-slow transition-opacity duration-700" style={{ animationDuration: '8s' }} />
+          {/* Inner Pulse Ring */}
+          <div className="absolute inset-0 rounded-full bg-[#00ff41]/20 blur-lg animate-pulse-slow group-hover:bg-[#00ff41]/30" />
           <div className="relative">
+            <div className="absolute inset-0 rounded-full border-2 border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 animate-ping" style={{ animationDuration: '3s' }} />
             <Image
               src={testimonial.image || "/images/testimonials/testimonials.png"}
               alt={testimonial.name}
-              width={72}
-              height={72}
-              className="rounded-full border-2 border-[#00ff41]/60 shadow-[0_0_25px_rgba(0,255,65,0.4)] transition-all duration-500 group-hover:border-[#00ff41] group-hover:shadow-[0_0_40px_rgba(0,255,65,0.7)] w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 object-cover"
+              width={80}
+              height={80}
+              className="relative rounded-full border-[3px] border-[#00ff41]/70 
+              shadow-[0_0_30px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.1)] 
+              transition-all duration-700 
+              group-hover:border-[#00ff41] 
+              group-hover:shadow-[0_0_50px_rgba(0,255,65,0.8),0_0_80px_rgba(0,255,65,0.4),inset_0_0_30px_rgba(0,255,65,0.2)]
+              group-hover:scale-110
+              w-18 h-18 sm:w-22 sm:h-22 md:w-28 md:h-28 object-cover"
               loading="lazy"
             />
           </div>
         </div>
-        <div className="font-mono font-bold text-[#00ff41] text-base sm:text-lg md:text-xl mb-2 transition-all duration-500 group-hover:text-[#00ff88] group-hover:drop-shadow-[0_0_15px_rgba(0,255,65,0.9)] px-3">
+        
+        {/* Author Name with Gradient Text */}
+        <div className="font-mono font-bold mb-2 px-4 
+        bg-gradient-to-r from-[#00ff41] via-[#00ff88] to-[#00ff41] 
+        bg-clip-text text-transparent
+        text-lg sm:text-xl md:text-2xl
+        transition-all duration-700 
+        group-hover:drop-shadow-[0_0_20px_rgba(0,255,65,0.9)]
+        group-hover:scale-105">
           {testimonial.name}
         </div>
+        
+        {/* Role with Enhanced Styling */}
         {testimonial.role && (
-          <div className="font-mono text-gray-400 text-xs sm:text-sm md:text-base border-b border-[#00ff41]/30 pb-2 transition-all duration-500 group-hover:border-[#00ff41]/70 px-3 text-center max-w-[90%]">
+          <div className="font-mono text-gray-400 text-sm sm:text-base md:text-lg 
+          relative pb-3 px-4 text-center max-w-[85%]
+          before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2
+          before:w-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-[#00ff41] before:to-transparent
+          before:transition-all before:duration-700
+          group-hover:text-gray-300 group-hover:before:w-full">
             {testimonial.role}
           </div>
         )}
@@ -440,45 +503,81 @@ const TestimonialsClient = () => {
         <div className="absolute right-[10%] bottom-[5%] w-[190px] h-[120px] sm:w-[280px] sm:h-[180px] md:w-[380px] md:h-[240px] bg-[radial-gradient(circle,rgba(0,255,65,0.1)_0%,transparent_80%)] rounded-full pointer-events-none blur-3xl z-10 will-change-transform opacity-50 sm:opacity-75 md:opacity-100" style={{ transform: `translate3d(${mousePosition.x * 0.19}px,${mousePosition.y * 0.08}px,0)` }} aria-hidden />
 
         <div className="mx-auto max-w-7xl relative z-10">
-          {/* Section Title */}
-          <div className="text-center mb-8 sm:mb-12 md:mb-16 px-2">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-[#00ff41] via-[#00ff88] to-[#00ff41] bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(0,255,65,0.5)] leading-tight">
+          {/* Modern Section Title with Enhanced Effects */}
+          <div className="text-center mb-10 sm:mb-14 md:mb-18 px-2 relative">
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold 
+              text-[#00ff41]/5 blur-2xl select-none">
+                What Clients Say
+              </h2>
+            </div>
+            <h2 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 
+            bg-gradient-to-r from-[#00ff41] via-[#00ff88] to-[#00ff41] 
+            bg-clip-text text-transparent 
+            bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite]
+            drop-shadow-[0_0_30px_rgba(0,255,65,0.6),0_0_60px_rgba(0,255,65,0.3)] 
+            leading-tight tracking-tight">
               What Clients Say
             </h2>
-            <div className="w-16 sm:w-24 md:w-32 h-[2px] bg-gradient-to-r from-transparent via-[#00ff41] to-transparent mx-auto mt-3 sm:mt-4 shadow-[0_0_10px_rgba(0,255,65,0.6)]" />
+            <div className="relative w-20 sm:w-32 md:w-40 h-[3px] mx-auto mt-4 sm:mt-6 overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00ff41] to-transparent shadow-[0_0_20px_rgba(0,255,65,0.8)]" />
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00ff88] to-transparent animate-[shimmer_3s_linear_infinite] opacity-75" />
+            </div>
           </div>
 
-          {/* Enhanced Submission Form - HUD Style */}
+          {/* Modern Submission Form - Enhanced Glassmorphism Style */}
           <form
             onSubmit={handleSubmit}
-            className="max-w-3xl mx-auto p-5 sm:p-7 md:p-9 lg:p-11 xl:p-12 mb-12 sm:mb-16 md:mb-20 relative group
-            bg-black/75 border border-[#00ff41]/35 backdrop-blur-lg 
-            rounded-xl shadow-[0_0_35px_rgba(0,255,65,0.18),inset_0_0_50px_rgba(0,255,65,0.04)]
-            transition-all duration-500 hover:border-[#00ff41]/70 hover:shadow-[0_0_60px_rgba(0,255,65,0.45)]"
+            className="max-w-3xl mx-auto p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 mb-12 sm:mb-16 md:mb-20 relative group
+            bg-gradient-to-br from-black/80 via-[#0a0f0a]/90 to-black/80 
+            border border-[#00ff41]/40 backdrop-blur-xl
+            rounded-2xl 
+            shadow-[0_8px_40px_rgba(0,255,65,0.15),inset_0_1px_0_rgba(0,255,65,0.1),inset_0_0_60px_rgba(0,255,65,0.05)]
+            transition-all duration-700 ease-out
+            hover:border-[#00ff41]/80 
+            hover:shadow-[0_20px_70px_rgba(0,255,65,0.25),0_0_100px_rgba(0,255,65,0.15),inset_0_0_80px_rgba(0,255,65,0.08)]
+            hover:scale-[1.01] hover:-translate-y-1
+            before:absolute before:inset-0 before:rounded-2xl 
+            before:bg-gradient-to-br before:from-[#00ff41]/5 before:via-transparent before:to-transparent
+            before:opacity-0 before:transition-opacity before:duration-700
+            hover:before:opacity-100
+            overflow-hidden"
             style={{
-              clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
+              clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))",
             }}
           >
-            {/* Enhanced HUD Corner Brackets */}
-            <div className="absolute top-3 left-3 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 border-t-2 border-l-2 border-[#00ff41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute top-3 right-3 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 border-t-2 border-r-2 border-[#00ff41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-3 left-3 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 border-b-2 border-l-2 border-[#00ff41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-            <div className="absolute bottom-3 right-3 w-5 h-5 sm:w-6 sm:h-6 md:w-7 md:h-7 border-b-2 border-r-2 border-[#00ff41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+            {/* Animated Gradient Border Glow */}
+            <div className="absolute -inset-[1px] bg-gradient-to-r from-[#00ff41]/0 via-[#00ff41]/50 to-[#00ff41]/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-700 -z-10" />
+            
+            {/* Enhanced HUD Corner Brackets - Always Visible */}
+            <div className="absolute top-4 left-4 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 border-t-[3px] border-l-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
+            <div className="absolute top-4 right-4 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 border-t-[3px] border-r-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
+            <div className="absolute bottom-4 left-4 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 border-b-[3px] border-l-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
+            <div className="absolute bottom-4 right-4 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 border-b-[3px] border-r-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
 
             {/* Enhanced Scanline overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00ff41]/4 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scanline_3s_linear_infinite] pointer-events-none rounded-xl" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00ff41]/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scanline_3s_linear_infinite] pointer-events-none rounded-2xl" />
             
-            {/* Form Title */}
-            <div className="text-center mb-6 sm:mb-8">
-              <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#00ff41] font-mono mb-2">
+            {/* Modern Form Title */}
+            <div className="text-center mb-8 sm:mb-10 relative z-10">
+              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-mono mb-3 sm:mb-4
+              bg-gradient-to-r from-[#00ff41] via-[#00ff88] to-[#00ff41] 
+              bg-clip-text text-transparent
+              drop-shadow-[0_0_20px_rgba(0,255,65,0.6)]
+              group-hover:scale-105 transition-transform duration-500">
                 [SUBMIT_TESTIMONIAL]
               </h3>
-              <div className="w-20 sm:w-32 h-[2px] bg-gradient-to-r from-transparent via-[#00ff41] to-transparent mx-auto shadow-[0_0_10px_rgba(0,255,65,0.5)]" />
+              <div className="relative w-24 sm:w-40 h-[3px] mx-auto overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00ff41] to-transparent shadow-[0_0_15px_rgba(0,255,65,0.7)]" />
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00ff88] to-transparent animate-[shimmer_3s_linear_infinite] opacity-75" />
+              </div>
             </div>
 
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 md:gap-7 mb-5 sm:mb-6 md:mb-7">
-              <div>
-                <label htmlFor="name" className="mb-2.5 sm:mb-3 block text-xs sm:text-sm font-mono font-semibold text-[#00ff41] text-center sm:text-left tracking-wider">
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7 md:gap-8 mb-6 sm:mb-7 md:mb-8 relative z-10">
+              <div className="relative group/input">
+                <label htmlFor="name" className="mb-3 sm:mb-4 block text-xs sm:text-sm font-mono font-semibold 
+                text-[#00ff41] text-center sm:text-left tracking-wider
+                group-hover/input:drop-shadow-[0_0_10px_rgba(0,255,65,0.6)] transition-all duration-300">
                   [NAME] *
                 </label>
                 <input
@@ -490,17 +589,25 @@ const TestimonialsClient = () => {
                   value={formData.name}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className="w-full rounded-lg border border-[#00ff41]/35 bg-[#0a0f0a]/80 px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 text-sm sm:text-base text-gray-100 font-mono
-                      outline-none focus:border-[#00ff41] focus:ring-2 focus:ring-[#00ff41]/40 
-                      transition-all duration-300 focus:shadow-[0_0_20px_rgba(0,255,65,0.4)] 
-                      disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full rounded-xl border-2 border-[#00ff41]/40 
+                  bg-gradient-to-br from-[#0a0f0a]/90 to-black/90 backdrop-blur-sm
+                  px-5 sm:px-6 md:px-7 py-3.5 sm:py-4 text-sm sm:text-base text-gray-100 font-mono
+                  placeholder:text-gray-600 placeholder:font-light
+                  outline-none 
+                  focus:border-[#00ff41] focus:ring-2 focus:ring-[#00ff41]/50 
+                  focus:shadow-[0_0_30px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.05)]
+                  transition-all duration-500 ease-out
+                  hover:border-[#00ff41]/60 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)]
+                  disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-[#00ff41]/40"
                   required
                   maxLength={50}
                 />
               </div>
 
-              <div>
-                <label htmlFor="role" className="mb-2.5 sm:mb-3 block text-xs sm:text-sm font-mono font-semibold text-[#00ff41] text-center sm:text-left tracking-wider">
+              <div className="relative group/input">
+                <label htmlFor="role" className="mb-3 sm:mb-4 block text-xs sm:text-sm font-mono font-semibold 
+                text-[#00ff41] text-center sm:text-left tracking-wider
+                group-hover/input:drop-shadow-[0_0_10px_rgba(0,255,65,0.6)] transition-all duration-300">
                   [ROLE/COMPANY]
                 </label>
                 <input
@@ -511,18 +618,26 @@ const TestimonialsClient = () => {
                   value={formData.role}
                   onChange={handleChange}
                   disabled={isSubmitting}
-                  className="w-full rounded-lg border border-[#00ff41]/35 bg-[#0a0f0a]/80 px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 text-sm sm:text-base text-gray-100 font-mono
-                      outline-none focus:border-[#00ff41] focus:ring-2 focus:ring-[#00ff41]/40 
-                      transition-all duration-300 focus:shadow-[0_0_20px_rgba(0,255,65,0.4)]
-                      disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full rounded-xl border-2 border-[#00ff41]/40 
+                  bg-gradient-to-br from-[#0a0f0a]/90 to-black/90 backdrop-blur-sm
+                  px-5 sm:px-6 md:px-7 py-3.5 sm:py-4 text-sm sm:text-base text-gray-100 font-mono
+                  placeholder:text-gray-600 placeholder:font-light
+                  outline-none 
+                  focus:border-[#00ff41] focus:ring-2 focus:ring-[#00ff41]/50 
+                  focus:shadow-[0_0_30px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.05)]
+                  transition-all duration-500 ease-out
+                  hover:border-[#00ff41]/60 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)]
+                  disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-[#00ff41]/40"
                   maxLength={50}
                 />
               </div>
             </div>
 
-            <div className="w-full mb-5 sm:mb-6 md:mb-7">
-              <label htmlFor="image" className="mb-2.5 sm:mb-3 block text-xs sm:text-sm font-mono font-semibold text-[#00ff41] text-center tracking-wider">
-                [UPLOAD IMAGE] <span className="text-gray-500 text-xs">(Optional, Max 2MB)</span>
+            <div className="w-full mb-6 sm:mb-7 md:mb-8 relative z-10 group/input">
+              <label htmlFor="image" className="mb-3 sm:mb-4 block text-xs sm:text-sm font-mono font-semibold 
+              text-[#00ff41] text-center tracking-wider
+              group-hover/input:drop-shadow-[0_0_10px_rgba(0,255,65,0.6)] transition-all duration-300">
+                [UPLOAD IMAGE] <span className="text-gray-500 text-xs font-normal">(Optional, Max 2MB)</span>
               </label>
               <input
                 id="image"
@@ -531,35 +646,58 @@ const TestimonialsClient = () => {
                 accept="image/png, image/jpeg, image/jpg, image/webp"
                 onChange={handleImageChange}
                 disabled={isSubmitting}
-                className="block w-full text-xs sm:text-sm text-[#00ff41] border border-[#00ff41]/35 rounded-lg cursor-pointer bg-[#0a0f0a]/80 
-                           file:mr-3 sm:file:mr-4 file:py-2 sm:file:py-2.5 file:px-3 sm:file:px-5 file:rounded-lg file:border-0 
-                           file:text-xs sm:file:text-sm file:font-mono file:font-semibold file:bg-transparent file:text-[#00ff41] 
-                           hover:file:bg-[#00ff41] hover:file:text-black px-3 sm:px-4 py-2 sm:py-2.5 transition-all duration-300
-                           file:transition-all file:duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="block w-full text-xs sm:text-sm text-[#00ff41] 
+                border-2 border-[#00ff41]/40 rounded-xl cursor-pointer 
+                bg-gradient-to-br from-[#0a0f0a]/90 to-black/90 backdrop-blur-sm
+                file:mr-3 sm:file:mr-4 file:py-2.5 sm:file:py-3 file:px-4 sm:file:px-6 
+                file:rounded-lg file:border-0 
+                file:text-xs sm:file:text-sm file:font-mono file:font-semibold 
+                file:bg-transparent file:text-[#00ff41] file:border-r file:border-[#00ff41]/40
+                hover:file:bg-[#00ff41] hover:file:text-black hover:border-[#00ff41]/60
+                focus:border-[#00ff41] focus:shadow-[0_0_20px_rgba(0,255,65,0.4)]
+                px-3 sm:px-4 py-2.5 sm:py-3 
+                transition-all duration-500 ease-out
+                file:transition-all file:duration-300 
+                disabled:opacity-50 disabled:cursor-not-allowed"
               />
             </div>
 
-            <div className="w-full mb-6 sm:mb-7 md:mb-8">
-              <label htmlFor="comment" className="mb-2.5 sm:mb-3 block text-xs sm:text-sm font-mono font-semibold text-[#00ff41] text-center tracking-wider">
+            <div className="w-full mb-8 sm:mb-9 md:mb-10 relative z-10 group/input">
+              <label htmlFor="comment" className="mb-3 sm:mb-4 block text-xs sm:text-sm font-mono font-semibold 
+              text-[#00ff41] text-center tracking-wider
+              group-hover/input:drop-shadow-[0_0_10px_rgba(0,255,65,0.6)] transition-all duration-300">
                 [COMMENT] *
               </label>
               <textarea
                 id="comment"
                 name="comment"
-                rows={5}
+                rows={6}
                 placeholder="Share your experience..."
                 value={formData.comment}
                 onChange={handleChange}
                 disabled={isSubmitting}
-                className="w-full rounded-lg border border-[#00ff41]/35 bg-[#0a0f0a]/80 px-4 sm:px-5 md:px-6 py-3 sm:py-3.5 text-sm sm:text-base text-gray-100 font-mono
-                      outline-none focus:border-[#00ff41] focus:ring-2 focus:ring-[#00ff41]/40 
-                      transition-all duration-300 focus:shadow-[0_0_20px_rgba(0,255,65,0.4)] resize-none
-                      disabled:opacity-50 disabled:cursor-not-allowed"
+                className="w-full rounded-xl border-2 border-[#00ff41]/40 
+                bg-gradient-to-br from-[#0a0f0a]/90 to-black/90 backdrop-blur-sm
+                px-5 sm:px-6 md:px-7 py-3.5 sm:py-4 text-sm sm:text-base text-gray-100 font-mono
+                placeholder:text-gray-600 placeholder:font-light
+                outline-none 
+                focus:border-[#00ff41] focus:ring-2 focus:ring-[#00ff41]/50 
+                focus:shadow-[0_0_30px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.05)]
+                transition-all duration-500 ease-out
+                hover:border-[#00ff41]/60 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)]
+                resize-none
+                disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-[#00ff41]/40"
                 required
                 maxLength={500}
               ></textarea>
-              <div className="mt-2 text-right">
-                <span className="text-xs text-gray-500 font-mono">
+              <div className="mt-3 text-right">
+                <span className={`text-xs font-mono transition-colors duration-300 ${
+                  formData.comment.length >= 450 
+                    ? 'text-[#00ff41]' 
+                    : formData.comment.length >= 400 
+                    ? 'text-yellow-400' 
+                    : 'text-gray-500'
+                }`}>
                   {formData.comment.length}/500
                 </span>
               </div>
@@ -568,12 +706,25 @@ const TestimonialsClient = () => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full sm:w-auto mx-auto block rounded-lg bg-[#00ff41] px-8 sm:px-10 md:px-12 py-3 sm:py-3.5 text-sm sm:text-base font-mono font-bold text-black 
-              transition-all duration-300 ease-in-out hover:bg-transparent border-2 border-[#00ff41] hover:text-[#00ff41] 
-              shadow-[0_0_25px_rgba(0,255,65,0.6)] hover:shadow-[0_0_40px_rgba(0,255,65,0.9)] hover:scale-105 active:scale-95
-              disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              className="relative z-10 w-full sm:w-auto mx-auto block 
+              rounded-xl bg-gradient-to-r from-[#00ff41] via-[#00ff88] to-[#00ff41]
+              bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite]
+              px-10 sm:px-12 md:px-16 py-3.5 sm:py-4 md:py-5 
+              text-sm sm:text-base md:text-lg font-mono font-bold text-black 
+              transition-all duration-500 ease-out
+              hover:scale-105 hover:shadow-[0_0_50px_rgba(0,255,65,0.8),0_0_80px_rgba(0,255,65,0.5)] 
+              active:scale-95
+              disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 
+              disabled:animate-none
+              border-2 border-transparent hover:border-[#00ff41]/50
+              before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r 
+              before:from-transparent before:via-white/20 before:to-transparent
+              before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500
+              overflow-hidden"
             >
-              {isSubmitting ? "[SUBMITTING...]" : "[SUBMIT]"}
+              <span className="relative z-10">
+                {isSubmitting ? "[SUBMITTING...]" : "[SUBMIT]"}
+              </span>
             </button>
           </form>
 
@@ -632,37 +783,63 @@ const TestimonialsClient = () => {
               {/* Custom Pagination Dots */}
               <div className="testimonials-pagination flex justify-center items-center gap-2 sm:gap-3 mt-6 sm:mt-8 relative z-10" />
 
-              {/* Enhanced Navigation Arrows */}
+              {/* Modern Navigation Arrows with Enhanced Effects */}
               <button
                 onClick={() => swiperRef.current?.swiper?.slidePrev()}
-                className="absolute left-0 sm:left-2 md:left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full 
-                bg-black/85 border-2 border-[#00ff41]/50 backdrop-blur-md flex items-center justify-center
-                transition-all duration-300 hover:border-[#00ff41] hover:bg-black/95 hover:shadow-[0_0_30px_rgba(0,255,65,0.6)]
-                active:scale-95 touch-manipulation group"
+                className="absolute left-0 sm:left-2 md:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-20 
+                w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full 
+                bg-gradient-to-br from-black/90 via-[#0a0f0a]/95 to-black/90 
+                border-2 border-[#00ff41]/50 backdrop-blur-xl flex items-center justify-center
+                transition-all duration-500 ease-out
+                hover:border-[#00ff41] hover:bg-black/95 
+                hover:shadow-[0_0_40px_rgba(0,255,65,0.8),0_0_60px_rgba(0,255,65,0.4),inset_0_0_20px_rgba(0,255,65,0.1)]
+                hover:scale-110 hover:-translate-x-1
+                active:scale-95 touch-manipulation group
+                before:absolute before:inset-0 before:rounded-full 
+                before:bg-gradient-to-r before:from-[#00ff41]/20 before:via-transparent before:to-transparent
+                before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500"
                 aria-label="Previous testimonial"
               >
-                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#00ff41] group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+                <svg className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#00ff41] 
+                group-hover:text-[#00ff88] group-hover:scale-125 
+                transition-all duration-500 drop-shadow-[0_0_10px_rgba(0,255,65,0.6)]" 
+                fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
                 </svg>
               </button>
               <button
                 onClick={() => swiperRef.current?.swiper?.slideNext()}
-                className="absolute right-0 sm:right-2 md:right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 sm:w-13 sm:h-13 md:w-14 md:h-14 rounded-full 
-                bg-black/85 border-2 border-[#00ff41]/50 backdrop-blur-md flex items-center justify-center
-                transition-all duration-300 hover:border-[#00ff41] hover:bg-black/95 hover:shadow-[0_0_30px_rgba(0,255,65,0.6)]
-                active:scale-95 touch-manipulation group"
+                className="absolute right-0 sm:right-2 md:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-20 
+                w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full 
+                bg-gradient-to-br from-black/90 via-[#0a0f0a]/95 to-black/90 
+                border-2 border-[#00ff41]/50 backdrop-blur-xl flex items-center justify-center
+                transition-all duration-500 ease-out
+                hover:border-[#00ff41] hover:bg-black/95 
+                hover:shadow-[0_0_40px_rgba(0,255,65,0.8),0_0_60px_rgba(0,255,65,0.4),inset_0_0_20px_rgba(0,255,65,0.1)]
+                hover:scale-110 hover:translate-x-1
+                active:scale-95 touch-manipulation group
+                before:absolute before:inset-0 before:rounded-full 
+                before:bg-gradient-to-l before:from-[#00ff41]/20 before:via-transparent before:to-transparent
+                before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500"
                 aria-label="Next testimonial"
               >
-                <svg className="w-6 h-6 sm:w-7 sm:h-7 text-[#00ff41] group-hover:scale-110 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                <svg className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#00ff41] 
+                group-hover:text-[#00ff88] group-hover:scale-125 
+                transition-all duration-500 drop-shadow-[0_0_10px_rgba(0,255,65,0.6)]" 
+                fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
               </button>
             </div>
           )}
         </div>
 
-        {/* Enhanced Custom Styles */}
+        {/* Enhanced Custom Styles with Modern Animations */}
         <style dangerouslySetInnerHTML={{__html: `
+          @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+          }
           @keyframes testimonialDataStream {
             0% { transform: translateY(-100vh); opacity: 0; }
             10% { opacity: 0.4; }
@@ -680,37 +857,63 @@ const TestimonialsClient = () => {
             100% { transform: translateY(100vh); opacity: 0; }
           }
           .testimonial-bullet {
-            width: 10px;
-            height: 10px;
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: rgba(0, 255, 65, 0.25);
+            background: rgba(0, 255, 65, 0.2);
             border: 2px solid rgba(0, 255, 65, 0.5);
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            margin: 0 4px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            margin: 0 5px;
+            position: relative;
           }
           @media (min-width: 640px) {
             .testimonial-bullet {
-              width: 12px;
-              height: 12px;
-              margin: 0 5px;
+              width: 14px;
+              height: 14px;
+              margin: 0 6px;
             }
           }
+          .testimonial-bullet::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 255, 65, 0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+          }
           .testimonial-bullet:hover {
-            background: rgba(0, 255, 65, 0.6);
+            background: rgba(0, 255, 65, 0.5);
             border-color: rgba(0, 255, 65, 0.9);
-            box-shadow: 0 0 12px rgba(0, 255, 65, 0.7);
-            transform: scale(1.15);
+            box-shadow: 0 0 15px rgba(0, 255, 65, 0.8), 0 0 25px rgba(0, 255, 65, 0.4);
+            transform: scale(1.2);
+          }
+          .testimonial-bullet:hover::before {
+            opacity: 1;
           }
           .testimonial-bullet-active {
             background: #00ff41;
             border-color: #00ff41;
-            box-shadow: 0 0 18px rgba(0, 255, 65, 0.9);
-            transform: scale(1.25);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 1), 0 0 35px rgba(0, 255, 65, 0.6);
+            transform: scale(1.3);
+            animation: bulletPulse 2s ease-in-out infinite;
+          }
+          .testimonial-bullet-active::before {
+            opacity: 1;
+            animation: bulletRipple 2s ease-out infinite;
+          }
+          @keyframes bulletPulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 65, 1), 0 0 35px rgba(0, 255, 65, 0.6); }
+            50% { box-shadow: 0 0 30px rgba(0, 255, 65, 1), 0 0 50px rgba(0, 255, 65, 0.8); }
+          }
+          @keyframes bulletRipple {
+            0% { transform: scale(1); opacity: 0.6; }
+            100% { transform: scale(2); opacity: 0; }
           }
           @media (max-width: 640px) {
             .testimonial-bullet-active {
-              transform: scale(1.2);
+              transform: scale(1.25);
             }
           }
           @media (prefers-reduced-motion: reduce) {

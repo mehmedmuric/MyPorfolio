@@ -19,7 +19,7 @@ html {
 
 body {
   overflow-x: hidden; /* sprečava horizontalno guranje */
-  overflow-y: hidden; /* sprečava dupli scroll bar */
+  overflow-y: auto; /* omogućava vertikalno skrolovanje */
 }
 /* Ako imaš glavni container za content */
 main, .container {
@@ -1002,6 +1002,24 @@ textarea:-webkit-autofill:focus {
   animation: hudScanline 6s linear infinite;
 }
 
+/* Blog Details Page - Scan Line Animation */
+@keyframes blogScanLine {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
 /* Glitch Effect for Cyber Theme */
 @keyframes glitch {
   0%, 100% {
@@ -1060,6 +1078,64 @@ textarea:-webkit-autofill:focus {
 
 .animate-matrix-rain {
   animation: matrixRain 3s linear infinite;
+}
+
+/* Header Animations */
+/* Modern shimmer animation for glassmorphism effects */
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(300%);
+    opacity: 0;
+  }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s ease-in-out infinite;
+}
+
+@keyframes pulseGlow {
+  0%, 100% { 
+    opacity: 0.3; 
+  }
+  50% { 
+    opacity: 0.5; 
+  }
+}
+
+@keyframes slideIn {
+  from { 
+    width: 0; 
+  }
+  to { 
+    width: 100%; 
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes headerGridMove {
+  0% { 
+    transform: translate(0, 0); 
+  }
+  100% { 
+    transform: translate(40px, 40px); 
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

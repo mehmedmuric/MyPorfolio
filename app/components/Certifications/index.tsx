@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, memo } from "react";
 import { Brand } from "@/types/brand";
 import Image from "next/image";
 import brandsData from "./brandsData";
@@ -188,12 +188,13 @@ const Certifications = () => {
       />
 
       <div className="container mx-auto relative z-10">
-        {/* Section title with HUD styling */}
-        <div className="relative mb-12 md:mb-16 lg:mb-20">
-          {/* HUD Panel behind title */}
-          <div className="absolute inset-0 -inset-x-4 md:-inset-x-8 bg-black/40 border border-[#00FF41]/30 rounded-lg backdrop-blur-sm shadow-[0_0_20px_rgba(0,255,65,0.2)]" />
-          <div className="absolute top-0 left-0 w-2 h-full bg-[#00FF41] opacity-60" />
-          <div className="relative px-4 md:px-8 py-6 md:py-8 cert-title">
+        {/* Enhanced Section title with modern HUD styling */}
+        <div className="relative mb-14 md:mb-18 lg:mb-24">
+          {/* Modern HUD Panel behind title */}
+          <div className="absolute inset-0 -inset-x-4 md:-inset-x-8 bg-gradient-to-br from-black/60 via-black/50 to-black/60 border border-[#00FF41]/35 rounded-xl backdrop-blur-md shadow-[0_0_30px_rgba(0,255,65,0.25),inset_0_0_20px_rgba(0,255,65,0.05)]" />
+          <div className="absolute top-0 left-0 w-2.5 h-full bg-gradient-to-b from-[#00FF41] via-[#00FF41]/80 to-[#00FF41] opacity-70" />
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/50 to-transparent" />
+          <div className="relative px-6 md:px-10 py-8 md:py-10 cert-title">
             <SectionTitle
               title="Certifications"
               paragraph="I continuously expand my expertise through curated courses and verified certifications. Every badge below marks a pivotal step in conquering modern full-stack engineering."
@@ -203,14 +204,17 @@ const Certifications = () => {
           </div>
         </div>
 
-        <p
-          className="text-center text-[#00FF41]/80 font-mono tracking-wide max-w-2xl mx-auto mb-10 sm:mb-12 md:mb-14 text-sm sm:text-base md:text-lg"
-        >
-          Proven credentials in back-end systems, front-end frameworks, cloud, DevOps and more:
-        </p>
+        {/* Enhanced subtitle with better typography */}
+        <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-20">
+          <p className="text-[#00FF41]/90 font-mono tracking-wide max-w-3xl mx-auto text-sm sm:text-base md:text-lg leading-relaxed px-4">
+            <span className="text-[#00FF41]/50">[</span>
+            <span className="text-[#00FF41]">Proven credentials</span>
+            <span className="text-[#00FF41]/50">]</span> in back-end systems, front-end frameworks, cloud infrastructure, DevOps and more:
+          </p>
+        </div>
 
-        {/* Certifications Grid - Responsive HUD Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-6 sm:gap-8 md:gap-10 lg:gap-12 items-stretch justify-items-center max-w-7xl mx-auto cert-grid">
+        {/* Modern Certifications Grid - Enhanced responsive layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-3 gap-8 sm:gap-10 md:gap-12 lg:gap-14 items-stretch justify-items-center max-w-7xl mx-auto cert-grid">
           {brandsData.map((brand, index) => (
             <SingleBrand 
               key={brand.id} 
@@ -229,9 +233,9 @@ const Certifications = () => {
   );
 };
 
-export default Certifications;
+export default memo(Certifications);
 
-// HUD-style certification card with cyber green aesthetic
+// Modern HUD-style certification card with enhanced cyber green aesthetic
 const SingleBrand = React.forwardRef<HTMLDivElement, { brand: Brand; index: number }>(
   ({ brand, index }, ref) => {
     const { href, image, name, issued, platform, description } = brand;
@@ -245,59 +249,53 @@ const SingleBrand = React.forwardRef<HTMLDivElement, { brand: Brand; index: numb
         aria-label={`${name} certification`}
         className={`
           cert-card group/brand relative flex flex-col items-center justify-center 
-          p-5 sm:p-6 md:p-7 lg:p-8
-          bg-black/70 border-2 border-[#00FF41]/30 backdrop-blur-sm
-          transition-all duration-300 ease-out
-          hover:-translate-y-1 md:hover:-translate-y-2 hover:scale-[1.02] md:hover:scale-[1.03]
-          w-full max-w-[380px]
-          hover:border-[#00FF41] hover:shadow-[0_0_30px_rgba(0,255,65,0.6),inset_0_0_20px_rgba(0,255,65,0.1)]
-          hover:bg-black/85
+          p-6 sm:p-7 md:p-8 lg:p-9
+          bg-gradient-to-br from-black/80 via-black/75 to-black/80 
+          border-2 backdrop-blur-md rounded-xl overflow-hidden
+          transition-all duration-700 ease-out
+          hover:-translate-y-2 md:hover:-translate-y-3 hover:scale-[1.03] md:hover:scale-[1.05]
+          w-full max-w-[400px]
+          hover:border-[#00FF41] hover:shadow-[0_0_50px_rgba(0,255,65,0.9),inset_0_0_30px_rgba(0,255,65,0.15)]
+          hover:bg-gradient-to-br hover:from-black/90 hover:via-black/85 hover:to-black/90
           focus:outline-none focus:ring-2 focus:ring-[#00FF41]/80 focus:z-30
-          ${hasFocus ? "border-[#00FF41] shadow-[0_0_40px_rgba(0,255,65,0.8)] z-20" : ""}
+          ${hasFocus ? "border-[#00FF41] shadow-[0_0_50px_rgba(0,255,65,0.9)] z-20" : "border-[#00FF41]/35"}
         `}
-        style={{
-          clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
-        }}
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
         onFocus={() => setHasFocus(true)}
         onBlur={() => setHasFocus(false)}
       >
-        {/* HUD Corner Brackets - Enhanced */}
-        <div className="absolute top-1 left-1 w-4 h-4 border-t-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-200" />
-        <div className="absolute top-1 right-1 w-4 h-4 border-t-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-200" />
-        <div className="absolute bottom-1 left-1 w-4 h-4 border-b-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-200" />
-        <div className="absolute bottom-1 right-1 w-4 h-4 border-b-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-200" />
+        {/* Enhanced HUD Corner Brackets */}
+        <div className="absolute top-2 left-2 w-5 h-5 border-t-2 border-l-2 border-[#00FF41]/70 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500" />
+        <div className="absolute top-2 right-2 w-5 h-5 border-t-2 border-r-2 border-[#00FF41]/70 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-2 left-2 w-5 h-5 border-b-2 border-l-2 border-[#00FF41]/70 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500" />
+        <div className="absolute bottom-2 right-2 w-5 h-5 border-b-2 border-r-2 border-[#00FF41]/70 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500" />
         
-        {/* HUD Status Indicator */}
-        <div className="absolute top-2 right-2 px-1.5 py-0.5 bg-black/80 border border-[#00FF41]/40 font-mono text-[8px] text-[#00FF41]/70 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-200">
+        {/* Enhanced HUD Status Indicator */}
+        <div className="absolute top-3 right-3 px-2 py-1 bg-gradient-to-br from-black/95 to-black/90 border-2 border-[#00FF41]/70 text-[#00FF41] text-[10px] md:text-xs font-mono font-bold opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500 shadow-[0_0_15px_rgba(0,255,65,0.6)] z-20 rounded-md">
           [ACTIVE]
         </div>
         
-        {/* Scanning line effect on hover - fast */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/10 to-transparent opacity-0 group-hover/brand:opacity-100 group-hover/brand:animate-hudCardScan transition-opacity duration-300 pointer-events-none" />
+        {/* Enhanced scanning line effect on hover */}
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/15 to-transparent opacity-0 group-hover/brand:opacity-100 group-hover/brand:animate-hudCardScan transition-opacity duration-700 pointer-events-none" />
         
-        {/* HUD Side Panels */}
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-16 bg-[#00FF41]/20 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-300" />
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[2px] h-16 bg-[#00FF41]/20 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-300" />
+        {/* Enhanced hover glow overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#00FF41]/8 via-transparent to-[#00FF41]/5 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-700 pointer-events-none" />
         
-        {/* Icon Container with HUD glow - Enhanced */}
-        <div className="relative flex items-center justify-center h-20 w-20 sm:h-24 sm:w-24 md:h-28 md:w-28 lg:h-32 lg:w-32 mb-3 md:mb-4
-          bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.3),_transparent_70%)]
-          transition-all duration-300
-          group-hover/brand:bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.5),_transparent_70%)]
+        {/* Enhanced Icon Container with modern HUD glow */}
+        <div className="relative flex items-center justify-center h-24 w-24 sm:h-28 sm:w-28 md:h-32 md:w-32 lg:h-36 lg:w-36 mb-4 md:mb-5
+          bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.25),_transparent_75%)]
+          transition-all duration-700 rounded-xl
+          group-hover/brand:bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.45),_transparent_75%)]
         ">
-          {/* Outer HUD Ring */}
-          <div className="absolute inset-0 rounded-full border-2 border-[#00FF41]/20 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-300" />
+          {/* Enhanced glowing ring */}
+          <div className="absolute inset-0 rounded-xl border-2 border-[#00FF41]/50 opacity-0 group-hover/brand:opacity-100 group-hover/brand:animate-hudIconPulse transition-opacity duration-500" />
           
-          {/* Glowing ring - Inner */}
-          <div className="absolute inset-2 rounded-full border border-[#00FF41]/40 opacity-0 group-hover/brand:opacity-100 group-hover/brand:animate-hudIconPulse transition-opacity duration-200" />
-          
-          {/* HUD Crosshair Lines */}
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-2 bg-[#00FF41]/30 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-300" />
-          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-2 bg-[#00FF41]/30 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-300" />
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[1px] w-2 bg-[#00FF41]/30 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-300" />
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[1px] w-2 bg-[#00FF41]/30 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-300" />
+          {/* HUD Crosshair Lines - Enhanced */}
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1px] h-3 bg-[#00FF41]/40 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500" />
+          <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[1px] h-3 bg-[#00FF41]/40 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500" />
+          <div className="absolute left-0 top-1/2 -translate-y-1/2 h-[1px] w-3 bg-[#00FF41]/40 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500" />
+          <div className="absolute right-0 top-1/2 -translate-y-1/2 h-[1px] w-3 bg-[#00FF41]/40 opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500" />
           
           <Image
             src={image}
@@ -306,96 +304,94 @@ const SingleBrand = React.forwardRef<HTMLDivElement, { brand: Brand; index: numb
             height={128}
             loading="eager"
             className={`
-              relative z-10 object-contain transition-all duration-300
-              w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-28 lg:h-28
-              ${isHovered || hasFocus ? 'scale-110 brightness-110 drop-shadow-[0_0_15px_rgba(0,255,65,0.8)]' : 'scale-100'}
+              relative z-10 object-contain transition-all duration-700
+              w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 lg:w-32 lg:h-32 filter
+              ${isHovered || hasFocus ? 'scale-115 brightness-125 drop-shadow-[0_0_20px_rgba(0,255,65,0.9)]' : 'scale-100'}
             `}
             draggable={false}
             priority={index < 3}
           />
         </div>
         
-        {/* Certificate title - Monospace HUD style - Enhanced */}
-        <div className="mt-2 md:mt-3 relative w-full">
-          <p className="text-sm sm:text-base md:text-lg font-mono font-semibold text-center text-[#00FF41]/90 
-            group-hover/brand:text-[#00FF41] transition-colors duration-200 relative z-10
-            tracking-wider"
-          >
-            <span className="relative inline-block">
-              <span className="text-[#00FF41]/50 mr-1">[</span>
+        {/* Enhanced Certificate title with better typography */}
+        <div className="mt-3 md:mt-4 relative w-full">
+          <p className={`text-base sm:text-lg md:text-xl font-mono font-semibold text-center transition-colors duration-500 relative z-10 tracking-wider select-none ${isHovered || hasFocus ? "text-[#00FF41]" : "text-[#00FF41]/90"}`}>
+            <span className="relative inline-block drop-shadow-[0_0_8px_rgba(0,255,65,0.4)]">
+              <span className="text-[#00FF41]/50 mr-1.5">[</span>
               {name.toUpperCase()}
-              <span className="text-[#00FF41]/50 ml-1">]</span>
-              <span 
-                className={`absolute -bottom-1 left-0 h-[2px] bg-[#00FF41] transition-all duration-200 ${isHovered || hasFocus ? 'w-full' : 'w-0'}`}
-                aria-hidden
-              />
+              <span className="text-[#00FF41]/50 ml-1.5">]</span>
             </span>
           </p>
           
-          {/* HUD Title Underline Accent */}
-          <div className={`absolute -bottom-0.5 left-1/2 -translate-x-1/2 h-[1px] w-12 bg-[#00FF41]/30 transition-all duration-200 ${isHovered || hasFocus ? 'w-24 opacity-100' : 'opacity-50'}`} />
+          {/* Enhanced Title Underline Accent */}
+          <div className={`absolute -bottom-1 left-1/2 -translate-x-1/2 h-[2px] w-16 bg-gradient-to-r from-transparent via-[#00FF41] to-transparent transition-all duration-500 ${isHovered || hasFocus ? 'w-32 opacity-100 shadow-[0_0_10px_rgba(0,255,65,0.6)]' : 'opacity-50'}`} />
         </div>
         
-        {/* Platform/issued line - HUD style - Enhanced */}
-        <div className="mt-1.5 md:mt-2 relative w-full px-4">
-          <p className="text-[10px] sm:text-xs md:text-sm text-[#00FF41]/60 text-center font-mono 
-            group-hover/brand:text-[#00FF41]/80 transition-colors duration-200"
+        {/* Enhanced Platform/issued line */}
+        <div className="mt-2 md:mt-3 relative w-full px-5">
+          <p className="text-xs sm:text-sm md:text-base text-center font-mono 
+            transition-colors duration-500"
           >
-            <span className="text-[#00FF41]/40">PLATFORM:</span> <span className="text-[#00FF41]">{platform}</span> <span className="text-[#00FF41]/40 mx-1">|</span> <span className="text-[#00FF41]/40">ISSUED:</span> <span className="text-[#00FF41]">{issued}</span>
+            <span className={`${isHovered || hasFocus ? 'text-[#00FF41]/60' : 'text-[#00FF41]/40'}`}>PLATFORM:</span> 
+            <span className={`mx-1.5 ${isHovered || hasFocus ? 'text-[#00FF41]' : 'text-[#00FF41]/90'}`}>{platform}</span> 
+            <span className={`${isHovered || hasFocus ? 'text-[#00FF41]/60' : 'text-[#00FF41]/40'} mx-1.5`}>|</span> 
+            <span className={`${isHovered || hasFocus ? 'text-[#00FF41]/60' : 'text-[#00FF41]/40'}`}>ISSUED:</span> 
+            <span className={`ml-1.5 ${isHovered || hasFocus ? 'text-[#00FF41]' : 'text-[#00FF41]/90'}`}>{issued}</span>
           </p>
         </div>
         
-        {/* Description - HUD style */}
-        <p className="text-center text-[#00FF41]/50 mt-2 md:mt-3 text-[10px] sm:text-xs md:text-sm px-3 md:px-4 font-mono
-          group-hover/brand:text-[#00FF41]/70 transition-colors duration-200 leading-relaxed"
-        >
+        {/* Enhanced Description */}
+        <p className={`text-center mt-3 md:mt-4 text-xs sm:text-sm md:text-base px-4 md:px-5 font-mono
+          transition-colors duration-500 leading-relaxed
+          ${isHovered || hasFocus ? 'text-[#00FF41]/80' : 'text-[#00FF41]/50'}
+        `}>
           {description}
         </p>
         
-        {/* Certificate link button - HUD style - Enhanced */}
+        {/* Enhanced Certificate link button */}
         <a
-          href={href}
-          target="_blank"
-          rel="nofollow noreferrer noopener"
+          href={href || "#"}
+          target={href ? "_blank" : undefined}
+          rel={href ? "nofollow noreferrer noopener" : undefined}
           aria-describedby={`cert-desc-${index}`}
           className={`
-            mt-4 md:mt-5 relative inline-block px-4 py-2 md:px-5 md:py-2.5
-            text-[10px] sm:text-xs md:text-sm text-center font-mono font-bold uppercase tracking-wider
-            transition-all duration-200
-            bg-black/80 border-2 border-[#00FF41]/50 text-[#00FF41]
-            hover:border-[#00FF41] hover:shadow-[0_0_20px_rgba(0,255,65,0.6)] hover:bg-black/90
+            mt-5 md:mt-6 relative inline-block px-5 py-2.5 md:px-6 md:py-3
+            text-xs sm:text-sm md:text-base text-center font-mono font-bold uppercase tracking-wider
+            transition-all duration-500 rounded-lg overflow-hidden
+            bg-gradient-to-br from-black/90 to-black/80 border-2 text-[#00FF41]
+            hover:border-[#00FF41] hover:shadow-[0_0_25px_rgba(0,255,65,0.7)] hover:bg-gradient-to-br hover:from-black/95 hover:to-black/90
             hover:scale-105 active:scale-95
             focus:outline-none focus:ring-2 focus:ring-[#00FF41]/80
             group/btn
+            ${isHovered || hasFocus ? "border-[#00FF41] shadow-[0_0_25px_rgba(0,255,65,0.7)]" : "border-[#00FF41]/50"}
+            ${!href ? "opacity-60 cursor-not-allowed" : "cursor-pointer"}
           `}
-          style={{
-            clipPath: 'polygon(4px 0, 100% 0, 100% 100%, 0 100%, 0 4px)',
-          }}
-          tabIndex={0}
+          tabIndex={href ? 0 : -1}
+          onClick={(e) => !href && e.preventDefault()}
           onFocus={() => setHasFocus(true)}
           onBlur={() => setHasFocus(false)}
         >
-          {/* Button corner accents */}
-          <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
-          <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
-          <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
-          <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-[#00FF41]/60 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+          {/* Enhanced button corner accents */}
+          <div className="absolute top-1 left-1 w-2.5 h-2.5 border-t border-l border-[#00FF41]/70 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
+          <div className="absolute top-1 right-1 w-2.5 h-2.5 border-t border-r border-[#00FF41]/70 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
+          <div className="absolute bottom-1 left-1 w-2.5 h-2.5 border-b border-l border-[#00FF41]/70 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
+          <div className="absolute bottom-1 right-1 w-2.5 h-2.5 border-b border-r border-[#00FF41]/70 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
           
-          {/* Button scanning line effect */}
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover/btn:opacity-100 group-hover/btn:animate-hudButtonScan transition-opacity duration-200 pointer-events-none" />
+          {/* Enhanced button scanning line effect */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/25 to-transparent opacity-0 group-hover/btn:opacity-100 group-hover/btn:animate-hudButtonScan transition-opacity duration-500 pointer-events-none" />
           
-          {/* Button glow effect */}
-          <div className="absolute inset-0 bg-[#00FF41]/5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-200" />
+          {/* Enhanced button glow effect */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#00FF41]/10 via-transparent to-[#00FF41]/5 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500" />
           
-          <span className="relative z-10 flex items-center gap-1.5">
-            <span className="text-[#00FF41]/60">▶</span>
-            <span>SHOW CERTIFICATE</span>
-            <span className="text-[#00FF41]/60">◀</span>
+          <span className="relative z-10 flex items-center gap-2">
+            <span className={`transition-opacity duration-500 ${isHovered || hasFocus ? 'text-[#00FF41]/80' : 'text-[#00FF41]/50'}`}>▶</span>
+            <span>{href ? "VIEW CERTIFICATE" : "COMING SOON"}</span>
+            <span className={`transition-opacity duration-500 ${isHovered || hasFocus ? 'text-[#00FF41]/80' : 'text-[#00FF41]/50'}`}>◀</span>
           </span>
         </a>
         
-        {/* HUD Bottom Status Bar */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover/brand:opacity-100 transition-opacity duration-300" />
+        {/* Enhanced Bottom Status Bar */}
+        <div className="absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent opacity-0 group-hover/brand:opacity-100 transition-opacity duration-500 shadow-[0_0_10px_rgba(0,255,65,0.6)]" />
 
         {/* Visually hidden extra description for screen readers */}
         <span id={`cert-desc-${index}`} className="sr-only">{`${name} issued by ${platform} on ${issued}`}</span>

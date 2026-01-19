@@ -38,8 +38,7 @@ const DataStream = ({ delay, left, speed = 8 }: { delay: number; left: string; s
       style={{ 
         left, 
         top: '-10%',
-        animation: `dataStream ${speed}s linear infinite`,
-        animationDelay: `${delay}s`,
+        animation: `dataStream ${speed}s linear ${delay}s infinite`,
         textShadow: '0 0 3px rgba(0,255,65,0.3), 0 0 6px rgba(0,255,65,0.2)',
       }}
       aria-hidden="true"
@@ -80,8 +79,7 @@ const FloatingParticle = ({ delay, left, size, duration }: { delay: number; left
       width: `${size}px`,
       height: `${size}px`,
       opacity: Math.random() * 0.3 + 0.1,
-      animation: `floatParticle ${duration}s ease-in-out infinite`,
-      animationDelay: `${delay}s`,
+      animation: `floatParticle ${duration}s ease-in-out ${delay}s infinite`,
       boxShadow: `0 0 ${size * 2}px rgba(0, 255, 65, 0.5)`,
     }}
     aria-hidden="true"
@@ -91,11 +89,99 @@ const FloatingParticle = ({ delay, left, size, duration }: { delay: number; left
 const TermsOfUseClient = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [mounted, setMounted] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [visibleSections, setVisibleSections] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     setMounted(true);
-    // Set first section as active on mount
     setActiveSection("intro");
+    setVisibleSections(new Set(["intro"]));
+  }, []);
+
+  // Enhanced scroll spy with intersection observer
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = [
+        "intro",
+        "use-of-content",
+        "accuracy",
+        "external-links",
+        "limitation",
+        "changes",
+        "contact",
+      ];
+      
+      // Calculate scroll progress
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.scrollY;
+      const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
+      setScrollProgress(Math.min(100, Math.max(0, progress)));
+      
+      // Active section detection
+      const scrollPosition = window.scrollY + window.innerHeight / 3;
+      
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+
+      // Intersection observer for fade-in animations
+      sections.forEach((sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+          if (isVisible) {
+            setVisibleSections((prev) => new Set(prev).add(sectionId));
+          }
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll(); // Initial check
+
+    // Intersection Observer for better performance
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -20% 0px",
+      threshold: 0.1,
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setVisibleSections((prev) => new Set(prev).add(entry.target.id));
+        }
+      });
+    }, observerOptions);
+
+    const sections = [
+      "intro",
+      "use-of-content",
+      "accuracy",
+      "external-links",
+      "limitation",
+      "changes",
+      "contact",
+    ];
+
+    sections.forEach((id) => {
+      const element = document.getElementById(id);
+      if (element) observer.observe(element);
+    });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      sections.forEach((id) => {
+        const element = document.getElementById(id);
+        if (element) observer.unobserve(element);
+      });
+    };
   }, []);
 
   const sections = [
@@ -121,6 +207,14 @@ const TermsOfUseClient = () => {
       <Breadcrumb pageName="Terms of Use" description="" />
 
       <div className="relative min-h-screen bg-gradient-to-b from-[#0a0a0a] via-[#050805] to-[#0a0a0a]">
+        {/* Scroll Progress Indicator */}
+        <div className="fixed top-0 left-0 right-0 h-[2px] bg-[#00FF41]/10 z-50" aria-hidden="true">
+          <div
+            className="h-full bg-gradient-to-r from-[#00FF41] via-[#00FF88] to-[#00FF41] transition-all duration-150"
+            style={{ width: `${scrollProgress}%`, boxShadow: "0 0 10px rgba(0, 255, 65, 0.8)" }}
+          />
+        </div>
+
         {/* Background HUD Effects */}
         <div className="fixed inset-0 pointer-events-none z-0" aria-hidden="true">
           {/* Enhanced Grid Pattern */}
@@ -191,16 +285,14 @@ const TermsOfUseClient = () => {
             <div
               className="absolute w-full h-[0.5px] sm:h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/60 to-transparent opacity-25 sm:opacity-30 md:opacity-35"
               style={{
-                animation: "scanLine 6s linear infinite",
-                animationDelay: "2s",
+                animation: "scanLine 6s linear 2s infinite",
                 boxShadow: "0 0 5px #00FF41, 0 0 10px rgba(0,255,65,0.3)",
               }}
             />
             <div
               className="absolute w-full h-[0.5px] bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent opacity-20"
               style={{
-                animation: "scanLine 8s linear infinite",
-                animationDelay: "4s",
+                animation: "scanLine 8s linear 4s infinite",
                 boxShadow: "0 0 3px rgba(0,255,65,0.2)",
               }}
             />
@@ -244,39 +336,57 @@ const TermsOfUseClient = () => {
         {/* Main Content Container */}
         <div className="relative z-10 max-w-[1920px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 2xl:px-16 py-12 sm:py-16 lg:py-24">
           <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-12">
-            {/* Table of Contents - Sticky Sidebar - Moved More Left */}
+            {/* Table of Contents - Enhanced Sticky Sidebar */}
             <aside className="lg:w-56 xl:w-64 lg:flex-shrink-0 lg:-ml-4 xl:-ml-6">
               <nav
                 aria-label="Table of contents"
-                className="sticky top-8 bg-black/40 backdrop-blur-sm border border-[#00FF41]/20 p-4 sm:p-6 rounded-sm"
+                className="sticky top-8 bg-black/50 backdrop-blur-md border border-[#00FF41]/30 p-4 sm:p-6 rounded-sm transition-all duration-300 hover:border-[#00FF41]/50 hover:shadow-[0_0_30px_rgba(0,255,65,0.15)]"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
                   boxShadow: "0 0 20px rgba(0, 255, 65, 0.1), inset 0 0 20px rgba(0, 255, 65, 0.05)",
                 }}
               >
-                <div className="absolute top-0 left-0 w-1 h-full bg-[#00FF41] opacity-50" />
-                <h2 className="text-sm font-mono text-[#00FF41] mb-4 tracking-wider uppercase">
+                <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-[#00FF41] via-[#00FF88] to-transparent opacity-60" />
+                <h2 className="text-sm font-mono text-[#00FF41] mb-6 tracking-wider uppercase flex items-center gap-2">
+                  <span className="inline-block w-2 h-2 bg-[#00FF41] animate-pulse" />
                   [NAVIGATION]
                 </h2>
-                <ul className="space-y-2">
-                  {sections.map((section, index) => (
-                    <li key={section.id}>
-                      <button
-                        onClick={() => scrollToSection(section.id)}
-                        className={`w-full text-left px-3 py-2 text-sm font-mono transition-all duration-200 ${
-                          activeSection === section.id
-                            ? "text-[#00FF41] bg-[#00FF41]/10 border-l-2 border-[#00FF41]"
-                            : "text-gray-400 hover:text-[#00FF41]/70 hover:bg-[#00FF41]/5"
-                        }`}
-                        aria-current={activeSection === section.id ? "page" : undefined}
-                      >
-                        <span className="text-[#00FF41]/50">
-                          {String(index + 1).padStart(2, "0")}.
-                        </span>{" "}
-                        {section.title}
-                      </button>
-                    </li>
-                  ))}
+                <ul className="space-y-1.5">
+                  {sections.map((section, index) => {
+                    const isActive = activeSection === section.id;
+                    const isVisible = visibleSections.has(section.id);
+                    return (
+                      <li key={section.id}>
+                        <button
+                          onClick={() => scrollToSection(section.id)}
+                          className={`group relative w-full text-left px-3 py-2.5 text-sm font-mono transition-all duration-300 rounded-sm ${
+                            isActive
+                              ? "text-[#00FF41] bg-[#00FF41]/15 border-l-2 border-[#00FF41] shadow-[0_0_10px_rgba(0,255,65,0.2)]"
+                              : "text-gray-400 hover:text-[#00FF41] hover:bg-[#00FF41]/8 hover:border-l-2 hover:border-[#00FF41]/50"
+                          } ${isVisible ? "opacity-100 translate-x-0" : "opacity-60 translate-x-[-4px]"}`}
+                          aria-current={isActive ? "page" : undefined}
+                          style={{
+                            transitionDelay: `${index * 50}ms`,
+                          }}
+                        >
+                          <span className={`inline-block transition-all duration-300 ${isActive ? "text-[#00FF41]" : "text-[#00FF41]/50 group-hover:text-[#00FF41]/80"}`}>
+                            {String(index + 1).padStart(2, "0")}.
+                          </span>{" "}
+                          <span className="relative">
+                            {section.title}
+                            {isActive && (
+                              <span className="absolute -bottom-0.5 left-0 w-full h-[1px] bg-[#00FF41] animate-pulse" />
+                            )}
+                          </span>
+                          {isActive && (
+                            <span className="absolute right-2 top-1/2 -translate-y-1/2 text-[#00FF41] opacity-60 animate-pulse">
+                              ▶
+                            </span>
+                          )}
+                        </button>
+                      </li>
+                    );
+                  })}
                 </ul>
               </nav>
             </aside>
@@ -285,26 +395,31 @@ const TermsOfUseClient = () => {
             <main className="flex-1 max-w-none lg:max-w-5xl xl:max-w-6xl 2xl:max-w-7xl">
               {/* Terminal Window Container */}
               <article
-                className="bg-black/60 backdrop-blur-sm border border-[#00FF41]/30 p-6 sm:p-8 lg:p-12 rounded-sm relative"
+                className="bg-black/70 backdrop-blur-md border border-[#00FF41]/40 p-6 sm:p-8 lg:p-12 rounded-sm relative transition-all duration-300 hover:border-[#00FF41]/60 hover:shadow-[0_0_40px_rgba(0,255,65,0.2)]"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
                   boxShadow: "0 0 30px rgba(0, 255, 65, 0.15), inset 0 0 30px rgba(0, 255, 65, 0.05)",
                 }}
               >
-                {/* Corner Brackets */}
-                <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#00FF41] opacity-40" />
-                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#00FF41] opacity-40" />
-                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#00FF41] opacity-40" />
-                <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#00FF41] opacity-40" />
+                {/* Enhanced Corner Brackets */}
+                <div className="absolute top-4 left-4 w-6 h-6 border-t-2 border-l-2 border-[#00FF41] opacity-50" style={{ animation: "pulse-slow 4s ease-in-out 0s infinite", boxShadow: "0 0 8px rgba(0, 255, 65, 0.3)" }} />
+                <div className="absolute top-4 right-4 w-6 h-6 border-t-2 border-r-2 border-[#00FF41] opacity-50" style={{ animation: "pulse-slow 4s ease-in-out 0.5s infinite", boxShadow: "0 0 8px rgba(0, 255, 65, 0.3)" }} />
+                <div className="absolute bottom-4 left-4 w-6 h-6 border-b-2 border-l-2 border-[#00FF41] opacity-50" style={{ animation: "pulse-slow 4s ease-in-out 1s infinite", boxShadow: "0 0 8px rgba(0, 255, 65, 0.3)" }} />
+                <div className="absolute bottom-4 right-4 w-6 h-6 border-b-2 border-r-2 border-[#00FF41] opacity-50" style={{ animation: "pulse-slow 4s ease-in-out 1.5s infinite", boxShadow: "0 0 8px rgba(0, 255, 65, 0.3)" }} />
 
                 {/* Terminal Header */}
-                <div className="mb-8 pb-6 border-b border-[#00FF41]/20">
+                <div className="mb-10 pb-6 border-b border-[#00FF41]/30 relative">
+                  <div className="absolute -bottom-[1px] left-0 w-24 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent" />
                   <div className="flex items-center justify-between flex-wrap gap-4">
-                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-mono text-[#00FF41] tracking-tight">
-                      [TERMS_OF_USE]
-                    </h1>
-                    <div className="text-xs sm:text-sm font-mono text-[#00FF41]/60 flex items-center gap-2">
-                      <span className="animate-pulse">●</span>
+                    <div className="flex items-center gap-3">
+                      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold font-mono text-[#00FF41] tracking-tight relative">
+                        [TERMS_OF_USE]
+                        <span className="absolute -bottom-1 left-0 w-full h-[2px] bg-[#00FF41] opacity-50" />
+                      </h1>
+                      <span className="inline-block w-2 h-2 bg-[#00FF41] rounded-full animate-pulse shadow-[0_0_8px_rgba(0,255,65,0.8)]" />
+                    </div>
+                    <div className="text-xs sm:text-sm font-mono text-[#00FF41]/70 flex items-center gap-2 px-3 py-1.5 bg-[#00FF41]/5 border border-[#00FF41]/20 rounded-sm">
+                      <span className="animate-pulse text-[#00FF41]">●</span>
                       <span>[LAST_UPDATED: {new Date().toISOString().split("T")[0]}]</span>
                     </div>
                   </div>
@@ -313,217 +428,268 @@ const TermsOfUseClient = () => {
                 {/* Introduction Section */}
                 <section
                   id="intro"
-                  className="mb-12 scroll-mt-8"
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
+                    visibleSections.has("intro")
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  }`}
                   onMouseEnter={() => setActiveSection("intro")}
                 >
-                  <p
-                    className="text-gray-300 leading-relaxed mb-8"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    By accessing and using this portfolio website, you agree to comply with and be
-                    bound by the following terms and conditions. If you do not agree with these
-                    terms, please refrain from using the site.
-                  </p>
+                  <div className="relative pl-6 border-l-2 border-[#00FF41]/30 mb-6">
+                    <div className="absolute -left-[2px] top-0 w-2 h-2 bg-[#00FF41] rounded-full animate-pulse" />
+                    <p
+                      className="text-gray-200 leading-relaxed text-base sm:text-lg"
+                      style={{
+                        maxWidth: "70ch",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      By accessing and using this portfolio website, you agree to comply with and be
+                      bound by the following terms and conditions. If you do not agree with these
+                      terms, please refrain from using the site.
+                    </p>
+                  </div>
                 </section>
 
                 {/* Use of Content Section */}
                 <section
                   id="use-of-content"
-                  className="mb-12 scroll-mt-8"
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
+                    visibleSections.has("use-of-content")
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  }`}
                   onMouseEnter={() => setActiveSection("use-of-content")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">01.</span>
-                      Use of Content
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
+                  <div className="mb-6 group">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-6 relative inline-block group-hover:text-[#00FF88] transition-colors duration-300">
+                      <span className="absolute -left-10 text-[#00FF41]/60 font-mono text-lg">01.</span>
+                      <span className="relative inline-block">
+                        Use of Content
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF88] to-transparent transition-all duration-300 group-hover:w-full"
+                          style={{
+                            boxShadow: "0 0 10px rgba(0, 255, 65, 0.6), 0 0 20px rgba(0, 255, 65, 0.3)",
+                          }}
+                        />
+                      </span>
                     </h2>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    All content on this website, including text, code snippets, images, and
-                    projects, is provided for informational and portfolio purposes only. You may
-                    not copy, redistribute, or use the content without prior permission.
-                  </p>
+                  <div className="pl-6 border-l-2 border-[#00FF41]/20 hover:border-[#00FF41]/40 transition-colors duration-300">
+                    <p
+                      className="text-gray-200 leading-relaxed text-base sm:text-lg"
+                      style={{
+                        maxWidth: "70ch",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      All content on this website, including text, code snippets, images, and
+                      projects, is provided for informational and portfolio purposes only. You may
+                      not copy, redistribute, or use the content without prior permission.
+                    </p>
+                  </div>
                 </section>
 
                 {/* Accuracy of Information Section */}
                 <section
                   id="accuracy"
-                  className="mb-12 scroll-mt-8"
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
+                    visibleSections.has("accuracy")
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  }`}
                   onMouseEnter={() => setActiveSection("accuracy")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">02.</span>
-                      Accuracy of Information
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
+                  <div className="mb-6 group">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-6 relative inline-block group-hover:text-[#00FF88] transition-colors duration-300">
+                      <span className="absolute -left-10 text-[#00FF41]/60 font-mono text-lg">02.</span>
+                      <span className="relative inline-block">
+                        Accuracy of Information
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF88] to-transparent transition-all duration-300 group-hover:w-full"
+                          style={{
+                            boxShadow: "0 0 10px rgba(0, 255, 65, 0.6), 0 0 20px rgba(0, 255, 65, 0.3)",
+                          }}
+                        />
+                      </span>
                     </h2>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    While I strive to keep the information up to date and accurate, I make no
-                    guarantees of completeness, reliability, or suitability of any content for
-                    specific purposes.
-                  </p>
+                  <div className="pl-6 border-l-2 border-[#00FF41]/20 hover:border-[#00FF41]/40 transition-colors duration-300">
+                    <p
+                      className="text-gray-200 leading-relaxed text-base sm:text-lg"
+                      style={{
+                        maxWidth: "70ch",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      While I strive to keep the information up to date and accurate, I make no
+                      guarantees of completeness, reliability, or suitability of any content for
+                      specific purposes.
+                    </p>
+                  </div>
                 </section>
 
                 {/* External Links Section */}
                 <section
                   id="external-links"
-                  className="mb-12 scroll-mt-8"
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
+                    visibleSections.has("external-links")
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  }`}
                   onMouseEnter={() => setActiveSection("external-links")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">03.</span>
-                      External Links
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
+                  <div className="mb-6 group">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-6 relative inline-block group-hover:text-[#00FF88] transition-colors duration-300">
+                      <span className="absolute -left-10 text-[#00FF41]/60 font-mono text-lg">03.</span>
+                      <span className="relative inline-block">
+                        External Links
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF88] to-transparent transition-all duration-300 group-hover:w-full"
+                          style={{
+                            boxShadow: "0 0 10px rgba(0, 255, 65, 0.6), 0 0 20px rgba(0, 255, 65, 0.3)",
+                          }}
+                        />
+                      </span>
                     </h2>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    This website may contain links to third-party websites. I am not responsible for
-                    the content, accuracy, or practices of external sites and encourage you to
-                    review their own terms and policies.
-                  </p>
+                  <div className="pl-6 border-l-2 border-[#00FF41]/20 hover:border-[#00FF41]/40 transition-colors duration-300">
+                    <p
+                      className="text-gray-200 leading-relaxed text-base sm:text-lg"
+                      style={{
+                        maxWidth: "70ch",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      This website may contain links to third-party websites. I am not responsible for
+                      the content, accuracy, or practices of external sites and encourage you to
+                      review their own terms and policies.
+                    </p>
+                  </div>
                 </section>
 
                 {/* Limitation of Liability Section */}
                 <section
                   id="limitation"
-                  className="mb-12 scroll-mt-8"
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
+                    visibleSections.has("limitation")
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  }`}
                   onMouseEnter={() => setActiveSection("limitation")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">04.</span>
-                      Limitation of Liability
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
+                  <div className="mb-6 group">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-6 relative inline-block group-hover:text-[#00FF88] transition-colors duration-300">
+                      <span className="absolute -left-10 text-[#00FF41]/60 font-mono text-lg">04.</span>
+                      <span className="relative inline-block">
+                        Limitation of Liability
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF88] to-transparent transition-all duration-300 group-hover:w-full"
+                          style={{
+                            boxShadow: "0 0 10px rgba(0, 255, 65, 0.6), 0 0 20px rgba(0, 255, 65, 0.3)",
+                          }}
+                        />
+                      </span>
                     </h2>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    I shall not be held liable for any direct, indirect, or consequential damages
-                    arising from the use of this website, including reliance on its content or
-                    technical issues.
-                  </p>
+                  <div className="pl-6 border-l-2 border-[#00FF41]/20 hover:border-[#00FF41]/40 transition-colors duration-300">
+                    <p
+                      className="text-gray-200 leading-relaxed text-base sm:text-lg"
+                      style={{
+                        maxWidth: "70ch",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      I shall not be held liable for any direct, indirect, or consequential damages
+                      arising from the use of this website, including reliance on its content or
+                      technical issues.
+                    </p>
+                  </div>
                 </section>
 
                 {/* Changes to Terms Section */}
                 <section
                   id="changes"
-                  className="mb-12 scroll-mt-8"
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
+                    visibleSections.has("changes")
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  }`}
                   onMouseEnter={() => setActiveSection("changes")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">05.</span>
-                      Changes to Terms
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
+                  <div className="mb-6 group">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-6 relative inline-block group-hover:text-[#00FF88] transition-colors duration-300">
+                      <span className="absolute -left-10 text-[#00FF41]/60 font-mono text-lg">05.</span>
+                      <span className="relative inline-block">
+                        Changes to Terms
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF88] to-transparent transition-all duration-300 group-hover:w-full"
+                          style={{
+                            boxShadow: "0 0 10px rgba(0, 255, 65, 0.6), 0 0 20px rgba(0, 255, 65, 0.3)",
+                          }}
+                        />
+                      </span>
                     </h2>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    These terms may be updated from time to time. By continuing to use the site
-                    after changes are made, you accept the revised terms.
-                  </p>
+                  <div className="pl-6 border-l-2 border-[#00FF41]/20 hover:border-[#00FF41]/40 transition-colors duration-300">
+                    <p
+                      className="text-gray-200 leading-relaxed text-base sm:text-lg"
+                      style={{
+                        maxWidth: "70ch",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      These terms may be updated from time to time. By continuing to use the site
+                      after changes are made, you accept the revised terms.
+                    </p>
+                  </div>
                 </section>
 
                 {/* Contact Section */}
                 <section
                   id="contact"
-                  className="mb-8 scroll-mt-8"
+                  className={`mb-12 scroll-mt-8 transition-all duration-700 ${
+                    visibleSections.has("contact")
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-4"
+                  }`}
                   onMouseEnter={() => setActiveSection("contact")}
                 >
-                  <div className="mb-6">
-                    <h2 className="text-xl sm:text-2xl font-bold font-mono text-[#00FF41] mb-4 relative inline-block">
-                      <span className="absolute -left-8 text-[#00FF41]/50 font-mono">06.</span>
-                      Contact
-                      <span
-                        className="block mt-2 h-[2px] bg-gradient-to-r from-[#00FF41] to-transparent"
-                        style={{
-                          boxShadow: "0 0 8px rgba(0, 255, 65, 0.5)",
-                        }}
-                      />
+                  <div className="mb-6 group">
+                    <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold font-mono text-[#00FF41] mb-6 relative inline-block group-hover:text-[#00FF88] transition-colors duration-300">
+                      <span className="absolute -left-10 text-[#00FF41]/60 font-mono text-lg">06.</span>
+                      <span className="relative inline-block">
+                        Contact
+                        <span
+                          className="block mt-3 h-[2px] bg-gradient-to-r from-[#00FF41] via-[#00FF88] to-transparent transition-all duration-300 group-hover:w-full"
+                          style={{
+                            boxShadow: "0 0 10px rgba(0, 255, 65, 0.6), 0 0 20px rgba(0, 255, 65, 0.3)",
+                          }}
+                        />
+                      </span>
                     </h2>
                   </div>
-                  <p
-                    className="text-gray-300 leading-relaxed"
-                    style={{
-                      maxWidth: "65ch",
-                      fontSize: "clamp(1rem, 2.5vw, 1.125rem)",
-                      lineHeight: "1.7",
-                    }}
-                  >
-                    If you have any questions regarding these Terms of Use, please contact me
-                    through the email address provided on this website.
-                  </p>
+                  <div className="pl-6 border-l-2 border-[#00FF41]/20 hover:border-[#00FF41]/40 transition-colors duration-300">
+                    <p
+                      className="text-gray-200 leading-relaxed text-base sm:text-lg"
+                      style={{
+                        maxWidth: "70ch",
+                        lineHeight: "1.8",
+                      }}
+                    >
+                      If you have any questions regarding these Terms of Use, please contact me
+                      through the email address provided on this website.
+                    </p>
+                  </div>
                 </section>
 
                 {/* Footer Divider */}
-                <div className="mt-12 pt-8 border-t border-[#00FF41]/20">
-                  <div className="text-xs font-mono text-[#00FF41]/40 text-center">
+                <div className="mt-16 pt-8 border-t border-[#00FF41]/30 relative">
+                  <div className="absolute -top-[1px] left-1/2 -translate-x-1/2 w-32 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent" />
+                  <div className="text-xs sm:text-sm font-mono text-[#00FF41]/50 text-center flex items-center justify-center gap-2">
+                    <span className="inline-block w-1 h-1 bg-[#00FF41] rounded-full" style={{ animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 0s infinite" }} />
                     [END_OF_DOCUMENT]
+                    <span className="inline-block w-1 h-1 bg-[#00FF41] rounded-full" style={{ animation: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) 0.5s infinite" }} />
                   </div>
                 </div>
               </article>
@@ -612,10 +778,47 @@ const TermsOfUseClient = () => {
           }
         }
 
+        /* Smooth scroll behavior */
+        html {
+          scroll-behavior: smooth;
+        }
+
+        /* Section fade-in animations */
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Enhanced navigation hover effects */
+        nav button:hover {
+          transform: translateX(4px);
+        }
+
+        nav button:active {
+          transform: translateX(2px);
+        }
+
+        /* Section content hover effect */
+        section:hover {
+          border-left-color: rgba(0, 255, 65, 0.4) !important;
+        }
+
         @media (prefers-reduced-motion: reduce) {
           .animate-pulse-slow,
-          [style*="animation"] {
+          [style*="animation"],
+          html {
             animation: none !important;
+            scroll-behavior: auto !important;
+          }
+          
+          section {
+            transition: none !important;
           }
         }
       `}</style>

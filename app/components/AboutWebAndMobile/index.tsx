@@ -90,53 +90,92 @@ const Features = () => {
   }, [hasAnimated]);
 
   const ResponsiveTitle = () => (
-    <div className="relative mb-8 md:mb-12">
-      {/* HUD Border Top */}
-      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-[#00FF41] shadow-[0_0_10px_#00FF41] opacity-60" />
-      <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-[#00FF41] shadow-[0_0_20px_#00FF41]" />
+    <div className="relative mb-10 md:mb-14 lg:mb-16">
+      {/* Modern Glow Effect */}
+      <div className="absolute inset-0 -top-8 -bottom-8 left-1/2 -translate-x-1/2 w-full max-w-2xl blur-3xl opacity-20 pointer-events-none">
+        <div className="w-full h-full bg-gradient-to-r from-[#00FF41]/40 via-[#00FF88]/30 to-[#00FF41]/40 rounded-full" />
+      </div>
       
-      <h2 
-        className="relative text-[#00FF41] text-center font-mono font-bold text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight mb-2 w-full max-w-4xl mx-auto tracking-wider"
-        style={{
-          textShadow: '0 0 10px #00FF41, 0 0 20px #00FF41, 0 0 30px #00FF41',
-          fontVariantNumeric: 'tabular-nums'
-        }}
-      >
-        <span className="inline-block relative">
-          <span className="absolute -left-4 top-0 text-[#00FF41]/30 font-mono text-lg xs:text-xl">[</span>
-          Web <span className="text-[#00FF41]/80">&amp;</span> Mobile
-          <br className="block sm:hidden" />
-          <span className="sm:block hidden">&nbsp;Application Features</span>
-          <span className="sm:hidden">
-            <br />Application<br />Features
+      {/* Animated Border Lines */}
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-full max-w-xl h-[1px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent opacity-60" />
+      <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-[#00FF41]/60 via-[#00FF41] to-[#00FF41]/60 shadow-[0_0_20px_#00FF41,0_0_40px_#00FF41]" />
+      
+      {/* Title Container */}
+      <div className="relative">
+        <h2 
+          className="relative text-center font-mono font-bold text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-7xl leading-[1.1] mb-4 w-full max-w-5xl mx-auto tracking-tight"
+          style={{
+            fontVariantNumeric: 'tabular-nums',
+            letterSpacing: '-0.02em',
+            textRendering: 'optimizeLegibility',
+            WebkitFontSmoothing: 'antialiased',
+            MozOsxFontSmoothing: 'grayscale'
+          }}
+        >
+          <span className="inline-block relative">
+            <span className="absolute -left-6 xs:-left-8 sm:-left-10 md:-left-12 top-0 text-[#00FF41]/40 font-mono text-xl xs:text-2xl sm:text-3xl md:text-4xl animate-pulse">[</span>
+            <span 
+              className="relative z-10 inline-block"
+              style={{
+                background: 'linear-gradient(90deg, #00FF41 0%, #00FF88 50%, #00FF41 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                textShadow: '0 0 20px rgba(0,255,65,0.4), 0 0 40px rgba(0,255,65,0.2)',
+                filter: 'drop-shadow(0 0 8px rgba(0,255,65,0.6))'
+              }}
+            >
+              Web <span style={{ background: 'linear-gradient(90deg, #00FF88 0%, #00FF41 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>&amp;</span> Mobile
+              <br className="block sm:hidden" />
+              <span className="sm:block hidden">&nbsp;Application</span>
+              <span className="sm:hidden">
+                <br />Application
+              </span>
+              <br />
+              Features
+            </span>
+            <span className="absolute -right-6 xs:-right-8 sm:-right-10 md:-right-12 top-0 text-[#00FF41]/40 font-mono text-xl xs:text-2xl sm:text-3xl md:text-4xl animate-pulse">]</span>
           </span>
-          <span className="absolute -right-4 top-0 text-[#00FF41]/30 font-mono text-lg xs:text-xl">]</span>
-        </span>
-      </h2>
+        </h2>
+        
+        {/* Subtitle Glow Line */}
+        <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-full max-w-xl h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/50 to-transparent opacity-60" />
+      </div>
       
-      {/* HUD Border Bottom */}
-      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-full max-w-md h-px bg-[#00FF41] shadow-[0_0_10px_#00FF41] opacity-60" />
-      <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-32 h-1 bg-[#00FF41] shadow-[0_0_20px_#00FF41]" />
+      {/* Bottom Border */}
+      <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-full max-w-xl h-[1px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent opacity-60" />
+      <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 w-48 h-[2px] bg-gradient-to-r from-[#00FF41]/60 via-[#00FF41] to-[#00FF41]/60 shadow-[0_0_20px_#00FF41,0_0_40px_#00FF41]" />
     </div>
   );
 
   const ResponsiveParagraph = () => (
-    <div className="relative mb-12 md:mb-16">
-      <div className="absolute left-0 top-0 bottom-0 w-px bg-[#00FF41]/30" />
-      <div className="absolute right-0 top-0 bottom-0 w-px bg-[#00FF41]/30" />
+    <div className="relative mb-14 md:mb-20 lg:mb-24">
+      {/* Decorative Side Lines */}
+      <div className="hidden lg:block absolute left-8 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#00FF41]/30 to-transparent opacity-50" />
+      <div className="hidden lg:block absolute right-8 top-0 bottom-0 w-[1px] bg-gradient-to-b from-transparent via-[#00FF41]/30 to-transparent opacity-50" />
       
-      <p 
-        className="text-[#00FF41]/90 text-sm xs:text-base md:text-lg lg:text-xl text-center font-mono max-w-3xl mx-auto leading-relaxed px-6 md:px-8 py-4 relative"
-        style={{
-          textShadow: '0 0 5px rgba(0,255,65,0.5)'
-        }}
-      >
-        <span className="inline-block text-[#00FF41]/50 mr-2">[INFO]</span>
-        I create modern web &amp; mobile apps — blending elegant UI, performance, security, and seamless usability.
-        <br className="hidden xs:inline" />
-        <span className="xs:hidden"><br /></span>
-        <span className="inline-block ml-2 text-[#00FF41]/50">[STATUS: ACTIVE]</span>
-      </p>
+      {/* Modern Paragraph Container */}
+      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 md:px-8">
+        {/* Glassmorphism Background */}
+        <div className="absolute inset-0 -inset-x-4 -inset-y-2 bg-gradient-to-r from-black/20 via-[#00FF41]/5 to-black/20 backdrop-blur-sm rounded-2xl border border-[#00FF41]/10 opacity-50" />
+        
+        <p 
+          className="relative text-[#00FF41]/95 text-base xs:text-lg sm:text-xl md:text-xl lg:text-2xl text-center font-mono max-w-3xl mx-auto leading-relaxed py-6 md:py-8 px-6 md:px-10"
+          style={{
+            textShadow: '0 0 10px rgba(0,255,65,0.4), 0 0 20px rgba(0,255,65,0.2)'
+          }}
+        >
+          <span className="inline-block text-[#00FF41]/60 mr-3 text-sm xs:text-base font-semibold tracking-wider">[INFO]</span>
+          <span className="relative">
+            I create modern web &amp; mobile apps — blending elegant UI, performance, security, and seamless usability.
+          </span>
+          <br className="hidden xs:inline" />
+          <span className="xs:hidden"><br /></span>
+          <span className="inline-block ml-3 text-[#00FF41]/60 text-sm xs:text-base font-semibold tracking-wider">
+            [STATUS: <span className="text-[#00FF88] animate-pulse">ACTIVE</span>]
+          </span>
+        </p>
+      </div>
     </div>
   );
 
@@ -157,11 +196,11 @@ const Features = () => {
         id="features"
         ref={sectionRef}
         aria-label="Web & Mobile Application Features"
-        className="relative overflow-hidden py-16 xs:py-20 md:py-24 lg:py-32 xl:py-40 isolate px-3 xs:px-4 sm:px-6 lg:px-8"
+        className="relative overflow-hidden py-20 xs:py-24 md:py-28 lg:py-36 xl:py-44 isolate px-3 xs:px-4 sm:px-6 lg:px-8"
         style={{
-          background: 'radial-gradient(ellipse at center, #001108 0%, #000000 100%)',
-          backgroundImage: 'linear-gradient(rgba(0,255,65,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.03) 1px, transparent 1px)',
-          backgroundSize: '40px 40px'
+          background: 'radial-gradient(ellipse 80% 50% at 50% 0%, rgba(0,255,65,0.08) 0%, transparent 50%), radial-gradient(ellipse 80% 50% at 50% 100%, rgba(0,255,136,0.05) 0%, transparent 50%), #000000',
+          backgroundImage: 'linear-gradient(rgba(0,255,65,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,255,65,0.04) 1px, transparent 1px)',
+          backgroundSize: '50px 50px'
         }}
       >
         {/* CRT Scanlines Overlay */}
@@ -207,19 +246,27 @@ const Features = () => {
           aria-hidden="true"
         />
 
-        {/* Glow Effects */}
+        {/* Enhanced Glow Effects */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-96 h-96 blur-3xl opacity-20 z-0"
+          className="pointer-events-none absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] blur-3xl opacity-25 z-0 animate-pulse-slow"
           style={{
-            background: 'radial-gradient(circle, #00FF41 0%, transparent 70%)'
+            background: 'radial-gradient(circle, rgba(0,255,65,0.4) 0%, rgba(0,255,136,0.2) 30%, transparent 70%)'
           }}
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-96 h-96 blur-3xl opacity-15 z-0"
+          className="pointer-events-none absolute bottom-1/4 right-1/4 translate-x-1/2 translate-y-1/2 w-[500px] h-[500px] blur-3xl opacity-20 z-0 animate-pulse-slow"
           style={{
-            background: 'radial-gradient(circle, #00FF41 0%, transparent 70%)'
+            animationDelay: '1s',
+            background: 'radial-gradient(circle, rgba(0,255,136,0.3) 0%, rgba(0,255,65,0.15) 40%, transparent 70%)'
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] blur-3xl opacity-10 z-0"
+          style={{
+            background: 'radial-gradient(ellipse, rgba(0,255,65,0.2) 0%, transparent 60%)'
           }}
         />
 
@@ -227,7 +274,7 @@ const Features = () => {
           <ResponsiveTitle />
           <ResponsiveParagraph />
 
-          <div className="mx-auto grid grid-cols-1 gap-6 xs:gap-8 sm:gap-10 md:grid-cols-2 lg:grid-cols-3 max-w-7xl 2xl:max-w-[1600px]">
+          <div className="mx-auto grid grid-cols-1 gap-8 xs:gap-10 sm:gap-12 md:grid-cols-2 lg:grid-cols-3 max-w-7xl 2xl:max-w-[1600px]">
             {featuresData.map((feature, i) => (
               <div
                 key={feature.id}
@@ -275,25 +322,27 @@ const SingleFeatureWrapper = ({
       aria-label={feature.title || feature.name}
       role={feature.href ? "link" : "region"}
       className={`
-        group relative flex flex-col w-full p-6 xs:p-7 md:p-8 lg:p-10 xl:p-12
-        bg-gradient-to-br from-black/90 via-black/95 to-black
-        border-2 border-[#00FF41]/30
+        group relative flex flex-col w-full p-8 xs:p-9 md:p-10 lg:p-12 xl:p-14
+        bg-gradient-to-br from-black/95 via-black/98 to-black
+        border border-[#00FF41]/20
+        rounded-2xl
+        backdrop-blur-sm
         outline-none
-        transition-all duration-500
+        transition-all duration-700 ease-out
         cursor-pointer
-        hover:border-[#00FF41]
-        hover:shadow-[0_0_30px_rgba(0,255,65,0.4),inset_0_0_30px_rgba(0,255,65,0.1)]
-        hover:-translate-y-1
+        hover:border-[#00FF41]/60
+        hover:shadow-[0_8px_32px_rgba(0,255,65,0.25),0_0_60px_rgba(0,255,65,0.15),inset_0_0_60px_rgba(0,255,65,0.05)]
+        hover:-translate-y-2
         hover:scale-[1.02]
         focus:ring-2 focus:ring-[#00FF41] focus:ring-offset-2 focus:ring-offset-black
         ${hasFocus ? "ring-2 ring-[#00FF41] ring-offset-2 ring-offset-black" : ""}
+        overflow-hidden
       `}
       style={{
-        clipPath: 'polygon(0% 0%, calc(100% - 20px) 0%, 100% 20px, 100% 100%, 20px 100%, 0% calc(100% - 20px))',
         WebkitTapHighlightColor: "rgba(0,255,65,0.2)",
         boxShadow: isHovered 
-          ? '0 0 40px rgba(0,255,65,0.5), inset 0 0 40px rgba(0,255,65,0.1)' 
-          : '0 0 15px rgba(0,255,65,0.15)'
+          ? '0 12px 48px rgba(0,255,65,0.3), 0 0 80px rgba(0,255,136,0.2), inset 0 0 60px rgba(0,255,65,0.08)' 
+          : '0 4px 20px rgba(0,255,65,0.1), inset 0 0 40px rgba(0,255,65,0.03)'
       }}
       onKeyDown={handleKeyDown}
       onMouseEnter={() => setIsHovered(true)}
@@ -302,35 +351,44 @@ const SingleFeatureWrapper = ({
       onBlur={() => setHasFocus(false)}
       {...(feature.href ? { "aria-describedby": `desc-${feature.id}` } : {})}
     >
-      {/* HUD Corner Accents */}
-      <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-[#00FF41]/60 group-hover:border-[#00FF41] transition-colors duration-300" />
-      <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-[#00FF41]/60 group-hover:border-[#00FF41] transition-colors duration-300" />
-      <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-[#00FF41]/60 group-hover:border-[#00FF41] transition-colors duration-300" />
-      <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-[#00FF41]/60 group-hover:border-[#00FF41] transition-colors duration-300" />
-
-      {/* Scanning Line Effect */}
+      {/* Animated Gradient Background */}
       <div 
-        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-2xl"
         style={{
-          background: 'linear-gradient(180deg, transparent 0%, rgba(0,255,65,0.1) 50%, transparent 100%)',
-          animation: isHovered ? 'scanLine 2s linear infinite' : 'none'
+          background: 'radial-gradient(circle at 50% 0%, rgba(0,255,65,0.15) 0%, transparent 60%), radial-gradient(circle at 50% 100%, rgba(0,255,136,0.1) 0%, transparent 60%)'
         }}
       />
 
-      {/* HUD Panel Number Badge */}
+      {/* Modern Corner Accents */}
+      <div className="absolute top-0 left-0 w-8 h-8 border-t-[3px] border-l-[3px] border-[#00FF41]/40 group-hover:border-[#00FF41] rounded-tl-2xl transition-all duration-500 group-hover:shadow-[0_0_15px_#00FF41]" />
+      <div className="absolute top-0 right-0 w-8 h-8 border-t-[3px] border-r-[3px] border-[#00FF41]/40 group-hover:border-[#00FF41] rounded-tr-2xl transition-all duration-500 group-hover:shadow-[0_0_15px_#00FF41]" />
+      <div className="absolute bottom-0 left-0 w-8 h-8 border-b-[3px] border-l-[3px] border-[#00FF41]/40 group-hover:border-[#00FF41] rounded-bl-2xl transition-all duration-500 group-hover:shadow-[0_0_15px_#00FF41]" />
+      <div className="absolute bottom-0 right-0 w-8 h-8 border-b-[3px] border-r-[3px] border-[#00FF41]/40 group-hover:border-[#00FF41] rounded-br-2xl transition-all duration-500 group-hover:shadow-[0_0_15px_#00FF41]" />
+
+      {/* Scanning Line Effect */}
       <div 
-        className="absolute -top-3 -right-3 w-8 h-8 bg-black border-2 border-[#00FF41] flex items-center justify-center font-mono text-xs text-[#00FF41] font-bold z-20"
+        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-2xl overflow-hidden"
         style={{
-          boxShadow: '0 0 15px #00FF41',
-          clipPath: 'polygon(0% 0%, calc(100% - 8px) 0%, 100% 8px, 100% 100%, 8px 100%, 0% calc(100% - 8px))'
+          background: 'linear-gradient(180deg, transparent 0%, rgba(0,255,65,0.08) 30%, rgba(0,255,136,0.1) 50%, rgba(0,255,65,0.08) 70%, transparent 100%)',
+          animation: isHovered ? 'scanLine 3s linear infinite' : 'none'
         }}
+      />
+
+      {/* Modern Number Badge */}
+      <div 
+        className="absolute -top-4 -right-4 w-12 h-12 bg-gradient-to-br from-black via-black to-[#001108] border-2 border-[#00FF41]/60 group-hover:border-[#00FF41] flex items-center justify-center font-mono text-sm text-[#00FF41] font-bold z-20 rounded-xl shadow-[0_0_20px_rgba(0,255,65,0.4)] group-hover:shadow-[0_0_30px_rgba(0,255,65,0.6)] transition-all duration-500 group-hover:scale-110"
       >
-        {String(index + 1).padStart(2, '0')}
+        <span className="relative">
+          {String(index + 1).padStart(2, '0')}
+          <span className="absolute inset-0 blur-md opacity-50 group-hover:opacity-100 transition-opacity">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+        </span>
       </div>
 
-      {/* Background Glow */}
+      {/* Enhanced Background Glow */}
       <div 
-        className="absolute -inset-0.5 bg-[#00FF41]/0 group-hover:bg-[#00FF41]/20 blur-xl transition-all duration-500 -z-10 opacity-0 group-hover:opacity-100"
+        className="absolute -inset-1 bg-gradient-to-br from-[#00FF41]/0 via-[#00FF41]/0 to-[#00FF41]/0 group-hover:from-[#00FF41]/10 group-hover:via-[#00FF88]/5 group-hover:to-[#00FF41]/10 blur-2xl transition-all duration-700 -z-10 rounded-2xl opacity-0 group-hover:opacity-100"
       />
 
       {/* Content */}
@@ -338,8 +396,11 @@ const SingleFeatureWrapper = ({
         <SingleFeature feature={feature} index={index} />
       </div>
 
-      {/* Bottom HUD Bar */}
-      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[#00FF41]/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+      {/* Modern Bottom Accent Bar */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent group-hover:w-3/4 transition-all duration-700 opacity-0 group-hover:opacity-100 shadow-[0_0_20px_#00FF41]" />
+      
+      {/* Top Accent Bar */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF88] to-transparent group-hover:w-1/2 transition-all duration-700 opacity-0 group-hover:opacity-100 shadow-[0_0_15px_#00FF88]" />
     </div>
   );
 };

@@ -2,7 +2,8 @@ import { Inter, JetBrains_Mono } from 'next/font/google';
 import '../styles/index.css';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import BotpressChat from './components/BotpressChat'; 
+import BotpressChat from './components/BotpressChat';
+import { ErrorBoundary } from './components/ErrorBoundary';
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -10,12 +11,15 @@ const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
   preload: true,
+  variable: '--font-inter',
+  adjustFontFallback: true,
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-jetbrains-mono',
+  adjustFontFallback: true,
 });
 
 import type { Metadata } from "next";
@@ -126,12 +130,14 @@ export default async function LocaleLayout({
         />
       </head>
       <body className={`${inter.className} ${jetbrainsMono.variable} ${isHome ? "home" : ""}`}>
-        <Header />
-        {children}
-        <Analytics />
-        <SpeedInsights />
-        <BotpressChat />
-        <Footer />
+        <ErrorBoundary>
+          <Header />
+          {children}
+          <Analytics />
+          <SpeedInsights />
+          <BotpressChat />
+          <Footer />
+        </ErrorBoundary>
       </body>
     </html>
   );

@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect, useRef, useMemo, memo } from "react";
 import Image from "next/image";
 import SectionTitle from "../Common/SectionTitle";
 import useScrollAnimations from "@/app/hooks/useScrollAnimations";
 import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/dist/ScrollTrigger";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -174,82 +174,90 @@ const Technologies = () => {
 
   return (
     <section
-      className="relative overflow-hidden py-16 md:py-20 lg:py-28 isolate px-4 sm:px-6 md:px-8 lg:px-8 bg-[#000000]"
+      className="relative overflow-hidden py-20 md:py-24 lg:py-32 isolate px-4 sm:px-6 md:px-8 lg:px-8 bg-gradient-to-b from-black via-black to-[#000000]"
       id="technologies"
     >
       {/* CRT Scanline Overlay */}
       <div className="crt-scanlines fixed inset-0 pointer-events-none z-50" />
       
-      {/* Dark futuristic background with subtle texture */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(0,255,65,0.03)_0%,_transparent_70%)]" />
-      <div className="absolute inset-0 bg-[linear-gradient(180deg,_transparent_0%,_rgba(0,255,65,0.01)_50%,_transparent_100%)]" />
+      {/* Enhanced futuristic background with layered gradients */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(0,255,65,0.05)_0%,_transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,_rgba(0,255,65,0.03)_0%,_transparent_60%)]" />
+      <div className="absolute inset-0 bg-[linear-gradient(180deg,_transparent_0%,_rgba(0,255,65,0.02)_50%,_transparent_100%)]" />
       
-      {/* Animated HUD Grid Pattern */}
+      {/* Animated HUD Grid Pattern - Enhanced opacity */}
       <div
-        className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(90deg,#00FF41_1px,transparent_1px),linear-gradient(#00FF41_1px,transparent_1px)] bg-[size:40px_40px]"
+        className="absolute inset-0 opacity-[0.1] bg-[linear-gradient(90deg,#00FF41_1px,transparent_1px),linear-gradient(#00FF41_1px,transparent_1px)] bg-[size:40px_40px]"
         style={{ animation: 'hudGridMove 25s linear infinite' }}
       />
       <div
-        className="absolute inset-0 opacity-[0.04] bg-[linear-gradient(90deg,#00FF41_1px,transparent_1px),linear-gradient(#00FF41_1px,transparent_1px)] bg-[size:20px_20px]"
+        className="absolute inset-0 opacity-[0.05] bg-[linear-gradient(90deg,#00FF41_1px,transparent_1px),linear-gradient(#00FF41_1px,transparent_1px)] bg-[size:20px_20px]"
         style={{ animation: 'hudGridMoveReverse 18s linear infinite' }}
       />
       
-      {/* Animated scanning lines */}
+      {/* Animated scanning lines - Smoother effect */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        {[...Array(3)].map((_, i) => (
+        {[...Array(4)].map((_, i) => (
           <div
             key={`scan-${i}`}
-            className="absolute left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent opacity-30"
+            className="absolute left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent"
             style={{
               animation: `hudScanLine ${8 + i * 2}s linear infinite`,
               animationDelay: `${i * 2.5}s`,
-              top: `${(i * 33) % 100}%`,
+              top: `${(i * 25) % 100}%`,
             }}
           />
         ))}
       </div>
       
-      {/* Data stream particles */}
-      {[...Array(12)].map((_, i) => (
+      {/* Data stream particles - More refined */}
+      {[...Array(15)].map((_, i) => (
         <div
           key={`particle-${i}`}
-          className="absolute w-[1px] h-[20px] bg-[#00FF41] opacity-20"
+          className="absolute w-[1px] h-[24px] bg-[#00FF41] opacity-25"
           style={{
-            left: `${5 + (i * 7.5) % 90}%`,
+            left: `${5 + (i * 6) % 90}%`,
             animation: `hudDataStream ${4 + (i % 3)}s linear infinite`,
-            animationDelay: `${i * 0.3}s`,
-            boxShadow: `0 0 ${2 + (i % 3)}px #00FF41`,
+            animationDelay: `${i * 0.25}s`,
+            boxShadow: `0 0 ${3 + (i % 3)}px #00FF41`,
           }}
         />
       ))}
       
-      {/* Floating HUD corner brackets */}
-      <div className="absolute top-8 left-8 w-16 h-16 border-t-2 border-l-2 border-[#00FF41] opacity-40 animate-hud-float" />
-      <div className="absolute top-8 right-8 w-16 h-16 border-t-2 border-r-2 border-[#00FF41] opacity-40 animate-hud-float" style={{ animationDelay: '1s' }} />
-      <div className="absolute bottom-8 left-8 w-16 h-16 border-b-2 border-l-2 border-[#00FF41] opacity-40 animate-hud-float" style={{ animationDelay: '2s' }} />
-      <div className="absolute bottom-8 right-8 w-16 h-16 border-b-2 border-r-2 border-[#00FF41] opacity-40 animate-hud-float" style={{ animationDelay: '1.5s' }} />
+      {/* Floating HUD corner brackets - More prominent */}
+      <div className="absolute top-8 left-8 w-20 h-20 border-t-2 border-l-2 border-[#00FF41]/50 animate-hud-float" />
+      <div className="absolute top-8 right-8 w-20 h-20 border-t-2 border-r-2 border-[#00FF41]/50 animate-hud-float" style={{ animationDelay: '1s' }} />
+      <div className="absolute bottom-8 left-8 w-20 h-20 border-b-2 border-l-2 border-[#00FF41]/50 animate-hud-float" style={{ animationDelay: '2s' }} />
+      <div className="absolute bottom-8 right-8 w-20 h-20 border-b-2 border-r-2 border-[#00FF41]/50 animate-hud-float" style={{ animationDelay: '1.5s' }} />
       
-      {/* Glowing orbs for depth */}
+      {/* Enhanced glowing orbs for depth */}
       <div
-        className="absolute -inset-40 bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.15),_transparent_70%)] blur-3xl animate-hud-pulse transition-transform duration-1000"
+        className="absolute -inset-40 bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.18),_transparent_70%)] blur-3xl transition-transform duration-[2000ms] ease-out"
         style={{
-          transform: `translate(${mousePosition.x * 0.2}px, ${mousePosition.y * 0.18}px)`,
+          transform: `translate(${mousePosition.x * 0.25}px, ${mousePosition.y * 0.2}px)`,
         }}
       />
       <div
-        className="absolute top-1/4 right-1/4 w-96 h-96 bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.08),_transparent_70%)] blur-[120px] transition-transform duration-1000"
+        className="absolute top-1/4 right-1/4 w-[420px] h-[420px] bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.1),_transparent_70%)] blur-[140px] transition-transform duration-[2000ms] ease-out"
         style={{
-          transform: `translate(${mousePosition.x * 0.12}px, ${mousePosition.y * 0.1}px)`,
+          transform: `translate(${mousePosition.x * 0.15}px, ${mousePosition.y * 0.12}px)`,
+        }}
+      />
+      <div
+        className="absolute bottom-1/4 left-1/4 w-[360px] h-[360px] bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.06),_transparent_70%)] blur-[100px] transition-transform duration-[2000ms] ease-out"
+        style={{
+          transform: `translate(${mousePosition.x * -0.1}px, ${mousePosition.y * -0.08}px)`,
         }}
       />
 
-      {/* Section title with HUD styling */}
-      <div className="container relative z-10">
-        <div className="relative mb-12 md:mb-16 lg:mb-20">
-          {/* HUD Panel behind title */}
-          <div className="absolute inset-0 -inset-x-4 md:-inset-x-8 bg-black/40 border border-[#00FF41]/30 rounded-lg backdrop-blur-sm shadow-[0_0_20px_rgba(0,255,65,0.2)]" />
-          <div className="absolute top-0 left-0 w-2 h-full bg-[#00FF41] opacity-60" />
-          <div className="relative px-4 md:px-8 py-6 md:py-8">
+      {/* Section title with enhanced HUD styling */}
+      <div className="container relative z-10 max-w-7xl mx-auto">
+        <div className="relative mb-14 md:mb-16 lg:mb-24">
+          {/* Enhanced HUD Panel behind title */}
+          <div className="absolute inset-0 -inset-x-4 md:-inset-x-8 bg-gradient-to-br from-black/60 via-black/50 to-black/60 border border-[#00FF41]/35 rounded-xl backdrop-blur-md shadow-[0_0_30px_rgba(0,255,65,0.25),inset_0_0_20px_rgba(0,255,65,0.05)]" />
+          <div className="absolute top-0 left-0 w-2.5 h-full bg-gradient-to-b from-[#00FF41] via-[#00FF41]/80 to-[#00FF41] opacity-70" />
+          <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/50 to-transparent" />
+          <div className="relative px-6 md:px-10 py-8 md:py-10">
             <SectionTitle
               title="Technologies"
               paragraph="A comprehensive stack to power modern, scalable applications — from frontend frameworks to cloud infrastructure. Click categories to filter."
@@ -259,62 +267,80 @@ const Technologies = () => {
           </div>
         </div>
 
-        {/* Category buttons - HUD Style */}
-        <div className="flex justify-center flex-wrap gap-2 md:gap-3 lg:gap-4 mb-8 sm:mb-12 select-none relative z-10">
+        {/* Enhanced Category buttons with modern design */}
+        <div className="flex justify-center flex-wrap gap-3 md:gap-4 lg:gap-5 mb-10 sm:mb-14 md:mb-16 select-none relative z-10">
           <button
             className={`
-              flex items-center text-[13px] md:text-[14px] font-mono font-bold px-3 md:px-4 py-2 md:py-2.5
-              bg-black/80 border-2 border-[#00FF41]/50 text-[#00FF41] 
-              transition-all duration-300 relative overflow-hidden
-              group hover:border-[#00FF41] hover:shadow-[0_0_20px_rgba(0,255,65,0.6)] hover:bg-black/90
-              hover:scale-105 active:scale-95
-              ${activeCategory === "all" ? "border-[#00FF41] shadow-[0_0_25px_rgba(0,255,65,0.8)] bg-black/90" : ""}
+              flex items-center text-sm md:text-[15px] font-mono font-bold px-4 md:px-5 py-2.5 md:py-3
+              bg-gradient-to-br from-black/90 to-black/80 border-2 transition-all duration-500 relative overflow-hidden
+              group rounded-lg
+              ${activeCategory === "all" 
+                ? "border-[#00FF41] shadow-[0_0_30px_rgba(0,255,65,0.9),inset_0_0_15px_rgba(0,255,65,0.1)] text-[#00FF41] scale-105" 
+                : "border-[#00FF41]/50 text-[#00FF41]/90 hover:border-[#00FF41] hover:text-[#00FF41]"
+              }
+              hover:shadow-[0_0_25px_rgba(0,255,65,0.7)] hover:scale-105 active:scale-100
             `}
             aria-pressed={activeCategory === "all"}
             tabIndex={0}
             onClick={() => setActiveCategory("all")}
           >
             <span className="relative z-10 font-mono tracking-wider">[ALL]</span>
-            <span className="relative z-10 ml-2 bg-[#00FF41]/20 px-2 py-0.5 rounded border border-[#00FF41]/40 text-[10px] md:text-xs font-mono font-bold text-[#00FF41]">{technologies.length}</span>
-            {/* Hover glow effect */}
-            <div className="absolute inset-0 bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <span className={`relative z-10 ml-3 px-2.5 py-1 rounded-md border text-xs md:text-sm font-mono font-bold transition-all duration-300 ${
+              activeCategory === "all" 
+                ? "bg-[#00FF41]/25 border-[#00FF41]/60 text-[#00FF41]" 
+                : "bg-[#00FF41]/15 border-[#00FF41]/40 text-[#00FF41]/90 group-hover:bg-[#00FF41]/25 group-hover:border-[#00FF41]/60 group-hover:text-[#00FF41]"
+            }`}>
+              {technologies.length}
+            </span>
+            {/* Animated gradient overlay */}
+            <div className={`absolute inset-0 bg-gradient-to-br from-[#00FF41]/10 via-transparent to-[#00FF41]/5 transition-opacity duration-500 ${
+              activeCategory === "all" ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+            }`} />
             {/* Scanning line effect */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudButtonScan transition-opacity duration-300" />
+            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/25 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudButtonScan transition-opacity duration-500" />
           </button>
           {categories.map(cat => (
             <button
               key={cat.label}
               className={`
-                flex items-center gap-1.5 text-xs md:text-sm px-3 md:px-4 py-2 md:py-2.5
-                bg-black/80 border-2 border-[#00FF41]/40 text-[#00FF41]/90
-                font-mono font-semibold tracking-wide
-                transition-all duration-300
-                group relative overflow-hidden
-                hover:border-[#00FF41] hover:shadow-[0_0_15px_rgba(0,255,65,0.5)] hover:bg-black/90 hover:text-[#00FF41]
-                hover:scale-105 active:scale-95
-                ${activeCategory === cat.key ? "border-[#00FF41] shadow-[0_0_20px_rgba(0,255,65,0.7)] bg-black/90 text-[#00FF41]" : ""}
+                flex items-center gap-2 text-xs md:text-sm px-4 md:px-5 py-2.5 md:py-3
+                bg-gradient-to-br from-black/90 to-black/80 border-2 font-mono font-semibold tracking-wide
+                transition-all duration-500 group relative overflow-hidden rounded-lg
+                ${activeCategory === cat.key 
+                  ? "border-[#00FF41] shadow-[0_0_30px_rgba(0,255,65,0.8),inset_0_0_15px_rgba(0,255,65,0.1)] text-[#00FF41] scale-105" 
+                  : "border-[#00FF41]/40 text-[#00FF41]/85 hover:border-[#00FF41] hover:text-[#00FF41]"
+                }
+                hover:shadow-[0_0_20px_rgba(0,255,65,0.6)] hover:scale-105 active:scale-100
               `}
               aria-pressed={activeCategory === cat.key}
               tabIndex={0}
               title={cat.description}
               onClick={() => setActiveCategory(cat.key as TechCategory)}
             >
-              <span className="relative z-10 text-[1em] md:text-lg drop-shadow">{cat.icon}</span>
+              <span className="relative z-10 text-lg md:text-xl drop-shadow-lg">{cat.icon}</span>
               <span className="relative z-10 font-mono">{cat.label.toUpperCase()}</span>
-              <span className="relative z-10 bg-[#00FF41]/20 px-1.5 py-0.5 rounded border border-[#00FF41]/40 text-[9px] md:text-[10px] ml-1 font-mono font-bold text-[#00FF41] min-w-[20px] text-center">{categoryCounts[cat.key as TechCategory] || 0}</span>
-              {/* Hover glow effect */}
-              <div className="absolute inset-0 bg-[#00FF41]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <span className={`relative z-10 px-2 py-1 rounded-md border text-[10px] md:text-xs ml-1.5 font-mono font-bold transition-all duration-300 min-w-[22px] text-center ${
+                activeCategory === cat.key 
+                  ? "bg-[#00FF41]/25 border-[#00FF41]/60 text-[#00FF41]" 
+                  : "bg-[#00FF41]/15 border-[#00FF41]/40 text-[#00FF41]/85 group-hover:bg-[#00FF41]/25 group-hover:border-[#00FF41]/60 group-hover:text-[#00FF41]"
+              }`}>
+                {categoryCounts[cat.key as TechCategory] || 0}
+              </span>
+              {/* Animated gradient overlay */}
+              <div className={`absolute inset-0 bg-gradient-to-br from-[#00FF41]/10 via-transparent to-[#00FF41]/5 transition-opacity duration-500 ${
+                activeCategory === cat.key ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+              }`} />
               {/* Scanning line effect */}
-              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudButtonScan transition-opacity duration-300" />
+              <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/25 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudButtonScan transition-opacity duration-500" />
             </button>
           ))}
         </div>
 
-        {/* Tech Grid - HUD Card Style */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-3 sm:gap-4 md:gap-5 lg:gap-6 place-items-center relative z-10">
+        {/* Enhanced Tech Grid with modern card design */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 sm:gap-5 md:gap-6 lg:gap-7 place-items-center relative z-10">
           {filteredTechnologies.length === 0 ? (
-            <div className="col-span-full text-[#00FF41]/60 text-center py-20 text-base md:text-lg font-mono">
-              <div className="bg-black/60 border border-[#00FF41]/30 px-6 py-4 rounded-lg inline-block">
+            <div className="col-span-full text-[#00FF41]/70 text-center py-24 text-base md:text-lg font-mono">
+              <div className="bg-gradient-to-br from-black/70 to-black/60 border-2 border-[#00FF41]/40 px-8 py-5 rounded-xl inline-block shadow-[0_0_20px_rgba(0,255,65,0.3)]">
                 <span className="text-[#00FF41]">[NO DATA FOUND]</span>
               </div>
             </div>
@@ -331,81 +357,84 @@ const Technologies = () => {
                 onMouseLeave={() => setHoveredTech(null)}
                 className={`
                   group relative flex flex-col items-center justify-center 
-                  p-3 sm:p-4 md:p-5 lg:p-6
-                  bg-black/70 border-2 border-[#00FF41]/30 backdrop-blur-sm
-                  transition-all duration-500 ease-out
-                  hover:-translate-y-1 md:hover:-translate-y-2 hover:scale-[1.05] md:hover:scale-110
+                  p-4 sm:p-5 md:p-6 lg:p-7
+                  bg-gradient-to-br from-black/80 via-black/75 to-black/80 
+                  border-2 backdrop-blur-md
+                  transition-all duration-700 ease-out
+                  hover:-translate-y-2 md:hover:-translate-y-3 hover:scale-105 md:hover:scale-110
                   w-full sm:w-[95%] md:w-[90%] lg:w-[85%] xl:w-auto
-                  hover:border-[#00FF41] hover:shadow-[0_0_30px_rgba(0,255,65,0.6),inset_0_0_20px_rgba(0,255,65,0.1)]
-                  hover:bg-black/85
-                  ${hoveredTech === index ? "z-20 border-[#00FF41] shadow-[0_0_40px_rgba(0,255,65,0.8)] scale-105 md:scale-110" : ""}
+                  rounded-xl overflow-hidden
+                  ${hoveredTech === index 
+                    ? "z-20 border-[#00FF41] shadow-[0_0_50px_rgba(0,255,65,0.9),inset_0_0_30px_rgba(0,255,65,0.15)] scale-105 md:scale-110" 
+                    : "border-[#00FF41]/35 hover:border-[#00FF41]/70 hover:shadow-[0_0_35px_rgba(0,255,65,0.7),inset_0_0_25px_rgba(0,255,65,0.1)]"
+                  }
+                  hover:bg-gradient-to-br hover:from-black/90 hover:via-black/85 hover:to-black/90
                 `}
-                style={{
-                  clipPath: 'polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))',
-                }}
                 title={tech.name + (tech.proficiency ? ` (${tech.proficiency})` : "")}
                 aria-label={tech.name + (tech.proficiency ? ` (${tech.proficiency})` : "")}
               >
-                {/* HUD Corner Brackets */}
-                <div className="absolute top-1 left-1 w-3 h-3 border-t-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute top-1 right-1 w-3 h-3 border-t-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-1 left-1 w-3 h-3 border-b-2 border-l-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                <div className="absolute bottom-1 right-1 w-3 h-3 border-b-2 border-r-2 border-[#00FF41]/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                {/* Enhanced HUD Corner Brackets */}
+                <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-[#00FF41]/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 
-                {/* Scanning line effect on hover */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/10 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-500 pointer-events-none" />
+                {/* Enhanced scanning line effect on hover */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00FF41]/15 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-hudCardScan transition-opacity duration-700 pointer-events-none" />
                 
-                {/* Icon Container with HUD glow */}
-                <div className="relative flex items-center justify-center h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 lg:h-24 lg:w-24 mb-2 md:mb-3
-                  bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.3),_transparent_70%)]
-                  transition-all duration-500
-                  group-hover:bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.5),_transparent_70%)]
+                {/* Enhanced Icon Container with better glow */}
+                <div className="relative flex items-center justify-center h-16 w-16 sm:h-20 sm:w-20 md:h-24 md:w-24 lg:h-28 lg:w-28 mb-3 md:mb-4
+                  bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.25),_transparent_75%)]
+                  transition-all duration-700 rounded-xl
+                  group-hover:bg-[radial-gradient(circle_at_center,_rgba(0,255,65,0.45),_transparent_75%)]
                 ">
-                  {/* Glowing ring */}
-                  <div className="absolute inset-0 rounded-full border border-[#00FF41]/40 opacity-0 group-hover:opacity-100 group-hover:animate-hudIconPulse transition-opacity duration-300" />
+                  {/* Enhanced glowing ring */}
+                  <div className="absolute inset-0 rounded-xl border-2 border-[#00FF41]/50 opacity-0 group-hover:opacity-100 group-hover:animate-hudIconPulse transition-opacity duration-500" />
                   
                   <Image
                     src={tech.src}
                     alt={tech.name}
-                    width={80}
-                    height={80}
-                    className={`object-contain transition-all duration-500 w-10 h-10 sm:w-14 sm:h-14 md:w-16 md:h-16 lg:w-20 lg:h-20 filter ${
-                      hoveredTech === index ? 'scale-110 brightness-110 drop-shadow-[0_0_15px_rgba(0,255,65,0.8)]' : 'scale-100'
+                    width={96}
+                    height={96}
+                    className={`object-contain transition-all duration-700 w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 filter ${
+                      hoveredTech === index ? 'scale-115 brightness-125 drop-shadow-[0_0_20px_rgba(0,255,65,0.9)]' : 'scale-100'
                     }`}
                     priority={index < 7}
                   />
                   
-                  {/* Proficiency badge - HUD style */}
+                  {/* Enhanced Proficiency badge */}
                   {tech.proficiency && (
-                    <div className="absolute -top-1 -right-1 px-1.5 py-0.5 bg-black/90 border border-[#00FF41]/60 text-[#00FF41] text-[9px] md:text-xs font-mono font-bold opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 shadow-[0_0_10px_rgba(0,255,65,0.5)] z-20">
+                    <div className="absolute -top-1.5 -right-1.5 px-2 py-1 bg-gradient-to-br from-black/95 to-black/90 border-2 border-[#00FF41]/70 text-[#00FF41] text-[10px] md:text-xs font-mono font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[0_0_15px_rgba(0,255,65,0.6)] z-20 rounded-md">
                       [{tech.proficiency}]
                     </div>
                   )}
-                  {/* Years badge - HUD style */}
+                  {/* Enhanced Years badge */}
                   {tech.years && tech.years > 1 && (
-                    <div className="absolute -bottom-1 -left-1 px-1.5 py-0.5 bg-black/90 border border-[#00FF41]/60 text-[#00FF41] text-[9px] font-mono font-bold opacity-0 group-hover:opacity-100 group-focus:opacity-100 transition-opacity duration-300 shadow-[0_0_10px_rgba(0,255,65,0.5)] z-20 select-none pointer-events-none">
+                    <div className="absolute -bottom-1.5 -left-1.5 px-2 py-1 bg-gradient-to-br from-black/95 to-black/90 border-2 border-[#00FF41]/70 text-[#00FF41] text-[10px] font-mono font-bold opacity-0 group-hover:opacity-100 transition-opacity duration-500 shadow-[0_0_15px_rgba(0,255,65,0.6)] z-20 select-none pointer-events-none rounded-md">
                       {tech.years}Y
                     </div>
                   )}
                 </div>
                 
-                {/* Tech name - Monospace HUD style */}
-                <p className="text-[10px] sm:text-xs md:text-sm font-mono font-semibold text-center text-[#00FF41]/90 
-                  group-hover:text-[#00FF41] transition-colors duration-300 relative z-10 mt-1 md:mt-2
-                  tracking-wider select-none"
-                >
-                  <span>{tech.name.toUpperCase()}</span>
+                {/* Enhanced Tech name with better typography */}
+                <p className={`text-xs sm:text-sm md:text-base font-mono font-semibold text-center 
+                  transition-colors duration-500 relative z-10 mt-2 md:mt-3
+                  tracking-wider select-none
+                  ${hoveredTech === index ? "text-[#00FF41]" : "text-[#00FF41]/90"}
+                `}>
+                  <span className="drop-shadow-[0_0_8px_rgba(0,255,65,0.4)]">{tech.name.toUpperCase()}</span>
                 </p>
                 
-                {/* Category indicator - HUD style bar */}
+                {/* Enhanced Category indicator bar */}
                 <div className={`
-                  absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent
+                  absolute bottom-0 left-0 right-0 h-[3px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent
                   ${hoveredTech === index ? "opacity-100" : "opacity-0"}
-                  group-hover:opacity-100 transition-opacity duration-300
+                  group-hover:opacity-100 transition-opacity duration-500
+                  shadow-[0_0_10px_rgba(0,255,65,0.6)]
                 `} />
                 
-                {/* Hover glow overlay */}
-                <div className="absolute inset-0 bg-[#00FF41]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                {/* Enhanced hover glow overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-[#00FF41]/8 via-transparent to-[#00FF41]/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
               </div>
             ))
           )}
@@ -418,4 +447,4 @@ const Technologies = () => {
   );
 };
 
-export default Technologies;
+export default memo(Technologies);

@@ -422,9 +422,9 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="flex flex-col-reverse lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-center justify-center">
+        <div className="flex flex-col-reverse lg:flex-row gap-8 sm:gap-10 md:gap-12 lg:gap-16 xl:gap-20 items-start justify-center">
           {/* Form */}
-          <div className="w-full lg:w-1/2">
+          <div className="w-full lg:w-1/2 space-y-6 sm:space-y-8">
             <div
               ref={formCardRef}
               className="contact-form-card group relative transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01] will-change-transform"
@@ -471,12 +471,16 @@ const Contact = () => {
               )}
 
               <div className="relative z-10 p-6 sm:p-8 md:p-10 lg:p-12">
-                <h2 className="mb-3 text-xl sm:text-2xl md:text-3xl font-bold text-white font-mono">
-                  Send Me a Message
-                </h2>
-                <p className="mb-8 sm:mb-10 text-sm sm:text-base font-light text-gray-300">
-                  Fill in your details and I'll reply as soon as possible.<br className="hidden sm:inline" /> Get direct support from me — not a chatbot!
-                </p>
+                <div className="mb-6 sm:mb-8">
+                  <h2 className="mb-2 text-xl sm:text-2xl md:text-3xl font-bold text-white font-mono flex items-center gap-2">
+                    <span className="text-[#00FF41]">▶</span>
+                    Send Me a Message
+                  </h2>
+                  <p className="text-sm sm:text-base font-light text-gray-300 leading-relaxed">
+                    Fill in your details and I'll reply as soon as possible.<br className="hidden sm:inline" /> 
+                    <span className="text-[#00FF41]/80"> Get direct support from me — not a chatbot!</span>
+                  </p>
+                </div>
 
               <form ref={formRef} onSubmit={sendEmail} autoComplete="off" aria-label="Contact form">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
@@ -629,22 +633,148 @@ const Contact = () => {
                 </div>
               </form>
 
-              <div className="mt-8 sm:mt-10 pb-1 text-[10px] sm:text-xs text-gray-400 text-center max-w-xl mx-auto flex flex-col sm:flex-row items-center justify-center gap-2 font-mono">
-                <span className="inline-flex items-center gap-1">
-                  <svg className="inline w-4 h-4 sm:w-5 sm:h-5 text-[#00FF41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
-                    <circle cx="12" cy="12" r="10" strokeOpacity=".3"/>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
-                  </svg>
-                  All messages are encrypted in transit via EmailJS.
-                </span>
-                <span className="hidden sm:inline mx-2">|</span>
-                <span>
-                  Or email directly: <a href="mailto:mehmedmuric22@gmail.com" className="underline text-[#00FF41] font-semibold hover:text-[#00FF41]/80 transition">mehmedmuric22@gmail.com</a>
-                </span>
+              <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-[#00FF41]/10">
+                <div className="text-[10px] sm:text-xs text-gray-400 text-center max-w-xl mx-auto flex flex-col items-center gap-2 font-mono">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-black/40 border border-[#00FF41]/20 rounded-sm">
+                    <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#00FF41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    All messages are encrypted in transit via EmailJS
+                  </span>
+                </div>
               </div>
               
               {/* HUD Bottom Status Bar */}
               <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#00FF41]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </div>
+
+            {/* Contact Information Cards - Modern Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mt-6 sm:mt-8">
+              {/* Email Card */}
+              <a
+                href="mailto:mehmedmuric22@gmail.com"
+                className="group/contact relative p-4 sm:p-5 bg-black/60 border-2 border-[#00FF41]/30 hover:border-[#00FF41] hover:bg-black/80 transition-all duration-300 outline-none focus:ring-2 focus:ring-[#00FF41]/50"
+                style={{
+                  clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))',
+                  boxShadow: '0 0 15px rgba(0, 255, 65, 0.1), inset 0 0 20px rgba(0, 255, 65, 0.02)'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isReducedMotion) {
+                    e.currentTarget.style.boxShadow = '0 0 25px rgba(0, 255, 65, 0.4), inset 0 0 30px rgba(0, 255, 65, 0.05)';
+                    e.currentTarget.style.transform = 'translateY(-2px)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 15px rgba(0, 255, 65, 0.1), inset 0 0 20px rgba(0, 255, 65, 0.02)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
+              >
+                <div className="absolute top-1 left-1 w-3 h-3 border-t border-l border-[#00FF41]/50 opacity-0 group-hover/contact:opacity-100 transition-opacity duration-200" />
+                <div className="absolute top-1 right-1 w-3 h-3 border-t border-r border-[#00FF41]/50 opacity-0 group-hover/contact:opacity-100 transition-opacity duration-200" />
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="relative flex-shrink-0">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#00FF41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                      <polyline points="22,6 12,13 2,6" />
+                    </svg>
+                    <div className="absolute inset-0 bg-[#00FF41]/20 blur-md opacity-0 group-hover/contact:opacity-100 transition-opacity duration-300" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-[#00FF41]/70 mb-0.5">Email</div>
+                    <div className="text-xs sm:text-sm font-mono text-gray-200 truncate group-hover/contact:text-[#00FF41] transition-colors">
+                      mehmedmuric22@gmail.com
+                    </div>
+                  </div>
+                </div>
+              </a>
+
+              {/* Response Time Card */}
+              <div
+                className="relative p-4 sm:p-5 bg-black/60 border-2 border-[#00FF41]/30"
+                style={{
+                  clipPath: 'polygon(0 0, calc(100% - 6px) 0, 100% 6px, 100% 100%, 6px 100%, 0 calc(100% - 6px))',
+                  boxShadow: '0 0 15px rgba(0, 255, 65, 0.1), inset 0 0 20px rgba(0, 255, 65, 0.02)'
+                }}
+              >
+                <div className="flex items-center gap-3 sm:gap-4">
+                  <div className="relative flex-shrink-0">
+                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#00FF41]" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <circle cx="12" cy="12" r="10" />
+                      <polyline points="12 6 12 12 16 14" />
+                    </svg>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="text-[10px] sm:text-xs font-mono uppercase tracking-wider text-[#00FF41]/70 mb-0.5">Response</div>
+                    <div className="text-xs sm:text-sm font-mono text-gray-200">
+                      Within 24 hours
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Social Links - Modern HUD Style */}
+            <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-[#00FF41]/20">
+              <div className="text-xs sm:text-sm font-mono uppercase tracking-wider text-[#00FF41]/70 mb-4 text-center">
+                Connect On Social Media
+              </div>
+              <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4">
+                {/* LinkedIn */}
+                <a
+                  href="https://www.linkedin.com/in/mehmed-muric/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/social relative inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-black/60 border-2 border-[#00FF41]/30 hover:border-[#00FF41] hover:bg-black/80 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#00FF41]/50"
+                  style={{
+                    clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                    boxShadow: '0 0 10px rgba(0, 255, 65, 0.1)'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isReducedMotion) {
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.5)';
+                      e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 0 10px rgba(0, 255, 65, 0.1)';
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  }}
+                  aria-label="Visit my LinkedIn profile"
+                >
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#00FF41] group-hover/social:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                  </svg>
+                  <div className="absolute inset-0 bg-[#00FF41]/10 opacity-0 group-hover/social:opacity-100 transition-opacity duration-300" />
+                </a>
+
+                {/* GitHub */}
+                <a
+                  href="https://github.com/MehmedMuric"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group/social relative inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 bg-black/60 border-2 border-[#00FF41]/30 hover:border-[#00FF41] hover:bg-black/80 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#00FF41]/50"
+                  style={{
+                    clipPath: 'polygon(0 0, calc(100% - 4px) 0, 100% 4px, 100% 100%, 4px 100%, 0 calc(100% - 4px))',
+                    boxShadow: '0 0 10px rgba(0, 255, 65, 0.1)'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isReducedMotion) {
+                      e.currentTarget.style.boxShadow = '0 0 20px rgba(0, 255, 65, 0.5)';
+                      e.currentTarget.style.transform = 'translateY(-2px) scale(1.05)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.boxShadow = '0 0 10px rgba(0, 255, 65, 0.1)';
+                    e.currentTarget.style.transform = 'translateY(0) scale(1)';
+                  }}
+                  aria-label="Visit my GitHub profile"
+                >
+                  <svg className="w-5 h-5 sm:w-6 sm:h-6 text-[#00FF41] group-hover/social:scale-110 transition-transform duration-300" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                  </svg>
+                  <div className="absolute inset-0 bg-[#00FF41]/10 opacity-0 group-hover/social:opacity-100 transition-opacity duration-300" />
+                </a>
               </div>
             </div>
           </div>
@@ -652,7 +782,7 @@ const Contact = () => {
           {/* Illustration */}
           <div
             ref={imageRef}
-            className="w-full lg:w-1/2 flex justify-center"
+            className="w-full lg:w-1/2 flex justify-center lg:sticky lg:top-24"
             aria-label="Contact illustration"
           >
             <div className="relative aspect-[6/5] w-full max-w-[380px] sm:max-w-[420px] group will-change-transform"
@@ -679,6 +809,14 @@ const Contact = () => {
                 {/* Pulsing inner glow */}
                 {!isReducedMotion && (
                   <div className="absolute inset-0 rounded-2xl bg-[#00FF41]/20 blur-2xl opacity-30 sm:opacity-40 animate-pulse pointer-events-none" />
+                )}
+                {/* Floating particles effect */}
+                {!isReducedMotion && (
+                  <>
+                    <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-[#00FF41]/40 rounded-full animate-ping" style={{ animationDelay: '0s', animationDuration: '3s' }} />
+                    <div className="absolute top-1/2 right-1/4 w-1.5 h-1.5 bg-[#00FF41]/30 rounded-full animate-ping" style={{ animationDelay: '1s', animationDuration: '4s' }} />
+                    <div className="absolute bottom-1/4 left-1/3 w-1 h-1 bg-[#00FF41]/50 rounded-full animate-ping" style={{ animationDelay: '2s', animationDuration: '2.5s' }} />
+                  </>
                 )}
                 <Image
                   src="/images/contactus.svg"
