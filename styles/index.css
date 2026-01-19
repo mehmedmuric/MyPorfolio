@@ -3,23 +3,25 @@
 @tailwind components;
 @tailwind utilities;
 
-html,body{
+html {
+  overflow-x: hidden; /* sprečava horizontalno guranje */
+  overflow-y: auto; /* ONLY html has overflow-y to prevent double scrollbars */
+  height: 100%;
+}
+
+html, body {
   margin: 0;
   padding: 0;
   background-color: #0f0f0f;
-  color: #ffffff;
-  position: relative; /* chat ostaje u svom sloju */
-  min-height: 100vh;
-}
-
-html {
-  overflow-x: hidden; /* sprečava horizontalno guranje */
-  overflow-y: auto; /* omogućava vertikalno skrolovanje */
 }
 
 body {
-  overflow-x: hidden; /* sprečava horizontalno guranje */
-  overflow-y: auto; /* omogućava vertikalno skrolovanje */
+  color: #ffffff;
+  position: relative; /* chat ostaje u svom sloju */
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden; /* sprečava horizontalno guranje */
+  /* NO overflow-y on body - html handles all scrolling to prevent double scrollbars */
 }
 /* Ako imaš glavni container za content */
 main, .container {
