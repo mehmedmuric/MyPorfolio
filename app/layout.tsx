@@ -93,13 +93,10 @@ export const metadata: Metadata = {
 
 export default async function LocaleLayout({
   children,
-  params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
 }) {
-  const resolvedParams = await params;
-  const isHome = resolvedParams.locale === undefined;
+  const isHome = true; // Root layout is always home
 
   return (
     <html lang="en">
