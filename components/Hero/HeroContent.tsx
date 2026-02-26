@@ -87,7 +87,7 @@ export default function HeroContent() {
                     </Link>
                 </div>
 
-                <a href="/MojCV.pdf" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
+                <a href="/MehmedMuricCv.pdf" target="_blank" rel="noopener noreferrer" className="w-full sm:w-auto">
                     <Button
                         variant="outline"
                         size="lg"

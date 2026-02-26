@@ -1,12 +1,10 @@
 "use client";
 
-import React from "react";
 import Container from "../Container";
 import HeroBackground from "./HeroBackground";
 import HeroContent from "./HeroContent";
 import HeroVisual from "./HeroVisual";
 import TechTicker from "./TechTicker";
-import { ArrowDown } from "lucide-react";
 import ParticlesBackground from "../Common/ParticlesBackground";
 
 export default function Hero() {
