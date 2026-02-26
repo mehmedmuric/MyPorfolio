@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, memo } from "react";
-import Breadcrumb from "../components/Common/Breadcrumb";
+import Breadcrumb from "@/components/Common/Breadcrumb";
 
 // Background effects constants
 const DATA_STREAM_CHARS = ['0', '1', '0', '1', '0', '1', '1', '0', '1', '0', '1', '1', '0', '1', '0', '1', '0', '1', '1', '0'];
@@ -9,13 +9,13 @@ const DATA_STREAM_CHARS = ['0', '1', '0', '1', '0', '1', '1', '0', '1', '0', '1'
 // Floating Data Stream Component
 const DataStream = ({ delay, left, speed = 8 }: { delay: number; left: string; speed?: number }) => {
   const [chars, setChars] = useState<string[]>([]);
-  
+
   useEffect(() => {
-    const stream = Array.from({ length: 20 }, () => 
+    const stream = Array.from({ length: 20 }, () =>
       DATA_STREAM_CHARS[Math.floor(Math.random() * DATA_STREAM_CHARS.length)]
     );
     setChars(stream);
-    
+
     const interval = setInterval(() => {
       setChars(prev => {
         const newChars = [...prev];
@@ -24,19 +24,19 @@ const DataStream = ({ delay, left, speed = 8 }: { delay: number; left: string; s
         return newChars;
       });
     }, 150);
-    
+
     return () => clearInterval(interval);
   }, []);
-  
+
   if (chars.length === 0) {
     return null;
   }
-  
+
   return (
-    <div 
+    <div
       className="absolute text-[#00FF41]/25 sm:text-[#00FF41]/30 md:text-[#00FF41]/35 font-mono text-[8px] sm:text-[10px] tracking-[0.2em] pointer-events-none select-none"
-      style={{ 
-        left, 
+      style={{
+        left,
         top: '-10%',
         animation: `dataStream ${speed}s linear ${delay}s infinite`,
         textShadow: '0 0 3px rgba(0,255,65,0.3), 0 0 6px rgba(0,255,65,0.2)',
@@ -44,9 +44,9 @@ const DataStream = ({ delay, left, speed = 8 }: { delay: number; left: string; s
       aria-hidden="true"
     >
       {chars.map((char, i) => (
-        <span 
-          key={i} 
-          style={{ 
+        <span
+          key={i}
+          style={{
             opacity: i < 3 ? 0.1 : i > chars.length - 4 ? 0.1 : 0.4,
           }}
         >
@@ -109,9 +109,9 @@ const PrivacyPolicyClient = () => {
         "your-rights",
         "contact",
       ];
-      
+
       const scrollPosition = window.scrollY + window.innerHeight / 3;
-      
+
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
         if (section && section.offsetTop <= scrollPosition) {
@@ -237,9 +237,9 @@ const PrivacyPolicyClient = () => {
           {mounted && (
             <div suppressHydrationWarning>
               {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-                <DataStream 
-                  key={i} 
-                  delay={i * 1.5} 
+                <DataStream
+                  key={i}
+                  delay={i * 1.5}
                   left={`${8 + i * 12}%`}
                   speed={8 + (i % 3) * 2}
                 />
@@ -291,11 +291,10 @@ const PrivacyPolicyClient = () => {
                     <li key={section.id}>
                       <button
                         onClick={() => scrollToSection(section.id)}
-                        className={`w-full text-left px-3 py-2.5 text-xs sm:text-sm font-mono transition-all duration-300 rounded-sm relative overflow-hidden group ${
-                          activeSection === section.id
+                        className={`w-full text-left px-3 py-2.5 text-xs sm:text-sm font-mono transition-all duration-300 rounded-sm relative overflow-hidden group ${activeSection === section.id
                             ? "text-[#00FF41] bg-[#00FF41]/15 border-l-2 border-[#00FF41] shadow-[0_0_10px_rgba(0,255,65,0.2)]"
                             : "text-gray-400 hover:text-[#00FF41]/90 hover:bg-[#00FF41]/8 hover:border-l-2 hover:border-[#00FF41]/50"
-                        }`}
+                          }`}
                         aria-current={activeSection === section.id ? "page" : undefined}
                       >
                         <span className={`${activeSection === section.id ? "text-[#00FF41]" : "text-[#00FF41]/50 group-hover:text-[#00FF41]/70"} transition-colors duration-300`}>

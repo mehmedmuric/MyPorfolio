@@ -3,12 +3,11 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
+import { ArrowLeft, ArrowRight, Calendar, User, ExternalLink, Github, ChevronRight } from "lucide-react";
 
-import SharePost from "../../components/Blog/SharePost";
-import TagButton from "../../components/Blog/TagButton";
-import ReadingProgress from "../../components/Blog/ReadingProgress";
-import BlogBackgroundEffects from "../../components/Blog/BlogBackgroundEffects";
-import Breadcrumb from "@/app/components/Common/Breadcrumb";
+import SharePost from "@/components/Blog/SharePost";
+import TagButton from "@/components/Blog/TagButton";
+import ParticlesBackground from "@/components/Common/ParticlesBackground";
 
 interface BlogAuthor {
   name: string;
@@ -40,8 +39,8 @@ export async function generateMetadata({
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   try {
-    const res = await fetch(`${baseUrl}/data/projects.json`, { 
-      next: { revalidate: 3600 } 
+    const res = await fetch(`${baseUrl}/data/projects.json`, {
+      next: { revalidate: 3600 }
     });
     if (!res.ok) throw new Error("Failed to fetch");
     const contentType = res.headers.get("content-type");
@@ -85,137 +84,64 @@ export async function generateMetadata({
   }
 }
 
-// Tags Display Component - Modern Design
+// Modern Tag Pill Component
 function TagsDisplay({ tags }: { tags: string | string[] }) {
   if (!tags) return null;
-  
+
   let tagList: string[] = [];
-  
+
   // Handle both string and array formats
   if (Array.isArray(tags)) {
     tagList = tags;
   } else if (typeof tags === "string") {
-    if (tags.includes(",")) {
-      tagList = tags.split(",").map(tag => tag.trim()).filter(Boolean);
-    } else {
-      tagList = tags.split(" ").map(tag => tag.trim()).filter(Boolean);
-    }
+    tagList = tags.split(/[,\s]+/).map(tag => tag.trim()).filter(Boolean);
   }
-  
-  // Clean up tags: remove leading dashes and spaces
+
+  // Clean up tags
   tagList = tagList.map(tag => tag.replace(/^[\s-]+/, "").trim()).filter(Boolean);
-  
+
   if (tagList.length === 0) return null;
-  
+
   return (
-    <div className="flex flex-wrap gap-2.5 sm:gap-3 items-center">
+    <div className="flex flex-wrap gap-2 items-center">
       {tagList.map((tag, index) => (
         <span
           key={`${tag}-${index}`}
-          className="group relative inline-flex items-center justify-center min-h-[36px] sm:min-h-[40px] 
-            px-3 sm:px-4 py-1.5 sm:py-2 rounded-sm 
-            bg-gradient-to-br from-[#0a0a0a]/95 via-[#050805]/95 to-[#0a0a0a]/95 
-            backdrop-blur-md border border-[#00ff41]/40 
-            text-xs sm:text-sm font-mono font-semibold 
-            text-[#00ff41] 
-            shadow-[0_0_12px_rgba(0,255,65,0.25)] 
-            hover:border-[#00ff41] 
-            hover:shadow-[0_0_24px_rgba(0,255,65,0.6),0_0_48px_rgba(0,255,65,0.3)] 
-            hover:bg-gradient-to-br hover:from-[#00ff41]/15 hover:via-[#050805] hover:to-[#00ff41]/10
-            hover:scale-105
-            active:scale-100
-            transition-all duration-300 ease-out
-            will-change-transform
-            cursor-default
-            whitespace-nowrap
-            overflow-hidden"
-          style={{ color: '#00ff41' }}
+          className="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full
+            bg-emerald-500/10 border border-emerald-500/20 backdrop-blur-md
+            text-xs font-semibold text-emerald-400 tracking-wide uppercase shadow-[0_0_15px_rgba(16,185,129,0.1)]
+            hover:bg-emerald-500/20 hover:border-emerald-500/40 hover:shadow-[0_0_20px_rgba(16,185,129,0.2)] hover:-translate-y-0.5
+            transition-all duration-300 cursor-default"
         >
-          {/* Glow effect on hover */}
-          <span className="absolute inset-0 bg-[#00ff41]/0 group-hover:bg-[#00ff41]/5 
-            transition-colors duration-300 blur-xl"></span>
-          <span className="relative z-10">{tag}</span>
+          {tag}
         </span>
       ))}
     </div>
   );
 }
 
-// Modern Cyberpunk Terminal Container with Glassmorphism
-function TerminalContainer({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+// Clean Content Card with Soft Glassmorphism
+function ContentCard({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   return (
-    <div className={`group relative ${className}`}>
-      {/* Corner Brackets with enhanced glow */}
-      <div className="absolute -top-1 -left-1 w-4 h-4 border-t-2 border-l-2 border-[#00ff41]/60 
-        shadow-[0_0_8px_rgba(0,255,65,0.4)] group-hover:border-[#00ff41] 
-        group-hover:shadow-[0_0_12px_rgba(0,255,65,0.6)] transition-all duration-300" />
-      <div className="absolute -top-1 -right-1 w-4 h-4 border-t-2 border-r-2 border-[#00ff41]/60 
-        shadow-[0_0_8px_rgba(0,255,65,0.4)] group-hover:border-[#00ff41] 
-        group-hover:shadow-[0_0_12px_rgba(0,255,65,0.6)] transition-all duration-300" />
-      <div className="absolute -bottom-1 -left-1 w-4 h-4 border-b-2 border-l-2 border-[#00ff41]/60 
-        shadow-[0_0_8px_rgba(0,255,65,0.4)] group-hover:border-[#00ff41] 
-        group-hover:shadow-[0_0_12px_rgba(0,255,65,0.6)] transition-all duration-300" />
-      <div className="absolute -bottom-1 -right-1 w-4 h-4 border-b-2 border-r-2 border-[#00ff41]/60 
-        shadow-[0_0_8px_rgba(0,255,65,0.4)] group-hover:border-[#00ff41] 
-        group-hover:shadow-[0_0_12px_rgba(0,255,65,0.6)] transition-all duration-300" />
-      
-      {/* Animated Glow Border */}
-      <div className="absolute inset-0 rounded-sm border border-[#00ff41]/40 
-        shadow-[0_0_24px_rgba(0,255,65,0.25),inset_0_0_24px_rgba(0,255,65,0.08)] 
-        group-hover:border-[#00ff41]/60 group-hover:shadow-[0_0_32px_rgba(0,255,65,0.4),inset_0_0_32px_rgba(0,255,65,0.12)]
-        pointer-events-none transition-all duration-500" />
-      
-      {/* Background gradient with glassmorphism */}
-      <div className="relative bg-gradient-to-br from-[#0a0a0a]/80 via-[#050805]/85 to-[#0a0a0a]/80 
-        backdrop-blur-md rounded-sm p-4 sm:p-6 lg:p-8
-        before:absolute before:inset-0 before:rounded-sm 
-        before:bg-gradient-to-br before:from-[#00ff41]/5 before:via-transparent before:to-transparent
-        before:opacity-0 group-hover:before:opacity-100 before:transition-opacity before:duration-500
-        overflow-hidden">
-        {/* Subtle scan line effect */}
-        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-          <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r 
-            from-transparent via-[#00ff41]/40 to-transparent 
-            animate-[blogScanLine_3s_linear_infinite]"></div>
-        </div>
-        <div className="relative z-10">{children}</div>
+    <div className={`relative rounded-3xl overflow-hidden bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-2xl ${className}`}>
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-50 pointer-events-none" />
+      <div className="relative p-8 sm:p-10 lg:p-12">
+        {children}
       </div>
     </div>
   );
 }
 
-// Modern HUD Panel Component with Glassmorphism
-function HUDPanel({ title, children, className = "" }: { title: string; children: React.ReactNode; className?: string }) {
+// Clean Sidebar Widget
+function SidebarWidget({ title, children, className = "" }: { title: string; children: React.ReactNode; className?: string }) {
   return (
-    <aside className={`group relative bg-gradient-to-br from-[#0a0a0a]/90 via-[#050805]/85 to-[#0a0a0a]/90 
-      backdrop-blur-lg border border-[#00ff41]/30 
-      rounded-sm p-4 sm:p-5 lg:p-6 
-      shadow-[0_0_20px_rgba(0,255,65,0.15),inset_0_0_20px_rgba(0,255,65,0.05)] 
-      hover:border-[#00ff41]/50 hover:shadow-[0_0_30px_rgba(0,255,65,0.3),inset_0_0_30px_rgba(0,255,65,0.1)]
-      transition-all duration-500 overflow-hidden ${className}`}>
-      
-      {/* Subtle background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#00ff41]/3 via-transparent to-[#00ff41]/3 
-        opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-      
-      {/* Corner accent lines */}
-      <div className="absolute top-0 right-0 w-16 h-16 border-t border-r border-[#00ff41]/10 
-        group-hover:border-[#00ff41]/30 transition-colors duration-500"></div>
-      <div className="absolute bottom-0 left-0 w-16 h-16 border-b border-l border-[#00ff41]/10 
-        group-hover:border-[#00ff41]/30 transition-colors duration-500"></div>
-      
+    <aside className={`relative rounded-3xl bg-slate-900/40 backdrop-blur-xl border border-white/10 p-8 shadow-xl overflow-hidden group hover:border-emerald-500/30 transition-colors duration-500 ${className}`}>
+      <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-[50px] group-hover:bg-emerald-500/10 transition-colors duration-500 pointer-events-none" />
+      <h3 className="relative text-xs font-bold uppercase tracking-[0.2em] text-emerald-400 mb-6 flex items-center gap-3">
+        <span className="w-8 h-[1px] bg-emerald-500/30"></span>
+        {title}
+      </h3>
       <div className="relative z-10">
-        <h3 className="text-xs sm:text-sm font-mono font-bold uppercase tracking-wider text-[#00ff41] mb-4 
-          border-b border-[#00ff41]/20 pb-2.5 
-          group-hover:text-[#00ff41] group-hover:border-[#00ff41]/40
-          transition-all duration-300
-          flex items-center gap-2">
-          <span className="inline-block w-1.5 h-1.5 bg-[#00ff41] rounded-full 
-            shadow-[0_0_8px_rgba(0,255,65,0.6)] 
-            group-hover:shadow-[0_0_12px_rgba(0,255,65,0.8)] 
-            group-hover:scale-125 transition-all duration-300"></span>
-          <span>[{title}]</span>
-        </h3>
         {children}
       </div>
     </aside>
@@ -232,8 +158,8 @@ export default async function BlogDetailsPage({
 
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
   try {
-    const res = await fetch(`${baseUrl}/data/projects.json`, { 
-      next: { revalidate: 3600 } 
+    const res = await fetch(`${baseUrl}/data/projects.json`, {
+      next: { revalidate: 3600 }
     });
     if (!res.ok) {
       throw new Error(`API error: ${res.status}`);
@@ -246,9 +172,9 @@ export default async function BlogDetailsPage({
     const blog = blogs.find((b) => b.id === blogId);
     if (!blog) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0a0a0a] via-[#050805] to-[#0a0a0a]">
-          <div className="text-[#00ff41] p-10 text-center text-xl md:text-2xl font-mono">
-            🚫 Project not found
+        <div className="min-h-screen flex items-center justify-center bg-slate-950">
+          <div className="text-emerald-500 p-10 text-center text-xl font-medium">
+            Project not found
           </div>
         </div>
       );
@@ -282,301 +208,199 @@ export default async function BlogDetailsPage({
             __html: JSON.stringify(articleSchema)
           }}
         />
-        
-        {/* Main Content Section */}
-        <section className="relative min-h-screen bg-[#000000] bg-gradient-to-b from-[#0a0a0a] via-[#000000] to-[#050a08] 
-          overflow-hidden py-8 sm:py-12 lg:py-16 pt-24 sm:pt-28 lg:pt-32 mt-12 sm:mt-24 lg:mt-28">
-          
-          {/* Background Effects */}
-          <BlogBackgroundEffects />
 
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-20">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
-              
+        {/* Main Content Section */}
+        <section className="relative min-h-screen bg-slate-950 pt-32 pb-20 overflow-hidden">
+          {/* Background Elements */}
+          <div className="absolute inset-0 z-0 pointer-events-none">
+            <ParticlesBackground />
+            <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-emerald-500/10 rounded-full blur-[120px]" />
+            <div className="absolute bottom-0 left-1/4 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]" />
+            <div className="absolute inset-0 bg-[url('/grid.svg')] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]" />
+          </div>
+
+          <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
+            {/* Top Navigation Bar */}
+            <div className="mb-12">
+              <Link
+                href="/projects"
+                className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-emerald-400 transition-colors duration-300 group"
+              >
+                <div className="p-2 rounded-full bg-slate-900/50 border border-slate-800 group-hover:border-emerald-500/30 group-hover:bg-emerald-500/10 transition-all duration-300">
+                  <ArrowLeft className="w-4 h-4" />
+                </div>
+                Back to Projects
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 xl:gap-16">
               {/* Main Content Column */}
-              <article className="lg:col-span-8 space-y-6 sm:space-y-8">
-                
-                {/* Title Section - Enhanced */}
-                <div className="space-y-5 sm:space-y-7">
-                  <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black 
-                    text-[#00ff41] leading-[1.1] font-mono tracking-tight
-                    drop-shadow-[0_0_20px_rgba(0,255,65,0.5),0_0_40px_rgba(0,255,65,0.3)]
-                    group-hover:drop-shadow-[0_0_30px_rgba(0,255,65,0.7),0_0_60px_rgba(0,255,65,0.4)]
-                    transition-all duration-500">
-                    {blog.title}
-                  </h1>
-                  
-                  {/* Author & Date Info - Enhanced */}
-                  <div className="flex flex-wrap items-center gap-5 sm:gap-6 pb-2">
-                    <div className="flex items-center gap-4 sm:gap-5 group/author">
-                      <div className="relative h-14 w-14 sm:h-16 sm:w-16 rounded-full overflow-hidden 
-                        border-2 border-[#00ff41]/60 shadow-[0_0_20px_rgba(0,255,65,0.4)]
-                        group-hover/author:border-[#00ff41] group-hover/author:shadow-[0_0_30px_rgba(0,255,65,0.6)]
-                        transition-all duration-300 ring-2 ring-[#00ff41]/20 group-hover/author:ring-[#00ff41]/40">
-                        <Image
-                          src={blog.author.image}
-                          alt={`Author: ${blog.author.name}`}
-                          fill
-                          className="object-cover group-hover/author:scale-110 transition-transform duration-300"
-                          sizes="64px"
-                          priority
-                        />
-                        {/* Glow effect on hover */}
-                        <div className="absolute inset-0 bg-[#00ff41]/0 group-hover/author:bg-[#00ff41]/10 
-                          transition-colors duration-300"></div>
-                      </div>
-                      <div className="flex flex-col gap-1">
-                        <span className="text-sm sm:text-base font-mono text-[#00ff41]/90 
-                          group-hover/author:text-[#00ff41] transition-colors duration-300">
-                          By <strong className="text-[#00ff41] font-bold">{blog.author.name}</strong>
-                        </span>
-                        <span className="text-xs sm:text-sm font-mono text-[#788293] 
-                          group-hover/author:text-[#9ca3af] transition-colors duration-300" 
-                          suppressHydrationWarning>
-                          {blog.publishDate}
-                        </span>
-                      </div>
+              <article className="lg:col-span-8 space-y-10">
+                {/* Header Section */}
+                <header className="space-y-8">
+                  <div className="flex flex-wrap items-center gap-4 text-sm text-slate-400 font-medium">
+                    <div className="flex items-center gap-2 bg-slate-900/50 px-3 py-1.5 rounded-full border border-slate-800 shadow-inner">
+                      <Calendar className="w-4 h-4 text-emerald-500" />
+                      {blog.publishDate}
+                    </div>
+                    <div className="flex items-center gap-2 bg-slate-900/50 px-3 py-1.5 rounded-full border border-slate-800 shadow-inner">
+                      <User className="w-4 h-4 text-emerald-500" />
+                      {blog.author.name}
                     </div>
                   </div>
-                </div>
 
-                {/* Hero Section: Featured Image - Enhanced */}
-                <div className="relative w-full aspect-[16/9] sm:aspect-[21/9] overflow-hidden 
-                  rounded-sm border-2 border-[#00ff41]/40 
-                  shadow-[0_0_40px_rgba(0,255,65,0.2),inset_0_0_40px_rgba(0,255,65,0.05)]
-                  group will-change-transform
-                  hover:border-[#00ff41]/60 hover:shadow-[0_0_60px_rgba(0,255,65,0.4),inset_0_0_60px_rgba(0,255,65,0.1)]
-                  transition-all duration-500">
-                  
-                  {/* Corner brackets */}
-                  <div className="absolute -top-1 -left-1 z-10 w-6 h-6 border-t-2 border-l-2 border-[#00ff41]/50 
-                    shadow-[0_0_10px_rgba(0,255,65,0.4)] group-hover:border-[#00ff41] 
-                    group-hover:shadow-[0_0_15px_rgba(0,255,65,0.6)] transition-all duration-300"></div>
-                  <div className="absolute -top-1 -right-1 z-10 w-6 h-6 border-t-2 border-r-2 border-[#00ff41]/50 
-                    shadow-[0_0_10px_rgba(0,255,65,0.4)] group-hover:border-[#00ff41] 
-                    group-hover:shadow-[0_0_15px_rgba(0,255,65,0.6)] transition-all duration-300"></div>
-                  <div className="absolute -bottom-1 -left-1 z-10 w-6 h-6 border-b-2 border-l-2 border-[#00ff41]/50 
-                    shadow-[0_0_10px_rgba(0,255,65,0.4)] group-hover:border-[#00ff41] 
-                    group-hover:shadow-[0_0_15px_rgba(0,255,65,0.6)] transition-all duration-300"></div>
-                  <div className="absolute -bottom-1 -right-1 z-10 w-6 h-6 border-b-2 border-r-2 border-[#00ff41]/50 
-                    shadow-[0_0_10px_rgba(0,255,65,0.4)] group-hover:border-[#00ff41] 
-                    group-hover:shadow-[0_0_15px_rgba(0,255,65,0.6)] transition-all duration-300"></div>
-                  
+                  <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400 leading-[1.1] tracking-tight drop-shadow-sm">
+                    {blog.title}
+                  </h1>
+                </header>
+
+                {/* Hero Image */}
+                <div className="relative w-full aspect-[21/9] sm:aspect-[16/9] rounded-3xl overflow-hidden shadow-[0_0_40px_rgba(16,185,129,0.1)] group">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent z-10" />
+                  <div className="absolute inset-0 border border-white/10 rounded-3xl z-20 pointer-events-none" />
                   <Image
                     src={blog.image}
                     alt={`Featured image for ${blog.title}`}
                     fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 100vw, 800px"
                     priority
-                    quality={90}
+                    quality={100}
                   />
-                  
-                  {/* Enhanced gradient overlays */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/0 to-black/0 
-                    opacity-60 group-hover:opacity-80 transition-opacity duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#00ff41]/0 via-transparent to-[#00ff41]/0 
-                    opacity-0 group-hover:opacity-20 transition-opacity duration-500" />
-                  
-                  {/* Scan line effect on hover */}
-                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                    <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r 
-                      from-transparent via-[#00ff41]/60 to-transparent 
-                      animate-[blogScanLine_2s_linear_infinite]"></div>
+                  {/* Action Buttons Float */}
+                  <div className="absolute bottom-6 right-6 z-30 flex gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+                    {blog.livedemo && (
+                      <Link href={blog.livedemo} target="_blank" className="p-3 bg-emerald-500 text-white rounded-xl shadow-lg hover:bg-emerald-400 transition-colors">
+                        <ExternalLink className="w-5 h-5" />
+                      </Link>
+                    )}
+                    {blog.gitlink && (
+                      <Link href={blog.gitlink} target="_blank" className="p-3 bg-slate-900/90 text-white rounded-xl border border-white/10 hover:bg-slate-800 transition-colors backdrop-blur-md">
+                        <Github className="w-5 h-5" />
+                      </Link>
+                    )}
                   </div>
                 </div>
 
-                {/* Main Article Content - Enhanced Cyberpunk Terminal */}
-                <TerminalContainer className="mt-8 sm:mt-10">
-                  <div className="prose prose-invert prose-lg max-w-none 
-                    prose-headings:text-[#00ff41] prose-headings:font-mono prose-headings:font-bold
-                    prose-headings:drop-shadow-[0_0_10px_rgba(0,255,65,0.4)]
-                    prose-p:text-[#e0e0e0] prose-p:leading-relaxed prose-p:text-base sm:text-lg lg:text-xl
-                    prose-p:mb-6 sm:prose-p:mb-7
-                    prose-a:text-[#00ff41] prose-a:no-underline 
-                    hover:prose-a:underline hover:prose-a:text-[#00ff41]
-                    prose-a:transition-all prose-a:duration-300
-                    prose-strong:text-[#00ff41] prose-strong:font-bold prose-strong:drop-shadow-[0_0_6px_rgba(0,255,65,0.4)]
-                    prose-code:text-[#00ff41] prose-code:bg-[#050805]/90 prose-code:backdrop-blur-sm
-                    prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm sm:prose-code:text-base
-                    prose-code:border prose-code:border-[#00ff41]/30 prose-code:shadow-[0_0_8px_rgba(0,255,65,0.2)]
-                    prose-blockquote:border-l-[#00ff41] prose-blockquote:border-l-4 prose-blockquote:text-[#b0b0b0]
-                    prose-blockquote:bg-[#050805]/50 prose-blockquote:pl-6 prose-blockquote:py-4 prose-blockquote:rounded-sm
-                    prose-ul:text-[#e0e0e0] prose-ol:text-[#e0e0e0] prose-ul:space-y-2 prose-ol:space-y-2
-                    prose-li:marker:text-[#00ff41] prose-li:marker:font-bold">
-                    <p className="text-center sm:text-left text-base sm:text-lg lg:text-xl leading-relaxed 
-                      text-[#e0e0e0] max-w-[70ch] mx-auto sm:mx-0
-                      tracking-wide sm:tracking-normal">
+                {/* Main Article Content */}
+                <ContentCard>
+                  <div className="prose prose-invert prose-lg max-w-none
+                    prose-headings:text-white prose-headings:font-bold prose-headings:tracking-tight
+                    prose-p:text-slate-300 prose-p:leading-relaxed prose-p:text-lg
+                    prose-a:text-emerald-400 prose-a:no-underline hover:prose-a:text-emerald-300
+                    prose-strong:text-white prose-strong:font-semibold
+                    prose-code:text-emerald-300 prose-code:bg-emerald-500/10 prose-code:px-2 prose-code:py-0.5 prose-code:rounded-md prose-code:border prose-code:border-emerald-500/20 prose-code:before:content-none prose-code:after:content-none
+                    prose-blockquote:border-l-2 prose-blockquote:border-emerald-500 prose-blockquote:bg-slate-900/50 prose-blockquote:py-4 prose-blockquote:px-6 prose-blockquote:rounded-r-2xl prose-blockquote:text-slate-300 prose-blockquote:italic
+                    prose-li:marker:text-emerald-500">
+                    <p className="whitespace-pre-wrap first-letter:text-5xl first-letter:font-bold first-letter:text-emerald-500 first-letter:float-left first-letter:mr-4 first-letter:mt-1">
                       {blog.paragraph}
                     </p>
                   </div>
-                </TerminalContainer>
+                </ContentCard>
 
-                {/* Action Buttons: Live Demo & GitHub - Enhanced */}
-                <div className="flex flex-wrap justify-center sm:justify-start items-center gap-4 sm:gap-5 mt-8 sm:mt-10">
-                  <Link
-                    href={blog.livedemo}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="See Live Demo"
-                    className="group relative inline-flex items-center justify-center min-h-[48px] gap-2.5 
-                      px-7 sm:px-9 py-3.5 rounded-sm 
-                      bg-gradient-to-r from-[#00ff41] via-[#00ee3a] to-[#00cc33] 
-                      text-black font-bold text-sm sm:text-base tracking-wide 
-                      shadow-[0_0_24px_rgba(0,255,65,0.5),inset_0_0_24px_rgba(255,255,255,0.1)] 
-                      hover:shadow-[0_0_40px_rgba(0,255,65,0.8),inset_0_0_40px_rgba(255,255,255,0.15)]
-                      hover:scale-110 active:scale-105 
-                      transition-all duration-300 ease-out
-                      border-2 border-transparent hover:border-white/30
-                      will-change-transform overflow-hidden
-                      before:absolute before:inset-0 before:bg-gradient-to-r 
-                      before:from-transparent before:via-white/20 before:to-transparent
-                      before:translate-x-[-100%] hover:before:translate-x-[100%]
-                      before:transition-transform before:duration-700"
-                  >
-                    <span className="relative z-10 text-lg">🚀</span>
-                    <span className="relative z-10">Live Demo</span>
-                    <svg className="w-5 h-5 relative z-10 group-hover:translate-x-1.5 
-                      transition-transform duration-300" 
-                      fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} 
-                        d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                    </svg>
-                  </Link>
-                  
-                  <Link
-                    href={blog.gitlink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="View on GitHub"
-                    className="group relative inline-flex items-center justify-center min-h-[48px] gap-2.5 
-                      px-7 sm:px-9 py-3.5 rounded-sm 
-                      border-2 border-[#00ff41]/50 
-                      bg-gradient-to-br from-[#0a0a0a]/90 via-[#050805]/90 to-[#0a0a0a]/90 
-                      backdrop-blur-md
-                      text-[#00ff41] font-bold text-sm sm:text-base 
-                      shadow-[0_0_20px_rgba(0,255,65,0.25),inset_0_0_20px_rgba(0,255,65,0.05)] 
-                      hover:border-[#00ff41] 
-                      hover:bg-gradient-to-br hover:from-[#00ff41]/15 hover:via-[#050805] hover:to-[#00ff41]/10
-                      hover:shadow-[0_0_35px_rgba(0,255,65,0.5),inset_0_0_35px_rgba(0,255,65,0.15)]
-                      hover:scale-110 active:scale-105 
-                      transition-all duration-300 ease-out 
-                      will-change-transform overflow-hidden
-                      before:absolute before:inset-0 before:bg-gradient-to-r 
-                      before:from-transparent before:via-[#00ff41]/10 before:to-transparent
-                      before:translate-x-[-100%] hover:before:translate-x-[100%]
-                      before:transition-transform before:duration-700"
-                  >
-                    <svg className="w-5 h-5 relative z-10 group-hover:rotate-12 
-                      transition-transform duration-300" 
-                      fill="currentColor" viewBox="0 0 24 24">
-                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                    <span className="relative z-10">GitHub Code</span>
-                  </Link>
-                </div>
-
-                {/* Optional Secondary Paragraph - Enhanced */}
+                {/* Secondary Paragraph */}
                 {blog.paragraph2 && (
-                  <TerminalContainer className="mt-8 sm:mt-10">
-                    <div className="relative">
-                      <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10
-                        bg-gradient-to-br from-[#0a0a0a] via-[#050805] to-[#0a0a0a]
-                        p-2 rounded-full border border-[#00ff41]/30 
-                        shadow-[0_0_15px_rgba(0,255,65,0.3)]">
-                        <svg className="w-6 h-6 sm:w-8 sm:h-8 text-[#00ff41]/70 
-                          drop-shadow-[0_0_8px_rgba(0,255,65,0.5)]" 
-                          fill="none" stroke="currentColor" 
-                          strokeWidth={2} viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" 
-                            d="M17 8h2a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2h2m6-4v12m6-6H6" />
-                        </svg>
-                      </div>
-                      <p className="text-center sm:text-left text-base sm:text-lg lg:text-xl 
-                        leading-relaxed text-[#b0b0b0] italic max-w-[70ch] mx-auto sm:mx-0 pt-6
-                        tracking-wide sm:tracking-normal">
-                        &ldquo;{blog.paragraph2}&rdquo;
-                      </p>
-                    </div>
-                  </TerminalContainer>
+                  <div className="relative p-8 sm:p-10 rounded-3xl bg-gradient-to-br from-emerald-900/20 to-slate-900/50 border border-emerald-500/20 overflow-hidden shadow-2xl">
+                    <div className="absolute top-0 left-0 w-1 h-full bg-emerald-500" />
+                    <svg className="absolute -bottom-8 -right-8 w-32 h-32 text-emerald-500/10 rotate-12" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M14.017 21L14.017 18C14.017 16.8954 13.1216 16 12.0171 16H9C9.00012 13.1784 11.2353 11.0718 14.0171 11.3333V9C14.0171 4.58172 10.4354 1 6.01709 1V3C8.77851 3 11.0171 5.23858 11.0171 8V8.9551C7.62002 9.45887 5.01709 12.4171 5.01709 16C5.01709 18.7614 7.25567 21 10.0171 21H14.017ZM21.017 21L21.017 18C21.017 16.8954 20.1216 16 19.0171 16H16C16.0001 13.1784 18.2353 11.0718 21.0171 11.3333V9C21.0171 4.58172 17.4354 1 13.0171 1V3C15.7785 3 18.0171 5.23858 18.0171 8V8.9551C14.62 9.45887 12.0171 12.4171 12.0171 16C12.0171 18.7614 14.2557 21 17.0171 21H21.017Z" />
+                    </svg>
+                    <p className="relative z-10 text-slate-300 text-xl leading-relaxed font-medium">
+                      {blog.paragraph2}
+                    </p>
+                  </div>
                 )}
 
-                {/* Tags & Share Section - Enhanced */}
-                <div className="relative flex flex-col sm:flex-row justify-between items-start sm:items-center 
-                  gap-6 sm:gap-8 pt-8 sm:pt-10 
-                  border-t-2 border-[#00ff41]/20 
-                  before:absolute before:top-0 before:left-1/2 before:-translate-x-1/2 
-                  before:w-24 before:h-0.5 before:bg-gradient-to-r 
-                  before:from-transparent before:via-[#00ff41]/60 before:to-transparent
-                  before:shadow-[0_0_15px_rgba(0,255,65,0.6)]
-                  mt-8 sm:mt-10">
-                  <div className="flex flex-wrap justify-center sm:justify-start gap-3 sm:gap-4">
-                    <TagButton href="https://github.com/mehmedmuric" text="Github Profile" />
-                    <TagButton href="/contact" text="Contact Me" />
-                    <TagButton href="/about" text="About Me" />
-                  </div>
-                  <div className="flex justify-center sm:justify-end w-full sm:w-auto">
+                {/* Footer Actions */}
+                <div className="flex flex-col sm:flex-row justify-between items-center gap-6 pt-12 border-t border-white/10">
+                  <div className="flex items-center gap-4">
+                    <div className="text-sm text-slate-400 font-medium">Share this project</div>
+                    <div className="h-px w-12 bg-white/10 hidden sm:block"></div>
                     <SharePost />
                   </div>
                 </div>
+
+                {/* Bottom Action Cards */}
+                <div className="grid sm:grid-cols-2 gap-6 mt-8">
+                  {blog.livedemo && (
+                    <Link
+                      href={blog.livedemo}
+                      target="_blank"
+                      className="group flex flex-col justify-center p-8 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500 hover:border-emerald-500 transition-all duration-500"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="p-3 bg-emerald-500 text-white rounded-2xl group-hover:bg-white group-hover:text-emerald-500 transition-colors duration-500">
+                          <ExternalLink className="w-6 h-6" />
+                        </div>
+                        <ArrowRight className="w-6 h-6 text-emerald-500 -rotate-45 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-white transition-all duration-500" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-white mb-2">Live Demo</h3>
+                      <p className="text-emerald-400 group-hover:text-emerald-100 transition-colors">See the project in action</p>
+                    </Link>
+                  )}
+                  {blog.gitlink && (
+                    <Link
+                      href={blog.gitlink}
+                      target="_blank"
+                      className="group flex flex-col justify-center p-8 rounded-3xl bg-slate-900/40 border border-white/10 hover:bg-slate-800 hover:border-white/20 transition-all duration-500"
+                    >
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="p-3 bg-slate-800 text-white border border-white/10 rounded-2xl group-hover:bg-white group-hover:text-slate-900 transition-colors duration-500">
+                          <Github className="w-6 h-6" />
+                        </div>
+                        <ChevronRight className="w-6 h-6 text-slate-400 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 group-hover:text-white transition-all duration-500" />
+                      </div>
+                      <h3 className="text-2xl font-bold text-white mb-2">Source Code</h3>
+                      <p className="text-slate-400 group-hover:text-slate-300 transition-colors">Explore the repository</p>
+                    </Link>
+                  )}
+                </div>
+
               </article>
 
-              {/* Sidebar - HUD Panels (Desktop) - Enhanced */}
-              <aside className="lg:col-span-4 space-y-6 sm:space-y-7 lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)] 
-                lg:overflow-y-auto lg:overflow-x-hidden 
-                scrollbar-thin scrollbar-thumb-[#00ff41]/30 scrollbar-track-transparent
-                hover:scrollbar-thumb-[#00ff41]/50">
-                
-                {/* Tags HUD Panel */}
-                <HUDPanel title="TAGS">
-                  <TagsDisplay tags={blog.tags} />
-                </HUDPanel>
-
-                {/* Author HUD Panel - Enhanced */}
-                <HUDPanel title="AUTHOR">
-                  <div className="flex flex-col sm:flex-row lg:flex-col items-center sm:items-start 
-                    lg:items-center gap-5 group/author">
-                    <div className="relative h-20 w-20 sm:h-28 sm:w-28 rounded-full overflow-hidden 
-                      border-2 border-[#00ff41]/60 shadow-[0_0_20px_rgba(0,255,65,0.4)] flex-shrink-0
-                      group-hover/author:border-[#00ff41] group-hover/author:shadow-[0_0_30px_rgba(0,255,65,0.6)]
-                      transition-all duration-300 ring-2 ring-[#00ff41]/20 group-hover/author:ring-[#00ff41]/40">
-                      <Image
-                        src={blog.author.image}
-                        alt={`Author: ${blog.author.name}`}
-                        fill
-                        className="object-cover group-hover/author:scale-110 transition-transform duration-300"
-                        sizes="112px"
-                        loading="lazy"
-                      />
-                      {/* Glow effect on hover */}
-                      <div className="absolute inset-0 bg-[#00ff41]/0 group-hover/author:bg-[#00ff41]/10 
-                        transition-colors duration-300 rounded-full"></div>
-                    </div>
-                    <div className="text-center sm:text-left lg:text-center space-y-1.5">
-                      <h4 className="text-base sm:text-lg font-mono font-bold text-[#00ff41] 
-                        group-hover/author:drop-shadow-[0_0_8px_rgba(0,255,65,0.6)]
-                        transition-all duration-300">
-                        {blog.author.name}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-[#788293] font-mono 
-                        group-hover/author:text-[#9ca3af] transition-colors duration-300">
-                        FullStack Developer
-                      </p>
-                      {/* Status indicator */}
-                      <div className="flex items-center justify-center sm:justify-start lg:justify-center gap-2 pt-1">
-                        <span className="inline-block w-2 h-2 bg-[#00ff41] rounded-full 
-                          shadow-[0_0_8px_rgba(0,255,65,0.6)] 
-                          group-hover/author:shadow-[0_0_12px_rgba(0,255,65,0.8)]
-                          animate-pulse"></span>
-                        <span className="text-[10px] sm:text-xs font-mono text-[#788293] 
-                          group-hover/author:text-[#9ca3af] transition-colors duration-300">
-                          Available
-                        </span>
+              {/* Sidebar */}
+              <aside className="lg:col-span-4 space-y-8">
+                <div className="lg:sticky lg:top-32 space-y-8">
+                  {/* Author Widget Elements */}
+                  <div className="relative rounded-3xl bg-slate-900/40 backdrop-blur-xl border border-white/10 p-1 shadow-xl overflow-hidden group">
+                    <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                    <div className="relative bg-slate-950/50 rounded-[22px] p-8">
+                      <div className="flex flex-col items-center text-center">
+                        <div className="relative h-24 w-24 rounded-full overflow-hidden border-2 border-emerald-500/30 p-1 mb-6 group-hover:border-emerald-500 transition-colors duration-500">
+                          <div className="relative h-full w-full rounded-full overflow-hidden">
+                            <Image
+                              src={blog.author.image}
+                              alt={`Author: ${blog.author.name}`}
+                              fill
+                              className="object-cover transition-transform duration-700 group-hover:scale-110"
+                            />
+                          </div>
+                        </div>
+                        <h4 className="text-2xl font-bold text-white mb-1 group-hover:text-emerald-400 transition-colors">{blog.author.name}</h4>
+                        <p className="text-emerald-500 font-medium mb-4">Developer</p>
+                        <p className="text-slate-400 text-sm leading-relaxed mb-6">
+                          Passionate about building scalable web applications, crafting beautiful user experiences, and exploring new technologies.
+                        </p>
+                        <div className="flex gap-3 w-full">
+                          <Link href="https://github.com/mehmedmuric" target="_blank" className="flex-1 py-3 px-4 bg-slate-900 border border-white/10 hover:bg-slate-800 rounded-xl text-sm font-medium text-white transition-colors flex items-center justify-center gap-2">
+                            <Github className="w-4 h-4" />
+                            GitHub
+                          </Link>
+                          <Link href="/contact" className="flex-1 py-3 px-4 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl text-sm font-medium transition-colors flex items-center justify-center">
+                            Contact
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </HUDPanel>
+
+                  {/* Tags Widget */}
+                  <SidebarWidget title="Technologies Used">
+                    <TagsDisplay tags={blog.tags} />
+                  </SidebarWidget>
+                </div>
               </aside>
+
             </div>
           </div>
         </section>
@@ -587,9 +411,9 @@ export default async function BlogDetailsPage({
       console.error("Error loading blog:", error);
     }
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#0a0a0a] via-[#050805] to-[#0a0a0a]">
-        <div className="text-[#00ff41] p-10 text-center text-xl md:text-2xl font-mono">
-          🚫 Error loading project
+      <div className="min-h-screen flex items-center justify-center bg-slate-950">
+        <div className="text-red-400 p-10 text-center text-xl">
+          Error loading project
         </div>
       </div>
     );

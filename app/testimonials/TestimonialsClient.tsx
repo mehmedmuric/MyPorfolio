@@ -1,14 +1,18 @@
 "use client";
 
-import { useState, useEffect, useRef, useCallback, useMemo, memo } from "react";
-import Breadcrumb from "../components/Common/Breadcrumb";
+import { useState, useEffect, useRef, memo } from "react";
+import Breadcrumb from "@/components/Common/Breadcrumb";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { motion, AnimatePresence } from "framer-motion";
+import { Star, Quote, ChevronLeft, ChevronRight, CheckCircle2, AlertCircle, Loader2, Image as ImageIcon, Sparkles } from "lucide-react";
+import ParticlesBackground from "@/components/Common/ParticlesBackground";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
+// ===================== TYPES =====================
 interface Testimonial {
   id: string;
   name: string;
@@ -17,280 +21,60 @@ interface Testimonial {
   image?: string;
 }
 
-// ===================== OPTIMIZED BACKGROUND EFFECTS =====================
+// ===================== COMPONENTS =====================
 
-// CRT Scanline Effect Component - Memoized for performance
-const CRTScanlines = memo(() => (
-  <>
-    <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.08] mix-blend-screen" style={{
-      backgroundImage: `repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        #00FF41 2px,
-        #00FF41 4px
-      )`,
-    }} aria-hidden="true" />
-    <div className="fixed inset-0 pointer-events-none z-50 opacity-[0.04] mix-blend-overlay" style={{
-      backgroundImage: `repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 3px,
-        rgba(0,255,65,0.3) 3px,
-        rgba(0,255,65,0.3) 6px
-      )`,
-    }} aria-hidden="true" />
-    <div className="fixed inset-0 pointer-events-none z-50 opacity-30" style={{
-      background: `radial-gradient(ellipse at center, transparent 0%, rgba(0,0,0,0.4) 100%)`,
-    }} aria-hidden="true" />
-  </>
-));
-CRTScanlines.displayName = "CRTScanlines";
-
-// HUD Grid Overlay - Memoized
-const HUDGrid = memo(() => (
-  <div className="absolute inset-0 pointer-events-none z-10 opacity-25" aria-hidden="true">
-    <svg width="100%" height="100%" className="absolute inset-0">
-      <defs>
-        <pattern id="testimonials-hud-grid" width="50" height="50" patternUnits="userSpaceOnUse">
-          <path d="M 50 0 L 0 0 0 50" fill="none" stroke="#00FF41" strokeWidth="0.5" opacity="0.4"/>
-        </pattern>
-        <pattern id="testimonials-hud-grid-small" width="25" height="25" patternUnits="userSpaceOnUse">
-          <path d="M 25 0 L 0 0 0 25" fill="none" stroke="#00FF41" strokeWidth="0.3" opacity="0.2"/>
-        </pattern>
-        <linearGradient id="testimonials-grid-glow" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#00FF41" stopOpacity="0.15" />
-          <stop offset="50%" stopColor="#00FF41" stopOpacity="0.08" />
-          <stop offset="100%" stopColor="#00FF41" stopOpacity="0.15" />
-        </linearGradient>
-        <filter id="testimonials-glow">
-          <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-          <feMerge>
-            <feMergeNode in="coloredBlur"/>
-            <feMergeNode in="SourceGraphic"/>
-          </feMerge>
-        </filter>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#testimonials-hud-grid)" filter="url(#testimonials-glow)" />
-      <rect width="100%" height="100%" fill="url(#testimonials-hud-grid-small)" />
-      <rect width="100%" height="100%" fill="url(#testimonials-grid-glow)" />
-    </svg>
-  </div>
-));
-HUDGrid.displayName = "HUDGrid";
-
-// CSS-only Data Stream - No JavaScript intervals for better performance
-const DataStream = memo(({ delay, left, speed = 8 }: { delay: number; left: string; speed?: number }) => {
-  const chars = useMemo(() => {
-    const DATA_STREAM_CHARS = ['0', '1', '0', '1', '0', '1', '1', '0', '1', '0', '1', '1', '0', '1', '0', '1', '0', '1', '1', '0'];
-    return Array.from({ length: 20 }, () => 
-      DATA_STREAM_CHARS[Math.floor(Math.random() * DATA_STREAM_CHARS.length)]
-    );
-  }, []);
-  
-  return (
-    <div 
-      className="absolute text-[#00FF41]/30 font-mono text-[10px] xs:text-xs sm:text-sm tracking-[0.2em] pointer-events-none select-none whitespace-nowrap"
-      style={{ 
-        left, 
-        top: '-10%',
-        animation: `testimonialDataStream ${speed}s linear infinite`,
-        animationDelay: `${delay}s`,
-        textShadow: '0 0 5px rgba(0,255,65,0.4), 0 0 10px rgba(0,255,65,0.2)',
-      }}
-      aria-hidden="true"
-    >
-      {chars.join('')}
-    </div>
-  );
-});
-DataStream.displayName = "DataStream";
-
-// Decorative Circles - Memoized
-const DecorativeCircles = memo(() => (
-  <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[400px] h-[350px] sm:w-[600px] sm:h-[525px] md:w-[800px] md:h-[700px] opacity-10 sm:opacity-15 md:opacity-20 pointer-events-none z-0">
-    <svg width="100%" height="100%" viewBox="0 0 800 700" fill="none">
-      <circle cx="400" cy="350" r="240" fill="rgba(0,255,65,0.08)" />
-      <circle cx="630" cy="150" r="100" fill="rgba(0,255,65,0.06)" />
-      <circle cx="120" cy="480" r="70" fill="rgba(0,255,65,0.04)" />
-    </svg>
-  </div>
-));
-DecorativeCircles.displayName = "DecorativeCircles";
-
-// Throttle function for performance
-const throttle = <T extends (...args: any[]) => any>(
-  func: T,
-  limit: number
-): ((...args: Parameters<T>) => void) => {
-  let inThrottle: boolean;
-  return function (this: any, ...args: Parameters<T>) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => (inThrottle = false), limit);
-    }
-  };
-};
-
-// Star Rating Component - Optimized and moved outside
 const StarRating = memo(({ rating = 5 }: { rating?: number }) => (
-  <div className="flex items-center justify-center gap-0.5 sm:gap-1">
-    {Array.from({ length: 5 }, (_, i) => (
-      <svg
+  <div className="flex items-center gap-1" aria-label={`Rating: ${rating} out of 5 stars`}>
+    {[...Array(5)].map((_, i) => (
+      <Star
         key={i}
-        className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300 ${
-          i < rating
-            ? "text-[#00ff41] drop-shadow-[0_0_8px_rgba(0,255,65,0.8)]"
-            : "text-gray-600"
-        }`}
-        fill="currentColor"
-        viewBox="0 0 20 20"
-        aria-hidden="true"
-      >
-        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-      </svg>
+        className={`w-4 h-4 sm:w-5 sm:h-5 ${i < rating ? "fill-primary text-primary" : "fill-neutral-800 text-neutral-800"
+          }`}
+      />
     ))}
   </div>
 ));
 StarRating.displayName = "StarRating";
 
-// Testimonial Card Component - Optimized and moved outside with Modern Design
 const TestimonialCard = memo(({ testimonial }: { testimonial: Testimonial }) => (
-  <figure className="relative h-full group min-h-[420px] sm:min-h-[480px] md:min-h-[520px]">
-    {/* Modern Glassmorphism Card Container with Enhanced Effects */}
-    <div
-      className="relative h-full p-6 sm:p-7 md:p-8 lg:p-9 
-      bg-gradient-to-br from-black/90 via-[#0a0f0a]/95 to-black/90 
-      border border-[#00ff41]/40 backdrop-blur-xl
-      rounded-2xl shadow-[0_8px_32px_rgba(0,255,65,0.12),inset_0_1px_0_rgba(0,255,65,0.1),inset_0_-1px_0_rgba(0,255,65,0.05)]
-      transition-all duration-700 ease-out
-      hover:border-[#00ff41]/80 
-      hover:shadow-[0_20px_60px_rgba(0,255,65,0.25),0_0_80px_rgba(0,255,65,0.15),inset_0_0_60px_rgba(0,255,65,0.08)]
-      hover:scale-[1.03] hover:-translate-y-2
-      flex flex-col items-center text-center
-      before:absolute before:inset-0 before:rounded-2xl 
-      before:bg-gradient-to-br before:from-[#00ff41]/5 before:via-transparent before:to-transparent
-      before:opacity-0 before:transition-opacity before:duration-700
-      hover:before:opacity-100
-      overflow-hidden"
-      style={{
-        clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))",
-      }}
-    >
-      {/* Animated Gradient Border Glow */}
-      <div className="absolute -inset-[1px] bg-gradient-to-r from-[#00ff41]/0 via-[#00ff41]/50 to-[#00ff41]/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-700 -z-10 animate-pulse" />
-      
-      {/* HUD Corner Brackets - Always Visible but Enhanced on Hover */}
-      <div className="absolute top-4 left-4 w-6 h-6 sm:w-7 sm:h-7 border-t-[3px] border-l-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
-      <div className="absolute top-4 right-4 w-6 h-6 sm:w-7 sm:h-7 border-t-[3px] border-r-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
-      <div className="absolute bottom-4 left-4 w-6 h-6 sm:w-7 sm:h-7 border-b-[3px] border-l-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
-      <div className="absolute bottom-4 right-4 w-6 h-6 sm:w-7 sm:h-7 border-b-[3px] border-r-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
+  <div className="group relative flex h-full min-h-[400px] flex-col justify-between overflow-hidden rounded-2xl border border-white/10 bg-white/[0.02] p-6 sm:p-8 backdrop-blur-md transition-all duration-300 hover:border-primary/30 hover:bg-white/[0.04] hover:shadow-2xl hover:shadow-primary/5">
 
-      {/* Animated Scanline overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00ff41]/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scanline_3s_linear_infinite] pointer-events-none rounded-2xl" />
-      
-      {/* Animated Diagonal Lines Pattern */}
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-2xl" style={{
-        backgroundImage: `repeating-linear-gradient(
-          45deg,
-          transparent,
-          transparent 10px,
-          rgba(0,255,65,0.03) 10px,
-          rgba(0,255,65,0.03) 20px
-        )`,
-      }} />
-
-      {/* Enhanced Quote Mark with Glow */}
-      <div className="absolute -top-4 sm:-top-5 md:-top-6 -left-3 sm:-left-4 
-      text-[#00ff41]/10 group-hover:text-[#00ff41]/20 
-      text-8xl sm:text-9xl md:text-[10rem] font-bold leading-none select-none 
-      pointer-events-none transition-all duration-700
-      group-hover:drop-shadow-[0_0_30px_rgba(0,255,65,0.4)]
-      group-hover:scale-110 group-hover:translate-x-2 group-hover:-translate-y-2" 
-      style={{ fontFamily: 'serif' }}>
-        "
-      </div>
-
-      {/* Star Rating - Enhanced with Animation */}
-      <div className="mt-8 sm:mt-10 mb-5 sm:mb-6 relative z-10 transform group-hover:scale-110 transition-transform duration-500">
-        <StarRating rating={5} />
-      </div>
-
-      {/* Enhanced Testimonial Text with Better Typography */}
-      <blockquote className="mb-8 sm:mb-9 md:mb-10 relative z-10 flex-1 flex items-center px-4 sm:px-6">
-        <p className="text-gray-100 text-[15px] sm:text-base md:text-lg lg:text-xl 
-        leading-[1.8] sm:leading-[1.9] font-light italic
-        group-hover:text-white transition-colors duration-500">
-          {testimonial.comment}
-        </p>
-      </blockquote>
-
-      {/* Enhanced Closing Quote with Glow */}
-      <div className="absolute -bottom-4 sm:-bottom-5 md:-bottom-6 -right-3 sm:-right-4 
-      text-[#00ff41]/10 group-hover:text-[#00ff41]/20 
-      text-8xl sm:text-9xl md:text-[10rem] font-bold leading-none select-none 
-      pointer-events-none transition-all duration-700
-      group-hover:drop-shadow-[0_0_30px_rgba(0,255,65,0.4)]
-      group-hover:scale-110 group-hover:-translate-x-2 group-hover:translate-y-2" 
-      style={{ fontFamily: 'serif' }}>
-        "
-      </div>
-
-      {/* Enhanced Author Info with Modern Styling */}
-      <figcaption className="flex flex-col items-center mt-8 sm:mt-9 md:mt-10 relative z-10 w-full">
-        {/* Enhanced Avatar with Animated Ring */}
-        <div className="relative mb-5 sm:mb-6">
-          {/* Outer Glow Ring */}
-          <div className="absolute -inset-2 rounded-full bg-gradient-to-r from-[#00ff41]/30 via-[#00ff88]/30 to-[#00ff41]/30 blur-xl opacity-50 group-hover:opacity-100 group-hover:animate-spin-slow transition-opacity duration-700" style={{ animationDuration: '8s' }} />
-          {/* Inner Pulse Ring */}
-          <div className="absolute inset-0 rounded-full bg-[#00ff41]/20 blur-lg animate-pulse-slow group-hover:bg-[#00ff41]/30" />
-          <div className="relative">
-            <div className="absolute inset-0 rounded-full border-2 border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 animate-ping" style={{ animationDuration: '3s' }} />
-            <Image
-              src={testimonial.image || "/images/testimonials/testimonials.png"}
-              alt={testimonial.name}
-              width={80}
-              height={80}
-              className="relative rounded-full border-[3px] border-[#00ff41]/70 
-              shadow-[0_0_30px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.1)] 
-              transition-all duration-700 
-              group-hover:border-[#00ff41] 
-              group-hover:shadow-[0_0_50px_rgba(0,255,65,0.8),0_0_80px_rgba(0,255,65,0.4),inset_0_0_30px_rgba(0,255,65,0.2)]
-              group-hover:scale-110
-              w-18 h-18 sm:w-22 sm:h-22 md:w-28 md:h-28 object-cover"
-              loading="lazy"
-            />
-          </div>
-        </div>
-        
-        {/* Author Name with Gradient Text */}
-        <div className="font-mono font-bold mb-2 px-4 
-        bg-gradient-to-r from-[#00ff41] via-[#00ff88] to-[#00ff41] 
-        bg-clip-text text-transparent
-        text-lg sm:text-xl md:text-2xl
-        transition-all duration-700 
-        group-hover:drop-shadow-[0_0_20px_rgba(0,255,65,0.9)]
-        group-hover:scale-105">
-          {testimonial.name}
-        </div>
-        
-        {/* Role with Enhanced Styling */}
-        {testimonial.role && (
-          <div className="font-mono text-gray-400 text-sm sm:text-base md:text-lg 
-          relative pb-3 px-4 text-center max-w-[85%]
-          before:absolute before:bottom-0 before:left-1/2 before:-translate-x-1/2
-          before:w-0 before:h-[2px] before:bg-gradient-to-r before:from-transparent before:via-[#00ff41] before:to-transparent
-          before:transition-all before:duration-700
-          group-hover:text-gray-300 group-hover:before:w-full">
-            {testimonial.role}
-          </div>
-        )}
-      </figcaption>
+    {/* Decorative Quote Icon */}
+    <div className="absolute top-6 right-6 text-white/5 transition-colors duration-300 group-hover:text-primary/10">
+      <Quote size={80} strokeWidth={1} />
     </div>
-  </figure>
+
+    <div className="relative z-10">
+      <StarRating rating={5} />
+      <p className="mt-6 text-base sm:text-lg leading-relaxed text-neutral-300 font-light">
+        "{testimonial.comment}"
+      </p>
+    </div>
+
+    <div className="relative z-10 mt-8 flex items-center gap-4 border-t border-white/5 pt-6">
+      <div className="relative h-12 w-12 sm:h-14 sm:w-14 shrink-0 overflow-hidden rounded-full border border-white/10">
+        <Image
+          src={testimonial.image || "/images/testimonials/testimonials.png"}
+          alt={`${testimonial.name}'s profile picture`}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-110"
+          sizes="(max-width: 640px) 48px, 56px"
+        />
+      </div>
+      <div>
+        <h4 className="text-base sm:text-lg font-medium text-white group-hover:text-primary transition-colors">
+          {testimonial.name}
+        </h4>
+        {testimonial.role && (
+          <p className="text-sm text-neutral-500 mt-0.5">{testimonial.role}</p>
+        )}
+      </div>
+    </div>
+  </div>
 ));
 TestimonialCard.displayName = "TestimonialCard";
+
+// ===================== MAIN COMPONENT =====================
 
 const TestimonialsClient = () => {
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
@@ -301,75 +85,21 @@ const TestimonialsClient = () => {
     comment: "",
     image: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const swiperRef = useRef<any>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [mounted, setMounted] = useState(false);
-  const rafRef = useRef<number | null>(null);
 
-  // Throttled mouse move handler using requestAnimationFrame for better performance
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (rafRef.current) {
-      cancelAnimationFrame(rafRef.current);
-    }
-    rafRef.current = requestAnimationFrame(() => {
-      if (window.innerWidth > 768) {
-        setMousePosition({
-          x: (e.clientX / window.innerWidth - 0.5) * 72,
-          y: (e.clientY / window.innerHeight - 0.5) * 72,
-        });
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    setMounted(true);
-    const throttledHandler = throttle(handleMouseMove, 16); // ~60fps
-    window.addEventListener("mousemove", throttledHandler);
-    return () => {
-      window.removeEventListener("mousemove", throttledHandler);
-      if (rafRef.current) {
-        cancelAnimationFrame(rafRef.current);
-      }
-    };
-  }, [handleMouseMove]);
-
-  // Fetch testimonials with loading state
+  // Fetch testimonials
   useEffect(() => {
     const fetchData = async () => {
       setIsLoading(true);
       try {
         const res = await fetch("/api/testimonials");
-        if (!res.ok) {
-          const text = await res.text().catch(() => null);
-          if (process.env.NODE_ENV === 'development') {
-            console.error(`API error: ${res.status}`, text);
-          }
-          setTestimonials([]);
-          return;
-        }
-        const contentType = res.headers.get("content-type");
-        if (!contentType?.includes("application/json")) {
-          if (process.env.NODE_ENV === 'development') {
-            console.error("Invalid content type:", contentType);
-          }
-          setTestimonials([]);
-          return;
-        }
-        const data = await res.json();
-        if (Array.isArray(data)) {
-          setTestimonials(data);
-        } else {
-          if (process.env.NODE_ENV === 'development') {
-            console.error("API did not return an array:", data);
-          }
-          setTestimonials([]);
+        if (res.ok) {
+          const data = await res.json();
+          if (Array.isArray(data)) setTestimonials(data);
         }
       } catch (error) {
-        if (process.env.NODE_ENV === 'development') {
-          console.error("Error fetching testimonials:", error);
-        }
-        setTestimonials([]);
+        console.error("Failed to fetch testimonials:", error);
       } finally {
         setIsLoading(false);
       }
@@ -378,22 +108,22 @@ const TestimonialsClient = () => {
   }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (file.size > 2_000_000) { // 2MB max
-      alert("File too large (max 2MB).");
+    if (file.size > 2_000_000) {
+      alert("Image size must be less than 2MB.");
       return;
     }
 
     const reader = new FileReader();
     reader.onloadend = () => {
-      if (reader.result) {
-        setFormData({ ...formData, image: reader.result as string });
+      if (typeof reader.result === "string") {
+        setFormData((prev) => ({ ...prev, image: reader.result as string }));
       }
     };
     reader.readAsDataURL(file);
@@ -401,9 +131,9 @@ const TestimonialsClient = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.comment || isSubmitting) return;
+    if (!formData.name || !formData.comment || status === "submitting") return;
 
-    setIsSubmitting(true);
+    setStatus("submitting");
     try {
       const res = await fetch("/api/testimonials", {
         method: "POST",
@@ -414,522 +144,262 @@ const TestimonialsClient = () => {
         }),
       });
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        if (process.env.NODE_ENV === 'development') {
-          console.error(`POST error (${res.status}):`, errorText);
-        }
-        alert("Failed to submit testimonial. Please try again.");
-        return;
-      }
+      if (!res.ok) throw new Error("Failed to submit");
 
-      const contentType = res.headers.get("content-type");
-      if (!contentType?.includes("application/json")) {
-        if (process.env.NODE_ENV === 'development') {
-          console.error("Invalid response content type:", contentType);
-        }
-        alert("Server error. Please try again.");
-        return;
-      }
-
-      let data;
-      try {
-        data = await res.json();
-      } catch (error) {
-        if (process.env.NODE_ENV === 'development') {
-          console.error("Failed to parse JSON response:", error);
-        }
-        alert("Server response error. Please try again.");
-        return;
-      }
-
+      const data = await res.json();
       setTestimonials((prev) => [data, ...prev]);
       setFormData({ name: "", role: "", comment: "", image: "" });
-    } catch (error) {
-      if (process.env.NODE_ENV === 'development') {
-        console.error("Failed to submit testimonial:", error);
-      }
-      alert("An error occurred. Please try again.");
-    } finally {
-      setIsSubmitting(false);
+      setStatus("success");
+
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch {
+      setStatus("error");
+      setTimeout(() => setStatus("idle"), 5000);
     }
   };
 
-
   return (
-    <>
-      <Breadcrumb pageName="Testimonials" description="" />
+    <div className="min-h-screen bg-neutral-950 text-neutral-200 font-sans selection:bg-primary/30 selection:text-white">
+      <Breadcrumb pageName="Testimonials" description="Hear from the people I have worked with." />
 
-      <section className="relative isolate overflow-hidden bg-[#000000] bg-gradient-to-b from-[#0a0a0a] via-[#000000] to-[#050a08] px-3 sm:px-4 md:px-6 lg:px-8 py-8 sm:py-12 md:py-16 min-h-screen" suppressHydrationWarning>
-        {/* Background Effects */}
-        <CRTScanlines />
-        <HUDGrid />
-        
-        {/* Animated Scanning Lines */}
-        <div className="absolute inset-0 pointer-events-none z-30 overflow-hidden" aria-hidden="true">
-          <div className="absolute w-full h-[2px] bg-gradient-to-r from-transparent via-[#00FF41] to-transparent opacity-50" style={{
-            animation: 'scanLine 4s linear infinite',
-            boxShadow: '0 0 15px #00FF41, 0 0 30px #00FF41, 0 0 45px rgba(0,255,65,0.3)',
-            filter: 'blur(0.5px)'
-          }}></div>
-          <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/40 to-transparent opacity-40" style={{
-            animation: 'scanLine 6s linear infinite',
-            animationDelay: '2s',
-            boxShadow: '0 0 8px #00FF41, 0 0 16px rgba(0,255,65,0.4)'
-          }}></div>
-          <div className="absolute w-full h-[1px] bg-gradient-to-r from-transparent via-[#00FF41]/20 to-transparent opacity-30" style={{
-            animation: 'scanLine 8s linear infinite',
-            animationDelay: '4s',
-            boxShadow: '0 0 5px rgba(0,255,65,0.3)'
-          }}></div>
-        </div>
-        
-        {/* Optimized Data Streams - Reduced count for better performance */}
-        <div suppressHydrationWarning>
-          {mounted && [0, 1, 2, 3, 4].map((i) => (
-            <DataStream 
-              key={i} 
-              delay={i * 1.2} 
-              left={`${10 + i * 16}%`}
-              speed={8 + (i % 2) * 2}
-            />
-          ))}
-        </div>
-        
-        <DecorativeCircles />
-        
-        {/* Parallax Background Glows */}
-        <div className="absolute left-[5%] top-[14%] w-48 h-48 sm:w-64 sm:h-64 md:w-96 md:h-96 bg-[radial-gradient(circle,rgba(0,255,65,0.15)_0%,transparent_75%)] rounded-full pointer-events-none blur-3xl z-10 will-change-transform opacity-50 sm:opacity-75 md:opacity-100" style={{ transform: `translate3d(${mousePosition.x * 0.45}px,${mousePosition.y * 0.41}px,0)` }} aria-hidden />
-        <div className="absolute right-[10%] bottom-[5%] w-[190px] h-[120px] sm:w-[280px] sm:h-[180px] md:w-[380px] md:h-[240px] bg-[radial-gradient(circle,rgba(0,255,65,0.1)_0%,transparent_80%)] rounded-full pointer-events-none blur-3xl z-10 will-change-transform opacity-50 sm:opacity-75 md:opacity-100" style={{ transform: `translate3d(${mousePosition.x * 0.19}px,${mousePosition.y * 0.08}px,0)` }} aria-hidden />
+      <section className="relative py-16 sm:py-24 lg:py-32 overflow-hidden">
+        {/* Particles Background */}
+        <ParticlesBackground />
 
-        <div className="mx-auto max-w-7xl relative z-10">
-          {/* Modern Section Title with Enhanced Effects */}
-          <div className="text-center mb-10 sm:mb-14 md:mb-18 px-2 relative">
-            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold 
-              text-[#00ff41]/5 blur-2xl select-none">
-                What Clients Say
-              </h2>
-            </div>
-            <h2 className="relative text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold mb-4 sm:mb-6 
-            bg-gradient-to-r from-[#00ff41] via-[#00ff88] to-[#00ff41] 
-            bg-clip-text text-transparent 
-            bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite]
-            drop-shadow-[0_0_30px_rgba(0,255,65,0.6),0_0_60px_rgba(0,255,65,0.3)] 
-            leading-tight tracking-tight">
-              What Clients Say
-            </h2>
-            <div className="relative w-20 sm:w-32 md:w-40 h-[3px] mx-auto mt-4 sm:mt-6 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00ff41] to-transparent shadow-[0_0_20px_rgba(0,255,65,0.8)]" />
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00ff88] to-transparent animate-[shimmer_3s_linear_infinite] opacity-75" />
-            </div>
-          </div>
+        {/* Subtle Background Gradients */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/10 blur-[130px] rounded-full pointer-events-none opacity-50" aria-hidden="true" />
+        <div className="absolute bottom-0 right-[-20%] w-[600px] h-[600px] bg-blue-500/5 blur-[120px] rounded-full pointer-events-none opacity-50" aria-hidden="true" />
 
-          {/* Modern Submission Form - Enhanced Glassmorphism Style */}
-          <form
-            onSubmit={handleSubmit}
-            className="max-w-3xl mx-auto p-6 sm:p-8 md:p-10 lg:p-12 xl:p-14 mb-12 sm:mb-16 md:mb-20 relative group
-            bg-gradient-to-br from-black/80 via-[#0a0f0a]/90 to-black/80 
-            border border-[#00ff41]/40 backdrop-blur-xl
-            rounded-2xl 
-            shadow-[0_8px_40px_rgba(0,255,65,0.15),inset_0_1px_0_rgba(0,255,65,0.1),inset_0_0_60px_rgba(0,255,65,0.05)]
-            transition-all duration-700 ease-out
-            hover:border-[#00ff41]/80 
-            hover:shadow-[0_20px_70px_rgba(0,255,65,0.25),0_0_100px_rgba(0,255,65,0.15),inset_0_0_80px_rgba(0,255,65,0.08)]
-            hover:scale-[1.01] hover:-translate-y-1
-            before:absolute before:inset-0 before:rounded-2xl 
-            before:bg-gradient-to-br before:from-[#00ff41]/5 before:via-transparent before:to-transparent
-            before:opacity-0 before:transition-opacity before:duration-700
-            hover:before:opacity-100
-            overflow-hidden"
-            style={{
-              clipPath: "polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px))",
-            }}
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
+
+          {/* Header Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="text-center max-w-3xl mx-auto mb-16 sm:mb-24 flex flex-col items-center"
           >
-            {/* Animated Gradient Border Glow */}
-            <div className="absolute -inset-[1px] bg-gradient-to-r from-[#00ff41]/0 via-[#00ff41]/50 to-[#00ff41]/0 rounded-2xl opacity-0 group-hover:opacity-100 blur-md transition-opacity duration-700 -z-10" />
-            
-            {/* Enhanced HUD Corner Brackets - Always Visible */}
-            <div className="absolute top-4 left-4 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 border-t-[3px] border-l-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
-            <div className="absolute top-4 right-4 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 border-t-[3px] border-r-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
-            <div className="absolute bottom-4 left-4 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 border-b-[3px] border-l-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
-            <div className="absolute bottom-4 right-4 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 border-b-[3px] border-r-[3px] border-[#00ff41]/40 group-hover:border-[#00ff41] transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(0,255,65,0.8)]" />
-
-            {/* Enhanced Scanline overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#00ff41]/5 to-transparent opacity-0 group-hover:opacity-100 group-hover:animate-[scanline_3s_linear_infinite] pointer-events-none rounded-2xl" />
-            
-            {/* Modern Form Title */}
-            <div className="text-center mb-8 sm:mb-10 relative z-10">
-              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold font-mono mb-3 sm:mb-4
-              bg-gradient-to-r from-[#00ff41] via-[#00ff88] to-[#00ff41] 
-              bg-clip-text text-transparent
-              drop-shadow-[0_0_20px_rgba(0,255,65,0.6)]
-              group-hover:scale-105 transition-transform duration-500">
-                [SUBMIT_TESTIMONIAL]
-              </h3>
-              <div className="relative w-24 sm:w-40 h-[3px] mx-auto overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00ff41] to-transparent shadow-[0_0_15px_rgba(0,255,65,0.7)]" />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#00ff88] to-transparent animate-[shimmer_3s_linear_infinite] opacity-75" />
-              </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-primary text-sm font-medium mb-6">
+              <Sparkles className="w-4 h-4" />
+              <span>Client Success Stories</span>
             </div>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white mb-6 leading-tight">
+              Trusted by <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-emerald-400">clients worldwide</span>
+            </h2>
+            <p className="text-lg text-neutral-400 leading-relaxed max-w-2xl text-center">
+              Real stories from my clients and collaborators. We build great products together, and their feedback is my most valuable asset.
+            </p>
+          </motion.div>
 
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-6 sm:gap-7 md:gap-8 mb-6 sm:mb-7 md:mb-8 relative z-10">
-              <div className="relative group/input">
-                <label htmlFor="name" className="mb-3 sm:mb-4 block text-xs sm:text-sm font-mono font-semibold 
-                text-[#00ff41] text-center sm:text-left tracking-wider
-                group-hover/input:drop-shadow-[0_0_10px_rgba(0,255,65,0.6)] transition-all duration-300">
-                  [NAME] *
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  autoComplete="name"
-                  placeholder="Enter your name"
-                  value={formData.name}
-                  onChange={handleChange}
-                  disabled={isSubmitting}
-                  className="w-full rounded-xl border-2 border-[#00ff41]/40 
-                  bg-gradient-to-br from-[#0a0f0a]/90 to-black/90 backdrop-blur-sm
-                  px-5 sm:px-6 md:px-7 py-3.5 sm:py-4 text-sm sm:text-base text-gray-100 font-mono
-                  placeholder:text-gray-600 placeholder:font-light
-                  outline-none 
-                  focus:border-[#00ff41] focus:ring-2 focus:ring-[#00ff41]/50 
-                  focus:shadow-[0_0_30px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.05)]
-                  transition-all duration-500 ease-out
-                  hover:border-[#00ff41]/60 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)]
-                  disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-[#00ff41]/40"
-                  required
-                  maxLength={50}
-                />
-              </div>
+          {/* Form & Carousel Grid */}
+          <div className="grid grid-cols-1 xl:grid-cols-[400px_1fr] gap-12 xl:gap-16 items-start">
 
-              <div className="relative group/input">
-                <label htmlFor="role" className="mb-3 sm:mb-4 block text-xs sm:text-sm font-mono font-semibold 
-                text-[#00ff41] text-center sm:text-left tracking-wider
-                group-hover/input:drop-shadow-[0_0_10px_rgba(0,255,65,0.6)] transition-all duration-300">
-                  [ROLE/COMPANY]
-                </label>
-                <input
-                  type="text"
-                  id="role"
-                  name="role"
-                  placeholder="Enter your role or company"
-                  value={formData.role}
-                  onChange={handleChange}
-                  disabled={isSubmitting}
-                  className="w-full rounded-xl border-2 border-[#00ff41]/40 
-                  bg-gradient-to-br from-[#0a0f0a]/90 to-black/90 backdrop-blur-sm
-                  px-5 sm:px-6 md:px-7 py-3.5 sm:py-4 text-sm sm:text-base text-gray-100 font-mono
-                  placeholder:text-gray-600 placeholder:font-light
-                  outline-none 
-                  focus:border-[#00ff41] focus:ring-2 focus:ring-[#00ff41]/50 
-                  focus:shadow-[0_0_30px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.05)]
-                  transition-all duration-500 ease-out
-                  hover:border-[#00ff41]/60 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)]
-                  disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-[#00ff41]/40"
-                  maxLength={50}
-                />
-              </div>
-            </div>
-
-            <div className="w-full mb-6 sm:mb-7 md:mb-8 relative z-10 group/input">
-              <label htmlFor="image" className="mb-3 sm:mb-4 block text-xs sm:text-sm font-mono font-semibold 
-              text-[#00ff41] text-center tracking-wider
-              group-hover/input:drop-shadow-[0_0_10px_rgba(0,255,65,0.6)] transition-all duration-300">
-                [UPLOAD IMAGE] <span className="text-gray-500 text-xs font-normal">(Optional, Max 2MB)</span>
-              </label>
-              <input
-                id="image"
-                name="image"
-                type="file"
-                accept="image/png, image/jpeg, image/jpg, image/webp"
-                onChange={handleImageChange}
-                disabled={isSubmitting}
-                className="block w-full text-xs sm:text-sm text-[#00ff41] 
-                border-2 border-[#00ff41]/40 rounded-xl cursor-pointer 
-                bg-gradient-to-br from-[#0a0f0a]/90 to-black/90 backdrop-blur-sm
-                file:mr-3 sm:file:mr-4 file:py-2.5 sm:file:py-3 file:px-4 sm:file:px-6 
-                file:rounded-lg file:border-0 
-                file:text-xs sm:file:text-sm file:font-mono file:font-semibold 
-                file:bg-transparent file:text-[#00ff41] file:border-r file:border-[#00ff41]/40
-                hover:file:bg-[#00ff41] hover:file:text-black hover:border-[#00ff41]/60
-                focus:border-[#00ff41] focus:shadow-[0_0_20px_rgba(0,255,65,0.4)]
-                px-3 sm:px-4 py-2.5 sm:py-3 
-                transition-all duration-500 ease-out
-                file:transition-all file:duration-300 
-                disabled:opacity-50 disabled:cursor-not-allowed"
-              />
-            </div>
-
-            <div className="w-full mb-8 sm:mb-9 md:mb-10 relative z-10 group/input">
-              <label htmlFor="comment" className="mb-3 sm:mb-4 block text-xs sm:text-sm font-mono font-semibold 
-              text-[#00ff41] text-center tracking-wider
-              group-hover/input:drop-shadow-[0_0_10px_rgba(0,255,65,0.6)] transition-all duration-300">
-                [COMMENT] *
-              </label>
-              <textarea
-                id="comment"
-                name="comment"
-                rows={6}
-                placeholder="Share your experience..."
-                value={formData.comment}
-                onChange={handleChange}
-                disabled={isSubmitting}
-                className="w-full rounded-xl border-2 border-[#00ff41]/40 
-                bg-gradient-to-br from-[#0a0f0a]/90 to-black/90 backdrop-blur-sm
-                px-5 sm:px-6 md:px-7 py-3.5 sm:py-4 text-sm sm:text-base text-gray-100 font-mono
-                placeholder:text-gray-600 placeholder:font-light
-                outline-none 
-                focus:border-[#00ff41] focus:ring-2 focus:ring-[#00ff41]/50 
-                focus:shadow-[0_0_30px_rgba(0,255,65,0.5),inset_0_0_20px_rgba(0,255,65,0.05)]
-                transition-all duration-500 ease-out
-                hover:border-[#00ff41]/60 hover:shadow-[0_0_15px_rgba(0,255,65,0.3)]
-                resize-none
-                disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:border-[#00ff41]/40"
-                required
-                maxLength={500}
-              ></textarea>
-              <div className="mt-3 text-right">
-                <span className={`text-xs font-mono transition-colors duration-300 ${
-                  formData.comment.length >= 450 
-                    ? 'text-[#00ff41]' 
-                    : formData.comment.length >= 400 
-                    ? 'text-yellow-400' 
-                    : 'text-gray-500'
-                }`}>
-                  {formData.comment.length}/500
-                </span>
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className="relative z-10 w-full sm:w-auto mx-auto block 
-              rounded-xl bg-gradient-to-r from-[#00ff41] via-[#00ff88] to-[#00ff41]
-              bg-[length:200%_auto] animate-[shimmer_3s_linear_infinite]
-              px-10 sm:px-12 md:px-16 py-3.5 sm:py-4 md:py-5 
-              text-sm sm:text-base md:text-lg font-mono font-bold text-black 
-              transition-all duration-500 ease-out
-              hover:scale-105 hover:shadow-[0_0_50px_rgba(0,255,65,0.8),0_0_80px_rgba(0,255,65,0.5)] 
-              active:scale-95
-              disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 
-              disabled:animate-none
-              border-2 border-transparent hover:border-[#00ff41]/50
-              before:absolute before:inset-0 before:rounded-xl before:bg-gradient-to-r 
-              before:from-transparent before:via-white/20 before:to-transparent
-              before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500
-              overflow-hidden"
+            {/* Form Section */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="w-full xl:sticky xl:top-32"
             >
-              <span className="relative z-10">
-                {isSubmitting ? "[SUBMITTING...]" : "[SUBMIT]"}
-              </span>
-            </button>
-          </form>
+              <div className="rounded-2xl border border-white/10 bg-white/[0.02] backdrop-blur-md p-6 sm:p-8 shadow-xl">
+                <header className="mb-8">
+                  <h3 className="text-xl sm:text-2xl font-semibold text-white">Share your experience</h3>
+                  <p className="text-sm text-neutral-400 mt-2">Your feedback helps me improve and grow.</p>
+                </header>
 
-          {/* Enhanced Testimonials Carousel */}
-          {isLoading ? (
-            <div className="text-center py-16 sm:py-20 md:py-24 px-4">
-              <div className="inline-block p-6 sm:p-8 border border-[#00ff41]/30 rounded-xl bg-black/40 backdrop-blur-sm">
-                <div className="animate-pulse space-y-3">
-                  <div className="w-8 h-8 border-2 border-[#00ff41] border-t-transparent rounded-full mx-auto animate-spin" />
-                  <p className="text-[#00ff41] font-mono text-sm sm:text-base md:text-lg">[LOADING_TESTIMONIALS]</p>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="space-y-2">
+                    <label htmlFor="name" className="text-sm font-medium text-neutral-300">Full Name *</label>
+                    <input
+                      id="name"
+                      name="name"
+                      type="text"
+                      required
+                      placeholder="Jane Doe"
+                      value={formData.name}
+                      onChange={handleChange}
+                      disabled={status === "submitting"}
+                      className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors disabled:opacity-50"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="role" className="text-sm font-medium text-neutral-300">Company & Role</label>
+                    <input
+                      id="role"
+                      name="role"
+                      type="text"
+                      placeholder="CTO at Acme Corp"
+                      value={formData.role}
+                      onChange={handleChange}
+                      disabled={status === "submitting"}
+                      className="w-full rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors disabled:opacity-50"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <label htmlFor="image" className="text-sm font-medium text-neutral-300">Profile Image <span className="text-neutral-500 font-normal">(Optional)</span></label>
+                    <div className="relative group">
+                      <input
+                        id="image"
+                        name="image"
+                        type="file"
+                        accept="image/png, image/jpeg, image/webp"
+                        onChange={handleImageChange}
+                        disabled={status === "submitting"}
+                        className="absolute inset-0 w-full h-full opacity-0 cursor-pointer disabled:cursor-not-allowed"
+                      />
+                      <div className="flex items-center gap-3 w-full rounded-xl border border-white/10 border-dashed bg-black/20 px-4 py-3 text-sm text-neutral-400 group-hover:bg-white/5 group-hover:border-primary/50 transition-colors">
+                        <ImageIcon className="w-5 h-5 text-neutral-500" />
+                        <span>{formData.image ? "Image selected" : "Click to upload image"}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <label htmlFor="comment" className="text-sm font-medium text-neutral-300">Comment *</label>
+                      <span className="text-xs text-neutral-500">{formData.comment.length}/500</span>
+                    </div>
+                    <textarea
+                      id="comment"
+                      name="comment"
+                      required
+                      rows={4}
+                      maxLength={500}
+                      placeholder="What was it like working with me?"
+                      value={formData.comment}
+                      onChange={handleChange}
+                      disabled={status === "submitting"}
+                      className="w-full resize-none rounded-xl border border-white/10 bg-black/50 px-4 py-3 text-sm text-white placeholder:text-neutral-600 focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors disabled:opacity-50"
+                    />
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={status === "submitting"}
+                    className="w-full flex items-center justify-center gap-2 rounded-xl bg-primary px-4 py-3 text-sm font-semibold text-black transition-all hover:bg-primary/90 active:scale-95 disabled:opacity-70 disabled:pointer-events-none"
+                  >
+                    {status === "submitting" ? (
+                      <><Loader2 className="w-4 h-4 animate-spin" /> Submitting</>
+                    ) : (
+                      "Submit Feedback"
+                    )}
+                  </button>
+
+                  {/* Status Messages */}
+                  <AnimatePresence>
+                    {status === "success" && (
+                      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex items-center gap-2 text-sm text-emerald-400 bg-emerald-400/10 p-3 rounded-lg border border-emerald-400/20">
+                        <CheckCircle2 className="w-4 h-4 shrink-0" />
+                        Thank you for your feedback!
+                      </motion.div>
+                    )}
+                    {status === "error" && (
+                      <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} className="flex items-center gap-2 text-sm text-red-400 bg-red-400/10 p-3 rounded-lg border border-red-400/20">
+                        <AlertCircle className="w-4 h-4 shrink-0" />
+                        Something went wrong. Please try again.
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </form>
+              </div>
+            </motion.div>
+
+            {/* Carousel Section */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="w-full xl:w-[calc(100vw-400px-6rem)] xl:max-w-[850px]"
+            >
+              {isLoading ? (
+                <div className="flex flex-col items-center justify-center h-[400px] border border-white/5 rounded-2xl bg-white/[0.01]">
+                  <Loader2 className="w-8 h-8 animate-spin text-primary" />
+                  <p className="mt-4 text-sm text-neutral-400">Loading testimonials...</p>
                 </div>
-              </div>
-            </div>
-          ) : testimonials.length === 0 ? (
-            <div className="text-center py-16 sm:py-20 md:py-24 px-4">
-              <div className="inline-block p-6 sm:p-8 border border-[#00ff41]/30 rounded-xl bg-black/40 backdrop-blur-sm">
-                <p className="text-gray-400 font-mono text-sm sm:text-base md:text-lg mb-3">[NO_TESTIMONIALS_FOUND]</p>
-                <p className="text-gray-500 font-mono text-xs sm:text-sm">Be the first to leave a testimonial!</p>
-              </div>
-            </div>
-          ) : (
-            <div className="relative px-2 sm:px-4">
-              <Swiper
-                ref={swiperRef}
-                className="!pb-12 sm:!pb-16 md:!pb-20"
-                spaceBetween={16}
-                slidesPerView={1}
-                loop={testimonials.length >= 3}
-                autoplay={{
-                  delay: 4000,
-                  disableOnInteraction: false,
-                  pauseOnMouseEnter: true,
-                }}
-                modules={[Autoplay, Navigation, Pagination]}
-                pagination={{
-                  el: ".testimonials-pagination",
-                  clickable: true,
-                  bulletClass: "testimonial-bullet",
-                  bulletActiveClass: "testimonial-bullet-active",
-                }}
-                breakpoints={{
-                  480: { slidesPerView: 1, spaceBetween: 16 },
-                  640: { slidesPerView: 1, spaceBetween: 20 },
-                  768: { slidesPerView: 2, spaceBetween: 20 },
-                  1024: { slidesPerView: 2, spaceBetween: 24 },
-                  1280: { slidesPerView: 3, spaceBetween: 28 },
-                }}
-              >
-                {testimonials.map((t) => (
-                  <SwiperSlide key={t.id}>
-                    <TestimonialCard testimonial={t} />
-                  </SwiperSlide>
-                ))}
-              </Swiper>
+              ) : testimonials.length === 0 ? (
+                <div className="flex flex-col items-center justify-center h-[400px] border border-white/5 rounded-2xl bg-white/[0.01] text-center p-6">
+                  <Quote className="w-12 h-12 text-neutral-700 mb-4" />
+                  <p className="text-lg text-neutral-300 font-medium">No testimonials yet</p>
+                  <p className="mt-2 text-sm text-neutral-500">Be the first to share your experience!</p>
+                </div>
+              ) : (
+                <div className="relative group/swiper">
+                  <Swiper
+                    ref={swiperRef}
+                    spaceBetween={24}
+                    slidesPerView={1}
+                    loop={testimonials.length >= 2}
+                    autoplay={{ delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+                    modules={[Autoplay, Navigation, Pagination]}
+                    pagination={{
+                      el: ".custom-swiper-pagination",
+                      clickable: true,
+                      bulletClass: "swiper-bullet",
+                      bulletActiveClass: "swiper-bullet-active",
+                    }}
+                    breakpoints={{
+                      768: { slidesPerView: 2, spaceBetween: 24 },
+                      1280: { slidesPerView: 2, spaceBetween: 32 },
+                    }}
+                    className="pb-16"
+                  >
+                    {testimonials.map((t) => (
+                      <SwiperSlide key={t.id} className="h-auto">
+                        <TestimonialCard testimonial={t} />
+                      </SwiperSlide>
+                    ))}
+                  </Swiper>
 
-              {/* Custom Pagination Dots */}
-              <div className="testimonials-pagination flex justify-center items-center gap-2 sm:gap-3 mt-6 sm:mt-8 relative z-10" />
+                  {/* Custom Navigation */}
+                  <div className="hidden sm:block">
+                    <button
+                      onClick={() => swiperRef.current?.swiper?.slidePrev()}
+                      className="absolute -left-4 xl:-left-6 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 xl:h-12 xl:w-12 items-center justify-center rounded-full border border-white/10 bg-black/50 text-neutral-400 backdrop-blur-md transition-all hover:bg-white/10 hover:text-white hover:scale-110 opacity-0 group-hover/swiper:opacity-100 disabled:opacity-0 focus:opacity-100"
+                      aria-label="Previous slide"
+                    >
+                      <ChevronLeft className="w-5 h-5" />
+                    </button>
+                    <button
+                      onClick={() => swiperRef.current?.swiper?.slideNext()}
+                      className="absolute -right-4 xl:-right-6 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 xl:h-12 xl:w-12 items-center justify-center rounded-full border border-white/10 bg-black/50 text-neutral-400 backdrop-blur-md transition-all hover:bg-white/10 hover:text-white hover:scale-110 opacity-0 group-hover/swiper:opacity-100 disabled:opacity-0 focus:opacity-100"
+                      aria-label="Next slide"
+                    >
+                      <ChevronRight className="w-5 h-5" />
+                    </button>
+                  </div>
 
-              {/* Modern Navigation Arrows with Enhanced Effects */}
-              <button
-                onClick={() => swiperRef.current?.swiper?.slidePrev()}
-                className="absolute left-0 sm:left-2 md:left-4 lg:left-6 top-1/2 -translate-y-1/2 z-20 
-                w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full 
-                bg-gradient-to-br from-black/90 via-[#0a0f0a]/95 to-black/90 
-                border-2 border-[#00ff41]/50 backdrop-blur-xl flex items-center justify-center
-                transition-all duration-500 ease-out
-                hover:border-[#00ff41] hover:bg-black/95 
-                hover:shadow-[0_0_40px_rgba(0,255,65,0.8),0_0_60px_rgba(0,255,65,0.4),inset_0_0_20px_rgba(0,255,65,0.1)]
-                hover:scale-110 hover:-translate-x-1
-                active:scale-95 touch-manipulation group
-                before:absolute before:inset-0 before:rounded-full 
-                before:bg-gradient-to-r before:from-[#00ff41]/20 before:via-transparent before:to-transparent
-                before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500"
-                aria-label="Previous testimonial"
-              >
-                <svg className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#00ff41] 
-                group-hover:text-[#00ff88] group-hover:scale-125 
-                transition-all duration-500 drop-shadow-[0_0_10px_rgba(0,255,65,0.6)]" 
-                fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                </svg>
-              </button>
-              <button
-                onClick={() => swiperRef.current?.swiper?.slideNext()}
-                className="absolute right-0 sm:right-2 md:right-4 lg:right-6 top-1/2 -translate-y-1/2 z-20 
-                w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 rounded-full 
-                bg-gradient-to-br from-black/90 via-[#0a0f0a]/95 to-black/90 
-                border-2 border-[#00ff41]/50 backdrop-blur-xl flex items-center justify-center
-                transition-all duration-500 ease-out
-                hover:border-[#00ff41] hover:bg-black/95 
-                hover:shadow-[0_0_40px_rgba(0,255,65,0.8),0_0_60px_rgba(0,255,65,0.4),inset_0_0_20px_rgba(0,255,65,0.1)]
-                hover:scale-110 hover:translate-x-1
-                active:scale-95 touch-manipulation group
-                before:absolute before:inset-0 before:rounded-full 
-                before:bg-gradient-to-l before:from-[#00ff41]/20 before:via-transparent before:to-transparent
-                before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-500"
-                aria-label="Next testimonial"
-              >
-                <svg className="relative z-10 w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-[#00ff41] 
-                group-hover:text-[#00ff88] group-hover:scale-125 
-                transition-all duration-500 drop-shadow-[0_0_10px_rgba(0,255,65,0.6)]" 
-                fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                </svg>
-              </button>
-            </div>
-          )}
+                  {/* Custom Pagination Container */}
+                  <div className="custom-swiper-pagination absolute bottom-0 left-0 right-0 flex justify-center gap-2 z-10" />
+                </div>
+              )}
+            </motion.div>
+          </div>
         </div>
 
-        {/* Enhanced Custom Styles with Modern Animations */}
-        <style dangerouslySetInnerHTML={{__html: `
-          @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
-          }
-          @keyframes testimonialDataStream {
-            0% { transform: translateY(-100vh); opacity: 0; }
-            10% { opacity: 0.4; }
-            90% { opacity: 0.4; }
-            100% { transform: translateY(100vh); opacity: 0; }
-          }
-          @keyframes scanline {
-            0% { transform: translateY(-100%); opacity: 0; }
-            50% { opacity: 0.6; }
-            100% { transform: translateY(100%); opacity: 0; }
-          }
-          @keyframes scanLine {
-            0% { transform: translateY(-100%); opacity: 0; }
-            50% { opacity: 0.5; }
-            100% { transform: translateY(100vh); opacity: 0; }
-          }
-          .testimonial-bullet {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background: rgba(0, 255, 65, 0.2);
-            border: 2px solid rgba(0, 255, 65, 0.5);
+        {/* Override Swiper Pagination styles securely */}
+        <style dangerouslySetInnerHTML={{
+          __html: `
+          .swiper-bullet {
+            width: 8px;
+            height: 8px;
+            border-radius: 9999px;
+            background-color: rgba(255, 255, 255, 0.2);
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            margin: 0 5px;
-            position: relative;
+            transition: all 0.3s ease;
+            display: inline-block;
           }
-          @media (min-width: 640px) {
-            .testimonial-bullet {
-              width: 14px;
-              height: 14px;
-              margin: 0 6px;
-            }
+          .swiper-bullet:hover {
+            background-color: rgba(255, 255, 255, 0.4);
           }
-          .testimonial-bullet::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 255, 65, 0.3), transparent);
-            opacity: 0;
-            transition: opacity 0.4s;
-          }
-          .testimonial-bullet:hover {
-            background: rgba(0, 255, 65, 0.5);
-            border-color: rgba(0, 255, 65, 0.9);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.8), 0 0 25px rgba(0, 255, 65, 0.4);
-            transform: scale(1.2);
-          }
-          .testimonial-bullet:hover::before {
-            opacity: 1;
-          }
-          .testimonial-bullet-active {
-            background: #00ff41;
-            border-color: #00ff41;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 1), 0 0 35px rgba(0, 255, 65, 0.6);
-            transform: scale(1.3);
-            animation: bulletPulse 2s ease-in-out infinite;
-          }
-          .testimonial-bullet-active::before {
-            opacity: 1;
-            animation: bulletRipple 2s ease-out infinite;
-          }
-          @keyframes bulletPulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 255, 65, 1), 0 0 35px rgba(0, 255, 65, 0.6); }
-            50% { box-shadow: 0 0 30px rgba(0, 255, 65, 1), 0 0 50px rgba(0, 255, 65, 0.8); }
-          }
-          @keyframes bulletRipple {
-            0% { transform: scale(1); opacity: 0.6; }
-            100% { transform: scale(2); opacity: 0; }
-          }
-          @media (max-width: 640px) {
-            .testimonial-bullet-active {
-              transform: scale(1.25);
-            }
-          }
-          @media (prefers-reduced-motion: reduce) {
-            @keyframes testimonialDataStream,
-            @keyframes scanline,
-            @keyframes scanLine {
-              animation: none !important;
-            }
-            .testimonial-bullet,
-            .testimonial-bullet-active {
-              transition: none !important;
-            }
+          .swiper-bullet-active {
+            width: 24px;
+            background-color: var(--color-primary, #00FF80);
           }
         `}} />
       </section>
-    </>
+    </div>
   );
 };
 

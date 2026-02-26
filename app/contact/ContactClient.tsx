@@ -1,10 +1,10 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import Breadcrumb from "../components/Common/Breadcrumb";
-import Loader from "../components/Loader";
+import Breadcrumb from "@/components/Common/Breadcrumb";
+import Loader from "@/components/Loader";
 
-const Contact = dynamic(() => import("../components/Contact"), {
+const Contact = dynamic(() => import("@/components/Contact"), {
   ssr: false, // ili true ako treba SEO
   loading: () => <Loader />,
 });
@@ -16,15 +16,15 @@ const Contact = dynamic(() => import("../components/Contact"), {
 
 
 const ContactClient = () => {
-  
+
   return (
     <>
-    
+
       <Breadcrumb
         pageName="Contact Me"
         description=""
       />
-      
+
 
       <Contact />
     </>

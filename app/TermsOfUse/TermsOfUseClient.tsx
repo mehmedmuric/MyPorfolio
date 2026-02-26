@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, memo } from "react";
-import Breadcrumb from "../components/Common/Breadcrumb";
+import Breadcrumb from "@/components/Common/Breadcrumb";
 
 // Background effects constants
 const DATA_STREAM_CHARS = ['0', '1', '0', '1', '0', '1', '1', '0', '1', '0', '1', '1', '0', '1', '0', '1', '0', '1', '1', '0'];
@@ -9,13 +9,13 @@ const DATA_STREAM_CHARS = ['0', '1', '0', '1', '0', '1', '1', '0', '1', '0', '1'
 // Floating Data Stream Component
 const DataStream = ({ delay, left, speed = 8 }: { delay: number; left: string; speed?: number }) => {
   const [chars, setChars] = useState<string[]>([]);
-  
+
   useEffect(() => {
-    const stream = Array.from({ length: 20 }, () => 
+    const stream = Array.from({ length: 20 }, () =>
       DATA_STREAM_CHARS[Math.floor(Math.random() * DATA_STREAM_CHARS.length)]
     );
     setChars(stream);
-    
+
     const interval = setInterval(() => {
       setChars(prev => {
         const newChars = [...prev];
@@ -24,19 +24,19 @@ const DataStream = ({ delay, left, speed = 8 }: { delay: number; left: string; s
         return newChars;
       });
     }, 150);
-    
+
     return () => clearInterval(interval);
   }, []);
-  
+
   if (chars.length === 0) {
     return null;
   }
-  
+
   return (
-    <div 
+    <div
       className="absolute text-[#00FF41]/25 sm:text-[#00FF41]/30 md:text-[#00FF41]/35 font-mono text-[8px] sm:text-[10px] tracking-[0.2em] pointer-events-none select-none"
-      style={{ 
-        left, 
+      style={{
+        left,
         top: '-10%',
         animation: `dataStream ${speed}s linear ${delay}s infinite`,
         textShadow: '0 0 3px rgba(0,255,65,0.3), 0 0 6px rgba(0,255,65,0.2)',
@@ -44,9 +44,9 @@ const DataStream = ({ delay, left, speed = 8 }: { delay: number; left: string; s
       aria-hidden="true"
     >
       {chars.map((char, i) => (
-        <span 
-          key={i} 
-          style={{ 
+        <span
+          key={i}
+          style={{
             opacity: i < 3 ? 0.1 : i > chars.length - 4 ? 0.1 : 0.4,
           }}
         >
@@ -110,17 +110,17 @@ const TermsOfUseClient = () => {
         "changes",
         "contact",
       ];
-      
+
       // Calculate scroll progress
       const windowHeight = window.innerHeight;
       const documentHeight = document.documentElement.scrollHeight;
       const scrollTop = window.scrollY;
       const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
       setScrollProgress(Math.min(100, Math.max(0, progress)));
-      
+
       // Active section detection
       const scrollPosition = window.scrollY + window.innerHeight / 3;
-      
+
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = document.getElementById(sections[i]);
         if (section && section.offsetTop <= scrollPosition) {
@@ -302,9 +302,9 @@ const TermsOfUseClient = () => {
           {mounted && (
             <div suppressHydrationWarning>
               {[0, 1, 2, 3, 4, 5, 6].map((i) => (
-                <DataStream 
-                  key={i} 
-                  delay={i * 1.5} 
+                <DataStream
+                  key={i}
+                  delay={i * 1.5}
                   left={`${8 + i * 12}%`}
                   speed={8 + (i % 3) * 2}
                 />
@@ -359,11 +359,10 @@ const TermsOfUseClient = () => {
                       <li key={section.id}>
                         <button
                           onClick={() => scrollToSection(section.id)}
-                          className={`group relative w-full text-left px-3 py-2.5 text-sm font-mono transition-all duration-300 rounded-sm ${
-                            isActive
+                          className={`group relative w-full text-left px-3 py-2.5 text-sm font-mono transition-all duration-300 rounded-sm ${isActive
                               ? "text-[#00FF41] bg-[#00FF41]/15 border-l-2 border-[#00FF41] shadow-[0_0_10px_rgba(0,255,65,0.2)]"
                               : "text-gray-400 hover:text-[#00FF41] hover:bg-[#00FF41]/8 hover:border-l-2 hover:border-[#00FF41]/50"
-                          } ${isVisible ? "opacity-100 translate-x-0" : "opacity-60 translate-x-[-4px]"}`}
+                            } ${isVisible ? "opacity-100 translate-x-0" : "opacity-60 translate-x-[-4px]"}`}
                           aria-current={isActive ? "page" : undefined}
                           style={{
                             transitionDelay: `${index * 50}ms`,
@@ -428,11 +427,10 @@ const TermsOfUseClient = () => {
                 {/* Introduction Section */}
                 <section
                   id="intro"
-                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
-                    visibleSections.has("intro")
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${visibleSections.has("intro")
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-4"
-                  }`}
+                    }`}
                   onMouseEnter={() => setActiveSection("intro")}
                 >
                   <div className="relative pl-6 border-l-2 border-[#00FF41]/30 mb-6">
@@ -454,11 +452,10 @@ const TermsOfUseClient = () => {
                 {/* Use of Content Section */}
                 <section
                   id="use-of-content"
-                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
-                    visibleSections.has("use-of-content")
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${visibleSections.has("use-of-content")
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-4"
-                  }`}
+                    }`}
                   onMouseEnter={() => setActiveSection("use-of-content")}
                 >
                   <div className="mb-6 group">
@@ -493,11 +490,10 @@ const TermsOfUseClient = () => {
                 {/* Accuracy of Information Section */}
                 <section
                   id="accuracy"
-                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
-                    visibleSections.has("accuracy")
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${visibleSections.has("accuracy")
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-4"
-                  }`}
+                    }`}
                   onMouseEnter={() => setActiveSection("accuracy")}
                 >
                   <div className="mb-6 group">
@@ -532,11 +528,10 @@ const TermsOfUseClient = () => {
                 {/* External Links Section */}
                 <section
                   id="external-links"
-                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
-                    visibleSections.has("external-links")
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${visibleSections.has("external-links")
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-4"
-                  }`}
+                    }`}
                   onMouseEnter={() => setActiveSection("external-links")}
                 >
                   <div className="mb-6 group">
@@ -571,11 +566,10 @@ const TermsOfUseClient = () => {
                 {/* Limitation of Liability Section */}
                 <section
                   id="limitation"
-                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
-                    visibleSections.has("limitation")
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${visibleSections.has("limitation")
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-4"
-                  }`}
+                    }`}
                   onMouseEnter={() => setActiveSection("limitation")}
                 >
                   <div className="mb-6 group">
@@ -610,11 +604,10 @@ const TermsOfUseClient = () => {
                 {/* Changes to Terms Section */}
                 <section
                   id="changes"
-                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${
-                    visibleSections.has("changes")
+                  className={`mb-16 scroll-mt-8 transition-all duration-700 ${visibleSections.has("changes")
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-4"
-                  }`}
+                    }`}
                   onMouseEnter={() => setActiveSection("changes")}
                 >
                   <div className="mb-6 group">
@@ -648,11 +641,10 @@ const TermsOfUseClient = () => {
                 {/* Contact Section */}
                 <section
                   id="contact"
-                  className={`mb-12 scroll-mt-8 transition-all duration-700 ${
-                    visibleSections.has("contact")
+                  className={`mb-12 scroll-mt-8 transition-all duration-700 ${visibleSections.has("contact")
                       ? "opacity-100 translate-y-0"
                       : "opacity-0 translate-y-4"
-                  }`}
+                    }`}
                   onMouseEnter={() => setActiveSection("contact")}
                 >
                   <div className="mb-6 group">
