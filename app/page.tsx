@@ -1,6 +1,9 @@
 'use client'; // force rebuild // force rebuild
 
-// dynamic import for client-side only components
+// static import for LCP optimization
+import Hero from "@/components/Hero";
+
+// dynamic import for client-side only components below the fold
 import dynamic from "next/dynamic";
 import Loader from "@/components/Loader";
 const AboutSection = dynamic(() => import("@/components/About/AboutSection"), {
@@ -19,9 +22,7 @@ const Features = dynamic(() => import("@/components/AboutWebAndMobile"), {
   loading: () => <Loader />,
 });
 
-const Hero = dynamic(() => import("@/components/Hero"), {
-  loading: () => <Loader />,
-});
+
 
 const Technologies = dynamic(() => import("@/components/Technologies"), {
   loading: () => <Loader />,

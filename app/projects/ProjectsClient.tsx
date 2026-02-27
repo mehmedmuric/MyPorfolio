@@ -5,11 +5,14 @@ import { useProjects } from '@/hooks/useProjects';
 import ProjectsHeader from '@/components/Projects/ProjectsHeader';
 import FilterBar from '@/components/Projects/FilterBar';
 import ProjectGrid from '@/components/Projects/ProjectGrid';
-import ParticlesBackground from '@/components/Common/ParticlesBackground';
 import Link from 'next/link';
 import { Mail, ArrowUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
+import dynamic from 'next/dynamic';
+
+// Dynamically import heavy canvas/particle backgrounds to unblock main thread rendering on load
+const ParticlesBackground = dynamic(() => import('@/components/Common/ParticlesBackground'), { ssr: false });
 
 const ProjectsClient = () => {
   const {
@@ -26,17 +29,27 @@ const ProjectsClient = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 400);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const isPastThreshold = window.scrollY > 400;
+          setShowScrollTop(prev => (prev !== isPastThreshold ? isPastThreshold : prev));
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    // Passive listener is essential for mobile scroll performance
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  }, []);
 
   return (
     <>
@@ -49,12 +62,12 @@ const ProjectsClient = () => {
         {/* Subtle Background Pattern */}
         <div className="absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
 
-        {/* Interactive Particles */}
+        {/* Interactive Particles - Lazy loaded to prevent main thread blocking */}
         <ParticlesBackground />
 
-        {/* Ambient Green Light */}
-        <div className="absolute top-0 right-0 -z-10 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 -z-10 w-[500px] h-[500px] bg-emerald-500/5 rounded-full blur-[120px] pointer-events-none" />
+        {/* Ambient Green Light - Using CSS radial gradient instead of layout-thrashing blur-[120px] */}
+        <div className="absolute top-0 right-0 -z-10 w-[500px] h-[500px] pointer-events-none" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.05) 0%, transparent 70%)' }} />
+        <div className="absolute bottom-0 left-0 -z-10 w-[500px] h-[500px] pointer-events-none" style={{ background: 'radial-gradient(circle, rgba(16, 185, 129, 0.05) 0%, transparent 70%)' }} />
 
         <ProjectsHeader />
 
@@ -81,10 +94,10 @@ const ProjectsClient = () => {
             transition={{ duration: 0.7, ease: "easeOut" }}
             className="w-full max-w-4xl mx-auto px-4 py-20 text-center relative z-10"
           >
-            {/* Glowing Orb Behind CTA */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] bg-primary/10 rounded-full blur-[80px] pointer-events-none -z-10" />
+            {/* Glowing Orb Behind CTA - Replaced expensive blur with performance-friendly radial gradient */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] pointer-events-none -z-10" style={{ background: 'radial-gradient(circle, hsl(var(--primary) / 0.1) 0%, transparent 70%)' }} />
 
-            <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-card/80 via-card/50 to-primary/5 border border-primary/20 shadow-2xl backdrop-blur-md relative overflow-hidden group">
+            <div className="p-8 sm:p-12 rounded-3xl bg-gradient-to-br from-card/80 via-card/50 to-primary/5 border border-primary/20 shadow-xl sm:shadow-2xl backdrop-blur-sm sm:backdrop-blur-md relative overflow-hidden group">
               <div className="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
               <h2 className="text-2xl sm:text-3xl font-bold mb-4 relative z-10">Have a project in mind?</h2>
               <p className="text-muted-foreground mb-8 max-w-xl mx-auto relative z-10">

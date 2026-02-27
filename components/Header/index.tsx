@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -16,12 +16,21 @@ const Header = () => {
   const [sticky, setSticky] = useState(false);
   const pathname = usePathname();
 
+  const closeMenu = useCallback(() => setNavbarOpen(false), []);
+
   // Scroll handler for sticky header
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      setSticky(window.scrollY >= 20);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setSticky(window.scrollY >= 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -46,7 +55,7 @@ const Header = () => {
       >
         <Container className="flex items-center justify-between">
           {/* LOGO */}
-          <Link href="/" className="relative z-50 group flex items-center gap-2" onClick={() => setNavbarOpen(false)}>
+          <Link href="/" className="relative z-50 group flex items-center gap-2" onClick={closeMenu}>
             <div className="relative">
               <Image
                 src="/images/logo/MMlogo.png"
@@ -138,11 +147,12 @@ const Header = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             transition={{ duration: 0.3, ease: "easeOut" }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/95 backdrop-blur-[20px] md:hidden"
+            style={{ willChange: "transform, opacity" }}
+            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/90 md:hidden"
           >
-            {/* Background Elements */}
-            <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-primary/10 rounded-full blur-[100px]" />
-            <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-secondary/10 rounded-full blur-[100px]" />
+            {/* Background elements optimized: removed heavy CSS blur filters for mobile */}
+            <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-primary/5 to-transparent rounded-full opacity-80 pointer-events-none" />
+            <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary/10 via-secondary/5 to-transparent rounded-full opacity-80 pointer-events-none" />
 
             <nav className="flex flex-col items-center gap-6 relative z-10 w-full px-8 mt-12">
               {menuData.map((item, index) => (
@@ -154,7 +164,7 @@ const Header = () => {
                 >
                   <Link
                     href={item.path || "/"}
-                    onClick={() => setNavbarOpen(false)}
+                    onClick={closeMenu}
                     className={cn(
                       "text-3xl font-bold tracking-tight transition-all duration-300 hover:scale-110",
                       pathname === item.path
@@ -180,7 +190,7 @@ const Header = () => {
                 transition={{ delay: 0.2 + menuData.length * 0.1, duration: 0.3 }}
                 className="w-full max-w-[250px]"
               >
-                <Link href="/contact" onClick={() => setNavbarOpen(false)}>
+                <Link href="/contact" onClick={closeMenu}>
                   <Button size="lg" className="w-full text-lg">Let's Talk</Button>
                 </Link>
               </motion.div>
