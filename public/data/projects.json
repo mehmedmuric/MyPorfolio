@@ -1,99 +1,214 @@
 [
-    {
-      "id": 1,
-      "title": "AG Gradnja – Construction Company Website",
-      "image": "/images/projects/aggradnja.png",
-      "paragraph": "AG Gradnja is a modern, high-performance website developed for a construction company, focused on showcasing services, completed projects, and building trust with potential clients. The website emphasizes clean design, clarity, and reliability, reflecting the company’s professionalism in the construction industry.",
-      "author": {
-        "name": "Mehmed Muric",
-        "designation": "FullStack Developer",
-        "image": "/images/logo/mehmed.jpg"
-      },
-      "tags": ["JavaScript", " - React", " - Next.js", " - Tailwind CSS", " - i18n", " - SEO"],
-      "publishDate": "12-10-2025",
-      "gitlink": "https://github.com/mehmedmuric/ag-gradnja",
-      "livedemo": "https://aggradnja.com",
-      "paragraph2": "This project demonstrates my ability to build scalable, multilingual, and SEO-optimized business websites. The site includes a fully responsive layout, multi-language support (SR, EN, DE, TR, AR), optimized images, fast loading performance, and a clear service and project presentation structure. Built with modern frontend technologies and best practices for real-world production use."
-    },
-    {
-      "id": 2,
-      "title": "AI Landing Page GPT-3 Inspired Design",
-      "image": "/images/projects/GPT3project.png",
-      "paragraph": "This is a static presentation website inspired by modern AI landing page designs, built as part of my portfolio. The page is designed to showcase the potential and possibilities of GPT-3 technology and artificial intelligence in general.",
-      "author": {
-        "name": "Mehmed Muric",
-        "designation": "FullStack Developer",
-        "image": "/images/logo/mehmed.jpg"
-      },
-      "tags": ["JavaScript ", " - React ", " - GPT-3 "],
-      "publishDate":"02-15-2024",
-      "gitlink": "https://github.com/mehmedmuric/WebApp1-GPT3",
-      "livedemo": "https://webappgpt3mm.netlify.app/",
-      "paragraph2": "To demonstrate my skills in frontend development, content structure, and modern UI/UX design, inspired by real-world SaaS landing pages. Technologies Used: HTML5 / CSS3 React Fully responsive design optimized for different devices"
-    },
-    {
-      "id": 3,
-      "title": "Crypto Landing Page Web3 & Blockchain Design",
-      "image": "/images/projects/CryptoExchangeProject.png",
-      "paragraph": "A modern static landing page focused on the world of cryptocurrencies and Web3. The site allows users to explore crypto markets, connect their wallets, and simulate sending transactions across the world.",
-      "author": {
-        "name": "Mehmed Muric",
-        "designation": "FullStack Developer",
-        "image": "/images/logo/mehmed.jpg"
-      },
-      "tags": ["React ", " - Web3 ", " - Blockchain"],
-      "publishDate": "03-01-2024",
-      "gitlink": "https://github.com/mehmedmuric/web3.0_crypto_exchange",
-      "livedemo": "https://web30reactappmm.netlify.app/",
-      "paragraph2": "The project demonstrates my ability to build Web3-inspired UI with a strong focus on security, usability, and modern frontend practices. Sections include reliability, security, fast transactions, and exchange rates. Technologies Used: HTML5 / CSS3 React Responsive design Wallet connect simulation."
-    },
-    {
-      "id": 4,
-      "title": "Restaurant Landing Page Modern Food & Dining Design",
-      "image": "/images/projects/restaurantProject.png",
-      "paragraph": "A clean and modern restaurant landing page designed to showcase menus, dining experience, and online reservations. The site provides an elegant introduction to the restaurant with a strong focus on user-friendly navigation and appealing food presentation.",
-      "author": {
-        "name": "Mehmed Muric",
-        "designation": "FullStack Developer",
-        "image": "/images/logo/mehmed.jpg"
-      },
-      "tags": ["React", " - TailwindCSS", " - Responsive"],
-      "publishDate": "05-06-2023",
-      "gitlink": "https://github.com/mehmedmuric/webapp2-restaurant",
-      "livedemo": "https://restaurantmm.netlify.app/",
-      "paragraph2": "The project demonstrates my ability to design and develop a modern restaurant landing page with clear sections such as menu highlights, services, customer testimonials, and a reservation call-to-action. Technologies Used: HTML5 / CSS3, React, TailwindCSS, fully responsive design optimized for all devices."
-    },
-    {
-      "id": 5,
-      "title": "Fintech Landing Page Modern Payment Solutions",
-      "image": "/images/projects/bankProject.png",
-      "paragraph": "A modern and professional landing page built for a fintech product that showcases digital payment solutions, secure transactions, and financial management features. The design highlights key benefits such as rewards, balance transfers, billing control, and customer testimonials.",
-      "author": {
-        "name": "Mehmed Muric",
-        "designation": "FullStack Developer",
-        "image": "/images/logo/mehmed.jpg"
-      },
-      "tags": ["React", " - TailwindCSS", " - JavaScript"],
-      "publishDate": "05-24-2022",
-      "gitlink": "https://github.com/mehmedmuric/BankApp",
-      "livedemo": "https://bankappmm.netlify.app/",
-      "paragraph2": "This project demonstrates my ability to design and develop fintech-oriented user interfaces with a focus on trust, usability, and responsive design. The page includes sections for product features, customer statistics, billing & invoicing, client testimonials, and partner logos. Technologies Used: HTML5 / CSS3, React, TailwindCSS, fully responsive layout optimized for all devices."
-    },
-   {
-    "id": 6,
-    "title": "Ecommerce Shop Vite + React",
-    "image": "/images/projects/ViteReactEcommerce.png",
-    "paragraph": "A modern ecommerce web application built with Vite and React, designed to provide users with a smooth and responsive online shopping experience. The platform includes product listings, shopping cart functionality, and a clean UI that emphasizes usability and performance.",
+  {
+    "id": 1,
+    "title": "AG Gradnja – Construction Company Website",
+    "image": "/images/projects/aggradnja.webp",
+    "valueProposition": "A multilingual business website built to present construction services clearly and convert visitors into clients.",
+    "paragraph": "A multilingual business website built to present construction services clearly and convert visitors into clients.",
+    "challenge": "The company needed a professional online presence that could communicate credibility across markets, showcase completed work, and perform well for local and international search traffic.",
+    "solution": "Designed and developed a production website in Next.js with a clean service structure, project gallery, multilingual support (SR, EN, DE, TR, AR), image optimization, and SEO-ready page architecture.",
+    "outcome": "A fast, scalable marketing site that strengthens brand trust and gives AG Gradnja a clear digital foundation for growth.",
+    "keyFeatures": [
+      "Multilingual site structure (SR, EN, DE, TR, AR)",
+      "Project gallery with optimized imagery",
+      "SEO-ready page architecture",
+      "Responsive layouts for mobile and desktop",
+      "Clear service presentation for conversion"
+    ],
+    "paragraph2": "Built for real-world production use with responsive layouts, clear information architecture, and performance-focused frontend patterns that keep the experience sharp on every device.",
     "author": {
       "name": "Mehmed Muric",
-      "designation": "FullStack Developer",
+      "designation": "Full-Stack Developer",
       "image": "/images/logo/mehmed.jpg"
     },
-    "tags": ["React", " - Vite", " - TailwindCSS", " - JavaScript"],
+    "tags": ["Next.js", "React", "TypeScript", "Tailwind CSS", "i18n", "SEO"],
+    "publishDate": "12-10-2025",
+    "gitlink": "https://github.com/mehmedmuric/ag-gradnja",
+    "livedemo": "https://aggradnja.com",
+    "featured": true,
+    "seoTitle": "AG Gradnja Construction Website | Next.js Multilingual Business Site",
+    "seoDescription": "Case study: multilingual Next.js website for AG Gradnja — construction services, project showcase, SEO, and conversion-focused UX by Mehmed Muric.",
+    "keywords": [
+      "Next.js developer",
+      "construction company website",
+      "multilingual website",
+      "SEO web development",
+      "business website Serbia"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "GPT-3 Inspired AI Landing Page",
+    "image": "/images/projects/GPT3project.webp",
+    "valueProposition": "A conversion-oriented AI product landing page inspired by modern SaaS marketing experiences.",
+    "paragraph": "A conversion-oriented AI product landing page inspired by modern SaaS marketing experiences.",
+    "challenge": "AI products often struggle to explain complex capabilities in a way that feels clear, trustworthy, and visually memorable on first visit.",
+    "solution": "Built a responsive React landing page with structured storytelling sections, strong visual hierarchy, and UI patterns commonly used by modern AI SaaS brands.",
+    "outcome": "A polished frontend showcase that demonstrates product storytelling, layout craft, and marketing-ready UI engineering.",
+    "keyFeatures": [
+      "Structured SaaS-style storytelling sections",
+      "Strong visual hierarchy for product value",
+      "Responsive layout across breakpoints",
+      "Marketing-oriented UI patterns"
+    ],
+    "paragraph2": "Focused on content structure, visual rhythm, and responsive behavior so the page communicates product value quickly across desktop and mobile.",
+    "author": {
+      "name": "Mehmed Muric",
+      "designation": "Full-Stack Developer",
+      "image": "/images/logo/mehmed.jpg"
+    },
+    "tags": ["React", "JavaScript", "UI Design", "AI"],
+    "publishDate": "02-15-2024",
+    "gitlink": "https://github.com/mehmedmuric/WebApp1-GPT3",
+    "livedemo": "https://webappgpt3mm.netlify.app/",
+    "seoTitle": "GPT-3 Inspired AI Landing Page Development | Next.js & React Project",
+    "seoDescription": "Case study: GPT-3 inspired AI landing page built with React — modern SaaS UI, responsive design, and conversion-focused layout by Mehmed Muric.",
+    "keywords": [
+      "AI landing page",
+      "React developer",
+      "SaaS UI design",
+      "frontend engineer",
+      "GPT-3 website"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Crypto Web3 Landing Experience",
+    "image": "/images/projects/CryptoExchangeProject.webp",
+    "valueProposition": "A Web3-inspired crypto landing experience focused on trust, clarity, and modern interaction patterns.",
+    "paragraph": "A Web3-inspired crypto landing experience focused on trust, clarity, and modern interaction patterns.",
+    "challenge": "Crypto products need to communicate security and usability without overwhelming users with technical complexity.",
+    "solution": "Developed a React-based Web3 landing page with wallet-connect simulation, market-oriented sections, and a UI designed around reliability and fast interactions.",
+    "outcome": "A frontend case study that shows how to present blockchain products with clearer UX and stronger visual confidence.",
+    "keyFeatures": [
+      "Wallet-connect interaction simulation",
+      "Trust and security messaging sections",
+      "Market-oriented product layout",
+      "Responsive Web3-inspired UI"
+    ],
+    "paragraph2": "Sections cover reliability, security messaging, transaction flow concepts, and responsive presentation for crypto-focused audiences.",
+    "author": {
+      "name": "Mehmed Muric",
+      "designation": "Full-Stack Developer",
+      "image": "/images/logo/mehmed.jpg"
+    },
+    "tags": ["React", "Web3", "Blockchain", "JavaScript"],
+    "publishDate": "03-01-2024",
+    "gitlink": "https://github.com/mehmedmuric/web3.0_crypto_exchange",
+    "livedemo": "https://web30reactappmm.netlify.app/",
+    "seoTitle": "Crypto Web3 Landing Page | React Blockchain UI Project",
+    "seoDescription": "Case study: Web3 crypto landing page with wallet-connect simulation, modern React UI, and trust-focused UX by Mehmed Muric.",
+    "keywords": [
+      "Web3 developer",
+      "crypto landing page",
+      "React Web3",
+      "blockchain UI",
+      "frontend engineer"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Restaurant Landing Page",
+    "image": "/images/projects/restaurantProject.webp",
+    "valueProposition": "An elegant restaurant website designed to showcase dining experience and drive reservations.",
+    "paragraph": "An elegant restaurant website designed to showcase dining experience and drive reservations.",
+    "challenge": "Restaurants need a digital presence that feels inviting, presents the menu clearly, and makes booking the next step obvious.",
+    "solution": "Created a modern React and Tailwind landing page with menu highlights, service sections, testimonials, and a clear reservation-focused call to action.",
+    "outcome": "A refined hospitality website that balances atmosphere, usability, and conversion across devices.",
+    "keyFeatures": [
+      "Menu highlights and dining presentation",
+      "Reservation-focused call to action",
+      "Service and atmosphere sections",
+      "Mobile-friendly browsing experience"
+    ],
+    "paragraph2": "The layout prioritizes food presentation, navigation clarity, and mobile-friendly browsing for guests discovering the restaurant online.",
+    "author": {
+      "name": "Mehmed Muric",
+      "designation": "Full-Stack Developer",
+      "image": "/images/logo/mehmed.jpg"
+    },
+    "tags": ["React", "Tailwind CSS", "Responsive Design"],
+    "publishDate": "05-06-2023",
+    "gitlink": "https://github.com/mehmedmuric/webapp2-restaurant",
+    "livedemo": "https://restaurantmm.netlify.app/",
+    "seoTitle": "Restaurant Landing Page Development | React & Tailwind Project",
+    "seoDescription": "Case study: modern restaurant landing page with menu highlights, reservation CTA, and responsive React UI by Mehmed Muric.",
+    "keywords": [
+      "restaurant website",
+      "React landing page",
+      "Tailwind CSS",
+      "hospitality web design",
+      "frontend developer"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Fintech Payment Landing Page",
+    "image": "/images/projects/bankProject.webp",
+    "valueProposition": "A fintech product page built to communicate trust, clarity, and modern payment capabilities.",
+    "paragraph": "A fintech product page built to communicate trust, clarity, and modern payment capabilities.",
+    "challenge": "Financial products must feel secure and easy to understand while still looking premium enough to earn user confidence.",
+    "solution": "Designed and engineered a React landing page highlighting digital payments, billing control, rewards, and customer proof points with a clean, trust-forward UI.",
+    "outcome": "A professional fintech marketing surface that demonstrates strong UI engineering for trust-sensitive products.",
+    "keyFeatures": [
+      "Digital payments and billing messaging",
+      "Trust-forward visual design",
+      "Feature and proof-point storytelling",
+      "Responsive product marketing layout"
+    ],
+    "paragraph2": "Includes product features, customer statistics, billing messaging, testimonials, and partner presentation in a responsive layout.",
+    "author": {
+      "name": "Mehmed Muric",
+      "designation": "Full-Stack Developer",
+      "image": "/images/logo/mehmed.jpg"
+    },
+    "tags": ["React", "Tailwind CSS", "JavaScript", "Fintech"],
+    "publishDate": "05-24-2022",
+    "gitlink": "https://github.com/mehmedmuric/BankApp",
+    "livedemo": "https://bankappmm.netlify.app/",
+    "seoTitle": "Fintech Payment Landing Page | React UI Case Study",
+    "seoDescription": "Case study: fintech payment solutions landing page with trust-focused UI, feature storytelling, and responsive React design by Mehmed Muric.",
+    "keywords": [
+      "fintech website",
+      "payment solutions UI",
+      "React developer",
+      "financial product landing page",
+      "frontend engineer"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Ecommerce Shop with Vite + React",
+    "image": "/images/projects/ViteReactEcommerce.webp",
+    "valueProposition": "A fast ecommerce storefront focused on product discovery, cart flow, and responsive shopping UX.",
+    "paragraph": "A fast ecommerce storefront focused on product discovery, cart flow, and responsive shopping UX.",
+    "challenge": "Online shops need smooth browsing and cart interactions without sacrificing speed or clarity on mobile.",
+    "solution": "Built a Vite + React ecommerce application with a dynamic product catalog, add-to-cart system, checkout flow, and a clean UI optimized for everyday shopping tasks.",
+    "outcome": "A modular storefront foundation that shows practical ecommerce UX and performant frontend architecture.",
+    "keyFeatures": [
+      "Dynamic product catalog",
+      "Add-to-cart and checkout flow",
+      "Responsive shopping experience",
+      "Modular frontend architecture"
+    ],
+    "paragraph2": "Developed with a modular workflow so product listing, cart state, and responsive layout stay maintainable as the catalog grows.",
+    "author": {
+      "name": "Mehmed Muric",
+      "designation": "Full-Stack Developer",
+      "image": "/images/logo/mehmed.jpg"
+    },
+    "tags": ["React", "Vite", "Tailwind CSS", "JavaScript", "Ecommerce"],
     "publishDate": "06-15-2023",
     "gitlink": "https://github.com/mehmedmuric/ViteReact-Ecommerce",
     "livedemo": "https://vitereactecommerce.netlify.app/",
-    "paragraph2": "This project demonstrates my skills in building scalable ecommerce solutions with modern frontend technologies. Key features include dynamic product catalog, add-to-cart system, checkout flow, and responsive design optimized for all devices. Technologies Used: React, Vite, TailwindCSS, and JavaScript for a fast, modular, and efficient development workflow."
+    "seoTitle": "Ecommerce Shop Development with Vite + React | Case Study",
+    "seoDescription": "Case study: Vite + React ecommerce shop with product catalog, cart flow, checkout UX, and responsive frontend architecture by Mehmed Muric.",
+    "keywords": [
+      "ecommerce React",
+      "Vite ecommerce",
+      "online shop development",
+      "React developer",
+      "custom web applications"
+    ]
   }
-      
-  ]
+]

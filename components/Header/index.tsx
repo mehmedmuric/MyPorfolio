@@ -1,24 +1,33 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import Link from "@/lib/i18n/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, Github, Linkedin, Twitter } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Menu, X, Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import menuData from "./menuData";
+import LanguageSwitcher from "./LanguageSwitcher";
 import { Button } from "../ui/button";
+import { SocialButton } from "../ui/social-button";
 import Container from "../Container";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "@/lib/i18n/dictionary-context";
+import { stripLocale } from "@/lib/i18n/utils";
 
 const Header = () => {
+  const t = useTranslations();
   const [navbarOpen, setNavbarOpen] = useState(false);
   const [sticky, setSticky] = useState(false);
   const pathname = usePathname();
+  const pathWithoutLocale = stripLocale(pathname);
+  const reducedMotion = useReducedMotion();
+  const menuRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previouslyFocused = useRef<HTMLElement | null>(null);
 
   const closeMenu = useCallback(() => setNavbarOpen(false), []);
 
-  // Scroll handler for sticky header
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -34,184 +43,254 @@ const Header = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Body scroll lock when menu is open
   useEffect(() => {
-    if (navbarOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
+    document.body.style.overflow = navbarOpen ? "hidden" : "";
+    return () => {
       document.body.style.overflow = "";
-    }
+    };
   }, [navbarOpen]);
+
+  useEffect(() => {
+    if (!navbarOpen) return;
+
+    previouslyFocused.current = document.activeElement as HTMLElement | null;
+    const timer = window.setTimeout(() => {
+      closeButtonRef.current?.focus();
+    }, 50);
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        closeMenu();
+        return;
+      }
+      if (e.key !== "Tab" || !menuRef.current) return;
+
+      const focusable = menuRef.current.querySelectorAll<HTMLElement>(
+        'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("keydown", onKeyDown);
+      previouslyFocused.current?.focus?.();
+    };
+  }, [navbarOpen, closeMenu]);
+
+  useEffect(() => {
+    closeMenu();
+  }, [pathname, closeMenu]);
 
   return (
     <>
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-[max(1rem,env(safe-area-inset-top))] focus:z-[100] focus:rounded-md focus:bg-primary focus:px-4 focus:py-2 focus:text-primary-foreground"
+      >
+        {t.navigation.skipToContent}
+      </a>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-in-out border-b border-transparent",
+          "fixed left-0 right-0 top-0 z-50 border-b border-transparent transition-all duration-500 ease-out",
+          "pt-[env(safe-area-inset-top,0px)]",
           sticky
-            ? "bg-background/70 backdrop-blur-xl border-white/5 py-4 shadow-[0_4px_30px_rgba(0,0,0,0.1)]"
-            : "bg-transparent py-6"
+            ? "border-white/5 bg-background/75 py-3 shadow-[0_4px_30px_rgba(0,0,0,0.12)] backdrop-blur-xl sm:py-4"
+            : "bg-transparent py-4 sm:py-6"
         )}
       >
-        <Container className="flex items-center justify-between">
-          {/* LOGO */}
-          <Link href="/" className="relative z-50 group flex items-center gap-2" onClick={closeMenu}>
+        <Container className="flex items-center justify-between gap-3">
+          <Link
+            href="/"
+            className="group relative z-50 flex min-h-11 min-w-11 items-center gap-2 focus-visible:outline-none"
+            onClick={closeMenu}
+            aria-label={t.navigation.homeAria}
+          >
             <div className="relative">
               <Image
                 src="/images/logo/MMlogo.png"
                 alt="Mehmed Muric"
                 width={48}
                 height={48}
-                className="w-10 h-auto sm:w-12 transition-transform duration-500 group-hover:rotate-12 group-hover:scale-110"
+                className="h-auto w-10 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-105 sm:w-12"
                 priority
               />
-              {/* Logo Glow */}
-              <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              <div
+                className="absolute inset-0 rounded-full bg-primary/20 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100"
+                aria-hidden="true"
+              />
             </div>
           </Link>
 
-          {/* DESKTOP NAV */}
-          <nav className="hidden md:flex items-center gap-1 p-1 bg-white/5 backdrop-blur-sm rounded-full border border-white/5 shadow-inner">
+          <nav
+            className="hidden items-center gap-1 rounded-full border border-white/5 bg-white/5 p-1 backdrop-blur-sm md:flex"
+            aria-label={t.navigation.primaryNav}
+          >
             {menuData.map((item) => {
-              const isActive = pathname === item.path;
+              const isActive = pathWithoutLocale === item.path;
               return (
                 <Link
                   key={item.path}
                   href={item.path || "/"}
                   className={cn(
-                    "relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-full",
+                    "relative rounded-full px-4 py-2.5 text-sm font-medium transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
                     isActive
-                      ? "text-primary bg-white/5 shadow-[0_0_10px_rgba(0,255,128,0.1)]"
-                      : "text-muted-foreground hover:text-foreground hover:bg-white/5"
+                      ? "bg-white/5 text-primary"
+                      : "text-muted-foreground hover:bg-white/5 hover:text-foreground"
                   )}
+                  aria-current={isActive ? "page" : undefined}
                 >
-                  {item.title}
+                  {t.navigation[item.titleKey]}
                   {isActive && (
-                    <span className="absolute inset-0 rounded-full ring-1 ring-primary/20 animate-pulse" />
+                    <span
+                      className="absolute inset-0 rounded-full ring-1 ring-primary/25"
+                      aria-hidden="true"
+                    />
                   )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* DESKTOP CTA */}
-          <div className="hidden md:flex items-center gap-4">
-            <Link href="/contact" passHref>
-              <Button variant="premium" size="sm" className="hidden lg:inline-flex">
-                Let's Talk
-              </Button>
-              <Button variant="ghost" size="icon" className="lg:hidden text-primary">
-                <MailIcon className="w-5 h-5" />
-              </Button>
-            </Link>
+          <div className="hidden items-center gap-2 md:flex lg:gap-3">
+            <LanguageSwitcher />
+            <Button variant="premium" size="sm" className="hidden min-h-10 lg:inline-flex" asChild>
+              <Link href="/contact">{t.navigation.startProject}</Link>
+            </Button>
+            <Button variant="ghost" size="icon" className="text-primary lg:hidden" asChild>
+              <Link href="/contact" aria-label={t.navigation.contactAria}>
+                <Mail className="h-5 w-5" aria-hidden="true" />
+              </Link>
+            </Button>
           </div>
 
-          {/* MOBILE MENU TOGGLE */}
           <button
-            onClick={() => setNavbarOpen(!navbarOpen)}
-            className="md:hidden relative z-50 p-2 text-primary focus:outline-none transition-transform active:scale-95"
-            aria-label="Toggle Menu"
+            type="button"
+            onClick={() => setNavbarOpen((open) => !open)}
+            className={cn(
+              "relative z-50 flex h-11 w-11 items-center justify-center rounded-xl text-primary transition-colors active:bg-white/10 md:hidden focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
+              navbarOpen && "pointer-events-none opacity-0"
+            )}
+            aria-label={t.navigation.openMenu}
+            aria-expanded={navbarOpen}
+            aria-controls="mobile-nav"
           >
-            <AnimatePresence mode="popLayout" initial={false}>
-              {navbarOpen ? (
-                <motion.div
-                  key="close"
-                  initial={{ rotate: -90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <X size={28} />
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="menu"
-                  initial={{ rotate: 90, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -90, opacity: 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Menu size={28} />
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <Menu size={26} aria-hidden="true" />
           </button>
         </Container>
       </header>
 
-      {/* MOBILE MENU OVERLAY */}
       <AnimatePresence>
         {navbarOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: "easeOut" }}
-            style={{ willChange: "transform, opacity" }}
-            className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-black/90 md:hidden"
+            id="mobile-nav"
+            ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={t.navigation.mobileNav}
+            initial={reducedMotion ? { opacity: 1 } : { opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={reducedMotion ? { opacity: 0 } : { opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="fixed inset-0 z-40 flex flex-col bg-background/95 backdrop-blur-2xl md:hidden"
           >
-            {/* Background elements optimized: removed heavy CSS blur filters for mobile */}
-            <div className="absolute top-1/4 left-1/4 w-[300px] h-[300px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-primary/10 via-primary/5 to-transparent rounded-full opacity-80 pointer-events-none" />
-            <div className="absolute bottom-1/4 right-1/4 w-[300px] h-[300px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-secondary/10 via-secondary/5 to-transparent rounded-full opacity-80 pointer-events-none" />
+            <div
+              className="pointer-events-none absolute inset-0 bg-gradient-to-b from-primary/[0.07] via-transparent to-transparent"
+              aria-hidden="true"
+            />
+            <div
+              className="pointer-events-none absolute left-1/2 top-1/3 h-[280px] w-[280px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl opacity-70"
+              aria-hidden="true"
+            />
 
-            <nav className="flex flex-col items-center gap-6 relative z-10 w-full px-8 mt-12">
-              {menuData.map((item, index) => (
-                <motion.div
-                  key={item.path}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 + index * 0.1, duration: 0.3 }}
-                >
-                  <Link
-                    href={item.path || "/"}
-                    onClick={closeMenu}
-                    className={cn(
-                      "text-3xl font-bold tracking-tight transition-all duration-300 hover:scale-110",
-                      pathname === item.path
-                        ? "text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary"
-                        : "text-muted-foreground hover:text-white"
-                    )}
+            <div className="relative z-10 flex items-center justify-end px-4 pt-[calc(0.75rem+env(safe-area-inset-top,0px))] sm:px-6">
+              <button
+                ref={closeButtonRef}
+                type="button"
+                onClick={closeMenu}
+                className="flex h-11 w-11 items-center justify-center rounded-xl text-primary transition-colors active:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                aria-label={t.navigation.closeMenu}
+              >
+                <X size={26} aria-hidden="true" />
+              </button>
+            </div>
+
+            <nav
+              className="relative z-10 flex flex-1 flex-col items-stretch justify-center gap-1 px-6 pb-8"
+              aria-label={t.navigation.mobileNav}
+            >
+              {menuData.map((item, index) => {
+                const isActive = pathWithoutLocale === item.path;
+                return (
+                  <motion.div
+                    key={item.path}
+                    initial={reducedMotion ? false : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{
+                      delay: reducedMotion ? 0 : 0.04 + index * 0.04,
+                      duration: 0.3,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
                   >
-                    {item.title}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      href={item.path || "/"}
+                      onClick={closeMenu}
+                      className={cn(
+                        "flex min-h-[52px] items-center justify-between rounded-2xl px-4 text-[1.65rem] font-semibold tracking-tight transition-colors duration-200 active:bg-white/[0.06]",
+                        isActive
+                          ? "bg-primary/[0.08] text-primary"
+                          : "text-foreground/90"
+                      )}
+                      aria-current={isActive ? "page" : undefined}
+                    >
+                      {t.navigation[item.titleKey]}
+                      {isActive && (
+                        <span
+                          className="h-1.5 w-1.5 rounded-full bg-primary"
+                          aria-hidden="true"
+                        />
+                      )}
+                    </Link>
+                  </motion.div>
+                );
+              })}
 
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.1 + menuData.length * 0.1, duration: 0.3 }}
-                className="w-16 h-1 bg-white/10 rounded-full my-4"
-              />
+              <div className="my-4 h-px w-full bg-white/10" aria-hidden="true" />
 
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 + menuData.length * 0.1, duration: 0.3 }}
-                className="w-full max-w-[250px]"
+              <LanguageSwitcher variant="mobile" className="mb-4" onSelect={closeMenu} />
+
+              <Button
+                size="xl"
+                variant="premium"
+                className="w-full rounded-full"
+                asChild
               >
                 <Link href="/contact" onClick={closeMenu}>
-                  <Button size="lg" className="w-full text-lg">Let's Talk</Button>
+                  {t.navigation.startProject}
                 </Link>
-              </motion.div>
+              </Button>
 
-              {/* Social Links */}
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 0.3 + menuData.length * 0.1, duration: 0.4 }}
-                className="flex items-center gap-6 mt-8"
-              >
-                <Link href="https://github.com/mehmedmuric" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
-                  <Github className="w-6 h-6" />
-                </Link>
-                <Link href="https://linkedin.com/in/mehmed-muric" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
-                  <Linkedin className="w-6 h-6" />
-                </Link>
-                <Link href="https://twitter.com" target="_blank" className="text-muted-foreground hover:text-primary transition-colors">
-                  <Twitter className="w-6 h-6" />
-                </Link>
-              </motion.div>
+              <div className="mt-8 flex items-center justify-center gap-3 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+                <SocialButton href="https://github.com/mehmedmuric" icon={Github} label={t.common.github} />
+                <SocialButton
+                  href="https://linkedin.com/in/mehmed-muric-185297232"
+                  icon={Linkedin}
+                  label={t.common.linkedin}
+                />
+                <SocialButton href="https://twitter.com/mehmedmuricc" icon={Twitter} label={t.common.twitter} />
+              </div>
             </nav>
           </motion.div>
         )}
@@ -219,26 +298,5 @@ const Header = () => {
     </>
   );
 };
-
-// Start of mail icon component for small CTA
-function MailIcon(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect width="20" height="16" x="2" y="4" rx="2" />
-      <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-    </svg>
-  );
-}
 
 export default Header;

@@ -1,0 +1,648 @@
+{
+  "navigation": {
+    "home": "Početna",
+    "projects": "Projekti",
+    "about": "O meni",
+    "contact": "Kontakt",
+    "testimonials": "Utisci",
+    "startProject": "Započni projekat",
+    "skipToContent": "Preskoči na sadržaj",
+    "openMenu": "Otvori meni",
+    "closeMenu": "Zatvori meni",
+    "primaryNav": "Glavna navigacija",
+    "mobileNav": "Mobilna navigacija",
+    "homeAria": "Mehmed Murić — Početna",
+    "contactAria": "Kontakt",
+    "language": "Jezik"
+  },
+  "hero": {
+    "available": "Dostupan za freelance i saradnje",
+    "name": "Mehmed Murić",
+    "role": "Full-Stack Developer",
+    "headlineLine1": "Gradim moderne",
+    "headlineHighlight": "digitalne proizvode",
+    "subtitle": "Next.js, TypeScript i skalabilne aplikacije — od ideje do produkcije, sa čistom arhitekturom.",
+    "viewProjects": "Pogledaj projekte",
+    "startProject": "Započni projekat",
+    "downloadCv": "Preuzmi CV",
+    "stackLabel": "Stek",
+    "explore": "Istraži",
+    "scrollAria": "Skroluj na sledeću sekciju",
+    "introAria": "Uvod",
+    "imageAlt": "Mehmed Murić — Full-Stack Developer iz Novog Pazara, Srbija",
+    "focusBadgeLabel": "Fokus",
+    "focusBadgeValue": "Full-Stack",
+    "basedInLabel": "Iz",
+    "basedInValue": "Novog Pazara"
+  },
+  "trustSignals": {
+    "ariaLabel": "Pokazatelji poverenja",
+    "experienceLabel": "Iskustvo",
+    "experienceValue": "Od 2019.",
+    "focusLabel": "Fokus",
+    "focusValue": "Produkcione aplikacije",
+    "locationLabel": "Lokacija",
+    "locationValue": "Novi Pazar, Srbija",
+    "availabilityLabel": "Dostupnost",
+    "availabilityValue": "Otvoren za projekte"
+  },
+  "capabilities": {
+    "title": "Šta gradim",
+    "paragraph": "Praktično inženjerstvo za proizvode koji moraju da rade — jasni interfejsi, čvrst backend i prostor za rast.",
+    "items": [
+      {
+        "title": "Full-Stack razvoj",
+        "paragraph": "Kompletno inženjerstvo proizvoda — od interfejsa i korisničkih tokova do API-ja, modela podataka i deploy-a."
+      },
+      {
+        "title": "Moderne web aplikacije",
+        "paragraph": "Brze, skalabilne aplikacije sa Next.js, TypeScript-om i produkcionom arhitekturom spremnom za rast."
+      },
+      {
+        "title": "UI inženjerstvo",
+        "paragraph": "Interfejsi sa jasnom hijerarhijom, responzivnim layoutima i iskustvom koje ljudi zaista vole da koriste."
+      },
+      {
+        "title": "Backend arhitektura",
+        "paragraph": "Pouzdan serverski sloj sa čistim tokom podataka, bezbednim obrascima i sistemima koji ostaju održivi kako rastu."
+      },
+      {
+        "title": "Optimizacija performansi",
+        "paragraph": "Brzina, Core Web Vitals i SEO tretirani kao deo proizvoda — ne kao naknadna misao."
+      },
+      {
+        "title": "AI integracija",
+        "paragraph": "Praktične AI mogućnosti ugrađene u stvarne tokove rada — asistenti, automatizacija i pametnija iskustva proizvoda."
+      }
+    ]
+  },
+  "technologies": {
+    "title": "Rad sa modernim tehnologijama",
+    "paragraph": "Fokusiran stek za pouzdane web proizvode — od interfejsa i API-ja do podataka i AI-podržanih tokova rada.",
+    "coreStackAria": "Osnovni tehnološki stek",
+    "categories": {
+      "all": "Sve",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tools": "Alati",
+      "database": "Baza podataka",
+      "cloud": "Cloud"
+    },
+    "labels": {
+      "aiIntegration": "AI integracija"
+    }
+  },
+  "certifications": {
+    "title": "Sertifikati i nagrade",
+    "paragraph": "Profesionalne kredencijale koje potvrđuju znanje u modernim web tehnologijama i cloud infrastrukturi.",
+    "issued": "Izdato {date}",
+    "viewCertificate": "Pogledaj sertifikat",
+    "comingSoon": "Uskoro",
+    "items": {
+      "1": {
+        "description": "Sveobuhvatan kurs koji pokriva osnove Pythona i napredne teme."
+      },
+      "2": {
+        "description": "Savremeni JavaScript, ES6+ i praktične veštine web razvoja."
+      },
+      "3": {
+        "description": "Izrada modernih web aplikacija u React-u sa komponentama i hooks-ima."
+      }
+    }
+  },
+  "about": {
+    "title": "Full-Stack Developer za moderne digitalne proizvode",
+    "paragraph": "Dizajniram i razvijam pouzdane web aplikacije sa fokusom na performanse, skalabilnost i promišljeno korisničko iskustvo. Moj rad povezuje frontend zanat, backend arhitekturu i jasno razmišljanje o proizvodu.",
+    "imageAlt": "Ilustracija koja predstavlja full-stack razvoj web aplikacija Mehmeda Murića",
+    "experienceLabel": "Iskustvo",
+    "experienceValue": "Od 2019.",
+    "focusLabel": "Fokus",
+    "focusValue": "Produkcione aplikacije",
+    "clientsLabel": "Rad spreman za klijente",
+    "features": [
+      {
+        "title": "Inženjerstvo usmereno na proizvod",
+        "description": "Gradim sa poslovnim rezultatima na umu — jasan UX, održiv kod i sistemi koji mogu da rastu sa vašim proizvodom."
+      },
+      {
+        "title": "Next.js & TypeScript",
+        "description": "Moderne web aplikacije sa React-om, Next.js, TypeScript-om i produkcionim obrascima koji ostaju brzi i vidljivi u pretrazi."
+      },
+      {
+        "title": "Partnerstvo i posle lansiranja",
+        "description": "Više od isporuke: iteracija, podrška i unapređenja kako bi vaš proizvod nastavio da radi u stvarnom svetu."
+      }
+    ],
+    "viewProjects": "Pogledaj projekte",
+    "ctaContact": "Imate projekat na umu?"
+  },
+  "howIWork": {
+    "title": "Kako radim",
+    "paragraph": "Jasan proces saradnje — da uvek znate šta sledi i zašto je to važno.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Istraživanje",
+        "description": "Razumevanje ciljeva, korisnika i poslovnih zahteva pre nego što se napiše ijedna linija koda."
+      },
+      {
+        "number": "02",
+        "title": "Planiranje",
+        "description": "Definisanje arhitekture, korisničkih tokova i tehničkog pravca kako bi razvoj ostao fokusiran i skalabilan."
+      },
+      {
+        "number": "03",
+        "title": "Razvoj",
+        "description": "Gradnja održivih rešenja sa čistom strukturom, promišljenim UX-om i produkcionim standardima."
+      },
+      {
+        "number": "04",
+        "title": "Optimizacija",
+        "description": "Unapređenje performansi, pouzdanosti i spremnosti za rast posle lansiranja — ne samo pre njega."
+      }
+    ]
+  },
+  "contact": {
+    "sectionTitle": "Imate projekat na umu?",
+    "sectionParagraph": "Hajde da razgovaramo o vašoj ideji i nađemo najbolje tehničko rešenje.",
+    "eyebrow": "Započnite razgovor",
+    "heading": "Recite mi šta gradite",
+    "description": "Podelite ciljeve, rokove i ograničenja. Pomoći ću da razjasnimo tehnički pristup i sledeće korake — obično u roku od 24 sata.",
+    "emailLabel": "Email",
+    "locationLabel": "Lokacija",
+    "locationValue": "Novi Pazar, Srbija",
+    "availabilityLabel": "Dostupnost",
+    "availabilityValue": "Otvoren za projekte",
+    "responseLabel": "Odgovor",
+    "responseValue": "Obično u roku od 24 sata",
+    "connectLabel": "Povežite se",
+    "availableForTitle": "Dostupan za",
+    "availableFor": [
+      "Freelance projekte",
+      "Saradnje",
+      "Prilagođene aplikacije"
+    ],
+    "availableFooter": "Novi Pazar, Srbija · Obično u roku od 24 sata",
+    "formHint": "Navedite ciljeve, rokove i eventualne linkove ili reference. Jasan kontekst pomaže da odgovorim korisnim tehničkim smerom.",
+    "nameLabel": "Ime",
+    "namePlaceholder": "Vaše ime",
+    "emailLabelField": "Email",
+    "emailPlaceholder": "vi@firma.com",
+    "messageLabel": "Detalji projekta",
+    "messagePlaceholder": "Šta gradite? Kako izgleda uspeh?",
+    "sendMessage": "Pošalji poruku",
+    "sending": "Slanje...",
+    "successTitle": "Poruka primljena",
+    "successMessage": "Hvala što ste se javili. Javiću vam se uskoro.",
+    "sendAnother": "Pošalji još jednu poruku",
+    "errorSend": "Nešto nije u redu pri slanju poruke. Pokušajte ponovo ili mi pišite direktno na email.",
+    "githubProfile": "GitHub profil",
+    "linkedinProfile": "LinkedIn profil",
+    "twitterProfile": "Twitter profil",
+    "validation": {
+      "nameRequired": "Unesite svoje ime.",
+      "nameMin": "Ime treba da ima najmanje 2 karaktera.",
+      "emailRequired": "Unesite svoj email.",
+      "emailInvalid": "Unesite ispravnu email adresu.",
+      "messageRequired": "Podelite kratak opis projekta.",
+      "messageMin": "Malo više detalja pomaže — ciljajte bar na kratak pasus.",
+      "fixFields": "Ispravite označena polja i pokušajte ponovo."
+    }
+  },
+  "footer": {
+    "tagline": "Gradim moderne digitalne proizvode sa čistom arhitekturom, promišljenim dizajnom i skalabilnom tehnologijom.",
+    "location": "Novi Pazar, Srbija",
+    "navTitle": "Navigacija",
+    "legalTitle": "Pravne informacije",
+    "getInTouchTitle": "Kontakt",
+    "availableReply": "Dostupan za projekte · Odgovor u roku od 24h",
+    "copyright": "© {year} Mehmed Murić. Sva prava zadržana.",
+    "builtWith": "Dizajnirano i izrađeno sa Next.js",
+    "backToTop": "Nazad na vrh",
+    "privacyPolicy": "Politika privatnosti",
+    "termsOfUse": "Uslovi korišćenja",
+    "nav": {
+      "home": "Početna",
+      "projects": "Projekti",
+      "about": "O meni",
+      "testimonials": "Utisci",
+      "contact": "Kontakt"
+    }
+  },
+  "projects": {
+    "eyebrow": "Portfolio",
+    "titleBefore": "Radovi koji se isporučuju i",
+    "titleHighlight": "skaliraju",
+    "description": "Studije slučaja kroz poslovne sajtove, interfejse proizvoda i prilagođene web aplikacije — izrađene sa Next.js, React-om i TypeScript-om.",
+    "filterAll": "Sve",
+    "filterFeatured": "Istaknuto",
+    "emptyState": "Nijedan projekat ne odgovara ovom filteru.",
+    "liveDemo": "Live demo",
+    "viewCaseStudy": "Studija slučaja",
+    "sourceCode": "Izvorni kod",
+    "loading": "Učitavanje projekata...",
+    "searchPlaceholder": "Pretraži projekte...",
+    "searchAria": "Pretraži projekte",
+    "clearSearch": "Obriši pretragu",
+    "filterAria": "Filtriraj po kategoriji"
+  },
+  "caseStudies": {
+    "1": {
+      "title": "AG Gradnja – Veb sajt građevinske kompanije",
+      "valueProposition": "Višejezični poslovni sajt koji jasno predstavlja građevinske usluge i pretvara posetioce u klijente.",
+      "paragraph": "Višejezični poslovni sajt koji jasno predstavlja građevinske usluge i pretvara posetioce u klijente.",
+      "challenge": "Kompaniji je bila potrebna profesionalna online prisutnost koja gradi kredibilitet na više tržišta, prikazuje završene radove i dobro performira za lokalni i međunarodni saobraćaj iz pretrage.",
+      "solution": "Dizajniran i razvijen produkcioni sajt u Next.js-u sa čistom strukturom usluga, galerijom projekata, višejezičnom podrškom (SR, EN, DE, TR, AR), optimizacijom slika i SEO-spremnom arhitekturom stranica.",
+      "outcome": "Brz, skalabilan marketinški sajt koji jača poverenje u brend i daje AG Gradnji jasan digitalni temelj za rast.",
+      "keyFeatures": [
+        "Višejezična struktura sajta (SR, EN, DE, TR, AR)",
+        "Galerija projekata sa optimizovanim slikama",
+        "SEO-spremna arhitektura stranica",
+        "Responzivni layouti za mobilni i desktop",
+        "Jasna prezentacija usluga radi konverzije"
+      ],
+      "paragraph2": "Izrađen za stvarnu produkciju sa responzivnim layoutima, jasnom informacionom arhitekturom i frontend obrascima usmerenim na performanse, kako bi iskustvo ostalo oštro na svakom uređaju.",
+      "seoTitle": "AG Gradnja veb sajt | Next.js višejezični poslovni sajt",
+      "seoDescription": "Studija slučaja: višejezični Next.js sajt za AG Gradnju — građevinske usluge, prikaz projekata, SEO i UX usmeren na konverziju, autor Mehmed Murić.",
+      "imageAlt": "Snimak ekrana veb sajta građevinske kompanije AG Gradnja"
+    },
+    "2": {
+      "title": "AI landing stranica inspirisana GPT-3",
+      "valueProposition": "Landing stranica AI proizvoda orijentisana na konverziju, inspirisana modernim SaaS marketing iskustvima.",
+      "paragraph": "Landing stranica AI proizvoda orijentisana na konverziju, inspirisana modernim SaaS marketing iskustvima.",
+      "challenge": "AI proizvodi često teško objašnjavaju složene mogućnosti na način koji deluje jasno, pouzdano i vizuelno upečatljivo već pri prvoj poseti.",
+      "solution": "Izrađena responzivna React landing stranica sa strukturisanim sekcijama priče, jakom vizuelnom hijerarhijom i UI obrascima koje koriste moderni AI SaaS brendovi.",
+      "outcome": "Uglađen frontend showcase koji pokazuje pričanje o proizvodu, zanat layouta i UI inženjerstvo spremno za marketing.",
+      "keyFeatures": [
+        "Strukturisane SaaS sekcije priče",
+        "Jaka vizuelna hijerarhija za vrednost proizvoda",
+        "Responzivni layout kroz breakpoint-e",
+        "UI obrasci orijentisani na marketing"
+      ],
+      "paragraph2": "Fokus na strukturu sadržaja, vizuelni ritam i responzivno ponašanje kako bi stranica brzo prenela vrednost proizvoda na desktopu i mobilnom.",
+      "seoTitle": "AI landing stranica inspirisana GPT-3 | Next.js & React projekat",
+      "seoDescription": "Studija slučaja: AI landing stranica inspirisana GPT-3, izrađena u React-u — moderni SaaS UI, responzivni dizajn i layout usmeren na konverziju, autor Mehmed Murić.",
+      "imageAlt": "Snimak ekrana AI landing stranice inspirisane GPT-3"
+    },
+    "3": {
+      "title": "Crypto Web3 landing iskustvo",
+      "valueProposition": "Web3-inspirisano crypto landing iskustvo fokusirano na poverenje, jasnoću i moderne obrasce interakcije.",
+      "paragraph": "Web3-inspirisano crypto landing iskustvo fokusirano na poverenje, jasnoću i moderne obrasce interakcije.",
+      "challenge": "Crypto proizvodi moraju da komunikuju bezbednost i upotrebljivost bez preopterećivanja korisnika tehničkom složenošću.",
+      "solution": "Razvijena React-based Web3 landing stranica sa simulacijom wallet-connect-a, sekcijama orijentisanim na tržište i UI-jem dizajniranim oko pouzdanosti i brzih interakcija.",
+      "outcome": "Frontend studija slučaja koja pokazuje kako predstaviti blockchain proizvode sa jasnijim UX-om i jačim vizuelnim poverenjem.",
+      "keyFeatures": [
+        "Simulacija wallet-connect interakcije",
+        "Sekcije o poverenju i bezbednosti",
+        "Layout proizvoda orijentisan na tržište",
+        "Responzivni Web3-inspirisani UI"
+      ],
+      "paragraph2": "Sekcije pokrivaju pouzdanost, poruke o bezbednosti, koncepte toka transakcija i responzivnu prezentaciju za crypto publiku.",
+      "seoTitle": "Crypto Web3 landing stranica | React blockchain UI projekat",
+      "seoDescription": "Studija slučaja: Web3 crypto landing stranica sa simulacijom wallet-connect-a, modernim React UI-jem i UX-om usmerenim na poverenje, autor Mehmed Murić.",
+      "imageAlt": "Snimak ekrana Crypto Web3 landing stranice"
+    },
+    "4": {
+      "title": "Landing stranica restorana",
+      "valueProposition": "Elegantan sajt restorana dizajniran da prikaže gastronomsko iskustvo i podstakne rezervacije.",
+      "paragraph": "Elegantan sajt restorana dizajniran da prikaže gastronomsko iskustvo i podstakne rezervacije.",
+      "challenge": "Restoranima treba digitalna prisutnost koja deluje privlačno, jasno prikazuje meni i čini rezervaciju očiglednim sledećim korakom.",
+      "solution": "Kreirana moderna React i Tailwind landing stranica sa istaknutim jelima, sekcijama usluga, utiscima i jasnim CTA-jem za rezervacije.",
+      "outcome": "Ufinjen hospitality sajt koji balansira atmosferu, upotrebljivost i konverziju na svim uređajima.",
+      "keyFeatures": [
+        "Istaknuti meni i prezentacija gastronomije",
+        "CTA usmeren na rezervacije",
+        "Sekcije o uslugama i atmosferi",
+        "Iskustvo prilagođeno mobilnim uređajima"
+      ],
+      "paragraph2": "Layout prioritetizuje prezentaciju hrane, jasnu navigaciju i pregledanje na mobilnom za goste koji restoran otkrivaju online.",
+      "seoTitle": "Razvoj landing stranice restorana | React & Tailwind projekat",
+      "seoDescription": "Studija slučaja: moderna landing stranica restorana sa istaknutim menijem, CTA za rezervacije i responzivnim React UI-jem, autor Mehmed Murić.",
+      "imageAlt": "Snimak ekrana landing stranice restorana"
+    },
+    "5": {
+      "title": "Fintech landing stranica za plaćanja",
+      "valueProposition": "Fintech stranica proizvoda izrađena da komunicira poverenje, jasnoću i moderne mogućnosti plaćanja.",
+      "paragraph": "Fintech stranica proizvoda izrađena da komunicira poverenje, jasnoću i moderne mogućnosti plaćanja.",
+      "challenge": "Finansijski proizvodi moraju da deluju bezbedno i lako za razumevanje, a istovremeno dovoljno premium da zasluže poverenje korisnika.",
+      "solution": "Dizajnirana i izrađena React landing stranica koja ističe digitalna plaćanja, kontrolu naplate, nagrade i dokaze poverenja uz čist UI usmeren na poverenje.",
+      "outcome": "Profesionalna fintech marketinška površina koja pokazuje snažno UI inženjerstvo za proizvode osetljive na poverenje.",
+      "keyFeatures": [
+        "Poruke o digitalnim plaćanjima i naplati",
+        "Vizuelni dizajn usmeren na poverenje",
+        "Priča o funkcijama i dokazima",
+        "Responzivni layout marketinške stranice proizvoda"
+      ],
+      "paragraph2": "Uključuje funkcije proizvoda, statistiku klijenata, poruke o naplati, utiske i prezentaciju partnera u responzivnom layoutu.",
+      "seoTitle": "Fintech landing stranica za plaćanja | React UI studija slučaja",
+      "seoDescription": "Studija slučaja: landing stranica fintech rešenja za plaćanja sa UI-jem usmerenim na poverenje, pričom o funkcijama i responzivnim React dizajnom, autor Mehmed Murić.",
+      "imageAlt": "Snimak ekrana fintech landing stranice za plaćanja"
+    },
+    "6": {
+      "title": "Ecommerce prodavnica sa Vite + React",
+      "valueProposition": "Brza ecommerce izloga fokusirana na otkrivanje proizvoda, tok korpe i responzivno shopping UX.",
+      "paragraph": "Brza ecommerce izloga fokusirana na otkrivanje proizvoda, tok korpe i responzivno shopping UX.",
+      "challenge": "Online prodavnicama treba gladak pregled i interakcije sa korpom bez žrtvovanja brzine ili jasnoće na mobilnom.",
+      "solution": "Izrađena Vite + React ecommerce aplikacija sa dinamičkim katalogom proizvoda, sistemom dodavanja u korpu, checkout tokom i čistim UI-jem optimizovanim za svakodnevnu kupovinu.",
+      "outcome": "Modularni temelj izloga koji pokazuje praktičan ecommerce UX i performansnu frontend arhitekturu.",
+      "keyFeatures": [
+        "Dinamički katalog proizvoda",
+        "Dodavanje u korpu i checkout tok",
+        "Responzivno shopping iskustvo",
+        "Modularna frontend arhitektura"
+      ],
+      "paragraph2": "Razvijeno modularnim tokom rada kako bi listanje proizvoda, stanje korpe i responzivni layout ostali održivi kako katalog raste.",
+      "seoTitle": "Razvoj ecommerce prodavnice sa Vite + React | Studija slučaja",
+      "seoDescription": "Studija slučaja: Vite + React ecommerce prodavnica sa katalogom proizvoda, tokom korpe, checkout UX-om i responzivnom frontend arhitekturom, autor Mehmed Murić.",
+      "imageAlt": "Snimak ekrana ecommerce prodavnice sa Vite i React"
+    },
+    "authorDesignation": "Full-Stack Developer",
+    "page": {
+      "breadcrumb": "Studija slučaja",
+      "challengeLabel": "Izazov",
+      "solutionLabel": "Rešenje",
+      "outcomeLabel": "Rezultat",
+      "featuresLabel": "Ključne funkcije",
+      "techLabel": "Tehnologije",
+      "backToProjects": "Nazad na projekte",
+      "liveDemo": "Live demo",
+      "viewCode": "Pogledaj kod"
+    }
+  },
+  "aboutPage": {
+    "breadcrumb": "O meni",
+    "breadcrumbDescription": "Full-Stack Developer iz Novog Pazara, Srbija — pozadina, vrednosti i put do isporuke produkcionih proizvoda.",
+    "hero": {
+      "title": "Full-Stack Developer koji gradi moderne digitalne proizvode",
+      "paragraphs": [
+        "Ja sam Mehmed Muric — gradim pouzdane, skalabilne aplikacije uz moderan frontend, solidnu backend arhitekturu i jasan UX.",
+        "Od poslovnih sajtova do prilagođenih aplikacija, fokusiram se na čistu arhitekturu, merljive performanse i proizvode koji izdrže posle lansiranja.",
+        "Baziran u Novom Pazaru, Srbija, i otvoren za freelance projekte i duže saradnje."
+      ],
+      "ctaProjects": "Pogledaj projekte",
+      "ctaContact": "Započni projekat"
+    },
+    "coreValues": {
+      "title": "Kako radim",
+      "paragraph": "Principi iza načina na koji pristupam problemima proizvoda, tehničkim odlukama i dugoročnoj saradnji.",
+      "values": [
+        {
+          "title": "Jasnoća pre složenosti",
+          "description": "Arhitekture držim razumljivim, interfejse namernim, a odluke vezanim za stvarne ishode proizvoda."
+        },
+        {
+          "title": "Inženjerstvo usmereno na korisnika",
+          "description": "Performanse, pristupačnost i upotrebljivost su deo proizvoda — ne poliranje na kraju."
+        },
+        {
+          "title": "Isporuci, uči, unapredi",
+          "description": "Gradim za lansiranje, zatim iteriram na osnovu povratnih informacija — da proizvodi ostanu korisni kako se zahtevi menjaju."
+        },
+        {
+          "title": "Transparentna saradnja",
+          "description": "Jasna komunikacija, iskreni kompromisi i dokumentacija koja olakšava predaju i budući rad."
+        }
+      ]
+    },
+    "timeline": {
+      "title": "Put",
+      "paragraph": "Od ranih tehničkih temelja do isporuke produkcionih web proizvoda.",
+      "items": [
+        {
+          "year": "2019–2023",
+          "title": "Tehnička škola, informacione tehnologije",
+          "description": "Diplomirao kao tehničar informacionih tehnologija, spajajući hardver i softver uz jake osnove u mrežama i ranom skriptovanju."
+        },
+        {
+          "year": "2023–danas",
+          "title": "Univerzitet u Novom Pazaru",
+          "description": "Student računarskih nauka fokusiran na algoritme, sistemsku arhitekturu i moderni web inženjering — primenjujući teoriju na aplikacije produkcionog nivoa."
+        },
+        {
+          "year": "2023–2024",
+          "title": "Freelancer i tech konsultant",
+          "description": "Isporučio prilagođena rešenja za startup-e i biznise. Jačao iskustvo kroz životne cikluse projekata, dokumentaciju i održive predaje."
+        },
+        {
+          "year": "2024–danas",
+          "title": "Full-Stack Software Engineer",
+          "description": "Gradim i isporučujem produkcione web i mobilne proizvode uz React, Next.js, Node.js i TypeScript — uz stalan fokus na kvalitet, testiranje i performanse."
+        }
+      ]
+    },
+    "techStack": {
+      "title": "Tehnologije koje koristim",
+      "paragraph": "Stek iza proizvoda koje dizajniram, gradim i isporučujem."
+    },
+    "cta": {
+      "title": "Hajde da gradimo nešto što traje.",
+      "paragraph": "Tražite Full-Stack Developera za poslovni sajt, prilagođenu aplikaciju ili saradnju na proizvodu? Obično odgovaram u roku od 24 sata.",
+      "button": "Započni projekat"
+    }
+  },
+  "testimonials": {
+    "breadcrumb": "Utisci",
+    "description": "Povratne informacije klijenata i saradnika.",
+    "title": "Šta ljudi kažu",
+    "subtitle": "Stvarni utisci ljudi sa kojima sam radio. Bez praznih fraza.",
+    "emptyTitle": "Još nema utisaka",
+    "emptyDescription": "Budite prvi koji će podeliti iskustvo zajedničkog rada.",
+    "clientFallback": "Klijent",
+    "formTitle": "Podelite svoje iskustvo",
+    "formSubtitle": "Vaš utisak pomaže drugima da razumeju kako radim.",
+    "nameLabel": "Ime",
+    "namePlaceholder": "Vaše ime",
+    "roleLabel": "Uloga (opciono)",
+    "rolePlaceholder": "npr. Osnivač, Product Manager",
+    "commentLabel": "Vaš utisak",
+    "commentPlaceholder": "Kako je bilo raditi zajedno?",
+    "imageLabel": "Fotografija (opciono)",
+    "imageHint": "JPG ili PNG, max 2MB",
+    "submit": "Pošalji utisak",
+    "submitting": "Slanje...",
+    "successMessage": "Hvala — vaš utisak je poslat.",
+    "errorMessage": "Nešto nije u redu. Pokušajte ponovo.",
+    "previous": "Prethodni utisak",
+    "next": "Sledeći utisak",
+    "loading": "Učitavanje utisaka...",
+    "ratingAria": "Ocena: {rating} od 5 zvezdica"
+  },
+  "legal": {
+    "privacy": {
+      "breadcrumb": "Politika privatnosti",
+      "title": "Politika privatnosti",
+      "lastUpdated": "Poslednje ažuriranje: jul 2025.",
+      "sections": {
+        "intro": {
+          "title": "Uvod",
+          "content": "Tvoja privatnost je važna. Ova stranica objašnjava koje informacije mogu biti prikupljene tokom korišćenja mog portfolio sajta i kako se koriste. Korišćenjem sajta prihvataš ovu politiku."
+        },
+        "informationCollection": {
+          "title": "Prikupljanje informacija",
+          "personalData": "Lični podaci — Prikupljaju se samo ako ih dobrovoljno pošalješ putem kontakt forme (ime, email, poruka).",
+          "automaticData": "Automatski podaci — Kao i većina sajtova, ovaj portfolio može koristiti osnovne analitike (npr. Google Analytics) koje prikupljaju anonimne informacije kao što su IP adresa, tip pregledača i vreme posete."
+        },
+        "useOfInformation": {
+          "title": "Upotreba informacija",
+          "content": "Informacije se koriste za odgovaranje na poruke poslate putem kontakt forme i za razumevanje kako posetioci koriste sajt, kako bi se sadržaj i funkcionalnost poboljšali."
+        },
+        "dataSharing": {
+          "title": "Deljenje podataka",
+          "content": "Tvoji lični podaci se ne dele sa trećim stranama i ne koriste se u marketinške svrhe."
+        },
+        "cookies": {
+          "title": "Kolačići",
+          "content": "Ovaj sajt može koristiti kolačiće za osnovnu funkcionalnost i analitiku. Kolačiće možeš isključiti u podešavanjima pregledača u bilo kom trenutku."
+        },
+        "security": {
+          "title": "Bezbednost",
+          "content": "Preduzimaju se razumne mere radi zaštite tvojih podataka, ali imaj u vidu da nijedan prenos preko interneta nije 100% bezbedan."
+        },
+        "yourRights": {
+          "title": "Tvoja prava",
+          "content": "Možeš u bilo kom trenutku zatražiti brisanje ličnih podataka koje si poslao/la putem kontakt forme."
+        },
+        "contact": {
+          "title": "Kontakt",
+          "content": "Za sva pitanja u vezi sa privatnošću, slobodno me kontaktiraj putem email adrese navedene na ovom sajtu."
+        }
+      }
+    },
+    "terms": {
+      "breadcrumb": "Uslovi korišćenja",
+      "title": "Uslovi korišćenja",
+      "lastUpdated": "Poslednje ažuriranje: jul 2025.",
+      "sections": {
+        "intro": {
+          "title": "Uvod",
+          "content": "Pristupanjem i korišćenjem ovog portfolio sajta prihvataš da se pridržavaš sledećih uslova. Ako se ne slažeš sa ovim uslovima, molim te da ne koristiš sajt."
+        },
+        "acceptance": {
+          "title": "Prihvatanje uslova",
+          "content": "Nastavak korišćenja ovog sajta predstavlja prihvatanje ovih Uslova korišćenja i eventualnih budućih ažuriranja objavljenih na ovoj stranici."
+        },
+        "useOfWebsite": {
+          "title": "Korišćenje sajta",
+          "content": "Slažeš se da sajt koristiš samo u zakonite svrhe. Ne smeš pokušavati da ometaš rad sajta, zloupotrebljavaš forme, masovno preuzimaš sadržaj ili ometaš normalan rad."
+        },
+        "intellectualProperty": {
+          "title": "Intelektualna svojina",
+          "content": "Sav sadržaj na ovom sajtu, uključujući tekst, isečke koda, slike i projekte, dat je u informativne i portfolio svrhe. Ne smeš kopirati, redistribuirati ili koristiti sadržaj bez prethodne dozvole."
+        },
+        "disclaimer": {
+          "title": "Odricanje od odgovornosti",
+          "content": "Trudim se da informacije budu ažurne i tačne, ali ne garantujem potpunost, pouzdanost ili pogodnost bilo kog sadržaja za određene svrhe. Eksterni linkovi mogu voditi ka sajtovima trećih strana za koje nisam odgovoran."
+        },
+        "limitation": {
+          "title": "Ograničenje odgovornosti",
+          "content": "Ne snosim odgovornost za bilo kakvu direktnu, indirektnu ili posledičnu štetu nastalu korišćenjem ovog sajta, uključujući oslanjanje na njegov sadržaj ili tehničke probleme."
+        },
+        "contact": {
+          "title": "Kontakt",
+          "content": "Ako imaš pitanja u vezi sa ovim Uslovima korišćenja, kontaktiraj me putem email adrese navedene na ovom sajtu."
+        }
+      }
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Mehmed Murić | Full-Stack Developer za moderne web aplikacije",
+      "description": "Full-Stack Developer specijalizovan za Next.js, TypeScript i skalabilne web aplikacije. Gradim moderne digitalne proizvode sa čistom arhitekturom i odličnim korisničkim iskustvom.",
+      "keywords": [
+        "Full Stack Developer Srbija",
+        "Next.js Developer",
+        "TypeScript Developer",
+        "Razvoj web aplikacija",
+        "React Developer",
+        "Frontend Engineer",
+        "Prilagođene web aplikacije",
+        "AI integracija",
+        "Mehmed Murić",
+        "Novi Pazar Developer"
+      ]
+    },
+    "about": {
+      "title": "O meni",
+      "description": "Saznajte više o Mehmedu Muriću — Full-Stack Developer koji gradi moderne web aplikacije sa Next.js, TypeScript-om i skalabilnom arhitekturom."
+    },
+    "projects": {
+      "title": "Projekti",
+      "description": "Studije slučaja i projekti Mehmeda Murića — poslovni sajtovi, interfejsi proizvoda i prilagođene web aplikacije."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "description": "Započnite projekat sa Mehmedom Murićem. Full-Stack Developer u Novom Pazaru, Srbija — obično odgovara u roku od 24 sata."
+    },
+    "testimonials": {
+      "title": "Utisci",
+      "description": "Povratne informacije klijenata i saradnika za Mehmeda Murića, Full-Stack Developera."
+    },
+    "privacy": {
+      "title": "Politika privatnosti",
+      "description": "Politika privatnosti za mehmedmuric.com — kako se informacije prikupljaju i koriste."
+    },
+    "terms": {
+      "title": "Uslovi korišćenja",
+      "description": "Uslovi korišćenja portfolio sajta mehmedmuric.com."
+    },
+    "jsonLd": {
+      "jobTitle": "Full-Stack Developer",
+      "personDescription": "Full-Stack Developer specijalizovan za Next.js, TypeScript i skalabilne web aplikacije. Gradim moderne digitalne proizvode sa čistom arhitekturom i odličnim korisničkim iskustvom.",
+      "websiteDescription": "Lični brend sajt Mehmeda Murića — Full-Stack Developer koji gradi moderne digitalne proizvode sa Next.js i TypeScript-om.",
+      "knowsAbout": [
+        "Full-Stack razvoj",
+        "Next.js",
+        "TypeScript",
+        "React",
+        "Node.js",
+        "Prisma",
+        "MongoDB",
+        "Razvoj web aplikacija",
+        "UI inženjerstvo",
+        "Optimizacija performansi",
+        "AI integracija"
+      ]
+    }
+  },
+  "common": {
+    "loading": "Učitavanje...",
+    "error": "Nešto nije u redu",
+    "notFound": "Stranica nije pronađena",
+    "notFoundDescription": "Stranica koju tražite ne postoji ili je premeštena.",
+    "backHome": "Nazad na početnu",
+    "learnMore": "Saznaj više",
+    "breadcrumb": "Putanja",
+    "tableOfContents": "Sadržaj",
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "filterTechnologies": "Filtriraj tehnologije",
+    "advancedProficiency": "Napredni nivo",
+    "shareCaseStudy": "Podeli ovu studiju slučaja",
+    "shareLinkedIn": "Podeli na LinkedIn-u",
+    "shareInstagram": "Podeli na Instagramu",
+    "shareFacebook": "Podeli na Facebooku",
+    "selectLanguage": "Izaberi jezik",
+    "navigationLabel": "Navigacija",
+    "lastUpdated": "Poslednje ažuriranje: {date}",
+    "endOfDocument": "Kraj dokumenta",
+    "scrollToTop": "Nazad na vrh",
+    "letsTalk": "Hajde da pričamo"
+  },
+  "blog": {
+    "title": "Istaknuti radovi",
+    "paragraph": "Odabrane studije slučaja koje pokazuju inženjerske odluke — izazov, rešenje, tehnologija i rezultat.",
+    "readMore": "Pogledaj studiju slučaja",
+    "viewAll": "Istraži sve projekte",
+    "featuredLabel": "Istaknuti projekat",
+    "moreProjects": "Još projekata",
+    "selectedCaseStudies": "Odabrane studije slučaja",
+    "challengeLabel": "Izazov",
+    "solutionLabel": "Rešenje",
+    "outcomeLabel": "Ishod",
+    "techLabel": "Tehnologija",
+    "liveDemo": "Live demo",
+    "source": "Izvor"
+  }
+}

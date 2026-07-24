@@ -27,12 +27,11 @@ const FeatureCard = ({ feature, index }: FeatureCardProps) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.5, delay: index * 0.1, ease: "easeOut" }}
-            className="group relative rounded-2xl border border-white/5 bg-zinc-900/40 hover:bg-zinc-900/60 transition-all duration-500 overflow-hidden hover:-translate-y-1 hover:shadow-2xl hover:shadow-primary/5"
+            className="group relative overflow-hidden rounded-2xl border border-white/5 bg-zinc-900/40 transition-all duration-500 hover:bg-zinc-900/60 hover:shadow-2xl hover:shadow-primary/5 active:border-primary/25 active:bg-zinc-900/60 md:hover:-translate-y-1"
             onMouseMove={handleMouseMove}
         >
-            {/* Hover Spotlight Effect - Enhanced */}
             <motion.div
-                className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-500 group-hover:opacity-100"
+                className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-500 group-hover:opacity-100 max-md:hidden"
                 style={{
                     background: useMotionTemplate`
             radial-gradient(
@@ -44,27 +43,23 @@ const FeatureCard = ({ feature, index }: FeatureCardProps) => {
                 }}
             />
 
-            {/* Content Container */}
-            <div className="relative h-full flex flex-col p-6 sm:p-8 z-10">
-                {/* Icon Header with Glow */}
-                <div className="mb-6 relative w-12 h-12 flex items-center justify-center">
-                    <div className="absolute inset-0 bg-primary/20 blur-xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="relative z-10 w-full h-full rounded-xl bg-gradient-to-br from-primary/10 to-primary/5 border border-primary/20 flex items-center justify-center group-hover:scale-110 group-hover:border-primary/40 transition-all duration-500 ease-out">
-                        <Icon className="w-6 h-6 text-primary" strokeWidth={1.5} />
+            <div className="relative z-10 flex h-full flex-col p-5 sm:p-8">
+                <div className="relative mb-5 flex h-12 w-12 items-center justify-center sm:mb-6">
+                    <div className="absolute inset-0 rounded-full bg-primary/20 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100 group-active:opacity-100" />
+                    <div className="relative z-10 flex h-full w-full items-center justify-center rounded-xl border border-primary/20 bg-gradient-to-br from-primary/10 to-primary/5 transition-all duration-500 ease-out group-hover:scale-110 group-hover:border-primary/40 group-active:border-primary/40">
+                        <Icon className="h-6 w-6 text-primary" strokeWidth={1.5} />
                     </div>
                 </div>
 
-                {/* Content */}
-                <h3 className="text-xl font-bold text-foreground mb-3 tracking-tight group-hover:text-primary transition-colors duration-300">
+                <h3 className="mb-2 text-lg font-bold tracking-tight text-foreground transition-colors duration-300 group-hover:text-primary group-active:text-primary sm:mb-3 sm:text-xl">
                     {title}
                 </h3>
 
-                <p className="text-muted-foreground leading-relaxed text-sm sm:text-base flex-grow font-medium">
+                <p className="flex-grow text-sm font-medium leading-relaxed text-muted-foreground sm:text-base">
                     {paragraph}
                 </p>
 
-                {/* Bottom Active Border */}
-                <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-primary/50 to-transparent scale-x-0 group-hover:scale-x-100 transition-transform duration-700 ease-out origin-center opacity-0 group-hover:opacity-100" />
+                <div className="absolute bottom-0 left-0 right-0 h-[2px] origin-center scale-x-0 bg-gradient-to-r from-transparent via-primary/50 to-transparent opacity-0 transition-transform duration-700 ease-out group-hover:scale-x-100 group-hover:opacity-100 group-active:scale-x-100 group-active:opacity-100" />
             </div>
         </motion.div>
     );

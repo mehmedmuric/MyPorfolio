@@ -1,0 +1,648 @@
+{
+  "navigation": {
+    "home": "Startseite",
+    "projects": "Projekte",
+    "about": "Über mich",
+    "contact": "Kontakt",
+    "testimonials": "Referenzen",
+    "startProject": "Projekt starten",
+    "skipToContent": "Zum Inhalt springen",
+    "openMenu": "Menü öffnen",
+    "closeMenu": "Menü schließen",
+    "primaryNav": "Hauptnavigation",
+    "mobileNav": "Mobile Navigation",
+    "homeAria": "Mehmed Muric — Startseite",
+    "contactAria": "Kontakt",
+    "language": "Sprache"
+  },
+  "hero": {
+    "available": "Verfügbar für Freelance & Zusammenarbeiten",
+    "name": "Mehmed Muric",
+    "role": "Full-Stack Entwickler",
+    "headlineLine1": "Ich baue moderne",
+    "headlineHighlight": "digitale Produkte",
+    "subtitle": "Next.js, TypeScript und skalierbare Apps — von der Idee bis zur Produktion mit klarer Architektur.",
+    "viewProjects": "Projekte ansehen",
+    "startProject": "Projekt starten",
+    "downloadCv": "CV herunterladen",
+    "stackLabel": "Stack",
+    "explore": "Entdecken",
+    "scrollAria": "Zum nächsten Abschnitt scrollen",
+    "introAria": "Einführung",
+    "imageAlt": "Mehmed Muric — Full-Stack Entwickler aus Novi Pazar, Serbien",
+    "focusBadgeLabel": "Fokus",
+    "focusBadgeValue": "Full-Stack",
+    "basedInLabel": "Standort",
+    "basedInValue": "Novi Pazar"
+  },
+  "trustSignals": {
+    "ariaLabel": "Vertrauenssignale",
+    "experienceLabel": "Erfahrung",
+    "experienceValue": "Seit 2019",
+    "focusLabel": "Fokus",
+    "focusValue": "Produktionsapps",
+    "locationLabel": "Standort",
+    "locationValue": "Novi Pazar, Serbien",
+    "availabilityLabel": "Verfügbarkeit",
+    "availabilityValue": "Offen für Projekte"
+  },
+  "capabilities": {
+    "title": "Was ich baue",
+    "paragraph": "Pragmatisches Engineering für Produkte, die funktionieren müssen — klare Interfaces, stabile Backends und Raum zum Wachsen.",
+    "items": [
+      {
+        "title": "Full-Stack Entwicklung",
+        "paragraph": "End-to-End-Produktengineering — von Interface und Nutzerflüssen bis zu APIs, Datenmodellen und Deployment."
+      },
+      {
+        "title": "Moderne Webanwendungen",
+        "paragraph": "Schnelle, skalierbare Anwendungen mit Next.js, TypeScript und produktionsreifer Architektur für Wachstum."
+      },
+      {
+        "title": "UI Engineering",
+        "paragraph": "Interfaces mit klarer Hierarchie, responsiven Layouts und Erlebnissen, die Menschen gerne nutzen."
+      },
+      {
+        "title": "Backend-Architektur",
+        "paragraph": "Zuverlässige serverseitige Grundlagen mit klarem Datenfluss, sicheren Mustern und Systemen, die wartbar bleiben."
+      },
+      {
+        "title": "Performance-Optimierung",
+        "paragraph": "Geschwindigkeit, Core Web Vitals und SEO als Produktfeatures — nicht als Nachgedanke."
+      },
+      {
+        "title": "AI-Integration",
+        "paragraph": "Praktische AI-Funktionen in realen Workflows — Assistenten, Automatisierung und intelligentere Produkterlebnisse."
+      }
+    ]
+  },
+  "technologies": {
+    "title": "Mit modernen Technologien",
+    "paragraph": "Ein fokussierter Stack für zuverlässige Webprodukte — von Interfaces und APIs bis zu Daten und AI-gestützten Workflows.",
+    "coreStackAria": "Kern-Technologie-Stack",
+    "categories": {
+      "all": "Alle",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tools": "Tools",
+      "database": "Datenbank",
+      "cloud": "Cloud"
+    },
+    "labels": {
+      "aiIntegration": "KI-Integration"
+    }
+  },
+  "certifications": {
+    "title": "Zertifikate & Auszeichnungen",
+    "paragraph": "Berufliche Nachweise für Expertise in modernen Webtechnologien und Cloud-Infrastruktur.",
+    "issued": "Ausgestellt {date}",
+    "viewCertificate": "Zertifikat ansehen",
+    "comingSoon": "Demnächst",
+    "items": {
+      "1": {
+        "description": "Umfassender Kurs zu Python-Grundlagen und fortgeschrittenen Themen."
+      },
+      "2": {
+        "description": "Modernes JavaScript, ES6+ und praxisnahe Webentwicklung."
+      },
+      "3": {
+        "description": "Moderne Web-Apps mit React, wiederverwendbaren Komponenten und Hooks."
+      }
+    }
+  },
+  "about": {
+    "title": "Full-Stack Entwickler für moderne digitale Produkte",
+    "paragraph": "Ich entwerfe und entwickle zuverlässige Webanwendungen mit Fokus auf Performance, Skalierbarkeit und durchdachter User Experience. Meine Arbeit verbindet Frontend-Handwerk, Backend-Architektur und klares Produktdenken.",
+    "imageAlt": "Illustration zur Full-Stack-Webanwendungsentwicklung von Mehmed Muric",
+    "experienceLabel": "Erfahrung",
+    "experienceValue": "Seit 2019",
+    "focusLabel": "Fokus",
+    "focusValue": "Produktionsapps",
+    "clientsLabel": "Kundenfertige Arbeit",
+    "features": [
+      {
+        "title": "Produktorientiertes Engineering",
+        "description": "Ich baue mit Geschäftsergebnissen im Blick — klares UX, wartbarer Code und Systeme, die mit Ihrem Produkt wachsen."
+      },
+      {
+        "title": "Next.js & TypeScript",
+        "description": "Moderne Webanwendungen mit React, Next.js, TypeScript und Produktionsmustern, die schnell und suchbar bleiben."
+      },
+      {
+        "title": "Partnerschaft nach dem Launch",
+        "description": "Mehr als Lieferung: Iteration, Support und Verbesserungen, damit Ihr Produkt in der Praxis weiter performt."
+      }
+    ],
+    "viewProjects": "Projekte ansehen",
+    "ctaContact": "Haben Sie ein Projekt im Sinn?"
+  },
+  "howIWork": {
+    "title": "So arbeite ich",
+    "paragraph": "Ein klarer Zusammenarbeitsprozess — damit Sie immer wissen, was als Nächstes kommt und warum es zählt.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Discovery",
+        "description": "Verständnis für Ziele, Nutzer und Geschäftsanforderungen, bevor eine einzige Zeile Code geschrieben wird."
+      },
+      {
+        "number": "02",
+        "title": "Planung",
+        "description": "Definition von Architektur, Nutzerflüssen und technischer Richtung, damit der Build fokussiert und skalierbar bleibt."
+      },
+      {
+        "number": "03",
+        "title": "Entwicklung",
+        "description": "Wartbare Lösungen mit klarer Struktur, durchdachtem UX und produktionsreifen Standards."
+      },
+      {
+        "number": "04",
+        "title": "Optimierung",
+        "description": "Verbesserung von Performance, Zuverlässigkeit und Wachstumsbereitschaft nach dem Launch — nicht nur davor."
+      }
+    ]
+  },
+  "contact": {
+    "sectionTitle": "Haben Sie ein Projekt im Sinn?",
+    "sectionParagraph": "Lassen Sie uns Ihre Idee besprechen und die beste technische Lösung finden.",
+    "eyebrow": "Gespräch starten",
+    "heading": "Erzählen Sie mir, was Sie bauen",
+    "description": "Teilen Sie Ziele, Zeitplan und Rahmenbedingungen. Ich helfe, den technischen Ansatz und die nächsten Schritte zu klären — in der Regel innerhalb von 24 Stunden.",
+    "emailLabel": "E-Mail",
+    "locationLabel": "Standort",
+    "locationValue": "Novi Pazar, Serbien",
+    "availabilityLabel": "Verfügbarkeit",
+    "availabilityValue": "Offen für Projekte",
+    "responseLabel": "Antwort",
+    "responseValue": "Meist innerhalb von 24 Stunden",
+    "connectLabel": "Vernetzen",
+    "availableForTitle": "Verfügbar für",
+    "availableFor": [
+      "Freelance-Projekte",
+      "Zusammenarbeiten",
+      "Individuelle Anwendungen"
+    ],
+    "availableFooter": "Novi Pazar, Serbien · Meist innerhalb von 24 Stunden",
+    "formHint": "Nennen Sie Ziele, Zeitplan und ggf. Links oder Referenzen. Klarer Kontext hilft mir, mit einer sinnvollen technischen Richtung zu antworten.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Ihr Name",
+    "emailLabelField": "E-Mail",
+    "emailPlaceholder": "sie@firma.com",
+    "messageLabel": "Projektdetails",
+    "messagePlaceholder": "Was bauen Sie? Wie sieht Erfolg aus?",
+    "sendMessage": "Nachricht senden",
+    "sending": "Wird gesendet...",
+    "successTitle": "Nachricht erhalten",
+    "successMessage": "Danke für Ihre Nachricht. Ich melde mich in Kürze.",
+    "sendAnother": "Weitere Nachricht senden",
+    "errorSend": "Beim Senden Ihrer Nachricht ist etwas schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie mir direkt.",
+    "githubProfile": "GitHub-Profil",
+    "linkedinProfile": "LinkedIn-Profil",
+    "twitterProfile": "Twitter-Profil",
+    "validation": {
+      "nameRequired": "Bitte geben Sie Ihren Namen ein.",
+      "nameMin": "Der Name sollte mindestens 2 Zeichen haben.",
+      "emailRequired": "Bitte geben Sie Ihre E-Mail ein.",
+      "emailInvalid": "Bitte geben Sie eine gültige E-Mail-Adresse ein.",
+      "messageRequired": "Bitte teilen Sie eine kurze Projektbeschreibung.",
+      "messageMin": "Etwas mehr Detail hilft — idealerweise ein kurzer Absatz.",
+      "fixFields": "Bitte korrigieren Sie die markierten Felder und versuchen Sie es erneut."
+    }
+  },
+  "footer": {
+    "tagline": "Moderne digitale Produkte mit klarer Architektur, durchdachtem Design und skalierbarer Technologie.",
+    "location": "Novi Pazar, Serbien",
+    "navTitle": "Navigation",
+    "legalTitle": "Rechtliches",
+    "getInTouchTitle": "Kontakt",
+    "availableReply": "Verfügbar für Projekte · Antwort innerhalb von 24h",
+    "copyright": "© {year} Mehmed Muric. Alle Rechte vorbehalten.",
+    "builtWith": "Gestaltet & gebaut mit Next.js",
+    "backToTop": "Nach oben",
+    "privacyPolicy": "Datenschutzerklärung",
+    "termsOfUse": "Nutzungsbedingungen",
+    "nav": {
+      "home": "Startseite",
+      "projects": "Projekte",
+      "about": "Über mich",
+      "testimonials": "Referenzen",
+      "contact": "Kontakt"
+    }
+  },
+  "projects": {
+    "eyebrow": "Portfolio",
+    "titleBefore": "Arbeit, die ausgeliefert wird &",
+    "titleHighlight": "skaliert",
+    "description": "Fallstudien zu Unternehmenswebsites, Produktinterfaces und individuellen Webanwendungen — gebaut mit Next.js, React und TypeScript.",
+    "filterAll": "Alle",
+    "filterFeatured": "Highlights",
+    "emptyState": "Keine Projekte passen zu diesem Filter.",
+    "liveDemo": "Live-Demo",
+    "viewCaseStudy": "Fallstudie",
+    "sourceCode": "Quellcode",
+    "loading": "Projekte werden geladen...",
+    "searchPlaceholder": "Projekte suchen...",
+    "searchAria": "Projekte suchen",
+    "clearSearch": "Suche löschen",
+    "filterAria": "Nach Kategorie filtern"
+  },
+  "caseStudies": {
+    "1": {
+      "title": "AG Gradnja – Website für ein Bauunternehmen",
+      "valueProposition": "Eine mehrsprachige Unternehmenswebsite, die Baudienstleistungen klar darstellt und Besucher in Kunden verwandelt.",
+      "paragraph": "Eine mehrsprachige Unternehmenswebsite, die Baudienstleistungen klar darstellt und Besucher in Kunden verwandelt.",
+      "challenge": "Das Unternehmen brauchte eine professionelle Online-Präsenz, die Glaubwürdigkeit über Märkte hinweg kommuniziert, abgeschlossene Arbeiten zeigt und für lokalen sowie internationalen Suchverkehr gut performt.",
+      "solution": "Produktionswebsite in Next.js mit klarer Servicestruktur, Projektgalerie, Mehrsprachigkeit (SR, EN, DE, TR, AR), Bildoptimierung und SEO-tauglicher Seitenarchitektur.",
+      "outcome": "Eine schnelle, skalierbare Marketing-Site, die Markenvertrauen stärkt und AG Gradnja eine klare digitale Basis für Wachstum gibt.",
+      "keyFeatures": [
+        "Mehrsprachige Site-Struktur (SR, EN, DE, TR, AR)",
+        "Projektgalerie mit optimierten Bildern",
+        "SEO-taugliche Seitenarchitektur",
+        "Responsive Layouts für Mobile und Desktop",
+        "Klare Servicepräsentation für Conversion"
+      ],
+      "paragraph2": "Für den Produktionsbetrieb gebaut — mit responsiven Layouts, klarer Informationsarchitektur und performance-orientierten Frontend-Mustern, die auf jedem Gerät scharf bleiben.",
+      "seoTitle": "AG Gradnja Bauunternehmen Website | Next.js mehrsprachige Business-Site",
+      "seoDescription": "Fallstudie: mehrsprachige Next.js-Website für AG Gradnja — Baudienstleistungen, Projektpräsentation, SEO und conversion-orientiertes UX von Mehmed Muric.",
+      "imageAlt": "Screenshot der Website des Bauunternehmens AG Gradnja"
+    },
+    "2": {
+      "title": "GPT-3-inspirierte AI-Landingpage",
+      "valueProposition": "Eine conversion-orientierte AI-Produktlandingpage, inspiriert von modernen SaaS-Marketingerlebnissen.",
+      "paragraph": "Eine conversion-orientierte AI-Produktlandingpage, inspiriert von modernen SaaS-Marketingerlebnissen.",
+      "challenge": "AI-Produkte tun sich oft schwer, komplexe Fähigkeiten klar, vertrauenswürdig und visuell einprägsam beim ersten Besuch zu erklären.",
+      "solution": "Responsive React-Landingpage mit strukturierten Storytelling-Abschnitten, starker visueller Hierarchie und UI-Mustern moderner AI-SaaS-Marken.",
+      "outcome": "Ein poliertes Frontend-Showcase für Produktstorytelling, Layout-Handwerk und marketingfähiges UI Engineering.",
+      "keyFeatures": [
+        "Strukturierte SaaS-Storytelling-Abschnitte",
+        "Starke visuelle Hierarchie für den Produktnutzen",
+        "Responsives Layout über Breakpoints",
+        "Marketingorientierte UI-Muster"
+      ],
+      "paragraph2": "Fokus auf Inhaltsstruktur, visuellen Rhythmus und responsives Verhalten, damit der Produktnutzen auf Desktop und Mobile schnell klar wird.",
+      "seoTitle": "GPT-3-inspirierte AI-Landingpage | Next.js & React Projekt",
+      "seoDescription": "Fallstudie: GPT-3-inspirierte AI-Landingpage mit React — modernes SaaS-UI, responsives Design und conversion-orientiertes Layout von Mehmed Muric.",
+      "imageAlt": "Screenshot der GPT-3-inspirierten AI-Landingpage"
+    },
+    "3": {
+      "title": "Crypto Web3 Landing Experience",
+      "valueProposition": "Eine Web3-inspirierte Crypto-Landing Experience mit Fokus auf Vertrauen, Klarheit und moderne Interaktionsmuster.",
+      "paragraph": "Eine Web3-inspirierte Crypto-Landing Experience mit Fokus auf Vertrauen, Klarheit und moderne Interaktionsmuster.",
+      "challenge": "Crypto-Produkte müssen Sicherheit und Nutzbarkeit vermitteln, ohne Nutzer mit technischer Komplexität zu überfordern.",
+      "solution": "React-basierte Web3-Landingpage mit Wallet-Connect-Simulation, marktbezogenen Abschnitten und einem UI rund um Zuverlässigkeit und schnelle Interaktionen.",
+      "outcome": "Eine Frontend-Fallstudie, die zeigt, wie Blockchain-Produkte mit klarerem UX und stärkerem visuellem Vertrauen präsentiert werden.",
+      "keyFeatures": [
+        "Wallet-Connect-Interaktionssimulation",
+        "Abschnitte zu Vertrauen und Sicherheit",
+        "Marktorientiertes Produktlayout",
+        "Responsives Web3-inspiriertes UI"
+      ],
+      "paragraph2": "Abschnitte zu Zuverlässigkeit, Sicherheitsbotschaften, Transaktionsfluss-Konzepten und responsiver Präsentation für Crypto-Zielgruppen.",
+      "seoTitle": "Crypto Web3 Landingpage | React Blockchain UI Projekt",
+      "seoDescription": "Fallstudie: Web3-Crypto-Landingpage mit Wallet-Connect-Simulation, modernem React-UI und vertrauensorientiertem UX von Mehmed Muric.",
+      "imageAlt": "Screenshot der Crypto Web3 Landingpage"
+    },
+    "4": {
+      "title": "Restaurant-Landingpage",
+      "valueProposition": "Eine elegante Restaurant-Website, die das Gastronomieerlebnis zeigt und Reservierungen fördert.",
+      "paragraph": "Eine elegante Restaurant-Website, die das Gastronomieerlebnis zeigt und Reservierungen fördert.",
+      "challenge": "Restaurants brauchen eine digitale Präsenz, die einladend wirkt, die Speisekarte klar präsentiert und Reservierung als nächsten Schritt offensichtlich macht.",
+      "solution": "Moderne React- und Tailwind-Landingpage mit Menü-Highlights, Servicebereichen, Referenzen und klarer Call-to-Action für Reservierungen.",
+      "outcome": "Eine raffinierte Hospitality-Website, die Atmosphäre, Nutzbarkeit und Conversion über Geräte hinweg ausbalanciert.",
+      "keyFeatures": [
+        "Menü-Highlights und Gastronomiepräsentation",
+        "Reservierungsorientierte Call-to-Action",
+        "Service- und Atmosphäre-Abschnitte",
+        "Mobilfreundliches Browsing-Erlebnis"
+      ],
+      "paragraph2": "Das Layout priorisiert Speisenpräsentation, Navigationsklarheit und mobilfreundliches Browsing für Gäste, die das Restaurant online entdecken.",
+      "seoTitle": "Restaurant-Landingpage Entwicklung | React & Tailwind Projekt",
+      "seoDescription": "Fallstudie: moderne Restaurant-Landingpage mit Menü-Highlights, Reservierungs-CTA und responsivem React-UI von Mehmed Muric.",
+      "imageAlt": "Screenshot der Restaurant-Landingpage"
+    },
+    "5": {
+      "title": "Fintech Payment Landingpage",
+      "valueProposition": "Eine Fintech-Produktseite, die Vertrauen, Klarheit und moderne Zahlungsmöglichkeiten kommuniziert.",
+      "paragraph": "Eine Fintech-Produktseite, die Vertrauen, Klarheit und moderne Zahlungsmöglichkeiten kommuniziert.",
+      "challenge": "Finanzprodukte müssen sicher und verständlich wirken — und gleichzeitig premium genug, um Nutzervertrauen zu gewinnen.",
+      "solution": "React-Landingpage zu digitalen Zahlungen, Billing-Kontrolle, Rewards und Kundenbelegen mit einem klaren, vertrauensorientierten UI.",
+      "outcome": "Eine professionelle Fintech-Marketingfläche, die starkes UI Engineering für vertrauenssensible Produkte zeigt.",
+      "keyFeatures": [
+        "Messaging zu digitalen Zahlungen und Billing",
+        "Vertrauensorientiertes visuelles Design",
+        "Storytelling zu Features und Belegen",
+        "Responsives Produktmarketing-Layout"
+      ],
+      "paragraph2": "Enthält Produktfeatures, Kundenstatistiken, Billing-Messaging, Referenzen und Partnerpräsentation in einem responsiven Layout.",
+      "seoTitle": "Fintech Payment Landingpage | React UI Fallstudie",
+      "seoDescription": "Fallstudie: Fintech-Payment-Landingpage mit vertrauensorientiertem UI, Feature-Storytelling und responsivem React-Design von Mehmed Muric.",
+      "imageAlt": "Screenshot der Fintech Payment Landingpage"
+    },
+    "6": {
+      "title": "Ecommerce Shop mit Vite + React",
+      "valueProposition": "Ein schneller Ecommerce-Storefront mit Fokus auf Produktentdeckung, Warenkorbfluss und responsives Shopping-UX.",
+      "paragraph": "Ein schneller Ecommerce-Storefront mit Fokus auf Produktentdeckung, Warenkorbfluss und responsives Shopping-UX.",
+      "challenge": "Online-Shops brauchen flüssiges Browsing und Warenkorb-Interaktionen, ohne Geschwindigkeit oder Klarheit auf Mobile zu opfern.",
+      "solution": "Vite + React Ecommerce-Anwendung mit dynamischem Produktkatalog, Add-to-Cart-System, Checkout-Flow und klarem UI für den Alltagseinkauf.",
+      "outcome": "Ein modularer Storefront-Grundstein für praktisches Ecommerce-UX und performante Frontend-Architektur.",
+      "keyFeatures": [
+        "Dynamischer Produktkatalog",
+        "Add-to-Cart und Checkout-Flow",
+        "Responsives Shopping-Erlebnis",
+        "Modulare Frontend-Architektur"
+      ],
+      "paragraph2": "Mit modularen Workflows entwickelt, damit Produktliste, Warenkorbzustand und responsives Layout wartbar bleiben, wenn der Katalog wächst.",
+      "seoTitle": "Ecommerce Shop Entwicklung mit Vite + React | Fallstudie",
+      "seoDescription": "Fallstudie: Vite + React Ecommerce-Shop mit Produktkatalog, Warenkorbfluss, Checkout-UX und responsiver Frontend-Architektur von Mehmed Muric.",
+      "imageAlt": "Screenshot des Ecommerce Shops mit Vite und React"
+    },
+    "authorDesignation": "Full-Stack Entwickler",
+    "page": {
+      "breadcrumb": "Fallstudie",
+      "challengeLabel": "Herausforderung",
+      "solutionLabel": "Lösung",
+      "outcomeLabel": "Ergebnis",
+      "featuresLabel": "Wichtige Funktionen",
+      "techLabel": "Technologien",
+      "backToProjects": "Zurück zu den Projekten",
+      "liveDemo": "Live-Demo",
+      "viewCode": "Code ansehen"
+    }
+  },
+  "aboutPage": {
+    "breadcrumb": "Über mich",
+    "breadcrumbDescription": "Full-Stack Developer aus Novi Pazar, Serbien — Hintergrund, Werte und der Weg zu produktionsreifen Produkten.",
+    "hero": {
+      "title": "Full-Stack Developer für moderne digitale Produkte",
+      "paragraphs": [
+        "Ich bin Mehmed Muric — ich baue zuverlässige, skalierbare Apps mit modernem Frontend, solider Backend-Architektur und klarem UX.",
+        "Von Unternehmenswebsites bis zu individuellen Anwendungen fokussiere ich mich auf klare Architektur, messbare Performance und Produkte, die nach dem Launch bestehen.",
+        "Ansässig in Novi Pazar, Serbien, und offen für Freelance-Projekte sowie längere Zusammenarbeit."
+      ],
+      "ctaProjects": "Projekte ansehen",
+      "ctaContact": "Projekt starten"
+    },
+    "coreValues": {
+      "title": "So arbeite ich",
+      "paragraph": "Die Prinzipien hinter meinem Umgang mit Produktproblemen, technischen Entscheidungen und langfristiger Zusammenarbeit.",
+      "values": [
+        {
+          "title": "Klarheit vor Komplexität",
+          "description": "Architektur bleibt verständlich, Interfaces absichtlich, Entscheidungen an realen Produktergebnissen ausgerichtet."
+        },
+        {
+          "title": "Nutzerorientiertes Engineering",
+          "description": "Performance, Barrierefreiheit und Usability sind Teil des Produkts — kein Feinschliff am Ende."
+        },
+        {
+          "title": "Shippen, lernen, verbessern",
+          "description": "Ich baue für den Launch und iteriere mit Feedback — damit Produkte nützlich bleiben, wenn Anforderungen sich ändern."
+        },
+        {
+          "title": "Transparente Zusammenarbeit",
+          "description": "Klare Kommunikation, ehrliche Trade-offs und Dokumentation, die Übergaben und Folgearbeit erleichtert."
+        }
+      ]
+    },
+    "timeline": {
+      "title": "Werdegang",
+      "paragraph": "Von frühen technischen Grundlagen bis zur Auslieferung produktiver Webprodukte.",
+      "items": [
+        {
+          "year": "2019–2023",
+          "title": "Technische Schule, Informationstechnologie",
+          "description": "Abschluss als Informationstechnologie-Techniker mit Fokus auf Hardware und Software, Netzwerken und frühem Scripting."
+        },
+        {
+          "year": "2023–heute",
+          "title": "Universität Novi Pazar",
+          "description": "Informatikstudium mit Fokus auf Algorithmen, Systemarchitektur und modernes Web Engineering — Theorie in produktionsnahe Anwendungen übersetzt."
+        },
+        {
+          "year": "2023–2024",
+          "title": "Freelancer & Tech-Berater",
+          "description": "Maßgeschneiderte Lösungen für Startups und Unternehmen. Erfahrung entlang von Projektlebenszyklen, Dokumentation und wartbaren Übergaben."
+        },
+        {
+          "year": "2024–heute",
+          "title": "Full-Stack Software Engineer",
+          "description": "Aufbau und Auslieferung produktionsreifer Web- und Mobile-Produkte mit React, Next.js, Node.js und TypeScript — mit Fokus auf Qualität, Tests und Performance."
+        }
+      ]
+    },
+    "techStack": {
+      "title": "Technologien, die ich nutze",
+      "paragraph": "Der Stack hinter den Produkten, die ich entwerfe, baue und ausliefere."
+    },
+    "cta": {
+      "title": "Lassen Sie uns etwas bauen, das bleibt.",
+      "paragraph": "Suchen Sie einen Full-Stack Entwickler für eine Unternehmenswebsite, individuelle Anwendung oder Produktzusammenarbeit? Ich antworte meist innerhalb von 24 Stunden.",
+      "button": "Projekt starten"
+    }
+  },
+  "testimonials": {
+    "breadcrumb": "Referenzen",
+    "description": "Feedback von Kunden und Partnern.",
+    "title": "Was andere sagen",
+    "subtitle": "Echtes Feedback von Menschen, mit denen ich gearbeitet habe. Ohne Füllmaterial.",
+    "emptyTitle": "Noch keine Referenzen",
+    "emptyDescription": "Seien Sie die Erste oder der Erste, die oder der die Zusammenarbeit teilt.",
+    "clientFallback": "Kunde",
+    "formTitle": "Teilen Sie Ihre Erfahrung",
+    "formSubtitle": "Ihr Feedback hilft anderen zu verstehen, wie ich arbeite.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Ihr Name",
+    "roleLabel": "Rolle (optional)",
+    "rolePlaceholder": "z. B. Founder, Product Manager",
+    "commentLabel": "Ihre Referenz",
+    "commentPlaceholder": "Wie war die Zusammenarbeit?",
+    "imageLabel": "Foto (optional)",
+    "imageHint": "JPG oder PNG, max. 2MB",
+    "submit": "Referenz absenden",
+    "submitting": "Wird gesendet...",
+    "successMessage": "Danke — Ihre Referenz wurde übermittelt.",
+    "errorMessage": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.",
+    "previous": "Vorherige Referenz",
+    "next": "Nächste Referenz",
+    "loading": "Referenzen werden geladen...",
+    "ratingAria": "Bewertung: {rating} von 5 Sternen"
+  },
+  "legal": {
+    "privacy": {
+      "breadcrumb": "Datenschutzerklärung",
+      "title": "Datenschutzerklärung",
+      "lastUpdated": "Zuletzt aktualisiert: Juli 2025",
+      "sections": {
+        "intro": {
+          "title": "Einleitung",
+          "content": "Ihre Privatsphäre ist wichtig. Diese Seite erklärt, welche Informationen bei der Nutzung meiner Portfolio-Website erfasst werden können und wie sie verwendet werden. Mit der Nutzung der Website erkennen Sie diese Richtlinie an."
+        },
+        "informationCollection": {
+          "title": "Erhebung von Informationen",
+          "personalData": "Personenbezogene Daten — Werden nur erfasst, wenn Sie sie freiwillig über das Kontaktformular übermitteln (Name, E-Mail, Nachricht).",
+          "automaticData": "Automatische Daten — Wie die meisten Websites kann dieses Portfolio grundlegende Analysetools (z. B. Google Analytics) nutzen, die anonyme Informationen wie IP-Adresse, Browsertyp und Besuchszeit erfassen."
+        },
+        "useOfInformation": {
+          "title": "Verwendung von Informationen",
+          "content": "Informationen werden genutzt, um auf Nachrichten über das Kontaktformular zu antworten und zu verstehen, wie Besucher die Website nutzen, um Inhalte und Funktionen zu verbessern."
+        },
+        "dataSharing": {
+          "title": "Weitergabe von Daten",
+          "content": "Ihre personenbezogenen Daten werden nicht an Dritte weitergegeben und nicht für Marketingzwecke verwendet."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "content": "Diese Website kann Cookies für grundlegende Funktionen und Analysen verwenden. Sie können Cookies jederzeit in Ihren Browsereinstellungen deaktivieren."
+        },
+        "security": {
+          "title": "Sicherheit",
+          "content": "Es werden angemessene Maßnahmen zum Schutz Ihrer Daten ergriffen. Bitte beachten Sie jedoch, dass keine Internetübertragung zu 100 % sicher ist."
+        },
+        "yourRights": {
+          "title": "Ihre Rechte",
+          "content": "Sie können jederzeit die Löschung personenbezogener Daten verlangen, die Sie über das Kontaktformular übermittelt haben."
+        },
+        "contact": {
+          "title": "Kontakt",
+          "content": "Bei datenschutzbezogenen Fragen kontaktieren Sie mich gerne über die auf dieser Website angegebene E-Mail-Adresse."
+        }
+      }
+    },
+    "terms": {
+      "breadcrumb": "Nutzungsbedingungen",
+      "title": "Nutzungsbedingungen",
+      "lastUpdated": "Zuletzt aktualisiert: Juli 2025",
+      "sections": {
+        "intro": {
+          "title": "Einleitung",
+          "content": "Durch den Zugriff auf und die Nutzung dieser Portfolio-Website erklären Sie sich mit den folgenden Bedingungen einverstanden. Wenn Sie nicht einverstanden sind, nutzen Sie die Website bitte nicht."
+        },
+        "acceptance": {
+          "title": "Annahme der Bedingungen",
+          "content": "Die fortgesetzte Nutzung dieser Website gilt als Annahme dieser Nutzungsbedingungen und etwaiger späterer Aktualisierungen auf dieser Seite."
+        },
+        "useOfWebsite": {
+          "title": "Nutzung der Website",
+          "content": "Sie verpflichten sich, diese Website nur für rechtmäßige Zwecke zu nutzen. Sie dürfen den Betrieb nicht stören, Formulare missbrauchen, Inhalte massenhaft scrapen oder den normalen Betrieb beeinträchtigen."
+        },
+        "intellectualProperty": {
+          "title": "Geistiges Eigentum",
+          "content": "Alle Inhalte dieser Website, einschließlich Texte, Code-Snippets, Bilder und Projekte, dienen Informations- und Portfoliozwecken. Das Kopieren, Weiterverbreiten oder Nutzen ohne vorherige Genehmigung ist nicht gestattet."
+        },
+        "disclaimer": {
+          "title": "Haftungsausschluss",
+          "content": "Ich bemühe mich um aktuelle und korrekte Informationen, übernehme jedoch keine Garantie für Vollständigkeit, Zuverlässigkeit oder Eignung für bestimmte Zwecke. Externe Links können auf Drittseiten verweisen, für die ich nicht verantwortlich bin."
+        },
+        "limitation": {
+          "title": "Haftungsbeschränkung",
+          "content": "Ich hafte nicht für direkte, indirekte oder Folgeschäden aus der Nutzung dieser Website, einschließlich des Vertrauens auf Inhalte oder technischer Probleme."
+        },
+        "contact": {
+          "title": "Kontakt",
+          "content": "Bei Fragen zu diesen Nutzungsbedingungen kontaktieren Sie mich bitte über die auf dieser Website angegebene E-Mail-Adresse."
+        }
+      }
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Mehmed Muric | Full-Stack Entwickler für moderne Webanwendungen",
+      "description": "Full-Stack Entwickler mit Fokus auf Next.js, TypeScript und skalierbare Webanwendungen. Moderne digitale Produkte mit klarer Architektur und starker User Experience.",
+      "keywords": [
+        "Full Stack Entwickler Serbien",
+        "Next.js Entwickler",
+        "TypeScript Entwickler",
+        "Webanwendungsentwicklung",
+        "React Entwickler",
+        "Frontend Engineer",
+        "Individuelle Webanwendungen",
+        "AI Integration",
+        "Mehmed Muric",
+        "Novi Pazar Entwickler"
+      ]
+    },
+    "about": {
+      "title": "Über mich",
+      "description": "Mehr über Mehmed Muric — Full-Stack Entwickler für moderne Webanwendungen mit Next.js, TypeScript und skalierbarer Architektur."
+    },
+    "projects": {
+      "title": "Projekte",
+      "description": "Fallstudien und Projekte von Mehmed Muric — Unternehmenswebsites, Produktinterfaces und individuelle Webanwendungen."
+    },
+    "contact": {
+      "title": "Kontakt",
+      "description": "Starten Sie ein Projekt mit Mehmed Muric. Full-Stack Entwickler in Novi Pazar, Serbien — antwortet meist innerhalb von 24 Stunden."
+    },
+    "testimonials": {
+      "title": "Referenzen",
+      "description": "Kunden- und Partnerfeedback für Mehmed Muric, Full-Stack Entwickler."
+    },
+    "privacy": {
+      "title": "Datenschutzerklärung",
+      "description": "Datenschutzerklärung für mehmedmuric.com — wie Informationen erhoben und verwendet werden."
+    },
+    "terms": {
+      "title": "Nutzungsbedingungen",
+      "description": "Nutzungsbedingungen der Portfolio-Website mehmedmuric.com."
+    },
+    "jsonLd": {
+      "jobTitle": "Full-Stack Entwickler",
+      "personDescription": "Full-Stack Entwickler mit Fokus auf Next.js, TypeScript und skalierbare Webanwendungen. Moderne digitale Produkte mit klarer Architektur und starker User Experience.",
+      "websiteDescription": "Persönliche Markenwebsite von Mehmed Muric — Full-Stack Entwickler für moderne digitale Produkte mit Next.js und TypeScript.",
+      "knowsAbout": [
+        "Full-Stack Entwicklung",
+        "Next.js",
+        "TypeScript",
+        "React",
+        "Node.js",
+        "Prisma",
+        "MongoDB",
+        "Webanwendungsentwicklung",
+        "UI Engineering",
+        "Performance-Optimierung",
+        "AI Integration"
+      ]
+    }
+  },
+  "common": {
+    "loading": "Wird geladen...",
+    "error": "Etwas ist schiefgelaufen",
+    "notFound": "Seite nicht gefunden",
+    "notFoundDescription": "Die gesuchte Seite existiert nicht oder wurde verschoben.",
+    "backHome": "Zur Startseite",
+    "learnMore": "Mehr erfahren",
+    "breadcrumb": "Brotkrumen",
+    "tableOfContents": "Inhaltsverzeichnis",
+    "email": "E-Mail",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "filterTechnologies": "Technologien filtern",
+    "advancedProficiency": "Fortgeschrittenes Niveau",
+    "shareCaseStudy": "Diese Fallstudie teilen",
+    "shareLinkedIn": "Auf LinkedIn teilen",
+    "shareInstagram": "Auf Instagram teilen",
+    "shareFacebook": "Auf Facebook teilen",
+    "selectLanguage": "Sprache wählen",
+    "navigationLabel": "Navigation",
+    "lastUpdated": "Zuletzt aktualisiert: {date}",
+    "endOfDocument": "Ende des Dokuments",
+    "scrollToTop": "Nach oben",
+    "letsTalk": "Lass uns sprechen"
+  },
+  "blog": {
+    "title": "Ausgewählte Arbeiten",
+    "paragraph": "Ausgewählte Fallstudien mit technischen Entscheidungen — Herausforderung, Lösung, Technologie und Ergebnis.",
+    "readMore": "Case Study ansehen",
+    "viewAll": "Alle Projekte entdecken",
+    "featuredLabel": "Featured-Projekt",
+    "moreProjects": "Weitere Projekte",
+    "selectedCaseStudies": "Ausgewählte Case Studies",
+    "challengeLabel": "Herausforderung",
+    "solutionLabel": "Lösung",
+    "outcomeLabel": "Ergebnis",
+    "techLabel": "Technologie",
+    "liveDemo": "Live-Demo",
+    "source": "Quellcode"
+  }
+}

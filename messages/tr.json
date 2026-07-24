@@ -1,0 +1,648 @@
+{
+  "navigation": {
+    "home": "Ana Sayfa",
+    "projects": "Projeler",
+    "about": "Hakkımda",
+    "contact": "İletişim",
+    "testimonials": "Referanslar",
+    "startProject": "Proje Başlat",
+    "skipToContent": "İçeriğe geç",
+    "openMenu": "Menüyü aç",
+    "closeMenu": "Menüyü kapat",
+    "primaryNav": "Ana navigasyon",
+    "mobileNav": "Mobil navigasyon",
+    "homeAria": "Mehmed Muric — Ana Sayfa",
+    "contactAria": "İletişim",
+    "language": "Dil"
+  },
+  "hero": {
+    "available": "Freelance ve işbirlikleri için müsait",
+    "name": "Mehmed Muric",
+    "role": "Full-Stack Developer",
+    "headlineLine1": "İnşa ediyorum",
+    "headlineHighlight": "modern dijital ürünler",
+    "subtitle": "Next.js, TypeScript ve ölçeklenebilir uygulamalar — temiz mimariyle fikirden üretime.",
+    "viewProjects": "Projeleri Gör",
+    "startProject": "Proje Başlat",
+    "downloadCv": "CV İndir",
+    "stackLabel": "Stack",
+    "explore": "Keşfet",
+    "scrollAria": "Sonraki bölüme kaydır",
+    "introAria": "Giriş",
+    "imageAlt": "Mehmed Muric — Novi Pazar, Sırbistan merkezli Full-Stack Developer",
+    "focusBadgeLabel": "Odak",
+    "focusBadgeValue": "Full-Stack",
+    "basedInLabel": "Konum",
+    "basedInValue": "Novi Pazar"
+  },
+  "trustSignals": {
+    "ariaLabel": "Güven sinyalleri",
+    "experienceLabel": "Deneyim",
+    "experienceValue": "2019'dan beri",
+    "focusLabel": "Odak",
+    "focusValue": "Üretim uygulamaları",
+    "locationLabel": "Konum",
+    "locationValue": "Novi Pazar, Sırbistan",
+    "availabilityLabel": "Müsaitlik",
+    "availabilityValue": "Projelere açık"
+  },
+  "capabilities": {
+    "title": "Ne inşa ediyorum",
+    "paragraph": "Çalışması gereken ürünler için pratik mühendislik — net arayüzler, sağlam backend'ler ve büyüme alanı.",
+    "items": [
+      {
+        "title": "Full-Stack Geliştirme",
+        "paragraph": "Uçtan uca ürün mühendisliği — arayüz ve kullanıcı akışlarından API'lere, veri modellerine ve deploy'a."
+      },
+      {
+        "title": "Modern Web Uygulamaları",
+        "paragraph": "Next.js, TypeScript ve büyüme için hazır üretim mimarisiyle hızlı, ölçeklenebilir uygulamalar."
+      },
+      {
+        "title": "UI Mühendisliği",
+        "paragraph": "Kasıtlı arayüzler — net hiyerarşi, duyarlı layout'lar ve insanların gerçekten keyifle kullandığı deneyimler."
+      },
+      {
+        "title": "Backend Mimarisi",
+        "paragraph": "Temiz veri akışı, güvenli kalıplar ve ölçeklendikçe sürdürülebilir kalan güvenilir sunucu tarafı temelleri."
+      },
+      {
+        "title": "Performans Optimizasyonu",
+        "paragraph": "Hız, Core Web Vitals ve SEO ürün özellikleri olarak ele alınır — sonradan eklenen düşünceler olarak değil."
+      },
+      {
+        "title": "AI Entegrasyonu",
+        "paragraph": "Gerçek iş akışlarına örülmüş pratik AI özellikleri — asistanlar, otomasyon ve daha akıllı ürün deneyimleri."
+      }
+    ]
+  },
+  "technologies": {
+    "title": "Modern teknolojilerle",
+    "paragraph": "Güvenilir web ürünleri için odaklı bir stack — arayüzler ve API'lerden verilere ve AI destekli iş akışlarına.",
+    "coreStackAria": "Temel teknoloji stack'i",
+    "categories": {
+      "all": "Tümü",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "tools": "Araçlar",
+      "database": "Veritabanı",
+      "cloud": "Cloud"
+    },
+    "labels": {
+      "aiIntegration": "AI entegrasyonu"
+    }
+  },
+  "certifications": {
+    "title": "Sertifikalar ve Ödüller",
+    "paragraph": "Modern web teknolojileri ve cloud altyapısındaki uzmanlığı doğrulayan profesyonel kimlik bilgileri.",
+    "issued": "Verildi {date}",
+    "viewCertificate": "Sertifikayı gör",
+    "comingSoon": "Yakında",
+    "items": {
+      "1": {
+        "description": "Python temellerini ve ileri konuları kapsayan kapsamlı kurs."
+      },
+      "2": {
+        "description": "Modern JavaScript, ES6+ ve pratik web geliştirme becerileri."
+      },
+      "3": {
+        "description": "React ile bileşenler ve hooks kullanarak modern web uygulamaları."
+      }
+    }
+  },
+  "about": {
+    "title": "Modern dijital ürünler için Full-Stack Developer",
+    "paragraph": "Performans, ölçeklenebilirlik ve düşünülmüş kullanıcı deneyimine odaklanarak güvenilir web uygulamaları tasarlıyor ve geliştiriyorum. Çalışmam frontend ustalığını, backend mimarisini ve net ürün düşüncesini birleştirir.",
+    "imageAlt": "Mehmed Muric tarafından full-stack web uygulama geliştirmeyi temsil eden illüstrasyon",
+    "experienceLabel": "Deneyim",
+    "experienceValue": "2019'dan beri",
+    "focusLabel": "Odak",
+    "focusValue": "Üretim uygulamaları",
+    "clientsLabel": "Müşteriye hazır iş",
+    "features": [
+      {
+        "title": "Ürün odaklı mühendislik",
+        "description": "İş sonuçlarını düşünerek inşa ederim — net UX, sürdürülebilir kod ve ürününüzle büyüyebilecek sistemler."
+      },
+      {
+        "title": "Next.js & TypeScript",
+        "description": "React, Next.js, TypeScript ve hızlı ile aranabilir kalan üretim kalıplarıyla modern web uygulamaları."
+      },
+      {
+        "title": "Lansman sonrası ortaklık",
+        "description": "Teslimattan ötesi: ürününüz gerçek dünyada performans göstermeye devam etsin diye iterasyon, destek ve iyileştirmeler."
+      }
+    ],
+    "viewProjects": "Projeleri Gör",
+    "ctaContact": "Aklınızda bir proje mi var?"
+  },
+  "howIWork": {
+    "title": "Nasıl çalışırım",
+    "paragraph": "Net bir işbirliği süreci — her zaman sırada ne olduğunu ve neden önemli olduğunu bilirsiniz.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Keşif",
+        "description": "Tek bir satır kod yazılmadan önce hedefleri, kullanıcıları ve iş gereksinimlerini anlamak."
+      },
+      {
+        "number": "02",
+        "title": "Planlama",
+        "description": "Geliştirmenin odaklı ve ölçeklenebilir kalması için mimariyi, kullanıcı akışlarını ve teknik yönü tanımlamak."
+      },
+      {
+        "number": "03",
+        "title": "Geliştirme",
+        "description": "Temiz yapı, düşünülmüş UX ve üretime hazır standartlarla sürdürülebilir çözümler inşa etmek."
+      },
+      {
+        "number": "04",
+        "title": "Optimizasyon",
+        "description": "Lansmandan sonra — yalnızca öncesinde değil — performans, güvenilirlik ve büyüme hazırlığını iyileştirmek."
+      }
+    ]
+  },
+  "contact": {
+    "sectionTitle": "Aklınızda bir proje mi var?",
+    "sectionParagraph": "Fikrinizi konuşalım ve en iyi teknik çözümü bulalım.",
+    "eyebrow": "Sohbete başla",
+    "heading": "Ne inşa ettiğinizi anlatın",
+    "description": "Hedeflerinizi, zaman çizelgenizi ve kısıtlarınızı paylaşın. Teknik yaklaşımı ve sonraki adımları netleştirmeye yardımcı olurum — genellikle 24 saat içinde.",
+    "emailLabel": "E-posta",
+    "locationLabel": "Konum",
+    "locationValue": "Novi Pazar, Sırbistan",
+    "availabilityLabel": "Müsaitlik",
+    "availabilityValue": "Projelere açık",
+    "responseLabel": "Yanıt",
+    "responseValue": "Genellikle 24 saat içinde",
+    "connectLabel": "Bağlan",
+    "availableForTitle": "Müsait olduğum alanlar",
+    "availableFor": [
+      "Freelance projeler",
+      "İşbirlikleri",
+      "Özel uygulamalar"
+    ],
+    "availableFooter": "Novi Pazar, Sırbistan · Genellikle 24 saat içinde",
+    "formHint": "Hedeflerinizi, zaman çizelgenizi ve varsa bağlantı veya referansları ekleyin. Net bağlam, faydalı bir teknik yönle yanıt vermeme yardımcı olur.",
+    "nameLabel": "Ad",
+    "namePlaceholder": "Adınız",
+    "emailLabelField": "E-posta",
+    "emailPlaceholder": "siz@sirket.com",
+    "messageLabel": "Proje detayları",
+    "messagePlaceholder": "Ne inşa ediyorsunuz? Başarı nasıl görünmeli?",
+    "sendMessage": "Mesaj gönder",
+    "sending": "Gönderiliyor...",
+    "successTitle": "Mesaj alındı",
+    "successMessage": "Ulaştığınız için teşekkürler. En kısa sürede dönüş yapacağım.",
+    "sendAnother": "Başka bir mesaj gönder",
+    "errorSend": "Mesajınız gönderilirken bir sorun oluştu. Lütfen tekrar deneyin veya doğrudan e-posta gönderin.",
+    "githubProfile": "GitHub Profili",
+    "linkedinProfile": "LinkedIn Profili",
+    "twitterProfile": "Twitter Profili",
+    "validation": {
+      "nameRequired": "Lütfen adınızı girin.",
+      "nameMin": "Ad en az 2 karakter olmalıdır.",
+      "emailRequired": "Lütfen e-posta adresinizi girin.",
+      "emailInvalid": "Lütfen geçerli bir e-posta adresi girin.",
+      "messageRequired": "Lütfen kısa bir proje özeti paylaşın.",
+      "messageMin": "Biraz daha detay yardımcı olur — en azından kısa bir paragraf hedefleyin.",
+      "fixFields": "Lütfen vurgulanan alanları düzeltip tekrar deneyin."
+    }
+  },
+  "footer": {
+    "tagline": "Temiz mimari, düşünülmüş tasarım ve ölçeklenebilir teknolojiyle modern dijital ürünler inşa ediyorum.",
+    "location": "Novi Pazar, Sırbistan",
+    "navTitle": "Navigasyon",
+    "legalTitle": "Yasal",
+    "getInTouchTitle": "İletişime Geç",
+    "availableReply": "Projelere müsait · 24 saat içinde yanıt",
+    "copyright": "© {year} Mehmed Muric. Tüm hakları saklıdır.",
+    "builtWith": "Next.js ile tasarlandı ve geliştirildi",
+    "backToTop": "Yukarı Dön",
+    "privacyPolicy": "Gizlilik Politikası",
+    "termsOfUse": "Kullanım Koşulları",
+    "nav": {
+      "home": "Ana Sayfa",
+      "projects": "Projeler",
+      "about": "Hakkımda",
+      "testimonials": "Referanslar",
+      "contact": "İletişim"
+    }
+  },
+  "projects": {
+    "eyebrow": "Portföy",
+    "titleBefore": "Teslim edilen ve",
+    "titleHighlight": "ölçeklenen işler",
+    "description": "İş web siteleri, ürün arayüzleri ve özel web uygulamaları üzerine vaka çalışmaları — Next.js, React ve TypeScript ile geliştirildi.",
+    "filterAll": "Tümü",
+    "filterFeatured": "Öne çıkan",
+    "emptyState": "Bu filtreyle eşleşen proje yok.",
+    "liveDemo": "Canlı demo",
+    "viewCaseStudy": "Vaka çalışması",
+    "sourceCode": "Kaynak kodu",
+    "loading": "Projeler yükleniyor...",
+    "searchPlaceholder": "Projelerde ara...",
+    "searchAria": "Projelerde ara",
+    "clearSearch": "Aramayı temizle",
+    "filterAria": "Kategoriye göre filtrele"
+  },
+  "caseStudies": {
+    "1": {
+      "title": "AG Gradnja – İnşaat Şirketi Web Sitesi",
+      "valueProposition": "İnşaat hizmetlerini net sunan ve ziyaretçileri müşteriye dönüştüren çok dilli bir iş web sitesi.",
+      "paragraph": "İnşaat hizmetlerini net sunan ve ziyaretçileri müşteriye dönüştüren çok dilli bir iş web sitesi.",
+      "challenge": "Şirketin pazarlar arasında güvenilirlik iletebilen, tamamlanan işleri sergileyen ve yerel ile uluslararası arama trafiğinde iyi performans gösteren profesyonel bir çevrimiçi varlığa ihtiyacı vardı.",
+      "solution": "Temiz hizmet yapısı, proje galerisi, çok dilli destek (SR, EN, DE, TR, AR), görsel optimizasyonu ve SEO'ya hazır sayfa mimarisiyle Next.js'te üretim web sitesi tasarlandı ve geliştirildi.",
+      "outcome": "Marka güvenini güçlendiren ve AG Gradnja'ya büyüme için net bir dijital temel sunan hızlı, ölçeklenebilir bir pazarlama sitesi.",
+      "keyFeatures": [
+        "Çok dilli site yapısı (SR, EN, DE, TR, AR)",
+        "Optimize görsellerle proje galerisi",
+        "SEO'ya hazır sayfa mimarisi",
+        "Mobil ve masaüstü için duyarlı layout'lar",
+        "Dönüşüm için net hizmet sunumu"
+      ],
+      "paragraph2": "Gerçek dünya üretimi için geliştirildi — duyarlı layout'lar, net bilgi mimarisi ve her cihazda deneyimi keskin tutan performans odaklı frontend kalıplarıyla.",
+      "seoTitle": "AG Gradnja İnşaat Web Sitesi | Next.js Çok Dilli İş Sitesi",
+      "seoDescription": "Vaka çalışması: AG Gradnja için çok dilli Next.js web sitesi — inşaat hizmetleri, proje vitrini, SEO ve dönüşüm odaklı UX, Mehmed Muric.",
+      "imageAlt": "AG Gradnja inşaat şirketi web sitesi ekran görüntüsü"
+    },
+    "2": {
+      "title": "GPT-3 İlhamlı AI Landing Page",
+      "valueProposition": "Modern SaaS pazarlama deneyimlerinden ilham alan, dönüşüm odaklı bir AI ürün landing page'i.",
+      "paragraph": "Modern SaaS pazarlama deneyimlerinden ilham alan, dönüşüm odaklı bir AI ürün landing page'i.",
+      "challenge": "AI ürünleri karmaşık yetenekleri ilk ziyarette net, güvenilir ve görsel olarak akılda kalıcı şekilde açıklamakta çoğu zaman zorlanır.",
+      "solution": "Yapılandırılmış storytelling bölümleri, güçlü görsel hiyerarşi ve modern AI SaaS markalarının kullandığı UI kalıplarıyla duyarlı bir React landing page geliştirildi.",
+      "outcome": "Ürün storytelling'i, layout işçanı ve pazarlamaya hazır UI mühendisliğini gösteren cilalı bir frontend vitrini.",
+      "keyFeatures": [
+        "Yapılandırılmış SaaS tarzı storytelling bölümleri",
+        "Ürün değeri için güçlü görsel hiyerarşi",
+        "Breakpoint'ler boyunca duyarlı layout",
+        "Pazarlama odaklı UI kalıpları"
+      ],
+      "paragraph2": "İçerik yapısı, görsel ritim ve duyarlı davranışa odaklanılarak sayfa, ürün değerini masaüstü ve mobilde hızlıca iletir.",
+      "seoTitle": "GPT-3 İlhamlı AI Landing Page Geliştirme | Next.js & React Projesi",
+      "seoDescription": "Vaka çalışması: React ile geliştirilmiş GPT-3 ilhamlı AI landing page — modern SaaS UI, duyarlı tasarım ve dönüşüm odaklı layout, Mehmed Muric.",
+      "imageAlt": "GPT-3 ilhamlı AI landing page ekran görüntüsü"
+    },
+    "3": {
+      "title": "Crypto Web3 Landing Deneyimi",
+      "valueProposition": "Güven, netlik ve modern etkileşim kalıplarına odaklanan Web3 ilhamlı bir crypto landing deneyimi.",
+      "paragraph": "Güven, netlik ve modern etkileşim kalıplarına odaklanan Web3 ilhamlı bir crypto landing deneyimi.",
+      "challenge": "Crypto ürünlerinin kullanıcıları teknik karmaşıklıkla boğmadan güvenlik ve kullanılabilirliği iletmesi gerekir.",
+      "solution": "Wallet-connect simülasyonu, pazar odaklı bölümler ve güvenilirlik ile hızlı etkileşimler etrafında tasarlanmış UI ile React tabanlı bir Web3 landing page geliştirildi.",
+      "outcome": "Blockchain ürünlerinin daha net UX ve daha güçlü görsel güvenle nasıl sunulacağını gösteren bir frontend vaka çalışması.",
+      "keyFeatures": [
+        "Wallet-connect etkileşim simülasyonu",
+        "Güven ve güvenlik mesajlaşma bölümleri",
+        "Pazar odaklı ürün layout'u",
+        "Duyarlı Web3 ilhamlı UI"
+      ],
+      "paragraph2": "Bölümler güvenilirlik, güvenlik mesajlaşması, işlem akışı kavramları ve crypto odaklı kitleler için duyarlı sunumu kapsar.",
+      "seoTitle": "Crypto Web3 Landing Page | React Blockchain UI Projesi",
+      "seoDescription": "Vaka çalışması: wallet-connect simülasyonu, modern React UI ve güven odaklı UX ile Web3 crypto landing page, Mehmed Muric.",
+      "imageAlt": "Crypto Web3 landing page ekran görüntüsü"
+    },
+    "4": {
+      "title": "Restoran Landing Page",
+      "valueProposition": "Yemek deneyimini sergilemek ve rezervasyonları artırmak için tasarlanmış zarif bir restoran web sitesi.",
+      "paragraph": "Yemek deneyimini sergilemek ve rezervasyonları artırmak için tasarlanmış zarif bir restoran web sitesi.",
+      "challenge": "Restoranların davetkar hisseden, menüyü net sunan ve rezervasyonu bariz sonraki adım yapan bir dijital varlığa ihtiyacı vardır.",
+      "solution": "Menü öne çıkanları, hizmet bölümleri, referanslar ve net rezervasyon odaklı çağrı ile modern bir React ve Tailwind landing page oluşturuldu.",
+      "outcome": "Atmosfer, kullanılabilirlik ve dönüşümü cihazlar arasında dengeleyen rafine bir hospitality web sitesi.",
+      "keyFeatures": [
+        "Menü öne çıkanları ve yemek sunumu",
+        "Rezervasyon odaklı çağrı",
+        "Hizmet ve atmosfer bölümleri",
+        "Mobil uyumlu gezinme deneyimi"
+      ],
+      "paragraph2": "Layout, restoranı çevrimiçi keşfeden misafirler için yemek sunumunu, navigasyon netliğini ve mobil uyumlu gezintiyi önceliklendirir.",
+      "seoTitle": "Restoran Landing Page Geliştirme | React & Tailwind Projesi",
+      "seoDescription": "Vaka çalışması: menü öne çıkanları, rezervasyon CTA'sı ve duyarlı React UI ile modern restoran landing page, Mehmed Muric.",
+      "imageAlt": "Restoran landing page ekran görüntüsü"
+    },
+    "5": {
+      "title": "Fintech Ödeme Landing Page",
+      "valueProposition": "Güven, netlik ve modern ödeme yeteneklerini iletmek için geliştirilmiş bir fintech ürün sayfası.",
+      "paragraph": "Güven, netlik ve modern ödeme yeteneklerini iletmek için geliştirilmiş bir fintech ürün sayfası.",
+      "challenge": "Finansal ürünlerin güvenli ve anlaşılır hissetmesi, aynı zamanda kullanıcı güvenini kazanacak kadar premium görünmesi gerekir.",
+      "solution": "Dijital ödemeler, faturalama kontrolü, ödüller ve müşteri kanıtlarını temiz, güven odaklı bir UI ile vurgulayan bir React landing page tasarlandı ve geliştirildi.",
+      "outcome": "Güvene duyarlı ürünler için güçlü UI mühendisliğini gösteren profesyonel bir fintech pazarlama yüzeyi.",
+      "keyFeatures": [
+        "Dijital ödemeler ve faturalama mesajlaşması",
+        "Güven odaklı görsel tasarım",
+        "Özellik ve kanıt storytelling'i",
+        "Duyarlı ürün pazarlama layout'u"
+      ],
+      "paragraph2": "Ürün özellikleri, müşteri istatistikleri, faturalama mesajlaşması, referanslar ve partner sunumunu duyarlı bir layout içinde içerir.",
+      "seoTitle": "Fintech Ödeme Landing Page | React UI Vaka Çalışması",
+      "seoDescription": "Vaka çalışması: güven odaklı UI, özellik storytelling'i ve duyarlı React tasarımıyla fintech ödeme çözümleri landing page, Mehmed Muric.",
+      "imageAlt": "Fintech ödeme landing page ekran görüntüsü"
+    },
+    "6": {
+      "title": "Vite + React ile Ecommerce Mağaza",
+      "valueProposition": "Ürün keşfi, sepet akışı ve duyarlı alışveriş UX'ine odaklı hızlı bir ecommerce vitrini.",
+      "paragraph": "Ürün keşfi, sepet akışı ve duyarlı alışveriş UX'ine odaklı hızlı bir ecommerce vitrini.",
+      "challenge": "Online mağazaların mobilde hız veya netlikten ödün vermeden akıcı gezinme ve sepet etkileşimlerine ihtiyacı vardır.",
+      "solution": "Dinamik ürün kataloğu, sepete ekleme sistemi, checkout akışı ve günlük alışveriş görevleri için optimize edilmiş temiz UI ile Vite + React ecommerce uygulaması geliştirildi.",
+      "outcome": "Pratik ecommerce UX ve performanslı frontend mimarisini gösteren modüler bir vitrin temeli.",
+      "keyFeatures": [
+        "Dinamik ürün kataloğu",
+        "Sepete ekleme ve checkout akışı",
+        "Duyarlı alışveriş deneyimi",
+        "Modüler frontend mimarisi"
+      ],
+      "paragraph2": "Katalog büyüdükçe ürün listesi, sepet durumu ve duyarlı layout'un sürdürülebilir kalması için modüler bir iş akışıyla geliştirildi.",
+      "seoTitle": "Vite + React ile Ecommerce Mağaza Geliştirme | Vaka Çalışması",
+      "seoDescription": "Vaka çalışması: ürün kataloğu, sepet akışı, checkout UX'i ve duyarlı frontend mimarisiyle Vite + React ecommerce mağaza, Mehmed Muric.",
+      "imageAlt": "Vite ve React ile ecommerce mağaza ekran görüntüsü"
+    },
+    "authorDesignation": "Full-Stack Developer",
+    "page": {
+      "breadcrumb": "Vaka Çalışması",
+      "challengeLabel": "Sorun",
+      "solutionLabel": "Çözüm",
+      "outcomeLabel": "Sonuç",
+      "featuresLabel": "Temel özellikler",
+      "techLabel": "Teknolojiler",
+      "backToProjects": "Projelere dön",
+      "liveDemo": "Canlı demo",
+      "viewCode": "Kodu gör"
+    }
+  },
+  "aboutPage": {
+    "breadcrumb": "Hakkımda",
+    "breadcrumbDescription": "Novi Pazar, Sırbistan merkezli Full-Stack Developer — geçmiş, değerler ve üretim ürünlerine giden yol.",
+    "hero": {
+      "title": "Modern dijital ürünler geliştiren Full-Stack Developer",
+      "paragraphs": [
+        "Ben Mehmed Muric — modern frontend, sağlam backend mimarisi ve net UX ile güvenilir, ölçeklenebilir uygulamalar geliştiriyorum.",
+        "İş sitelerinden özel uygulamalara kadar temiz mimariye, ölçülebilir performansa ve lansmandan sonra da ayakta kalan ürünlere odaklanırım.",
+        "Novi Pazar, Sırbistan'dayım; freelance projelere ve daha uzun iş birliklerine açığım."
+      ],
+      "ctaProjects": "Projeleri Gör",
+      "ctaContact": "Proje Başlat"
+    },
+    "coreValues": {
+      "title": "Nasıl çalışırım",
+      "paragraph": "Ürün problemlerine, teknik kararlara ve uzun vadeli işbirliğine yaklaşımımın arkasındaki ilkeler.",
+      "values": [
+        {
+          "title": "Karmaşıklıktan çok netlik",
+          "description": "Mimarileri anlaşılır, arayüzleri kasıtlı tutar; kararları gerçek ürün sonuçlarına bağlarım."
+        },
+        {
+          "title": "Kullanıcı öncelikli mühendislik",
+          "description": "Performans, erişilebilirlik ve kullanılabilirlik ürünün parçasıdır — sonda eklenen cilalama değil."
+        },
+        {
+          "title": "Teslim et, öğren, iyileştir",
+          "description": "Lansman için inşa eder, ardından geri bildirimle iterasyon yaparım — gereksinimler değiştikçe ürünler yararlı kalsın diye."
+        },
+        {
+          "title": "Şeffaf iş birliği",
+          "description": "Net iletişim, dürüst trade-off'lar ve teslim ile sonraki işi kolaylaştıran dokümantasyon."
+        }
+      ]
+    },
+    "timeline": {
+      "title": "Yolculuk",
+      "paragraph": "Erken teknik temellerden üretim web ürünleri teslimine.",
+      "items": [
+        {
+          "year": "2019–2023",
+          "title": "Teknik lise, bilgi teknolojileri",
+          "description": "Bilgi teknolojileri teknisyeni olarak mezun oldum; ağlar ve erken scripting temelleriyle donanım ile yazılımı birleştirdim."
+        },
+        {
+          "year": "2023–günümüz",
+          "title": "Novi Pazar Üniversitesi",
+          "description": "Algoritmalar, sistem mimarisi ve modern web mühendisliğine odaklı bilgisayar bilimi öğrencisi — teoriyi üretim seviyesinde uygulamalara taşıyorum."
+        },
+        {
+          "year": "2023–2024",
+          "title": "Freelance ve tech danışman",
+          "description": "Startup'lar ve işletmeler için özel çözümler teslim ettim. Proje yaşam döngüleri, dokümantasyon ve sürdürülebilir teslimlerde deneyimimi güçlendirdim."
+        },
+        {
+          "year": "2024–günümüz",
+          "title": "Full-Stack Software Engineer",
+          "description": "React, Next.js, Node.js ve TypeScript ile üretim web ve mobil ürünler geliştirip teslim ediyorum — kalite, test ve performansa sabit odaklı."
+        }
+      ]
+    },
+    "techStack": {
+      "title": "Kullandığım teknolojiler",
+      "paragraph": "Tasarladığım, inşa ettiğim ve teslim ettiğim ürünlerin arkasındaki stack."
+    },
+    "cta": {
+      "title": "Kalıcı bir şey inşa edelim.",
+      "paragraph": "İş web sitesi, özel uygulama veya ürün işbirliği için Full-Stack Developer mi arıyorsunuz? Genellikle 24 saat içinde yanıt veririm.",
+      "button": "Proje Başlat"
+    }
+  },
+  "testimonials": {
+    "breadcrumb": "Referanslar",
+    "description": "Müşteri ve işbirlikçi geri bildirimleri.",
+    "title": "İnsanlar ne diyor",
+    "subtitle": "Birlikte çalıştığım insanlardan gerçek geri bildirim. Dolgu yok.",
+    "emptyTitle": "Henüz referans yok",
+    "emptyDescription": "Birlikte çalışma deneyiminizi paylaşan ilk kişi olun.",
+    "clientFallback": "Müşteri",
+    "formTitle": "Deneyiminizi paylaşın",
+    "formSubtitle": "Geri bildiriminiz başkalarının nasıl çalıştığımı anlamasına yardımcı olur.",
+    "nameLabel": "Ad",
+    "namePlaceholder": "Adınız",
+    "roleLabel": "Rol (isteğe bağlı)",
+    "rolePlaceholder": "ör. Kurucu, Product Manager",
+    "commentLabel": "Referansınız",
+    "commentPlaceholder": "Birlikte çalışmak nasıldı?",
+    "imageLabel": "Fotoğraf (isteğe bağlı)",
+    "imageHint": "JPG veya PNG, en fazla 2MB",
+    "submit": "Referansı gönder",
+    "submitting": "Gönderiliyor...",
+    "successMessage": "Teşekkürler — referansınız gönderildi.",
+    "errorMessage": "Bir sorun oluştu. Lütfen tekrar deneyin.",
+    "previous": "Önceki referans",
+    "next": "Sonraki referans",
+    "loading": "Referanslar yükleniyor...",
+    "ratingAria": "Puan: 5 üzerinden {rating} yıldız"
+  },
+  "legal": {
+    "privacy": {
+      "breadcrumb": "Gizlilik Politikası",
+      "title": "Gizlilik Politikası",
+      "lastUpdated": "Son güncelleme: Temmuz 2025",
+      "sections": {
+        "intro": {
+          "title": "Giriş",
+          "content": "Gizliliğiniz önemlidir. Bu sayfa, portföy web sitemi kullanırken hangi bilgilerin toplanabileceğini ve nasıl kullanıldığını açıklar. Siteyi kullanarak bu politikayı kabul etmiş olursunuz."
+        },
+        "informationCollection": {
+          "title": "Bilgi toplama",
+          "personalData": "Kişisel veriler — Yalnızca iletişim formu aracılığıyla gönüllü olarak sağlarsanız toplanır (ad, e-posta, mesaj).",
+          "automaticData": "Otomatik veriler — Çoğu web sitesi gibi bu portföy, IP adresi, tarayıcı türü ve ziyaret zamanı gibi anonim bilgileri toplayan temel analitik araçlarını (ör. Google Analytics) kullanabilir."
+        },
+        "useOfInformation": {
+          "title": "Bilgilerin kullanımı",
+          "content": "Bilgiler, iletişim formu üzerinden gönderilen mesajlara yanıt vermek ve ziyaretçilerin siteyi nasıl kullandığını anlayarak içerik ile işlevselliği iyileştirmek için kullanılır."
+        },
+        "dataSharing": {
+          "title": "Veri paylaşımı",
+          "content": "Kişisel verileriniz üçüncü taraflarla paylaşılmaz ve pazarlama amaçlarıyla kullanılmaz."
+        },
+        "cookies": {
+          "title": "Çerezler",
+          "content": "Bu web sitesi temel işlevsellik ve analitik için çerezler kullanabilir. Çerezleri tarayıcı ayarlarınızdan istediğiniz zaman devre dışı bırakabilirsiniz."
+        },
+        "security": {
+          "title": "Güvenlik",
+          "content": "Verilerinizi korumak için makul önlemler alınır; ancak hiçbir internet iletiminin %100 güvenli olmadığını lütfen unutmayın."
+        },
+        "yourRights": {
+          "title": "Haklarınız",
+          "content": "İletişim formu aracılığıyla gönderdiğiniz kişisel bilgilerin silinmesini istediğiniz zaman talep edebilirsiniz."
+        },
+        "contact": {
+          "title": "İletişim",
+          "content": "Gizlilikle ilgili sorularınız için bu web sitesinde belirtilen e-posta adresi üzerinden bana ulaşabilirsiniz."
+        }
+      }
+    },
+    "terms": {
+      "breadcrumb": "Kullanım Koşulları",
+      "title": "Kullanım Koşulları",
+      "lastUpdated": "Son güncelleme: Temmuz 2025",
+      "sections": {
+        "intro": {
+          "title": "Giriş",
+          "content": "Bu portföy web sitesine erişerek ve kullanarak aşağıdaki şartlara uymayı kabul edersiniz. Bu şartları kabul etmiyorsanız lütfen siteyi kullanmayın."
+        },
+        "acceptance": {
+          "title": "Şartların kabulü",
+          "content": "Bu web sitesini kullanmaya devam etmeniz, bu Kullanım Koşullarını ve bu sayfada yayınlanacak gelecekteki güncellemeleri kabul ettiğiniz anlamına gelir."
+        },
+        "useOfWebsite": {
+          "title": "Web sitesinin kullanımı",
+          "content": "Bu web sitesini yalnızca yasal amaçlarla kullanmayı kabul edersiniz. Siteyi bozmaya, formları kötüye kullanmaya, içeriği toplu olarak taramaya veya normal işleyişe müdahale etmeye çalışamazsınız."
+        },
+        "intellectualProperty": {
+          "title": "Fikri mülkiyet",
+          "content": "Metin, kod parçaları, görseller ve projeler dahil bu web sitesindeki tüm içerik bilgilendirme ve portföy amaçlıdır. Önceden izin almadan içeriği kopyalayamaz, yeniden dağıtamaz veya kullanamazsınız."
+        },
+        "disclaimer": {
+          "title": "Sorumluluk reddi",
+          "content": "Bilgileri güncel ve doğru tutmaya çalışırım; ancak herhangi bir içeriğin belirli amaçlar için eksiksizliğini, güvenilirliğini veya uygunluğunu garanti etmem. Harici bağlantılar sorumlu olmadığım üçüncü taraf sitelere yönlendirebilir."
+        },
+        "limitation": {
+          "title": "Sorumluluğun sınırlandırılması",
+          "content": "Bu web sitesinin kullanımından doğan doğrudan, dolaylı veya sonuçsal zararlardan — içeriğe güvenmek veya teknik sorunlar dahil — sorumlu tutulmam."
+        },
+        "contact": {
+          "title": "İletişim",
+          "content": "Bu Kullanım Koşulları hakkında sorularınız varsa, lütfen bu web sitesinde belirtilen e-posta adresi üzerinden bana ulaşın."
+        }
+      }
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Mehmed Muric | Modern web uygulamaları geliştiren Full-Stack Developer",
+      "description": "Next.js, TypeScript ve ölçeklenebilir web uygulamalarında uzman Full-Stack Developer. Temiz mimari ve güçlü kullanıcı deneyimiyle modern dijital ürünler.",
+      "keywords": [
+        "Full Stack Developer Sırbistan",
+        "Next.js Developer",
+        "TypeScript Developer",
+        "Web Uygulama Geliştirme",
+        "React Developer",
+        "Frontend Engineer",
+        "Özel Web Uygulamaları",
+        "AI Entegrasyonu",
+        "Mehmed Muric",
+        "Novi Pazar Developer"
+      ]
+    },
+    "about": {
+      "title": "Hakkımda",
+      "description": "Mehmed Muric hakkında bilgi edinin — Next.js, TypeScript ve ölçeklenebilir mimariyle modern web uygulamaları inşa eden Full-Stack Developer."
+    },
+    "projects": {
+      "title": "Projeler",
+      "description": "Mehmed Muric'in vaka çalışmaları ve projeleri — iş web siteleri, ürün arayüzleri ve özel web uygulamaları."
+    },
+    "contact": {
+      "title": "İletişim",
+      "description": "Mehmed Muric ile bir proje başlatın. Novi Pazar, Sırbistan'da Full-Stack Developer — genellikle 24 saat içinde yanıt verir."
+    },
+    "testimonials": {
+      "title": "Referanslar",
+      "description": "Full-Stack Developer Mehmed Muric için müşteri ve işbirlikçi geri bildirimleri."
+    },
+    "privacy": {
+      "title": "Gizlilik Politikası",
+      "description": "mehmedmuric.com için Gizlilik Politikası — bilgilerin nasıl toplandığı ve kullanıldığı."
+    },
+    "terms": {
+      "title": "Kullanım Koşulları",
+      "description": "mehmedmuric.com portföy web sitesi Kullanım Koşulları."
+    },
+    "jsonLd": {
+      "jobTitle": "Full-Stack Developer",
+      "personDescription": "Next.js, TypeScript ve ölçeklenebilir web uygulamalarında uzman Full-Stack Developer. Temiz mimari ve güçlü kullanıcı deneyimiyle modern dijital ürünler.",
+      "websiteDescription": "Mehmed Muric'in kişisel marka web sitesi — Next.js ve TypeScript ile modern dijital ürünler inşa eden Full-Stack Developer.",
+      "knowsAbout": [
+        "Full-Stack Geliştirme",
+        "Next.js",
+        "TypeScript",
+        "React",
+        "Node.js",
+        "Prisma",
+        "MongoDB",
+        "Web Uygulama Geliştirme",
+        "UI Mühendisliği",
+        "Performans Optimizasyonu",
+        "AI Entegrasyonu"
+      ]
+    }
+  },
+  "common": {
+    "loading": "Yükleniyor...",
+    "error": "Bir şeyler ters gitti",
+    "notFound": "Sayfa bulunamadı",
+    "notFoundDescription": "Aradığınız sayfa mevcut değil veya taşınmış.",
+    "backHome": "Ana sayfaya dön",
+    "learnMore": "Daha fazla bilgi",
+    "breadcrumb": "Gezinti yolu",
+    "tableOfContents": "İçindekiler",
+    "email": "E-posta",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "filterTechnologies": "Teknolojileri filtrele",
+    "advancedProficiency": "İleri seviye",
+    "shareCaseStudy": "Bu vaka çalışmasını paylaş",
+    "shareLinkedIn": "LinkedIn'de paylaş",
+    "shareInstagram": "Instagram'da paylaş",
+    "shareFacebook": "Facebook'ta paylaş",
+    "selectLanguage": "Dil seç",
+    "navigationLabel": "Navigasyon",
+    "lastUpdated": "Son güncelleme: {date}",
+    "endOfDocument": "Belgenin sonu",
+    "scrollToTop": "Yukarı çık",
+    "letsTalk": "Konuşalım"
+  },
+  "blog": {
+    "title": "Öne Çıkan Çalışmalar",
+    "paragraph": "Mühendislik kararlarını gösteren seçilmiş vaka çalışmaları — sorun, çözüm, teknoloji ve sonuç.",
+    "readMore": "Vaka çalışmasını gör",
+    "viewAll": "Tüm projeleri keşfet",
+    "featuredLabel": "Öne çıkan proje",
+    "moreProjects": "Daha fazla proje",
+    "selectedCaseStudies": "Seçili vaka çalışmaları",
+    "challengeLabel": "Zorluk",
+    "solutionLabel": "Çözüm",
+    "outcomeLabel": "Sonuç",
+    "techLabel": "Teknoloji",
+    "liveDemo": "Canlı demo",
+    "source": "Kaynak"
+  }
+}

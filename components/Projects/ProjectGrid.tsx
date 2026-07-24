@@ -1,63 +1,54 @@
+"use client";
 
-import { Blog } from "@/types/blog";
+import type { Project } from "@/types/project";
 import ProjectCard from "./ProjectCard";
-import ProjectSkeleton from "./ProjectSkeleton";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
+import { useTranslations } from "@/lib/i18n/dictionary-context";
+import { memo } from "react";
 
 interface ProjectGridProps {
-    projects: Blog[];
-    loading: boolean;
-    error: string | null;
+  projects: Project[];
 }
 
-const ProjectGrid = ({ projects, loading, error }: ProjectGridProps) => {
+const ProjectGrid = memo(({ projects }: ProjectGridProps) => {
+  const t = useTranslations().projects;
+
+  if (projects.length === 0) {
     return (
-        <div className="w-full max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-32">
-
-            {/* Loading State - Skeletons */}
-            {loading && (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6">
-                    {Array.from({ length: 8 }).map((_, i) => (
-                        <div key={i} className="w-full">
-                            <ProjectSkeleton />
-                        </div>
-                    ))}
-                </div>
-            )}
-
-            {/* Error State */}
-            {!loading && error && (
-                <div className="flex items-center justify-center min-h-[200px]">
-                    <div className="p-4 border border-destructive/20 bg-destructive/10 rounded-lg text-destructive text-sm flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10" /><line x1="12" x2="12" y1="8" y2="12" /><line x1="12" x2="12.01" y1="16" y2="16" /></svg>
-                        {error}
-                    </div>
-                </div>
-            )}
-
-            {/* Empty State */}
-            {!loading && !error && projects.length === 0 && (
-                <div className="flex flex-col items-center justify-center min-h-[300px] text-muted-foreground">
-                    <p className="text-lg font-medium">No projects found.</p>
-                    <p className="text-sm opacity-80 mt-2">Try adjusting your filters or check back later.</p>
-                </div>
-            )}
-
-            {/* Projects Grid */}
-            {!loading && !error && projects.length > 0 && (
-                <motion.div
-                    layout
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5 sm:gap-6"
-                >
-                    <AnimatePresence mode="popLayout">
-                        {projects.map((project, index) => (
-                            <ProjectCard key={project.id} project={project} index={index} />
-                        ))}
-                    </AnimatePresence>
-                </motion.div>
-            )}
+      <div className="mx-auto w-full max-w-[1400px] px-4 pb-28 sm:px-6 lg:px-8">
+        <div className="flex min-h-[300px] flex-col items-center justify-center text-muted-foreground">
+          <p className="text-lg font-medium">{t.emptyState}</p>
         </div>
+      </div>
     );
-};
+  }
+
+  return (
+    <div className="mx-auto w-full max-w-[1400px] px-4 pb-28 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3 xl:grid-cols-4">
+        <AnimatePresence mode="sync" initial={false}>
+          {projects.map((project, index) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{
+                duration: 0.28,
+                delay: Math.min(index * 0.03, 0.15),
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="h-full"
+            >
+              <ProjectCard project={project} index={index} />
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
+    </div>
+  );
+});
+
+ProjectGrid.displayName = "ProjectGrid";
 
 export default ProjectGrid;

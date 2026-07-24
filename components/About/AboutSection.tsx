@@ -5,12 +5,31 @@ import SectionTitle from "../Common/SectionTitle";
 import Container from "../Container";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
-import { CheckCircle2, Zap, Layout, Code2, Rocket, Users, ShieldCheck } from "lucide-react";
-import Link from "next/link";
+import { Zap, Layout, Code2, Rocket, Users, ShieldCheck } from "lucide-react";
+import Link from "@/lib/i18n/link";
 import { motion, useInView, Variants } from "framer-motion";
 import { useRef } from "react";
+import { useTranslations } from "@/lib/i18n/dictionary-context";
+
+const featureIcons = [Layout, Rocket, ShieldCheck] as const;
+const featureStyles = [
+  {},
+  {
+    color: "text-blue-400",
+    bgColor: "bg-blue-500/10",
+    borderColor: "border-blue-500/20",
+    hoverBorderColor: "group-hover:border-blue-500/50",
+  },
+  {
+    color: "text-purple-400",
+    bgColor: "bg-purple-500/10",
+    borderColor: "border-purple-500/20",
+    hoverBorderColor: "group-hover:border-purple-500/50",
+  },
+] as const;
 
 const AboutSection = () => {
+  const t = useTranslations().about;
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 
@@ -31,13 +50,10 @@ const AboutSection = () => {
   };
 
   return (
-    <section id="about" className="py-16 lg:py-24 bg-background relative overflow-hidden" ref={containerRef}>
-      {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] opacity-60 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px] opacity-60 -translate-x-1/3 translate-y-1/3 pointer-events-none" />
-
-      {/* Decorative Grid Pattern */}
-      <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-[0.02] pointer-events-none" />
+    <section id="about" className="section-y bg-background relative overflow-hidden" ref={containerRef}>
+      <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary/5 rounded-full blur-[120px] opacity-60 translate-x-1/3 -translate-y-1/3 pointer-events-none" aria-hidden="true" />
+      <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-primary/5 rounded-full blur-[120px] opacity-40 -translate-x-1/3 translate-y-1/3 pointer-events-none" aria-hidden="true" />
+      <div className="absolute inset-0 bg-[url('/images/grid-pattern.svg')] opacity-[0.02] pointer-events-none" aria-hidden="true" />
 
       <Container className="relative z-10">
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-20 items-center">
@@ -48,28 +64,27 @@ const AboutSection = () => {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="relative aspect-square max-w-md mx-auto lg:max-w-none">
-              {/* Animated orbital ring behind image */}
-              <div className="absolute inset-0 -m-8 border border-primary/20 rounded-full animate-[spin_20s_linear_infinite] opacity-50 group-hover:border-primary/40 transition-colors duration-700" />
-              <div className="absolute inset-0 -m-4 border border-dashed border-white/10 rounded-full animate-[spin_30s_linear_infinite_reverse] opacity-50" />
+            <div className="relative mx-auto aspect-square max-w-md overflow-visible lg:max-w-none">
+              <div className="absolute inset-0 -m-4 hidden rounded-full border border-primary/20 opacity-50 animate-[spin_20s_linear_infinite] transition-colors duration-700 group-hover:border-primary/40 sm:-m-8 sm:block" />
+              <div className="absolute inset-0 -m-2 hidden rounded-full border border-dashed border-white/10 opacity-50 animate-[spin_30s_linear_infinite_reverse] sm:-m-4 sm:block" />
 
-              {/* Decorative background glow */}
-              <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-blue-500/10 rounded-full blur-3xl opacity-40 group-hover:opacity-60 transition-opacity duration-700" />
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/30 to-blue-500/10 opacity-40 blur-3xl transition-opacity duration-700 group-hover:opacity-60" />
 
-              <div className="relative h-full bg-card/40 backdrop-blur-md rounded-3xl border border-white/10 overflow-hidden shadow-2xl skew-y-2 group-hover:skew-y-0 transition-all duration-700 ease-out hover:shadow-[0_0_50px_rgba(0,255,128,0.15)] flex items-center justify-center p-8">
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none z-10" />
+              <div className="relative flex h-full items-center justify-center overflow-hidden rounded-3xl border border-white/10 bg-card/40 p-6 shadow-2xl backdrop-blur-md transition-all duration-700 ease-out sm:p-8 sm:skew-y-2 sm:group-hover:skew-y-0 hover:shadow-[0_0_50px_rgba(0,255,128,0.15)]">
+                <div className="pointer-events-none absolute inset-0 z-10 bg-gradient-to-tr from-transparent via-white/5 to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
                 <Image
                   src="/images/about/aboutsection.svg"
-                  alt="About illustration"
+                  alt={t.imageAlt}
                   width={600}
                   height={600}
-                  className="w-full h-auto object-contain transform transition-transform duration-700 group-hover:scale-105 filter drop-shadow-2xl"
+                  sizes="(max-width: 1024px) 90vw, 480px"
+                  className="h-auto w-full object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl"
                 />
               </div>
 
-              {/* Experience Badge */}
+              {/* Experience Badge — inset on mobile to prevent overflow */}
               <motion.div
-                className="absolute -bottom-6 -right-6 lg:bottom-10 lg:-right-10 bg-black/90 backdrop-blur-xl p-5 rounded-2xl shadow-xl border border-white/10 hover:border-primary/50 transition-colors group-hover:scale-105 duration-300 z-20"
+                className="absolute bottom-3 right-3 z-20 rounded-2xl border border-white/10 bg-black/90 p-3 shadow-xl backdrop-blur-xl transition-colors duration-300 hover:border-primary/50 sm:bottom-4 sm:right-4 sm:p-4 md:-bottom-6 md:-right-4 lg:bottom-10 lg:-right-10"
                 initial={{ opacity: 0, scale: 0.8, y: 20 }}
                 animate={isInView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.8, y: 20 }}
                 transition={{ delay: 0.4, duration: 0.5, type: "spring" }}
@@ -79,15 +94,15 @@ const AboutSection = () => {
                     <Zap className="w-6 h-6" />
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground uppercase font-mono font-semibold tracking-wider mb-0.5">Experience</p>
-                    <p className="text-xl font-bold text-foreground bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">5+ Years</p>
+                    <p className="text-xs text-muted-foreground uppercase font-mono font-semibold tracking-wider mb-0.5">{t.experienceLabel}</p>
+                    <p className="text-xl font-bold text-foreground bg-clip-text text-transparent bg-gradient-to-r from-white to-white/70">{t.experienceValue}</p>
                   </div>
                 </div>
               </motion.div>
 
               {/* Projects Badge */}
               <motion.div
-                className="absolute top-10 -left-6 lg:top-20 lg:-left-10 bg-black/90 backdrop-blur-xl p-4 rounded-2xl shadow-xl border border-white/10 hover:border-blue-500/50 transition-colors group-hover:scale-105 duration-300 z-20"
+                className="absolute left-3 top-3 z-20 rounded-2xl border border-white/10 bg-black/90 p-3 shadow-xl backdrop-blur-xl transition-colors duration-300 hover:border-blue-500/50 sm:left-4 sm:top-4 sm:p-4 md:top-10 md:-left-4 lg:top-20 lg:-left-10"
                 initial={{ opacity: 0, scale: 0.8, y: -20 }}
                 animate={isInView ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.8, y: -20 }}
                 transition={{ delay: 0.6, duration: 0.5, type: "spring" }}
@@ -97,25 +112,25 @@ const AboutSection = () => {
                     <Code2 className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-[10px] text-muted-foreground uppercase font-mono font-semibold tracking-wider mb-0.5">Projects</p>
-                    <p className="text-lg font-bold text-foreground">50+ Delivered</p>
+                    <p className="text-[10px] text-muted-foreground uppercase font-mono font-semibold tracking-wider mb-0.5">{t.focusLabel}</p>
+                    <p className="text-lg font-bold text-foreground">{t.focusValue}</p>
                   </div>
                 </div>
               </motion.div>
 
-              {/* Clients Badge */}
+              {/* Clients Badge — desktop/tablet only to avoid cramped mobile collage */}
               <motion.div
-                className="absolute -bottom-10 left-10 lg:bottom-10 lg:-left-4 bg-black/90 backdrop-blur-xl p-4 rounded-2xl shadow-xl border border-white/10 hover:border-purple-500/50 transition-colors group-hover:scale-105 duration-300 z-20"
+                className="absolute bottom-16 left-3 z-20 hidden rounded-2xl border border-white/10 bg-black/90 p-3.5 shadow-xl backdrop-blur-xl transition-colors duration-300 hover:border-purple-500/50 sm:flex md:bottom-20 md:left-4 lg:bottom-10 lg:-left-4"
                 initial={{ opacity: 0, scale: 0.8, x: -20 }}
                 animate={isInView ? { opacity: 1, scale: 1, x: 0 } : { opacity: 0, scale: 0.8, x: -20 }}
                 transition={{ delay: 0.8, duration: 0.5, type: "spring" }}
               >
                 <div className="flex items-center gap-3">
-                  <div className="h-8 w-8 bg-purple-500/20 rounded-full flex items-center justify-center text-purple-400 border border-purple-500/30">
-                    <Users className="w-4 h-4" />
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full border border-purple-500/30 bg-purple-500/20 text-purple-400">
+                    <Users className="h-4 w-4" />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-foreground">Happy Clients</p>
+                    <p className="text-sm font-bold text-foreground">{t.clientsLabel}</p>
                   </div>
                 </div>
               </motion.div>
@@ -131,53 +146,33 @@ const AboutSection = () => {
           >
             <motion.div variants={itemVariants}>
               <SectionTitle
-                title="Software that empowers your business"
-                paragraph="I deliver robust, modern applications with long-term client support and real after-launch care. My focus is on creating value through clean code, exceptional user experience, and scalable architectures."
+                title={t.title}
+                paragraph={t.paragraph}
                 mb="mb-8"
                 align="left"
               />
             </motion.div>
 
             <motion.div className="space-y-4 mt-8" variants={containerVariants}>
-              <FeatureRow
-                icon={Layout}
-                title="Modern & Scalable"
-                description="Building applications that grow with your business using React, Next.js, and modern ecosystems."
-                variants={itemVariants}
-              />
-              <FeatureRow
-                icon={Rocket}
-                title="High Performance"
-                description="Optimized for speed, SEO, and efficiency to ensure the best possible user experience."
-                variants={itemVariants}
-                color="text-blue-400"
-                bgColor="bg-blue-500/10"
-                borderColor="border-blue-500/20"
-                hoverBorderColor="group-hover:border-blue-500/50"
-              />
-              <FeatureRow
-                icon={ShieldCheck}
-                title="Long-term Support"
-                description="I don't just build and leave. I provide ongoing support, security updates, and feature additions."
-                variants={itemVariants}
-                color="text-purple-400"
-                bgColor="bg-purple-500/10"
-                borderColor="border-purple-500/20"
-                hoverBorderColor="group-hover:border-purple-500/50"
-              />
+              {t.features.map((feature, index) => (
+                <FeatureRow
+                  key={feature.title}
+                  icon={featureIcons[index] ?? Layout}
+                  title={feature.title}
+                  description={feature.description}
+                  variants={itemVariants}
+                  {...(featureStyles[index] ?? {})}
+                />
+              ))}
             </motion.div>
 
-            <motion.div className="mt-12 flex flex-wrap gap-4" variants={itemVariants}>
-              <Link href="/projects">
-                <Button size="lg" className="rounded-full px-8 h-12 shadow-[0_0_20px_rgba(0,255,128,0.2)] hover:shadow-[0_0_30px_rgba(0,255,128,0.4)] transition-all bg-primary text-primary-foreground hover:bg-primary/90 font-medium tracking-wide">
-                  View Projects
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button size="lg" variant="outline" className="rounded-full px-8 h-12 border-white/10 hover:bg-white/5 hover:border-white/30 transition-all font-medium tracking-wide backdrop-blur-sm">
-                  Contact Me
-                </Button>
-              </Link>
+            <motion.div className="mt-10 flex w-full flex-col gap-3 sm:mt-12 sm:flex-row sm:flex-wrap sm:gap-4" variants={itemVariants}>
+              <Button size="lg" variant="premium" className="h-12 min-h-[48px] w-full px-8 sm:w-auto" asChild>
+                <Link href="/projects">{t.viewProjects}</Link>
+              </Button>
+              <Button size="lg" variant="glass" className="h-12 min-h-[48px] w-full px-8 sm:w-auto" asChild>
+                <Link href="/contact">{t.ctaContact}</Link>
+              </Button>
             </motion.div>
           </motion.div>
         </div>
@@ -186,7 +181,25 @@ const AboutSection = () => {
   );
 };
 
-const FeatureRow = ({ icon: Icon, title, description, variants, color = "text-primary", bgColor = "bg-primary/10", borderColor = "border-primary/20", hoverBorderColor = "group-hover:border-primary/50" }: any) => (
+const FeatureRow = ({
+  icon: Icon,
+  title,
+  description,
+  variants,
+  color = "text-primary",
+  bgColor = "bg-primary/10",
+  borderColor = "border-primary/20",
+  hoverBorderColor = "group-hover:border-primary/50",
+}: {
+  icon: typeof Layout;
+  title: string;
+  description: string;
+  variants: Variants;
+  color?: string;
+  bgColor?: string;
+  borderColor?: string;
+  hoverBorderColor?: string;
+}) => (
   <motion.div variants={variants} className="group cursor-default">
     <Card className="border-white/5 bg-white/[0.02] backdrop-blur-md transition-all duration-500 hover:bg-white/[0.04] overflow-hidden relative">
       <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent -translate-x-full group-hover:translate-x-full duration-1000 transition-transform" />
@@ -201,7 +214,6 @@ const FeatureRow = ({ icon: Icon, title, description, variants, color = "text-pr
       </CardContent>
     </Card>
   </motion.div>
-)
+);
 
 export default AboutSection;
-

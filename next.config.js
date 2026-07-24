@@ -39,7 +39,7 @@ const nextConfig = {
   productionBrowserSourceMaps: false,
   reactStrictMode: true,
   experimental: {
-    optimizePackageImports: ['@tsparticles/react', 'swiper'],
+    optimizePackageImports: ['@tsparticles/react', 'swiper', 'lucide-react', 'framer-motion'],
   },
   images: {
     minimumCacheTTL: 60 * 60 * 24 * 365,

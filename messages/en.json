@@ -1,0 +1,648 @@
+{
+  "navigation": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "contact": "Contact",
+    "testimonials": "Testimonials",
+    "startProject": "Start a Project",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "primaryNav": "Primary",
+    "mobileNav": "Mobile navigation",
+    "homeAria": "Mehmed Muric — Home",
+    "contactAria": "Contact",
+    "language": "Language"
+  },
+  "hero": {
+    "available": "Available for freelance & collaborations",
+    "name": "Mehmed Muric",
+    "role": "Full-Stack Developer",
+    "headlineLine1": "Building modern",
+    "headlineHighlight": "digital products",
+    "subtitle": "Next.js, TypeScript, and scalable apps — from idea to production with clean architecture.",
+    "viewProjects": "View Projects",
+    "startProject": "Start a Project",
+    "downloadCv": "Download CV",
+    "stackLabel": "Stack",
+    "explore": "Explore",
+    "scrollAria": "Scroll to next section",
+    "introAria": "Introduction",
+    "imageAlt": "Mehmed Muric — Full-Stack Developer based in Novi Pazar, Serbia",
+    "focusBadgeLabel": "Focus",
+    "focusBadgeValue": "Full-Stack",
+    "basedInLabel": "Based in",
+    "basedInValue": "Novi Pazar"
+  },
+  "trustSignals": {
+    "ariaLabel": "Credibility signals",
+    "experienceLabel": "Experience",
+    "experienceValue": "Since 2019",
+    "focusLabel": "Focus",
+    "focusValue": "Production apps",
+    "locationLabel": "Location",
+    "locationValue": "Novi Pazar, Serbia",
+    "availabilityLabel": "Availability",
+    "availabilityValue": "Open for projects"
+  },
+  "capabilities": {
+    "title": "Capabilities",
+    "paragraph": "Practical engineering that helps businesses launch faster, operate more reliably, and grow with confidence.",
+    "items": [
+      {
+        "title": "Full-Stack Development",
+        "paragraph": "End-to-end product engineering — from interface and user flows to APIs, data models, and deployment."
+      },
+      {
+        "title": "Modern Web Applications",
+        "paragraph": "Fast, scalable applications with Next.js, TypeScript, and production-ready architecture built for growth."
+      },
+      {
+        "title": "UI Engineering",
+        "paragraph": "Interfaces that feel intentional — clear hierarchy, responsive layouts, and experiences people actually enjoy using."
+      },
+      {
+        "title": "Backend Architecture",
+        "paragraph": "Reliable server-side foundations with clean data flow, secure patterns, and systems that stay maintainable as they scale."
+      },
+      {
+        "title": "Performance Optimization",
+        "paragraph": "Speed, Core Web Vitals, and SEO treated as product features — not afterthoughts."
+      },
+      {
+        "title": "AI Integration",
+        "paragraph": "Practical AI features woven into real workflows — assistants, automation, and smarter product experiences."
+      }
+    ]
+  },
+  "technologies": {
+    "title": "Building with modern technologies",
+    "paragraph": "A focused stack for shipping reliable web products — from interfaces and APIs to data and AI-assisted workflows.",
+    "coreStackAria": "Core technology stack",
+    "categories": {
+      "all": "All",
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "database": "Database",
+      "cloud": "Cloud",
+      "tools": "Tools"
+    },
+    "labels": {
+      "aiIntegration": "AI Integration"
+    }
+  },
+  "certifications": {
+    "title": "Certifications & Awards",
+    "paragraph": "Professional credentials validating expertise in modern web technologies and cloud infrastructure.",
+    "issued": "Issued {date}",
+    "viewCertificate": "View Certificate",
+    "comingSoon": "Coming Soon",
+    "items": {
+      "1": {
+        "description": "Comprehensive course covering Python fundamentals and advanced topics."
+      },
+      "2": {
+        "description": "Learned modern JavaScript, ES6+, and practical web development skills."
+      },
+      "3": {
+        "description": "Built modern web apps using React with reusable components and hooks."
+      }
+    }
+  },
+  "about": {
+    "title": "Full-Stack Developer for modern digital products",
+    "paragraph": "I design and engineer reliable web applications with a focus on performance, scalability, and thoughtful user experience. My work connects frontend craft, backend architecture, and clear product thinking.",
+    "imageAlt": "Illustration representing full-stack web application development by Mehmed Muric",
+    "experienceLabel": "Experience",
+    "experienceValue": "Since 2019",
+    "focusLabel": "Focus",
+    "focusValue": "Production Apps",
+    "clientsLabel": "Client-Ready Work",
+    "features": [
+      {
+        "title": "Product-minded engineering",
+        "description": "I build with business outcomes in mind — clear UX, maintainable code, and systems that can grow with your product."
+      },
+      {
+        "title": "Next.js & TypeScript",
+        "description": "Modern web applications using React, Next.js, TypeScript, and production patterns that stay fast and searchable."
+      },
+      {
+        "title": "Partnership after launch",
+        "description": "Beyond delivery: iteration, support, and improvements so your product keeps performing in the real world."
+      }
+    ],
+    "viewProjects": "View Projects",
+    "ctaContact": "Have a project in mind?"
+  },
+  "howIWork": {
+    "title": "How I work",
+    "paragraph": "A clear collaboration process — so you always know what happens next and why it matters.",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Discovery",
+        "description": "Understanding goals, users, and business requirements before a single line of code is written."
+      },
+      {
+        "number": "02",
+        "title": "Planning",
+        "description": "Defining architecture, user flows, and technical direction so the build stays focused and scalable."
+      },
+      {
+        "number": "03",
+        "title": "Development",
+        "description": "Building maintainable solutions with clean structure, thoughtful UX, and production-ready standards."
+      },
+      {
+        "number": "04",
+        "title": "Optimization",
+        "description": "Improving performance, reliability, and readiness for growth after launch — not only before it."
+      }
+    ]
+  },
+  "contact": {
+    "sectionTitle": "Have a project in mind?",
+    "sectionParagraph": "Let's discuss your idea and find the best technical solution.",
+    "eyebrow": "Start a conversation",
+    "heading": "Tell me what you're building",
+    "description": "Share your goals, timeline, and constraints. I'll help clarify the technical approach and next steps — usually within 24 hours.",
+    "emailLabel": "Email",
+    "locationLabel": "Location",
+    "locationValue": "Novi Pazar, Serbia",
+    "availabilityLabel": "Availability",
+    "availabilityValue": "Open for projects",
+    "responseLabel": "Response",
+    "responseValue": "Usually within 24 hours",
+    "connectLabel": "Connect",
+    "availableForTitle": "Available for",
+    "availableFor": [
+      "Freelance projects",
+      "Collaborations",
+      "Custom applications"
+    ],
+    "availableFooter": "Novi Pazar, Serbia · Usually within 24 hours",
+    "formHint": "Include your goals, timeline, and any links or references. Clear context helps me respond with a useful technical direction.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabelField": "Email",
+    "emailPlaceholder": "you@company.com",
+    "messageLabel": "Project details",
+    "messagePlaceholder": "What are you building? What should success look like?",
+    "sendMessage": "Send message",
+    "sending": "Sending...",
+    "successTitle": "Message received",
+    "successMessage": "Thanks for reaching out. I will get back to you shortly.",
+    "sendAnother": "Send another message",
+    "errorSend": "Something went wrong sending your message. Please try again or email me directly.",
+    "githubProfile": "GitHub Profile",
+    "linkedinProfile": "LinkedIn Profile",
+    "twitterProfile": "Twitter Profile",
+    "validation": {
+      "nameRequired": "Please enter your name.",
+      "nameMin": "Name should be at least 2 characters.",
+      "emailRequired": "Please enter your email.",
+      "emailInvalid": "Please enter a valid email address.",
+      "messageRequired": "Please share a short project brief.",
+      "messageMin": "A bit more detail helps — aim for at least a short paragraph.",
+      "fixFields": "Please fix the highlighted fields and try again."
+    }
+  },
+  "footer": {
+    "tagline": "Building modern digital products with clean architecture, thoughtful design and scalable technology.",
+    "location": "Novi Pazar, Serbia",
+    "navTitle": "Navigation",
+    "legalTitle": "Legal",
+    "getInTouchTitle": "Get in Touch",
+    "availableReply": "Available for projects · Reply within 24h",
+    "copyright": "© {year} Mehmed Muric. All rights reserved.",
+    "builtWith": "Designed & Built with Next.js",
+    "backToTop": "Back to Top",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfUse": "Terms of Use",
+    "nav": {
+      "home": "Home",
+      "projects": "Projects",
+      "about": "About",
+      "testimonials": "Testimonials",
+      "contact": "Contact"
+    }
+  },
+  "projects": {
+    "eyebrow": "Portfolio",
+    "titleBefore": "Work that ships &",
+    "titleHighlight": "scales",
+    "description": "Case studies across business websites, product interfaces, and custom web applications — built with Next.js, React, and TypeScript.",
+    "filterAll": "All",
+    "filterFeatured": "Featured",
+    "emptyState": "No projects match this filter.",
+    "liveDemo": "Live demo",
+    "viewCaseStudy": "Case study",
+    "sourceCode": "Source code",
+    "loading": "Loading projects...",
+    "searchPlaceholder": "Search projects...",
+    "searchAria": "Search projects",
+    "clearSearch": "Clear search",
+    "filterAria": "Filter by category"
+  },
+  "caseStudies": {
+    "1": {
+      "title": "AG Gradnja – Construction Company Website",
+      "valueProposition": "A multilingual business website built to present construction services clearly and convert visitors into clients.",
+      "paragraph": "A multilingual business website built to present construction services clearly and convert visitors into clients.",
+      "challenge": "The company needed a professional online presence that could communicate credibility across markets, showcase completed work, and perform well for local and international search traffic.",
+      "solution": "Designed and developed a production website in Next.js with a clean service structure, project gallery, multilingual support (SR, EN, DE, TR, AR), image optimization, and SEO-ready page architecture.",
+      "outcome": "A fast, scalable marketing site that strengthens brand trust and gives AG Gradnja a clear digital foundation for growth.",
+      "keyFeatures": [
+        "Multilingual site structure (SR, EN, DE, TR, AR)",
+        "Project gallery with optimized imagery",
+        "SEO-ready page architecture",
+        "Responsive layouts for mobile and desktop",
+        "Clear service presentation for conversion"
+      ],
+      "paragraph2": "Built for real-world production use with responsive layouts, clear information architecture, and performance-focused frontend patterns that keep the experience sharp on every device.",
+      "seoTitle": "AG Gradnja Construction Website | Next.js Multilingual Business Site",
+      "seoDescription": "Case study: multilingual Next.js website for AG Gradnja — construction services, project showcase, SEO, and conversion-focused UX by Mehmed Muric.",
+      "imageAlt": "AG Gradnja construction company website screenshot"
+    },
+    "2": {
+      "title": "GPT-3 Inspired AI Landing Page",
+      "valueProposition": "A conversion-oriented AI product landing page inspired by modern SaaS marketing experiences.",
+      "paragraph": "A conversion-oriented AI product landing page inspired by modern SaaS marketing experiences.",
+      "challenge": "AI products often struggle to explain complex capabilities in a way that feels clear, trustworthy, and visually memorable on first visit.",
+      "solution": "Built a responsive React landing page with structured storytelling sections, strong visual hierarchy, and UI patterns commonly used by modern AI SaaS brands.",
+      "outcome": "A polished frontend showcase that demonstrates product storytelling, layout craft, and marketing-ready UI engineering.",
+      "keyFeatures": [
+        "Structured SaaS-style storytelling sections",
+        "Strong visual hierarchy for product value",
+        "Responsive layout across breakpoints",
+        "Marketing-oriented UI patterns"
+      ],
+      "paragraph2": "Focused on content structure, visual rhythm, and responsive behavior so the page communicates product value quickly across desktop and mobile.",
+      "seoTitle": "GPT-3 Inspired AI Landing Page Development | Next.js & React Project",
+      "seoDescription": "Case study: GPT-3 inspired AI landing page built with React — modern SaaS UI, responsive design, and conversion-focused layout by Mehmed Muric.",
+      "imageAlt": "GPT-3 inspired AI landing page screenshot"
+    },
+    "3": {
+      "title": "Crypto Web3 Landing Experience",
+      "valueProposition": "A Web3-inspired crypto landing experience focused on trust, clarity, and modern interaction patterns.",
+      "paragraph": "A Web3-inspired crypto landing experience focused on trust, clarity, and modern interaction patterns.",
+      "challenge": "Crypto products need to communicate security and usability without overwhelming users with technical complexity.",
+      "solution": "Developed a React-based Web3 landing page with wallet-connect simulation, market-oriented sections, and a UI designed around reliability and fast interactions.",
+      "outcome": "A frontend case study that shows how to present blockchain products with clearer UX and stronger visual confidence.",
+      "keyFeatures": [
+        "Wallet-connect interaction simulation",
+        "Trust and security messaging sections",
+        "Market-oriented product layout",
+        "Responsive Web3-inspired UI"
+      ],
+      "paragraph2": "Sections cover reliability, security messaging, transaction flow concepts, and responsive presentation for crypto-focused audiences.",
+      "seoTitle": "Crypto Web3 Landing Page | React Blockchain UI Project",
+      "seoDescription": "Case study: Web3 crypto landing page with wallet-connect simulation, modern React UI, and trust-focused UX by Mehmed Muric.",
+      "imageAlt": "Crypto Web3 landing page screenshot"
+    },
+    "4": {
+      "title": "Restaurant Landing Page",
+      "valueProposition": "An elegant restaurant website designed to showcase dining experience and drive reservations.",
+      "paragraph": "An elegant restaurant website designed to showcase dining experience and drive reservations.",
+      "challenge": "Restaurants need a digital presence that feels inviting, presents the menu clearly, and makes booking the next step obvious.",
+      "solution": "Created a modern React and Tailwind landing page with menu highlights, service sections, testimonials, and a clear reservation-focused call to action.",
+      "outcome": "A refined hospitality website that balances atmosphere, usability, and conversion across devices.",
+      "keyFeatures": [
+        "Menu highlights and dining presentation",
+        "Reservation-focused call to action",
+        "Service and atmosphere sections",
+        "Mobile-friendly browsing experience"
+      ],
+      "paragraph2": "The layout prioritizes food presentation, navigation clarity, and mobile-friendly browsing for guests discovering the restaurant online.",
+      "seoTitle": "Restaurant Landing Page Development | React & Tailwind Project",
+      "seoDescription": "Case study: modern restaurant landing page with menu highlights, reservation CTA, and responsive React UI by Mehmed Muric.",
+      "imageAlt": "Restaurant landing page screenshot"
+    },
+    "5": {
+      "title": "Fintech Payment Landing Page",
+      "valueProposition": "A fintech product page built to communicate trust, clarity, and modern payment capabilities.",
+      "paragraph": "A fintech product page built to communicate trust, clarity, and modern payment capabilities.",
+      "challenge": "Financial products must feel secure and easy to understand while still looking premium enough to earn user confidence.",
+      "solution": "Designed and engineered a React landing page highlighting digital payments, billing control, rewards, and customer proof points with a clean, trust-forward UI.",
+      "outcome": "A professional fintech marketing surface that demonstrates strong UI engineering for trust-sensitive products.",
+      "keyFeatures": [
+        "Digital payments and billing messaging",
+        "Trust-forward visual design",
+        "Feature and proof-point storytelling",
+        "Responsive product marketing layout"
+      ],
+      "paragraph2": "Includes product features, customer statistics, billing messaging, testimonials, and partner presentation in a responsive layout.",
+      "seoTitle": "Fintech Payment Landing Page | React UI Case Study",
+      "seoDescription": "Case study: fintech payment solutions landing page with trust-focused UI, feature storytelling, and responsive React design by Mehmed Muric.",
+      "imageAlt": "Fintech payment landing page screenshot"
+    },
+    "6": {
+      "title": "Ecommerce Shop with Vite + React",
+      "valueProposition": "A fast ecommerce storefront focused on product discovery, cart flow, and responsive shopping UX.",
+      "paragraph": "A fast ecommerce storefront focused on product discovery, cart flow, and responsive shopping UX.",
+      "challenge": "Online shops need smooth browsing and cart interactions without sacrificing speed or clarity on mobile.",
+      "solution": "Built a Vite + React ecommerce application with a dynamic product catalog, add-to-cart system, checkout flow, and a clean UI optimized for everyday shopping tasks.",
+      "outcome": "A modular storefront foundation that shows practical ecommerce UX and performant frontend architecture.",
+      "keyFeatures": [
+        "Dynamic product catalog",
+        "Add-to-cart and checkout flow",
+        "Responsive shopping experience",
+        "Modular frontend architecture"
+      ],
+      "paragraph2": "Developed with a modular workflow so product listing, cart state, and responsive layout stay maintainable as the catalog grows.",
+      "seoTitle": "Ecommerce Shop Development with Vite + React | Case Study",
+      "seoDescription": "Case study: Vite + React ecommerce shop with product catalog, cart flow, checkout UX, and responsive frontend architecture by Mehmed Muric.",
+      "imageAlt": "Ecommerce shop with Vite and React screenshot"
+    },
+    "authorDesignation": "Full-Stack Developer",
+    "page": {
+      "breadcrumb": "Case Study",
+      "challengeLabel": "Challenge",
+      "solutionLabel": "Solution",
+      "outcomeLabel": "Outcome",
+      "featuresLabel": "Key features",
+      "techLabel": "Technologies",
+      "backToProjects": "Back to projects",
+      "liveDemo": "Live demo",
+      "viewCode": "View code"
+    }
+  },
+  "aboutPage": {
+    "breadcrumb": "About",
+    "breadcrumbDescription": "Full-Stack Developer based in Novi Pazar, Serbia — background, values, and the path to shipping production products.",
+    "hero": {
+      "title": "Full-Stack Developer building modern digital products",
+      "paragraphs": [
+        "I'm Mehmed Muric — building reliable, scalable apps with modern frontend, solid backend architecture, and clear UX.",
+        "From business websites to custom applications, I focus on clean architecture, measurable performance, and products that hold up after launch.",
+        "Based in Novi Pazar, Serbia, and open to freelance projects and longer collaborations."
+      ],
+      "ctaProjects": "View Projects",
+      "ctaContact": "Start a Project"
+    },
+    "coreValues": {
+      "title": "How I work",
+      "paragraph": "The principles behind how I approach product problems, technical decisions, and long-term collaboration.",
+      "values": [
+        {
+          "title": "Clarity over complexity",
+          "description": "I keep architectures understandable, interfaces intentional, and decisions tied to real product outcomes."
+        },
+        {
+          "title": "User-first engineering",
+          "description": "Performance, accessibility, and usability are part of the product — not polish added at the end."
+        },
+        {
+          "title": "Ship, learn, improve",
+          "description": "I build for launch, then iterate with feedback — so products stay useful as requirements evolve."
+        },
+        {
+          "title": "Transparent collaboration",
+          "description": "Clear communication, honest trade-offs, and documentation that makes hand-offs and future work easier."
+        }
+      ]
+    },
+    "timeline": {
+      "title": "Journey",
+      "paragraph": "From early technical foundations to shipping production web products.",
+      "items": [
+        {
+          "year": "2019–2023",
+          "title": "Technical HS, Information Technology",
+          "description": "Graduated as an Information Technology Technician, blending hardware and software with strong foundations in networking and early scripting."
+        },
+        {
+          "year": "2023–Present",
+          "title": "University of Novi Pazar",
+          "description": "Computer Science student focused on algorithms, system architecture, and modern web engineering — applying theory to production-grade applications."
+        },
+        {
+          "year": "2023–2024",
+          "title": "Freelancer & Tech Consultant",
+          "description": "Delivered tailored solutions for startups and businesses. Strengthened experience across project life-cycles, documentation, and maintainable hand-offs."
+        },
+        {
+          "year": "2024–Present",
+          "title": "Full-Stack Software Engineer",
+          "description": "Building and shipping production web and mobile products with React, Next.js, Node.js, and TypeScript — with a steady focus on quality, testing, and performance."
+        }
+      ]
+    },
+    "techStack": {
+      "title": "Technologies I use",
+      "paragraph": "The stack behind the products I design, build, and ship."
+    },
+    "cta": {
+      "title": "Let's build something that lasts.",
+      "paragraph": "Looking for a Full-Stack Developer for a business website, custom application, or product collaboration? I usually respond within 24 hours.",
+      "button": "Start a Project"
+    }
+  },
+  "testimonials": {
+    "breadcrumb": "Testimonials",
+    "description": "Feedback from clients and collaborators.",
+    "title": "What people say",
+    "subtitle": "Real feedback from people I've worked with. No filler.",
+    "emptyTitle": "No testimonials yet",
+    "emptyDescription": "Be the first to share your experience working together.",
+    "clientFallback": "Client",
+    "formTitle": "Share your experience",
+    "formSubtitle": "Your feedback helps others understand how I work.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "roleLabel": "Role (optional)",
+    "rolePlaceholder": "e.g. Founder, Product Manager",
+    "commentLabel": "Your testimonial",
+    "commentPlaceholder": "What was it like working together?",
+    "imageLabel": "Photo (optional)",
+    "imageHint": "JPG or PNG, max 2MB",
+    "submit": "Submit testimonial",
+    "submitting": "Submitting...",
+    "successMessage": "Thank you — your testimonial was submitted.",
+    "errorMessage": "Something went wrong. Please try again.",
+    "previous": "Previous testimonial",
+    "next": "Next testimonial",
+    "loading": "Loading testimonials...",
+    "ratingAria": "Rating: {rating} out of 5 stars"
+  },
+  "legal": {
+    "privacy": {
+      "breadcrumb": "Privacy Policy",
+      "title": "Privacy Policy",
+      "lastUpdated": "Last updated: July 2025",
+      "sections": {
+        "intro": {
+          "title": "Introduction",
+          "content": "Your privacy is important. This page explains what information may be collected while using my portfolio website and how it is used. By using this site, you acknowledge this policy."
+        },
+        "informationCollection": {
+          "title": "Information Collection",
+          "personalData": "Personal Data — Collected only if you voluntarily provide it via the contact form (name, email, message).",
+          "automaticData": "Automatic Data — Like most websites, this portfolio may use basic analytics tools (e.g., Google Analytics) that collect anonymous information such as IP address, browser type, and time of visit."
+        },
+        "useOfInformation": {
+          "title": "Use of Information",
+          "content": "Information is used to respond to messages sent through the contact form, and to understand how visitors use the site so content and functionality can be improved."
+        },
+        "dataSharing": {
+          "title": "Data Sharing",
+          "content": "Your personal data is not shared with third parties and is not used for marketing purposes."
+        },
+        "cookies": {
+          "title": "Cookies",
+          "content": "This website may use cookies for basic functionality and analytics. You can disable cookies in your browser settings at any time."
+        },
+        "security": {
+          "title": "Security",
+          "content": "Reasonable measures are taken to protect your data, but please note that no internet transmission is 100% secure."
+        },
+        "yourRights": {
+          "title": "Your Rights",
+          "content": "You may request the deletion of any personal information you submitted via the contact form at any time."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "For any privacy-related questions, feel free to contact me via the email address provided on this website."
+        }
+      }
+    },
+    "terms": {
+      "breadcrumb": "Terms of Use",
+      "title": "Terms of Use",
+      "lastUpdated": "Last updated: July 2025",
+      "sections": {
+        "intro": {
+          "title": "Introduction",
+          "content": "By accessing and using this portfolio website, you agree to comply with and be bound by the following terms and conditions. If you do not agree with these terms, please refrain from using the site."
+        },
+        "acceptance": {
+          "title": "Acceptance of Terms",
+          "content": "Your continued use of this website constitutes acceptance of these Terms of Use and any future updates published on this page."
+        },
+        "useOfWebsite": {
+          "title": "Use of Website",
+          "content": "You agree to use this website only for lawful purposes. You may not attempt to disrupt the site, misuse forms, scrape content at scale, or interfere with its normal operation."
+        },
+        "intellectualProperty": {
+          "title": "Intellectual Property",
+          "content": "All content on this website, including text, code snippets, images, and projects, is provided for informational and portfolio purposes. You may not copy, redistribute, or use the content without prior permission."
+        },
+        "disclaimer": {
+          "title": "Disclaimer",
+          "content": "While I strive to keep the information up to date and accurate, I make no guarantees of completeness, reliability, or suitability of any content for specific purposes. External links may point to third-party sites for which I am not responsible."
+        },
+        "limitation": {
+          "title": "Limitation of Liability",
+          "content": "I shall not be held liable for any direct, indirect, or consequential damages arising from the use of this website, including reliance on its content or technical issues."
+        },
+        "contact": {
+          "title": "Contact",
+          "content": "If you have any questions regarding these Terms of Use, please contact me through the email address provided on this website."
+        }
+      }
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "Mehmed Muric | Full-Stack Developer Building Modern Web Applications",
+      "description": "Full-Stack Developer specializing in Next.js, TypeScript and scalable web applications. Creating modern digital products with clean architecture and exceptional user experience.",
+      "keywords": [
+        "Full Stack Developer Serbia",
+        "Next.js Developer",
+        "TypeScript Developer",
+        "Web Application Development",
+        "React Developer",
+        "Frontend Engineer",
+        "Custom Web Applications",
+        "AI Integration",
+        "Mehmed Muric",
+        "Novi Pazar Developer"
+      ]
+    },
+    "about": {
+      "title": "About",
+      "description": "Learn about Mehmed Muric — Full-Stack Developer building modern web applications with Next.js, TypeScript, and scalable architecture."
+    },
+    "projects": {
+      "title": "Projects",
+      "description": "Case studies and projects by Mehmed Muric — business websites, product interfaces, and custom web applications."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Start a project with Mehmed Muric. Full-Stack Developer in Novi Pazar, Serbia — usually responds within 24 hours."
+    },
+    "testimonials": {
+      "title": "Testimonials",
+      "description": "Client and collaborator feedback for Mehmed Muric, Full-Stack Developer."
+    },
+    "privacy": {
+      "title": "Privacy Policy",
+      "description": "Privacy Policy for mehmedmuric.com — how information is collected and used."
+    },
+    "terms": {
+      "title": "Terms of Use",
+      "description": "Terms of Use for mehmedmuric.com portfolio website."
+    },
+    "jsonLd": {
+      "jobTitle": "Full-Stack Developer",
+      "personDescription": "Full-Stack Developer specializing in Next.js, TypeScript and scalable web applications. Creating modern digital products with clean architecture and exceptional user experience.",
+      "websiteDescription": "Personal brand website of Mehmed Muric — Full-Stack Developer building modern digital products with Next.js and TypeScript.",
+      "knowsAbout": [
+        "Full-Stack Development",
+        "Next.js",
+        "TypeScript",
+        "React",
+        "Node.js",
+        "Prisma",
+        "MongoDB",
+        "Web Application Development",
+        "UI Engineering",
+        "Performance Optimization",
+        "AI Integration"
+      ]
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "notFound": "Page not found",
+    "notFoundDescription": "The page you're looking for doesn't exist or has moved.",
+    "backHome": "Back to home",
+    "learnMore": "Learn more",
+    "breadcrumb": "Breadcrumb",
+    "tableOfContents": "Table of contents",
+    "email": "Email",
+    "github": "GitHub",
+    "linkedin": "LinkedIn",
+    "twitter": "Twitter",
+    "filterTechnologies": "Filter technologies",
+    "advancedProficiency": "Advanced proficiency",
+    "shareCaseStudy": "Share this case study",
+    "shareLinkedIn": "Share on LinkedIn",
+    "shareInstagram": "Share on Instagram",
+    "shareFacebook": "Share on Facebook",
+    "selectLanguage": "Select language",
+    "navigationLabel": "Navigation",
+    "lastUpdated": "Last updated: {date}",
+    "endOfDocument": "End of document",
+    "scrollToTop": "Scroll to top",
+    "letsTalk": "Let's talk"
+  },
+  "blog": {
+    "title": "Featured Work",
+    "paragraph": "Selected case studies that show engineering decisions — challenge, solution, technology, and outcome.",
+    "readMore": "View case study",
+    "viewAll": "Explore all projects",
+    "featuredLabel": "Featured Project",
+    "moreProjects": "More projects",
+    "selectedCaseStudies": "Selected case studies",
+    "challengeLabel": "Challenge",
+    "solutionLabel": "Solution",
+    "outcomeLabel": "Outcome",
+    "techLabel": "Technology",
+    "liveDemo": "Live demo",
+    "source": "Source"
+  }
+}

@@ -1,18 +1,1 @@
-type Author = {
-  name: string;
-  image: string;
-  designation: string;
-};
-
-export type Blog = {
-  id: number;
-  title: string;
-  paragraph: string;
-  image: string;
-  author: Author;
-  tags: string[];
-  publishDate: string;
-  coverImage?: string;
-  excerpt?: string;
-  description?: string;
-};
+export type { Project as Blog, Project, ProjectAuthor } from "./project";

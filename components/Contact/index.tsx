@@ -1,206 +1,382 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion } from "framer-motion";
+import { useId, useRef, useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import SectionTitle from "../Common/SectionTitle";
 import Container from "../Container";
 import { Button } from "../ui/button";
 import { Card, CardContent } from "../ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Send, CheckCircle2, AlertCircle, Github, Linkedin, Twitter, Loader2 } from "lucide-react";
+import { SocialButton } from "@/components/ui/social-button";
+import {
+  Mail,
+  MapPin,
+  Send,
+  CheckCircle2,
+  AlertCircle,
+  Github,
+  Linkedin,
+  Twitter,
+  Loader2,
+  type LucideIcon,
+} from "lucide-react";
 import emailjs from "@emailjs/browser";
 import { cn } from "@/lib/utils";
+import { getMotionVariants, viewportOnce } from "@/lib/motion";
+import { AnalyticsEvent, trackEvent } from "@/lib/analytics";
+import { useTranslations } from "@/lib/i18n/dictionary-context";
+
+type FieldErrors = {
+  name?: string;
+  email?: string;
+  message?: string;
+};
 
 const Contact = () => {
+  const t = useTranslations().contact;
   const formRef = useRef<HTMLFormElement>(null);
   const [isSending, setIsSending] = useState(false);
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
   const [statusMessage, setStatusMessage] = useState("");
+  const [errors, setErrors] = useState<FieldErrors>({});
+  const reducedMotion = useReducedMotion();
+  const { container, item } = getMotionVariants(reducedMotion);
+  const nameId = useId();
+  const emailId = useId();
+  const messageId = useId();
+  const statusId = useId();
+
+  const validate = (form: HTMLFormElement): FieldErrors => {
+    const formData = new FormData(form);
+    const name = String(formData.get("user_name") || "").trim();
+    const email = String(formData.get("user_email") || "").trim();
+    const message = String(formData.get("message") || "").trim();
+    const next: FieldErrors = {};
+
+    if (!name) next.name = t.validation.nameRequired;
+    else if (name.length < 2) next.name = t.validation.nameMin;
+
+    if (!email) next.email = t.validation.emailRequired;
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      next.email = t.validation.emailInvalid;
+    }
+
+    if (!message) next.message = t.validation.messageRequired;
+    else if (message.length < 20) {
+      next.message = t.validation.messageMin;
+    }
+
+    return next;
+  };
 
   const sendEmail = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSending(true);
     setStatus("idle");
+    setStatusMessage("");
 
     if (!formRef.current) return;
 
+    const fieldErrors = validate(formRef.current);
+    setErrors(fieldErrors);
+    if (Object.keys(fieldErrors).length > 0) {
+      setStatus("error");
+      setStatusMessage(t.validation.fixFields);
+      return;
+    }
+
+    setIsSending(true);
+
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "service_jt0dhte";
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "template_i0djgfp";
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "e3HwtEEiXF4PsfjEl";
+
     try {
-      await emailjs.sendForm(
-        "service_jt0dhte",
-        "template_i0djgfp",
-        formRef.current,
-        "e3HwtEEiXF4PsfjEl"
-      );
+      await emailjs.sendForm(serviceId, templateId, formRef.current, publicKey);
       setStatus("success");
-      setStatusMessage("Message sent successfully! I'll get back to you soon.");
+      setStatusMessage(t.successMessage);
+      setErrors({});
       formRef.current.reset();
+      trackEvent(AnalyticsEvent.ContactCta, { source: "contact_form_submit" });
     } catch (error) {
       console.error(error);
       setStatus("error");
-      setStatusMessage("Failed to send message. Please try again or email me directly.");
+      setStatusMessage(t.errorSend);
     } finally {
       setIsSending(false);
     }
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.15,
-      },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" as const } },
-  };
-
   return (
-    <section id="contact" className="py-16 lg:py-24 bg-background relative overflow-hidden">
-      {/* Background Gradients */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-1/2 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[120px] opacity-50 translate-x-1/3 -translate-y-1/2" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] opacity-40 -translate-x-1/3 translate-y-1/3" />
+    <section id="contact" className="section-y relative overflow-hidden bg-background">
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <div className="ambient-orb right-0 top-1/2 hidden h-[480px] w-[480px] translate-x-1/3 -translate-y-1/2 bg-primary/[0.06] opacity-60 sm:block" />
+        <div className="ambient-orb bottom-0 left-0 hidden h-[420px] w-[420px] -translate-x-1/3 translate-y-1/4 bg-emerald-500/[0.04] opacity-50 sm:block" />
       </div>
 
       <Container className="relative z-10">
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={containerVariants}
+          viewport={viewportOnce}
+          variants={container}
         >
-          <motion.div variants={itemVariants}>
+          <motion.div variants={item}>
             <SectionTitle
-              title="Get In Touch"
-              paragraph="Have a project in mind or want to collaborate? Let's build something amazing together."
+              title={t.sectionTitle}
+              paragraph={t.sectionParagraph}
               align="center"
             />
           </motion.div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start mt-16 mb-12 relative">
-            {/* Contact Info */}
-            <motion.div variants={itemVariants} className="space-y-10">
-              <div className="prose dark:prose-invert">
-                <h3 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-foreground via-emerald-400 to-emerald-200">
-                  Let's create together
+          <div className="relative mt-10 grid items-start gap-10 lg:mt-14 lg:grid-cols-12 lg:gap-14">
+            <motion.div variants={item} className="space-y-8 lg:col-span-5">
+              <div>
+                <p className="eyebrow mb-3">{t.eyebrow}</p>
+                <h3 className="text-display mb-4 text-2xl text-foreground sm:text-3xl">
+                  {t.heading}
                 </h3>
-                <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
-                  I'm currently open to new opportunities and freelance projects.
-                  Whether you have a question, a project idea, or just want to explore possibilities, I'm here to help you turn your vision into reality.
+                <p className="max-w-md text-[15px] leading-relaxed text-muted-foreground">
+                  {t.description}
                 </p>
               </div>
 
-              <div className="space-y-6">
-                <ContactItem icon={Mail} label="Email me at" value="mehmedmuric22@gmail.com" href="mailto:mehmedmuric22@gmail.com" />
-                <ContactItem icon={MapPin} label="Location" value="Novi Pazar, Serbia" />
-              </div>
-
-              {/* Social Links */}
-              <div className="pt-8 border-t border-white/10">
-                <p className="text-sm font-medium text-emerald-400 mb-5 tracking-wide uppercase">Connect With Me</p>
-                <div className="flex gap-4">
-                  <SocialLink href="https://github.com/mehmedmuric" icon={Github} ariaLabel="GitHub Profile" />
-                  <SocialLink href="https://linkedin.com/in/mehmed-muric" icon={Linkedin} ariaLabel="LinkedIn Profile" />
-                  <SocialLink href="https://twitter.com/mehmedmuricc" icon={Twitter} ariaLabel="Twitter Profile" />
+              <div className="grid grid-cols-1 gap-2 sm:gap-3">
+                <ContactItem
+                  icon={Mail}
+                  label={t.emailLabel}
+                  value="mehmedmuric22@gmail.com"
+                  href="mailto:mehmedmuric22@gmail.com"
+                  onClick={() => trackEvent(AnalyticsEvent.EmailClick, { source: "contact" })}
+                />
+                <ContactItem icon={MapPin} label={t.locationLabel} value={t.locationValue} />
+                <div className="grid grid-cols-2 gap-2 pt-1">
+                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5">
+                    <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                      {t.availabilityLabel}
+                    </p>
+                    <p className="text-sm font-semibold text-foreground">{t.availabilityValue}</p>
+                  </div>
+                  <div className="rounded-2xl border border-white/[0.06] bg-white/[0.02] px-4 py-3.5">
+                    <p className="mb-1 text-[11px] font-medium uppercase tracking-wider text-muted-foreground">
+                      {t.responseLabel}
+                    </p>
+                    <p className="text-sm font-semibold text-foreground">{t.responseValue}</p>
+                  </div>
                 </div>
               </div>
 
-              <div className="p-6 bg-gradient-to-tr from-emerald-500/10 to-transparent rounded-2xl border border-emerald-500/10 mt-8 backdrop-blur-md relative overflow-hidden group">
-                <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative z-10 flex items-center gap-4">
-                  <div className="relative flex h-4 w-4 shrink-0">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-4 w-4 bg-emerald-500"></span>
+              <div className="border-t border-white/[0.06] pt-7">
+                <p className="eyebrow mb-4">{t.connectLabel}</p>
+                <div className="flex gap-3">
+                  <SocialButton
+                    href="https://github.com/mehmedmuric"
+                    icon={Github}
+                    label={t.githubProfile}
+                    onClick={() => trackEvent(AnalyticsEvent.GithubClick, { source: "contact" })}
+                  />
+                  <SocialButton
+                    href="https://linkedin.com/in/mehmed-muric-185297232"
+                    icon={Linkedin}
+                    label={t.linkedinProfile}
+                    onClick={() => trackEvent(AnalyticsEvent.LinkedinClick, { source: "contact" })}
+                  />
+                  <SocialButton
+                    href="https://twitter.com/mehmedmuricc"
+                    icon={Twitter}
+                    label={t.twitterProfile}
+                  />
+                </div>
+              </div>
+
+              <div className="glass-card relative overflow-hidden rounded-2xl p-5">
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center gap-3.5">
+                    <div className="relative flex h-2.5 w-2.5 shrink-0" aria-hidden="true">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-primary opacity-60" />
+                      <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary" />
+                    </div>
+                    <h4 className="text-sm font-medium text-foreground">{t.availableForTitle}</h4>
                   </div>
-                  <div>
-                    <h4 className="text-emerald-400 font-medium text-sm mb-1">Available for new projects</h4>
-                    <p className="text-white/70 text-sm">Typically responds within 24 hours</p>
-                  </div>
+                  <ul className="space-y-2 pl-6 text-sm text-muted-foreground">
+                    {t.availableFor.map((item) => (
+                      <li
+                        key={item}
+                        className="relative before:absolute before:-left-3.5 before:top-2 before:h-1 before:w-1 before:rounded-full before:bg-primary/70"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <p className="border-t border-white/[0.06] pt-3 text-sm text-muted-foreground">
+                    {t.availableFooter}
+                  </p>
                 </div>
               </div>
             </motion.div>
 
-            {/* Form */}
-            <motion.div variants={itemVariants} className="relative group">
-              {/* Form Glow Effect */}
-              <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500/20 to-primary/20 rounded-[2rem] blur-xl opacity-50 group-hover:opacity-70 transition duration-500" />
-
-              <Card className="relative bg-black/40 backdrop-blur-xl border-white/10 shadow-2xl rounded-3xl overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" />
-                <CardContent className="p-8 sm:p-10 relative z-10">
-                  <form ref={formRef} onSubmit={sendEmail} className="space-y-6">
-                    <div className="grid sm:grid-cols-2 gap-6">
-                      <div className="space-y-2.5">
-                        <label className="text-sm font-medium text-foreground/90 ml-1">Name</label>
-                        <Input
-                          name="user_name"
-                          required
-                          className="h-14 bg-white/5 border-white/10 focus-visible:ring-emerald-500/50 hover:bg-white/10 transition-all text-base rounded-xl px-5"
-                          placeholder="John Doe"
-                        />
+            <motion.div variants={item} className="relative lg:col-span-7">
+              <Card variant="glass" className="overflow-hidden rounded-[1.35rem]">
+                <CardContent className="p-5 sm:p-8 lg:p-9">
+                  {status === "success" ? (
+                    <div className="flex min-h-[340px] flex-col items-center justify-center text-center">
+                      <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-full border border-primary/25 bg-primary/10 text-primary">
+                        <CheckCircle2 className="h-7 w-7" aria-hidden="true" />
                       </div>
-                      <div className="space-y-2.5">
-                        <label className="text-sm font-medium text-foreground/90 ml-1">Email</label>
-                        <Input
-                          name="user_email"
-                          type="email"
-                          required
-                          className="h-14 bg-white/5 border-white/10 focus-visible:ring-emerald-500/50 hover:bg-white/10 transition-all text-base rounded-xl px-5"
-                          placeholder="john@example.com"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-2.5">
-                      <label className="text-sm font-medium text-foreground/90 ml-1">Message</label>
-                      <Textarea
-                        name="message"
-                        required
-                        rows={5}
-                        className="min-h-[160px] bg-white/5 border-white/10 focus-visible:ring-emerald-500/50 hover:bg-white/10 transition-all resize-y text-base rounded-xl p-5"
-                        placeholder="Tell me about your project, timeline, and goals..."
-                      />
-                    </div>
-
-                    <Button
-                      type="submit"
-                      disabled={isSending}
-                      className="w-full h-14 text-base font-semibold shadow-lg shadow-emerald-500/20 bg-emerald-500 hover:bg-emerald-600 text-white rounded-xl transition-all duration-300 hover:-translate-y-1 active:translate-y-0 disabled:opacity-70 disabled:hover:translate-y-0"
-                    >
-                      {isSending ? (
-                        <span className="flex items-center gap-2">
-                          <Loader2 className="w-5 h-5 animate-spin" />
-                          Sending Message...
-                        </span>
-                      ) : (
-                        <span className="flex items-center gap-2">
-                          <Send className="w-5 h-5" />
-                          Send Message
-                        </span>
-                      )}
-                    </Button>
-
-                    {status !== 'idle' && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        className={cn(
-                          "flex items-center gap-3 p-4 rounded-xl text-sm font-medium border backdrop-blur-sm mt-4",
-                          status === 'success'
-                            ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/20"
-                            : "bg-red-500/10 text-red-400 border-red-500/20"
-                        )}
+                      <h3 className="mb-2 text-xl font-semibold text-foreground">
+                        {t.successTitle}
+                      </h3>
+                      <p className="mb-8 max-w-sm text-sm leading-relaxed text-muted-foreground">
+                        {statusMessage || t.successMessage}
+                      </p>
+                      <Button
+                        type="button"
+                        variant="glass"
+                        className="rounded-full px-6"
+                        onClick={() => {
+                          setStatus("idle");
+                          setStatusMessage("");
+                        }}
                       >
-                        {status === 'success' ? <CheckCircle2 className="w-5 h-5 shrink-0" /> : <AlertCircle className="w-5 h-5 shrink-0" />}
-                        <p>{statusMessage}</p>
-                      </motion.div>
-                    )}
-                  </form>
+                        {t.sendAnother}
+                      </Button>
+                    </div>
+                  ) : (
+                    <form
+                      ref={formRef}
+                      onSubmit={sendEmail}
+                      className="space-y-5"
+                      noValidate
+                      aria-describedby={status !== "idle" ? statusId : undefined}
+                    >
+                      <p className="text-sm leading-relaxed text-muted-foreground">
+                        {t.formHint}
+                      </p>
+
+                      <div className="grid gap-5 sm:grid-cols-2">
+                        <div className="space-y-2">
+                          <label
+                            htmlFor={nameId}
+                            className="ml-0.5 text-[13px] font-medium text-foreground/85"
+                          >
+                            {t.nameLabel}
+                          </label>
+                          <Input
+                            id={nameId}
+                            name="user_name"
+                            required
+                            autoComplete="name"
+                            aria-invalid={Boolean(errors.name)}
+                            aria-describedby={errors.name ? `${nameId}-error` : undefined}
+                            className={cn(
+                              "h-12 min-h-[48px] rounded-xl border-white/[0.08] bg-white/[0.03] transition-colors focus-visible:border-primary/40 focus-visible:bg-white/[0.05] sm:h-[52px] sm:min-h-[52px]",
+                              errors.name && "border-destructive/40 focus-visible:border-destructive/50"
+                            )}
+                            placeholder={t.namePlaceholder}
+                            onChange={() => setErrors((prev) => ({ ...prev, name: undefined }))}
+                          />
+                          {errors.name && (
+                            <p id={`${nameId}-error`} className="text-xs text-red-400">
+                              {errors.name}
+                            </p>
+                          )}
+                        </div>
+                        <div className="space-y-2">
+                          <label
+                            htmlFor={emailId}
+                            className="ml-0.5 text-[13px] font-medium text-foreground/85"
+                          >
+                            {t.emailLabelField}
+                          </label>
+                          <Input
+                            id={emailId}
+                            name="user_email"
+                            type="email"
+                            required
+                            autoComplete="email"
+                            aria-invalid={Boolean(errors.email)}
+                            aria-describedby={errors.email ? `${emailId}-error` : undefined}
+                            className={cn(
+                              "h-12 min-h-[48px] rounded-xl border-white/[0.08] bg-white/[0.03] transition-colors focus-visible:border-primary/40 focus-visible:bg-white/[0.05] sm:h-[52px] sm:min-h-[52px]",
+                              errors.email && "border-destructive/40 focus-visible:border-destructive/50"
+                            )}
+                            placeholder={t.emailPlaceholder}
+                            onChange={() => setErrors((prev) => ({ ...prev, email: undefined }))}
+                          />
+                          {errors.email && (
+                            <p id={`${emailId}-error`} className="text-xs text-red-400">
+                              {errors.email}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label
+                          htmlFor={messageId}
+                          className="ml-0.5 text-[13px] font-medium text-foreground/85"
+                        >
+                          {t.messageLabel}
+                        </label>
+                        <Textarea
+                          id={messageId}
+                          name="message"
+                          required
+                          rows={5}
+                          aria-invalid={Boolean(errors.message)}
+                          aria-describedby={errors.message ? `${messageId}-error` : undefined}
+                          className={cn(
+                            "min-h-[140px] resize-y rounded-xl border-white/[0.08] bg-white/[0.03] transition-colors focus-visible:border-primary/40 focus-visible:bg-white/[0.05]",
+                            errors.message && "border-destructive/40 focus-visible:border-destructive/50"
+                          )}
+                          placeholder={t.messagePlaceholder}
+                          onChange={() => setErrors((prev) => ({ ...prev, message: undefined }))}
+                        />
+                        {errors.message && (
+                          <p id={`${messageId}-error`} className="text-xs text-red-400">
+                            {errors.message}
+                          </p>
+                        )}
+                      </div>
+
+                      <Button
+                        type="submit"
+                        disabled={isSending}
+                        variant="premium"
+                        size="xl"
+                        className="group mt-1 h-[52px] min-h-[52px] w-full rounded-full"
+                      >
+                        {isSending ? (
+                          <span className="flex items-center gap-2">
+                            <Loader2 className="h-4 w-4 animate-spin" aria-hidden="true" />
+                            {t.sending}
+                          </span>
+                        ) : (
+                          <span className="flex items-center gap-2">
+                            {t.sendMessage}
+                            <Send
+                              className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
+                              aria-hidden="true"
+                            />
+                          </span>
+                        )}
+                      </Button>
+
+                      <div
+                        id={statusId}
+                        role="status"
+                        aria-live="polite"
+                        className={cn(status === "idle" && "sr-only")}
+                      >
+                        {status === "error" && (
+                          <div className="mt-1 flex items-center gap-3 rounded-xl border border-destructive/20 bg-destructive/10 p-3.5 text-sm font-medium text-red-400">
+                            <AlertCircle className="h-4 w-4 shrink-0" aria-hidden="true" />
+                            <p>{statusMessage}</p>
+                          </div>
+                        )}
+                      </div>
+                    </form>
+                  )}
                 </CardContent>
               </Card>
             </motion.div>
@@ -211,33 +387,38 @@ const Contact = () => {
   );
 };
 
-const ContactItem = ({ icon: Icon, label, value, href }: any) => (
-  <div className="flex items-center gap-5 group">
-    <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-emerald-400 group-hover:scale-110 group-hover:border-emerald-500/30 group-hover:bg-emerald-500/10 group-hover:shadow-[0_0_20px_rgba(16,185,129,0.15)] transition-all duration-300 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      <Icon className="w-6 h-6 relative z-10" />
+const ContactItem = ({
+  icon: Icon,
+  label,
+  value,
+  href,
+  onClick,
+}: {
+  icon: LucideIcon;
+  label: string;
+  value: string;
+  href?: string;
+  onClick?: () => void;
+}) => (
+  <div className="group flex min-h-[56px] items-center gap-3.5 rounded-2xl border border-transparent p-2.5 transition-colors duration-300 hover:border-white/[0.06] hover:bg-white/[0.02] active:bg-white/[0.03] sm:gap-4">
+    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.03] text-primary transition-all duration-300 group-hover:border-primary/25 group-hover:bg-primary/[0.08]">
+      <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
     </div>
-    <div>
-      <p className="text-sm text-muted-foreground font-medium mb-1 group-hover:text-emerald-400/70 transition-colors">{label}</p>
+    <div className="min-w-0">
+      <p className="mb-0.5 text-xs font-medium text-muted-foreground">{label}</p>
       {href ? (
-        <a href={href} className="text-lg font-semibold text-foreground hover:text-emerald-400 transition-colors line-clamp-1 break-all">{value}</a>
+        <a
+          href={href}
+          onClick={onClick}
+          className="link-underline break-all text-[15px] font-semibold text-foreground transition-colors hover:text-primary focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {value}
+        </a>
       ) : (
-        <p className="text-lg font-semibold text-foreground">{value}</p>
+        <p className="text-[15px] font-semibold text-foreground">{value}</p>
       )}
     </div>
   </div>
-);
-
-const SocialLink = ({ href, icon: Icon, ariaLabel }: { href: string; icon: any, ariaLabel: string }) => (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    aria-label={ariaLabel}
-    className="w-12 h-12 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-muted-foreground hover:text-white hover:bg-emerald-500 hover:border-emerald-500 hover:-translate-y-1 hover:shadow-[0_10px_20px_rgba(16,185,129,0.3)] transition-all duration-300"
-  >
-    <Icon className="w-5 h-5" />
-  </a>
 );
 
 export default Contact;

@@ -1,15 +1,25 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import Container from "../Container";
 import HeroBackground from "./HeroBackground";
 import HeroContent from "./HeroContent";
 import HeroVisual from "./HeroVisual";
 import TechTicker from "./TechTicker";
-import ParticlesBackground from "../Common/ParticlesBackground";
+import { useTranslations } from "@/lib/i18n/dictionary-context";
+
+const ParticlesBackground = dynamic(
+  () => import("../Common/ParticlesBackground"),
+  { ssr: false }
+);
 
 export default function Hero() {
+  const t = useTranslations().hero;
+
   const handleScrollDown = () => {
-    const nextSection = document.getElementById("about");
+    const nextSection =
+      document.getElementById("features") ??
+      document.getElementById("about");
     if (nextSection) {
       nextSection.scrollIntoView({ behavior: "smooth" });
     }
@@ -18,52 +28,48 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-[100dvh] w-full flex flex-col justify-center overflow-hidden bg-background pt-20 pb-12 lg:py-0 selection:bg-primary/20"
-      aria-label="Introduction"
+      className="relative flex min-h-[100dvh] w-full flex-col justify-center overflow-hidden bg-background pb-8 pt-[calc(5.5rem+env(safe-area-inset-top,0px))] sm:pb-10 lg:pb-0 lg:pt-20"
+      aria-label={t.introAria}
     >
       <HeroBackground />
-      <ParticlesBackground />
+      <ParticlesBackground density={16} idleDelay={200} />
 
-      <Container className="relative z-10 flex-grow flex flex-col justify-center w-full h-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center w-full h-full max-w-7xl mx-auto">
-          {/* Content Column */}
-          <div className="order-2 lg:order-1 flex flex-col justify-center w-full">
+      <Container className="relative z-10 flex h-full w-full flex-grow flex-col justify-center">
+        <div className="mx-auto grid h-full w-full max-w-7xl items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-20">
+          <div className="order-1 flex w-full flex-col justify-center">
             <HeroContent />
           </div>
-
-          {/* Visual Column */}
-          <div className="order-1 lg:order-2 w-full flex items-center justify-center relative">
+          <div className="relative order-2 flex w-full items-center justify-center lg:order-2">
             <HeroVisual />
           </div>
         </div>
       </Container>
 
-      {/* Bottom Ticker Section */}
-      <div className="relative z-10 w-full mt-auto border-t border-white/5 bg-background/50 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-[10px] font-mono text-muted-foreground/60 uppercase tracking-[0.2em] whitespace-nowrap hidden sm:block">
-            Trusted Technologies
-          </p>
+      <div className="relative z-10 mt-8 w-full border-t border-white/[0.05] bg-background/40 backdrop-blur-md sm:mt-auto">
+        <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-3 sm:flex-row sm:px-6 lg:px-8">
+          <p className="eyebrow hidden whitespace-nowrap sm:block">{t.stackLabel}</p>
           <div className="w-full flex-1 overflow-hidden">
             <TechTicker />
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
       <button
+        type="button"
         onClick={handleScrollDown}
-        className="absolute bottom-24 lg:bottom-12 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 group cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/50 rounded-full p-2"
-        aria-label="Scroll to next section"
+        className="group absolute bottom-24 left-1/2 z-20 hidden -translate-x-1/2 cursor-pointer flex-col items-center gap-2.5 rounded-full p-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50 lg:flex"
+        aria-label={t.scrollAria}
       >
-        <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-muted-foreground/60 group-hover:text-primary transition-colors duration-300">
-          Explore
+        <span className="eyebrow transition-colors duration-300 group-hover:text-primary">
+          {t.explore}
         </span>
-        <div className="w-[1px] h-12 bg-gradient-to-b from-transparent via-muted-foreground/30 to-transparent group-hover:via-primary/50 transition-colors duration-300 overflow-hidden relative">
-          <div className="absolute top-0 left-0 w-full h-1/3 bg-primary animate-fall" />
+        <div
+          className="relative h-10 w-px overflow-hidden bg-gradient-to-b from-transparent via-white/20 to-transparent transition-colors duration-300 group-hover:via-primary/40"
+          aria-hidden="true"
+        >
+          <div className="absolute left-0 top-0 h-1/3 w-full bg-primary/80 animate-fall" />
         </div>
       </button>
-
     </section>
   );
 }
