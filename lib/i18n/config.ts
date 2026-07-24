@@ -8,11 +8,11 @@ export const localeLabels: Record<
   Locale,
   { name: string; nativeName: string; flag: string; short: string }
 > = {
-  sr: { name: "Serbian", nativeName: "Srpski", flag: "🇷🇸", short: "SR" },
-  en: { name: "English", nativeName: "English", flag: "🇬🇧", short: "EN" },
-  de: { name: "German", nativeName: "Deutsch", flag: "🇩🇪", short: "DE" },
-  fr: { name: "French", nativeName: "Français", flag: "🇫🇷", short: "FR" },
-  tr: { name: "Turkish", nativeName: "Türkçe", flag: "🇹🇷", short: "TR" },
+  sr: { name: "Serbian", nativeName: "Srpski", flag: "rs", short: "SR" },
+  en: { name: "English", nativeName: "English", flag: "gb", short: "EN" },
+  de: { name: "German", nativeName: "Deutsch", flag: "de", short: "DE" },
+  fr: { name: "French", nativeName: "Français", flag: "fr", short: "FR" },
+  tr: { name: "Turkish", nativeName: "Türkçe", flag: "tr", short: "TR" },
 };
 
 export const htmlLang: Record<Locale, string> = {

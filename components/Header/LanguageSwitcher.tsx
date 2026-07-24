@@ -7,6 +7,7 @@ import { Check, ChevronDown } from "lucide-react";
 import { locales, localeLabels, type Locale } from "@/lib/i18n/config";
 import { switchLocalePath } from "@/lib/i18n/utils";
 import { useLocale, useTranslations } from "@/lib/i18n/dictionary-context";
+import LocaleFlag from "@/components/Common/LocaleFlag";
 import { cn } from "@/lib/utils";
 
 type LanguageSwitcherProps = {
@@ -91,9 +92,7 @@ export default function LanguageSwitcher({
                 aria-pressed={active}
                 aria-label={meta.nativeName}
               >
-                <span aria-hidden="true" className="text-lg leading-none">
-                  {meta.flag}
-                </span>
+                <LocaleFlag locale={code} size={18} />
                 <span className="font-mono tracking-wider">{meta.short}</span>
                 {active && (
                   <span
@@ -129,10 +128,10 @@ export default function LanguageSwitcher({
         aria-label={`${languageLabel}: ${current.nativeName}`}
       >
         <span
-          className="flex h-5 w-5 items-center justify-center rounded-full bg-primary/15 text-[13px] leading-none ring-1 ring-primary/25"
+          className="flex h-5 w-5 items-center justify-center overflow-hidden rounded-full bg-primary/15 ring-1 ring-primary/25"
           aria-hidden="true"
         >
-          {current.flag}
+          <LocaleFlag locale={locale} size={20} className="rounded-full ring-0" />
         </span>
         <span className="font-mono text-[11px] font-semibold tracking-[0.14em]">
           {current.short}
@@ -180,14 +179,14 @@ export default function LanguageSwitcher({
                   >
                     <span
                       className={cn(
-                        "flex h-7 w-7 items-center justify-center rounded-full text-base leading-none ring-1",
+                        "flex h-7 w-7 items-center justify-center overflow-hidden rounded-full ring-1",
                         active
                           ? "bg-primary/15 ring-primary/30"
                           : "bg-white/[0.04] ring-white/10"
                       )}
                       aria-hidden="true"
                     >
-                      {meta.flag}
+                      <LocaleFlag locale={code} size={22} className="rounded-full ring-0" />
                     </span>
                     <span className="flex-1">
                       <span className="block font-medium leading-tight">
